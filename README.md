@@ -17,3 +17,6 @@
 | 11 | Haploinsufficiency | [Download](https://www.dropbox.com/scl/fi/n1eplcixzo7othimh0sue/Chapter11_Haploinsufficiency.pptx?rlkey=d6pe4odjchs932yrs6wxyt949&dl=0) |
 | 12 | Recessive Alleles in Human Disorders | [Download](https://www.dropbox.com/scl/fi/uo2d7ujfp7d8wh64qhakh/Chapter12_Recessive_Alleles_in_Human_Disorders.pptx?rlkey=q3u85wc7493cs3ax2b48s005n&dl=0) |
 | 13 | Structural Variations in Human Genomes | [Download](https://www.dropbox.com/scl/fi/drqly5z60ayrccm7ncumd/Chapter13_Structural_Variations_in_Human_Genomes.pptx?rlkey=j1dt850zh0p0lifw9k6i9yecf&dl=0) |
+
+temp files
+[의개론](https://www.dropbox.com/scl/fi/ry9wafst7r8sgusvm7ltg/AI_Biology_.pptx?rlkey=zrq6eiylvlfoylvx0miapxsyo&st=vvoc65bt&dl=0)
