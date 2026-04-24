@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 23 · Recombination, Linkage, and Haplotype — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ========== 1. TITLE ========== -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Recombination, Linkage,<br>and Haplotype</h1>
+      <div class="chapter-num">Chapter 23 · Part IV · Population Genetics</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-three, Recombination, Linkage, and Haplotype. In the previous chapter we followed the story from Mendel to Morgan and saw how Sturtevant turned recombination into a ruler. Today we pick up exactly there. We zoom in on the molecular machinery of recombination, we learn the modern vocabulary of linkage and haplotype, and we look at a major paper from twenty twenty-five that rewrote our map of the human genome.
+      </aside>
+    </section>
+
+    <!-- ========== 2. HOOK ========== -->
+    <section>
+      <div class="cue">A question every biology student asks</div>
+      <h1 style="font-size:2.3em; line-height:1.1;">
+        Why do siblings<br>
+        <span style="color:var(--terracotta-deep)">look different?</span>
+      </h1>
+      <aside class="notes">
+        Here is a question you have almost certainly wondered about. Why do siblings look different? You and your sister both got half your D N A from your mother and half from your father. Same parents, same gene pool. And yet nobody ever mistakes you for identical twins. Something must be happening at meiosis that makes each child a different mosaic. That something is called recombination. And by the end of today, you will understand it in full mechanistic detail.
+      </aside>
+    </section>
+
+    <!-- ========== 3. PART OF THE ANSWER ========== -->
+    <section>
+      <h2>Part of the answer · random assortment</h2>
+      <ul>
+        <li>Mom has <strong>two</strong> copies of each chromosome</li>
+        <li>One from grandma, one from grandpa</li>
+        <li>At every chromosome, she passes on <strong>one</strong> of the two</li>
+        <li>You might get mostly grandma's · your sister mostly grandpa's</li>
+      </ul>
+      <aside class="notes">
+        Part of the answer is something we already know. Your mother has two copies of every chromosome — one she received from her own mother, and one from her own father. When she makes an egg, she passes on one of those two copies at every chromosome. By sheer chance, you might inherit mostly your maternal grandmother's versions while your sister inherits mostly your maternal grandfather's versions. That alone creates plenty of variation. But it is not the whole story.
+      </aside>
+    </section>
+
+    <!-- ========== 4. THE DEEPER ANSWER ========== -->
+    <section>
+      <h2>The deeper answer · she passes a <em>mosaic</em></h2>
+      <blockquote style="font-size:1.1em;">
+        During meiosis, matching chromosomes <strong>exchange DNA segments</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>The chromosome you inherit from mom is <strong>part grandma, part grandpa</strong></li>
+        <li>You can have grandpa's nose and grandma's eye colour even though both genes are on the same chromosome</li>
+        <li>This shuffling is called <strong>recombination</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the deeper answer. Your mother does not pass on her mother's chromosome intact. During meiosis, the matching chromosomes pair up and physically exchange segments. The chromosome you end up inheriting from your mother is a mosaic — part grandma, part grandpa. This is why you can have your maternal grandfather's nose and your maternal grandmother's eye colour, even if the genes for both traits sit on the same chromosome. Mendel would have been puzzled, but modern genetics has the answer. It is called recombination, and it is one of the most elegant mechanisms in biology.
+      </aside>
+    </section>
+
+    <!-- ========== 5. ROADMAP ========== -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Two flavours · cross-overs and non-cross-overs</li>
+        <li>What the 2025 Iceland study revealed</li>
+        <li>How CO and NCO form · the molecular dance</li>
+        <li>Linkage · alleles that travel together</li>
+        <li>Regional patterns · hotspots, cold spots, telomeres, centromeres</li>
+        <li>Haplotypes · blocks of inherited DNA</li>
+      </ol>
+      <aside class="notes">
+        Here is how today flows. First, we split recombination into two flavours — the classic cross-over and the less familiar non-cross-over. Second, we look at a major twenty twenty-five paper from Iceland that produced the first complete map of human recombination. Third, we zoom into the molecular dance that produces both flavours from the same starting point. Fourth, we tie the mechanism to the concept of linkage. Fifth, we see how recombination is distributed unevenly across the genome. And sixth, we arrive at haplotypes — the blocks of inherited D N A that form the fundamental unit of population genetics.
+      </aside>
+    </section>
+
+    <!-- ========== 6. SECTION DIVIDER 1 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Two Flavours<br>of Recombination</h1>
+      <aside class="notes">
+        Let's start by distinguishing the two kinds of recombination that happen during every meiosis.
+      </aside>
+    </section>
+
+    <!-- ========== 7. CROSS-OVERS ========== -->
+    <section>
+      <h2>Cross-over (CO) · the classical event</h2>
+      <ul>
+        <li>Large chunks of DNA get <strong>swapped</strong> between chromosomes</li>
+        <li>Two ropes cut at the same position · ends swapped</li>
+        <li>Easy to detect · creates long stretches of one ancestry where you expect the other</li>
+        <li>This is the event Morgan and Sturtevant studied</li>
+      </ul>
+      <aside class="notes">
+        A cross-over is the classical event Morgan and Sturtevant studied. Large chunks of D N A get swapped between two paired chromosomes. The mental picture is two ropes, one red and one blue, lying side by side. You cut both ropes at the same position and swap the cut ends. Now one rope is red on the left and blue on the right, and the other is blue on the left and red on the right. That is a cross-over — a clean exchange of large segments. Cross-overs are relatively easy to detect because they create long stretches of D N A from one grandparent where you would expect the other.
+      </aside>
+    </section>
+
+    <!-- ========== 8. NON-CROSS-OVERS ========== -->
+    <section>
+      <h2>Non-cross-over (NCO) · the hidden majority</h2>
+      <ul>
+        <li>A small stretch — a few <strong>hundred to a few thousand</strong> base pairs — gets <strong>copied</strong> from one chromosome to the other</li>
+        <li>Also called <strong>gene conversion</strong></li>
+        <li>Overall structure barely changes · local sequence is altered</li>
+        <li>Hidden until high-resolution sequencing arrived</li>
+      </ul>
+      <aside class="notes">
+        The second flavour is the non-cross-over, also called gene conversion. Instead of swapping large segments, a small stretch of D N A — typically a few hundred to a few thousand base pairs — gets copied from one chromosome to the other. The overall structure of the chromosome barely changes. But locally, the sequence has been altered. Non-cross-overs have been hiding in plain sight for most of the history of genetics. You cannot detect them without very high-resolution sequencing data from large families, and that capability only became available in the last few years.
+      </aside>
+    </section>
+
+    <!-- ========== 9. NCO >> CO ========== -->
+    <section>
+      <h2>NCOs outnumber COs · by a lot</h2>
+      <div class="bignum">5 – 10×</div>
+      <div class="bignum-label">non-cross-overs per cross-over in a typical meiosis</div>
+      <blockquote style="margin-top:0.8em;">
+        Cross-overs were just the visible tip of the iceberg.
+      </blockquote>
+      <aside class="notes">
+        Here is the striking fact. Non-cross-overs are far more common than cross-overs. For every single cross-over that happens during a meiosis, there are five to ten non-cross-overs. That is an order of magnitude more events, and most of them have been invisible to classical genetics. The cross-overs Morgan and Sturtevant counted were just the visible tip of the iceberg. Most of the recombination activity in a meiosis is happening quietly, in the form of small gene conversion events.
+      </aside>
+    </section>
+
+    <!-- ========== 10. SHARED ORIGIN ========== -->
+    <section>
+      <h2>Both start the same way</h2>
+      <blockquote>
+        Every recombination event starts with a <strong>double-strand break</strong> (DSB) — a deliberate cut in both strands of the DNA helix.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Cells make these breaks <strong>on purpose</strong> during meiosis</li>
+        <li>Sounds dangerous · is dangerous if it goes wrong</li>
+        <li>Repaired using the matching chromosome as a <strong>template</strong></li>
+        <li>How repair proceeds → CO or NCO</li>
+      </ul>
+      <aside class="notes">
+        Both cross-overs and non-cross-overs share a common starting point. They both begin with a double-strand break — a deliberate cut through both strands of the D N A double helix. Your cells make these breaks on purpose during meiosis. This sounds dangerous, and it is — if it goes wrong, you get mutations or chromosome breaks that cannot be repaired. But it is a highly controlled process. The break is repaired using the matching homologous chromosome as a template. Depending on how the repair machinery proceeds, you get either a cross-over or a non-cross-over. Same starting event, two possible outcomes.
+      </aside>
+    </section>
+
+    <!-- ========== 11. SECTION 2 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The 2025 Iceland Study</h1>
+      <aside class="notes">
+        In twenty twenty-five, a landmark paper completely rewrote our understanding of human recombination.
+      </aside>
+    </section>
+
+    <!-- ========== 12. THE STUDY ========== -->
+    <section>
+      <h2>Palsson et al. · Nature 2025</h2>
+      <ul>
+        <li>Whole-genome sequences from over <strong>5,000 Icelandic families</strong></li>
+        <li>Parents · children · often grandparents</li>
+        <li>First complete human recombination map including <strong>both</strong> CO and NCO</li>
+        <li>Tens of thousands of events classified</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Palsson et al. 2025, <em>Nature</em></p>
+      <aside class="notes">
+        The study I want you to know about is Palsson and colleagues, published in Nature in twenty twenty-five. They used whole-genome sequencing data from over five thousand Icelandic families. Crucially, they had parents, children, and in many cases grandparents, all sequenced. This gave them the resolution to identify every place where the child's D N A switched from matching one grandparent's pattern to matching the other. The result was the first complete map of human recombination that included both cross-overs and non-cross-overs. Previous maps had only tracked cross-overs, so they were missing most of the action. Tens of thousands of events were identified and classified.
+      </aside>
+    </section>
+
+    <!-- ========== 13. FINDING 1: NCOs DOMINATE ========== -->
+    <section>
+      <h2>Finding 1 · non-cross-overs dominate</h2>
+      <div class="cols">
+        <div>
+          <h3>Per meiosis · COs</h3>
+          <div class="bignum" style="font-size:3em;">40 – 60</div>
+          <div class="bignum-label">across all 23 chromosome pairs</div>
+        </div>
+        <div>
+          <h3>Per meiosis · NCOs</h3>
+          <div class="bignum" style="font-size:3em; color:var(--terracotta);">several 100s</div>
+          <div class="bignum-label">an order of magnitude more</div>
+        </div>
+      </div>
+      <aside class="notes">
+        The first finding is the sheer numbers. On average, each meiosis produces about forty to sixty cross-overs across all twenty-three chromosome pairs. That matches what we already knew from classical mapping. But the same meiosis produces several hundred non-cross-overs. That is an order of magnitude more events. Most of recombination, by count, is non-cross-over activity. It had been invisible to us because each individual N C O is small and easy to miss without very high-resolution data.
+      </aside>
+    </section>
+
+    <!-- ========== 14. FINDING 2: SEX DIFFERENCE ========== -->
+    <section>
+      <h2>Finding 2 · mothers ≠ fathers</h2>
+      <ul>
+        <li><strong>Maternal</strong> meiosis: more COs (well known)</li>
+        <li><strong>Maternal</strong> NCOs: longer — typically <strong>1,000 – 2,000 bp</strong></li>
+        <li><strong>Paternal</strong> NCOs: shorter — typically <strong>300 – 500 bp</strong></li>
+        <li>Why? Unknown · molecular machinery differs in eggs vs sperm</li>
+      </ul>
+      <aside class="notes">
+        The second finding is that mothers and fathers recombine differently. It was already known that maternal meiosis produces more cross-overs than paternal meiosis. What is new is that mothers also produce longer non-cross-overs than fathers. A typical maternal N C O converts one thousand to two thousand base pairs. A typical paternal N C O converts only three hundred to five hundred base pairs. So the geometry of gene conversion is genuinely different between eggs and sperm. Why? We do not yet know. Something about the molecular machinery must work differently in the two contexts.
+      </aside>
+    </section>
+
+    <!-- ========== 15. FINDING 3: MATERNAL AGE ========== -->
+    <section>
+      <h2>Finding 3 · maternal age raises NCOs</h2>
+      <ul>
+        <li>Older mothers produce <strong>more NCOs</strong> per egg</li>
+        <li>Effect is strongest <strong>outside</strong> programmed hotspots</li>
+        <li>Cross-overs do not change much with age</li>
+        <li>Possibly a <strong>compensatory</strong> mechanism as hotspots fail</li>
+      </ul>
+      <aside class="notes">
+        The third finding is a maternal age effect. As women age, the number of non-cross-overs in their eggs goes up, especially outside the normal recombination hotspots. Cross-overs, by contrast, do not change much with age. The investigators suggest that the extra N C Os might be compensatory — when the programmed hotspot machinery starts to fail with age, a backup mechanism kicks in to ensure that chromosomes still pair correctly. It is not perfect, and the extra events might contribute to age-related chromosome segregation errors, but it is better than no recombination at all.
+      </aside>
+    </section>
+
+    <!-- ========== 16. FINDING 4: CENTROMERES ========== -->
+    <section>
+      <h2>Finding 4 · centromeres · CO-suppressed</h2>
+      <ul>
+        <li>Near centromere: cross-overs are <strong>rare</strong></li>
+        <li>A CO near a centromere can disrupt chromosome segregation</li>
+        <li>But NCOs <strong>happen readily</strong> there</li>
+        <li>NCOs may help homologues recognise and pair without the risk</li>
+      </ul>
+      <aside class="notes">
+        The fourth finding concerns the centromere — the pinched middle region of each chromosome where spindle fibres attach during cell division. Near the centromere, cross-overs are very rare. This makes evolutionary sense. A cross-over near the centromere could disrupt how the spindle attaches and pulls chromosomes apart, causing aneuploidy. But non-cross-overs happen readily in these regions. This is interesting because it suggests the two kinds of events serve different roles. Non-cross-overs may help homologous chromosomes find and pair with each other, without the segregation risk that a cross-over would introduce at the centromere.
+      </aside>
+    </section>
+
+    <!-- ========== 17. FIG 1 — detection ========== -->
+    <section>
+      <h2>How they detected it</h2>
+      <figure>
+        <img src="../assets/figures/Palsson2025-Nature-Fig1.png" alt="Palsson et al 2025 Figure 1: DSB mechanism and detection pipeline" style="max-height:420px;">
+        <figcaption>
+          DSB → strand invasion → dHJ (gives CO or NCO) or SDSA (gives NCO).<br>
+          Palsson et al. 2025, <em>Nature</em>. CC BY-NC-ND 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is Figure one of the Palsson paper. On the left you see the molecular mechanism. A double-strand break is made in one chromosome. The broken end invades the homologous chromosome. From there, two paths diverge. The top path forms a double Holliday junction and can be resolved into either a cross-over or a non-cross-over. The bottom path is called synthesis-dependent strand annealing, and it produces only non-cross-overs. On the right you see the computational detection pipeline — matching children to grandparents and looking for the switch points. Every detected event was classified as C O or N C O based on the size of the converted region.
+      </aside>
+    </section>
+
+    <!-- ========== 18. SECTION 3 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The Molecular Dance</h1>
+      <aside class="notes">
+        Let's zoom into the actual molecular events. What happens between the double-strand break and the final resolution.
+      </aside>
+    </section>
+
+    <!-- ========== 19. STEP 1 — DSB ========== -->
+    <section>
+      <h2>Step 1 · double-strand break</h2>
+      <ul>
+        <li>Both strands of the DNA helix are cut</li>
+        <li>The break is made on purpose · catalysed by SPO11</li>
+        <li>Happens on one of the two paired chromosomes</li>
+      </ul>
+      <aside class="notes">
+        Step one. A double-strand break is made. Both strands of the D N A helix are cut. The enzyme that catalyses this in mammals is called S P O eleven. The break happens on one of the two paired homologous chromosomes — let's call that one red and its partner blue. The location is not random. The cell directs breaks to specific sites in the genome.
+      </aside>
+    </section>
+
+    <!-- ========== 20. STEP 2 — invasion ========== -->
+    <section>
+      <h2>Step 2 · end processing and strand invasion</h2>
+      <ul>
+        <li>Broken ends processed → <strong>single-stranded tail</strong> (3' overhang)</li>
+        <li>Tail <strong>invades</strong> the homologous chromosome</li>
+        <li>Uses the matching sequence on the <em>other</em> chromosome as a template</li>
+      </ul>
+      <aside class="notes">
+        Step two. The broken ends are processed to create a single-stranded tail — specifically a three-prime overhang. This single-stranded tail then invades the matching region on the blue chromosome. It is searching for a homologous sequence, and when it finds one, it uses the blue chromosome as a template to start copying D N A. This step is critical because it is what makes recombination between specifically homologous partners possible.
+      </aside>
+    </section>
+
+    <!-- ========== 21. FORK IN THE ROAD ========== -->
+    <section>
+      <h2>Now the fork in the road</h2>
+      <blockquote style="font-size:1.1em;">
+        How does the cell resolve the invasion structure?
+      </blockquote>
+      <p style="margin-top:0.8em;">Two paths. Two different outcomes.</p>
+      <aside class="notes">
+        After the invading strand starts copying from the blue chromosome, the cell faces a choice. How does it resolve the invasion structure? Two paths are possible, and each leads to a different outcome. This decision is one of the most important regulatory steps in meiotic recombination.
+      </aside>
+    </section>
+
+    <!-- ========== 22. PATH 1 — SDSA ========== -->
+    <section>
+      <h2>Path 1 · SDSA → non-cross-over</h2>
+      <ul>
+        <li><strong>Synthesis-Dependent Strand Annealing</strong></li>
+        <li>Invading strand copies a short stretch from blue</li>
+        <li>Then <strong>pulls back</strong> and re-anneals to its original red partner</li>
+        <li>Small patch converted · large-scale structure unchanged</li>
+      </ul>
+      <aside class="notes">
+        Path one is called synthesis-dependent strand annealing, abbreviated S D S A. The invading red strand copies a short stretch of information from the blue chromosome, and then it pulls back and re-anneals to its original red partner. The result is that a small patch of D N A has been converted from the red sequence to the blue sequence. But the chromosomes have not swapped large segments. Everything flanking the patch is still red. This is a non-cross-over. A local, short-range change, with no change to the overall chromosome structure.
+      </aside>
+    </section>
+
+    <!-- ========== 23. PATH 2 — dHJ ========== -->
+    <section>
+      <h2>Path 2 · double Holliday junction → cross-over</h2>
+      <ul>
+        <li><strong>Double Holliday Junction</strong> (dHJ) forms</li>
+        <li>Invading strand stays attached · DNA synthesis extends the connection</li>
+        <li>Two chromosome junctions form</li>
+        <li>When resolved · <strong>large flanking regions swap</strong></li>
+      </ul>
+      <aside class="notes">
+        Path two is called the double Holliday junction pathway. Instead of pulling back, the invading strand stays attached. D N A synthesis extends the connection between the two chromosomes. Eventually, two physical junctions form — these are the Holliday junctions. When these junctions are resolved by specialised enzymes that cut and rejoin D N A, the two chromosomes physically swap their flanking regions. The result is a cross-over — a large-scale exchange of D N A between the two homologues.
+      </aside>
+    </section>
+
+    <!-- ========== 24. CHOICE ========== -->
+    <section>
+      <h2>Which path does the cell choose?</h2>
+      <ul>
+        <li>One of the <strong>big mysteries</strong> in meiosis biology</li>
+        <li>Specific proteins promote one outcome over the other</li>
+        <li>Local chromatin context (DNA packaging) matters</li>
+        <li>Outcome is <strong>biased</strong> toward NCO · but COs are crucial</li>
+      </ul>
+      <aside class="notes">
+        Which path does the cell choose? This is one of the big open questions in meiosis biology. We know that specific proteins bias the outcome one way or the other. We know that local chromatin context matters — how tightly packaged the D N A is, which histone modifications are present. And we know that the default outcome is strongly biased toward non-cross-overs. But cross-overs are not optional. Every chromosome needs at least one cross-over to ensure proper segregation. So the cell actively regulates this balance across each chromosome, each meiosis, each sex, and each age.
+      </aside>
+    </section>
+
+    <!-- ========== 25. SECTION 4 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Linkage</h1>
+      <aside class="notes">
+        Now let's connect the molecular mechanism back to the concept of linkage we learned last chapter.
+      </aside>
+    </section>
+
+    <!-- ========== 26. WHAT IS LINKAGE ========== -->
+    <section>
+      <h2>Linkage · alleles that travel together</h2>
+      <blockquote>
+        The tendency of alleles <strong>close together</strong> on the same chromosome<br>
+        to be inherited as a <strong>pair</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Recombination is random with respect to <strong>position</strong></li>
+        <li>The closer two variants are, the less likely a recombination lands between them</li>
+        <li>If nothing separates them, they <strong>travel together</strong></li>
+      </ul>
+      <aside class="notes">
+        Linkage describes the tendency of alleles located close together on the same chromosome to be inherited as a pair. Why does this happen? Because recombination is random with respect to position — at least on average, although hotspots bias this somewhat. The closer two variants are on a chromosome, the less likely it is that a recombination event will land between them. And if no recombination event separates them, they travel together from parent to child as a linked pair. This is the fundamental observation that Morgan documented a hundred years ago, and it is still the statistical backbone of human genetic analysis today.
+      </aside>
+    </section>
+
+    <!-- ========== 27. RECOMBINATION FRACTION ========== -->
+    <section>
+      <h2>Recombination fraction · r</h2>
+      <table>
+        <thead><tr><th>r</th><th>Meaning</th><th>Genetic distance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>0</strong></td><td>Complete linkage</td><td>0 cM · right next to each other</td></tr>
+          <tr><td><strong>0.01</strong></td><td>Tightly linked</td><td>~1 cM</td></tr>
+          <tr><td><strong>0.10</strong></td><td>Moderately linked</td><td>~10 cM</td></tr>
+          <tr><td><strong>0.5</strong></td><td>Unlinked · independent assortment</td><td>far apart / different chromosomes</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        We quantify linkage with a single number: the recombination fraction, r. It is the probability that two loci will be separated by recombination in a single meiosis. When r equals zero, the loci are completely linked — so close that recombination never separates them. When r equals zero point one, they recombine ten percent of the time, corresponding to roughly ten centiMorgans of genetic distance. When r equals zero point five, they are unlinked — recombining half the time, which is the signature of independent assortment. That is Mendel's second law. Note that r cannot exceed zero point five. Once you reach fifty percent recombination, you have independence, and adding more physical distance does not push it higher.
+      </aside>
+    </section>
+
+    <!-- ========== 28. WHY LINKAGE MATTERS ========== -->
+    <section>
+      <h2>Why linkage matters</h2>
+      <ul>
+        <li><strong>Linkage analysis</strong> for Mendelian diseases</li>
+        <li>Marker near disease allele → co-segregates with disease</li>
+        <li>Narrow the search from 3 Gbp to 10 Mbp</li>
+        <li>Modern GWAS: <strong>linkage disequilibrium</strong> extends this idea</li>
+      </ul>
+      <aside class="notes">
+        Why is linkage so central to human genetics? Because it is the basis of how we find disease genes. Suppose a disease runs in a family, and you do not yet know which gene causes it. You type a panel of genetic markers, and you ask: is any marker inherited along with the disease, more often than expected? If yes, the disease gene is close to that marker. You have narrowed the search from the entire three billion base pair genome to a chromosomal region of perhaps ten million base pairs. Classical linkage analysis solved cystic fibrosis and Huntington's disease with exactly this logic. Modern genome-wide association studies extend the same idea using a statistical concept called linkage disequilibrium.
+      </aside>
+    </section>
+
+    <!-- ========== 29. NCOs break linkage too ========== -->
+    <section>
+      <h2>NCOs break linkage too</h2>
+      <ul>
+        <li>Short gene conversions also separate nearby variants</li>
+        <li>Previous linkage maps missed this contribution</li>
+        <li>Including NCOs → <strong>more accurate</strong> linkage estimates</li>
+        <li>Especially matters for <strong>very close</strong> variant pairs</li>
+      </ul>
+      <aside class="notes">
+        One subtle point the twenty twenty-five Iceland paper made. Non-cross-overs break linkage too, even though they do not swap large segments. If a short gene conversion happens to land between two variants, those variants are separated — their alleles now come from different grandparents. Previous linkage maps were built only from cross-overs, so they missed this contribution. Including non-cross-overs gives us more accurate linkage estimates, especially for variants that are very close together. This matters for fine-mapping disease loci and for interpreting short-range haplotype structure.
+      </aside>
+    </section>
+
+    <!-- ========== 30. SECTION 5 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Regional Patterns ·<br>Hotspots and Cold Spots</h1>
+      <aside class="notes">
+        Recombination is not uniform along the chromosome. Let's look at the regional patterns.
+      </aside>
+    </section>
+
+    <!-- ========== 31. TELOMERES ========== -->
+    <section>
+      <h2>Telomeres · CO-rich</h2>
+      <ul>
+        <li>Chromosome ends are <strong>rich</strong> in cross-overs</li>
+        <li>COs at the ends don't disrupt chromosome architecture</li>
+        <li>Functional role: ensure <strong>proper segregation</strong></li>
+        <li>Every chromosome needs at least one CO to segregate correctly</li>
+      </ul>
+      <aside class="notes">
+        At the telomeres — the ends of the chromosomes — cross-overs are enriched. If you plot cross-over frequency along a chromosome, you see peaks near both ends. This is not an accident. Cross-overs at the ends do not disrupt the overall structure of the chromosome, and they serve a critical function. Every pair of homologous chromosomes needs at least one cross-over during meiosis. Without a cross-over, the chromosomes may fail to segregate correctly, leading to aneuploidy — the wrong number of chromosomes in the egg or sperm. Telomere-biased crossing over is a safeguard.
+      </aside>
+    </section>
+
+    <!-- ========== 32. CENTROMERES ========== -->
+    <section>
+      <h2>Centromeres · CO-suppressed</h2>
+      <ul>
+        <li>Near the centromere · cross-overs are <strong>rare</strong></li>
+        <li>A CO there could disrupt spindle attachment → aneuploidy</li>
+        <li>But <strong>NCOs happen readily</strong> here</li>
+        <li>NCOs may help homologues pair without the segregation risk</li>
+      </ul>
+      <aside class="notes">
+        At the centromere — the middle of the chromosome — the opposite is true. Cross-overs are rare. A cross-over near the centromere could interfere with how the spindle fibres attach and pull the chromosomes apart. So evolution has selected against cross-overs in these regions. But, as the twenty twenty-five paper showed, non-cross-overs happen readily at centromeres. This may serve an important pairing function — helping homologous chromosomes recognise each other and align, without the segregation risks of a full cross-over.
+      </aside>
+    </section>
+
+    <!-- ========== 33. HOTSPOTS ========== -->
+    <section>
+      <h2>Hotspots · short regions of concentrated activity</h2>
+      <ul>
+        <li>Typically <strong>1 – 2 kb</strong> wide</li>
+        <li>Recombination is <strong>much</strong> more frequent than average</li>
+        <li>Marked by the DNA-binding protein <strong>PRDM9</strong></li>
+        <li>PRDM9 recognises specific sequence motifs · recruits DSB machinery</li>
+      </ul>
+      <aside class="notes">
+        Scattered across the genome are short regions called hotspots. These are typically one to two kilobases wide, and they experience recombination — both cross-over and non-cross-over — at rates much higher than the genome-wide average. Hotspots are marked by a D N A-binding protein called P R D M nine. This protein recognises specific sequence motifs, binds to them, and recruits the molecular machinery that makes double-strand breaks. Most recombination events cluster at P R D M nine-defined hotspots.
+      </aside>
+    </section>
+
+    <!-- ========== 34. PRDM9 VARIATION ========== -->
+    <section>
+      <h2>Hotspots move between populations</h2>
+      <ul>
+        <li><strong>PRDM9 itself</strong> is highly variable between humans</li>
+        <li>Different versions recognise <strong>different</strong> DNA motifs</li>
+        <li>A hotspot active in Europeans may be silent in East Asians</li>
+        <li>Over evolutionary time, hotspot locations <strong>drift</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is a subtle and fascinating detail. P R D M nine itself is highly variable between people. Different versions of the protein recognise different D N A sequence motifs. The consequence is that hotspot locations vary between individuals and between populations. A hotspot that is highly active in Europeans may be silent in East Asians, and vice versa. Over evolutionary time, as different P R D M nine variants rise and fall in populations, the entire landscape of recombination hotspots shifts. Hotspot locations are not permanent fixtures of the genome. They migrate with the genotype of P R D M nine.
+      </aside>
+    </section>
+
+    <!-- ========== 35. FIG 2 · maps ========== -->
+    <section>
+      <h2>Regional patterns visualised</h2>
+      <figure>
+        <img src="../assets/figures/Palsson2025-Nature-Fig2.png" alt="Palsson 2025 Figure 2: regional recombination patterns on chromosome 19" style="max-height:400px;">
+        <figcaption>
+          Chromosome 19 · paternal NCOs rise near telomeres · centromere is CO-suppressed · maternal age raises NCO rate by <strong>~20 events per decade</strong>. <br>
+          Palsson et al. 2025, <em>Nature</em>. CC BY-NC-ND 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is Figure two from the Iceland paper, showing chromosome nineteen as an illustration. Look at the paternal N C O rate, the blue line, rising sharply near the telomeres. Now look at the centromere in the middle, marked in grey — cross-overs are suppressed there. The maternal pattern in red is flatter and lower. And the maternal age effect at the bottom shows roughly twenty additional non-cross-over events per decade of maternal age. This one figure captures the three major patterns we have discussed: sex differences, chromosomal region effects, and the age effect. It is the modern replacement for Sturtevant's nineteen thirteen map.
+      </aside>
+    </section>
+
+    <!-- ========== 36. SECTION 6 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Haplotypes</h1>
+      <aside class="notes">
+        Now we arrive at the third concept of this chapter — haplotypes.
+      </aside>
+    </section>
+
+    <!-- ========== 37. HAPLOTYPE DEFINITION ========== -->
+    <section>
+      <h2>Haplotype · a block inherited together</h2>
+      <blockquote>
+        A <strong>haplotype</strong> is a set of DNA variants inherited together from <strong>one</strong> parent.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Because recombination is occasional, nearby variants stay <strong>linked for many generations</strong></li>
+        <li>Forms a "block" of co-inherited alleles</li>
+        <li>The fundamental unit of population genetics</li>
+      </ul>
+      <aside class="notes">
+        A haplotype is a set of D N A variants that are inherited together from a single parent. Because recombination only shuffles chromosomes occasionally, nearby variants tend to remain linked across many generations. They form blocks of co-inherited alleles — haplotypes. Haplotypes are the fundamental unit of population genetics. Instead of treating each variant independently, we often work with haplotypes — the natural units that are passed from parent to child as coherent pieces.
+      </aside>
+    </section>
+
+    <!-- ========== 38. BEADED NECKLACE ========== -->
+    <section>
+      <h2>The beaded necklace analogy</h2>
+      <ul>
+        <li>Each chromosome = a necklace · each bead = a SNP</li>
+        <li>Grandma's necklace: <span style="color:#D4724E;">red</span>-<span style="color:#4E84D4;">blue</span>-<span style="color:#4E84D4;">blue</span>-<span style="color:#5ba85b;">green</span>-<span style="color:#D4724E;">red</span></li>
+        <li>Grandpa's necklace: <span style="color:#4E84D4;">blue</span>-<span style="color:#D4724E;">red</span>-<span style="color:#5ba85b;">green</span>-<span style="color:#5ba85b;">green</span>-<span style="color:#4E84D4;">blue</span></li>
+        <li>Mom's egg: a <strong>mosaic</strong> of both · that mosaic = the haplotype she passes on</li>
+      </ul>
+      <aside class="notes">
+        Let me give you the analogy I find most useful. Think of a chromosome as a beaded necklace, with each bead representing a D N A variant such as a single-nucleotide polymorphism. Your maternal grandmother had one necklace, say red, blue, blue, green, red. Your maternal grandfather had another, say blue, red, green, green, blue. Your mother inherits one bead pattern from each of her parents. But when she makes an egg, recombination stitches pieces of the two necklaces together. The egg she passes to you contains a mosaic — maybe the first three beads from grandma, then a recombination breakpoint, then the rest from grandpa. That specific mosaic pattern is the haplotype you inherit. It is unique to your mother's specific meiosis.
+      </aside>
+    </section>
+
+    <!-- ========== 39. DETECTING RECOMBINATION ========== -->
+    <section>
+      <h2>How haplotypes reveal recombination</h2>
+      <ul>
+        <li>Sequence child + both parents + grandparents</li>
+        <li>Walk along chromosome · track which grandparent each variant matches</li>
+        <li>A <strong>switch point</strong> = a recombination event</li>
+        <li>Large switch (Mb) = cross-over · short switch (kb) = NCO</li>
+      </ul>
+      <aside class="notes">
+        Here is how haplotypes let us detect and classify every recombination event. You sequence a child, both parents, and ideally all four grandparents. Then you walk along each chromosome in the child's genome, asking: at this variant, does the child's allele match grandma's or grandpa's? For a long stretch, the answer might be grandma. Then at some point, the answer switches to grandpa. That switch point is a recombination event. If the switch covers a large region — many megabases on one side, many on the other — it is a cross-over. If the switch is short — a few kilobases before the pattern reverts — it is a non-cross-over. This is exactly the logic the twenty twenty-five Iceland paper used to classify tens of thousands of events.
+      </aside>
+    </section>
+
+    <!-- ========== 40. SECTION 7 · Why matters ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Why This Matters</h1>
+      <aside class="notes">
+        Let's step back and ask why any of this matters for genetics, medicine, and evolution.
+      </aside>
+    </section>
+
+    <!-- ========== 41. WHY MATTERS LIST ========== -->
+    <section>
+      <h2>Four domains</h2>
+      <ul>
+        <li><strong>Diversity</strong> — recombination creates new allele combinations every generation</li>
+        <li><strong>Disease genetics</strong> — complete maps sharpen fine-mapping</li>
+        <li><strong>Reproductive health</strong> — CO errors cause aneuploidy · miscarriage · Down syndrome</li>
+        <li><strong>Human evolution</strong> — haplotype block lengths record demographic history</li>
+      </ul>
+      <aside class="notes">
+        Four domains where this matters. First, diversity. Recombination is the engine of genetic variation. Without it, beneficial alleles on separate chromosomes could never be combined into a single individual. Evolution would have much less raw material to work with. Second, disease genetics. Complete recombination maps, including non-cross-overs, improve fine-mapping of disease loci and sharpen the interpretation of linkage disequilibrium patterns. Third, reproductive health. Errors in cross-over placement cause aneuploidy, which underlies many cases of miscarriage and disorders like Down syndrome. Understanding how cross-overs are regulated, and how they fail with age, is a major medical frontier. And fourth, human evolution. The length distribution of haplotype blocks records demographic history — bottlenecks, admixture events, and selective sweeps — all readable by anyone who can reconstruct haplotypes.
+      </aside>
+    </section>
+
+    <!-- ========== 42. SECTION 8 · SUMMARY ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up.
+      </aside>
+    </section>
+
+    <!-- ========== 43. TAKEAWAYS ========== -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Recombination has <strong>two flavours</strong> · COs and NCOs</li>
+        <li>NCOs <strong>outnumber</strong> COs by a factor of five to ten</li>
+        <li>Maternal vs paternal meiosis · different rates, different NCO lengths</li>
+        <li>Centromeres suppress COs · telomeres enrich them · PRDM9 defines hotspots</li>
+        <li>Haplotypes are the <strong>blocks</strong> of co-inherited alleles that record recombination history</li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One. Recombination has two flavours — cross-overs that swap large segments, and non-cross-overs that copy short patches. Two. Non-cross-overs outnumber cross-overs by a factor of five to ten. Most of meiotic recombination, by event count, is gene conversion. Three. Maternal and paternal meiosis differ in both cross-over rate and non-cross-over length, and maternal age increases non-cross-overs. Four. Regional patterns are non-random — centromeres suppress cross-overs, telomeres enrich them, and scattered P R D M nine-defined hotspots concentrate most events. And five. Haplotypes — blocks of co-inherited alleles — are the natural unit that records every recombination event in human history.
+      </aside>
+    </section>
+
+    <!-- ========== 44. NEXT ========== -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        How do we <span style="color:var(--terracotta-deep)">encode</span><br>
+        alleles, genotypes, and haplotypes<br>
+        in the data format of modern genomics?
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 24 · <strong>Data Types for Alleles and Populations</strong>
+      </p>
+      <aside class="notes">
+        Where do we go next? We have now covered the biology — allele frequency, population structure, linkage, recombination, haplotypes. But how do we actually store and share all this information in computational form? That is the subject of Chapter twenty-four, Data Types for Alleles and Populations. We will meet the V C F format and the universal vocabulary of modern genomics. See you then.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

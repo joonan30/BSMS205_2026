@@ -41,8 +41,8 @@ Reveal.js decks served from GitHub Pages. Speaker notes embedded for TTS-based v
 | 20 | Allele Frequency | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter20.html) |
 | 21 | Population Structure | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter21.html) |
 | 22 | From Mendel to Morgan: Discovery of Linkage | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter22.html) |
-| 23 | Recombination, Linkage, and Haplotype | *planned* |
-| 24 | Data Types for Alleles and Populations | *planned* |
+| 23 | Recombination, Linkage, and Haplotype | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter23.html) |
+| 24 | Data Types for Alleles and Populations | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter24.html) |
 | 25 | Forward Genetics: From Phenotype to Gene | *planned* |
 | 26 | Reverse Genetics: From Gene to Function | *planned* |
 | 27 | CRISPRa Therapy for SCN2A Haploinsufficiency | *planned* |

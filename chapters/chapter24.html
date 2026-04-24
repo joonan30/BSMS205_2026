@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 24 · Data Types for Alleles and Populations — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ========== 1. TITLE ========== -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Data Types for<br>Alleles and Populations</h1>
+      <div class="chapter-num">Chapter 24 · Part IV · Population Genetics</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-four, Data Types for Alleles and Populations. This is the final chapter of Part Four, and it is a shift of gears. In the previous chapters we talked about the biology — allele frequencies, population structure, linkage, recombination, haplotypes. Today we ask: how do we actually represent all of that in a computer? How do we store it, share it, and work with it? The answer is a single file format that sits at the centre of modern genomics. It is called V C F.
+      </aside>
+    </section>
+
+    <!-- ========== 2. HOOK ========== -->
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:2.1em; line-height:1.1;">
+        How do you turn<br>
+        <span style="color:var(--terracotta-deep)">a genome</span><br>
+        into <span style="color:var(--terracotta-deep)">data</span>?
+      </h1>
+      <aside class="notes">
+        Here is the framing question for the entire lecture. How do you turn a genome into data? When you sequence someone, you do not directly read off their genome as a string of letters. You get billions of short fragments. Those fragments have to be aligned, compared, and condensed into a list of places where this person differs from the reference. Then that list needs to be written down in a format that computers can read, that other scientists can use, that databases can search. What is the right way to do that? The answer took twenty years to settle on, and today it is universal.
+      </aside>
+    </section>
+
+    <!-- ========== 3. THE ANSWER ========== -->
+    <section>
+      <h2>The universal answer · VCF</h2>
+      <ul>
+        <li><strong>Variant Call Format</strong></li>
+        <li>Every variant caller outputs VCF</li>
+        <li>Every database stores VCF or a sibling</li>
+        <li>Every analysis tool accepts VCF</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        The universal language of genetic variation.
+      </blockquote>
+      <aside class="notes">
+        The universal answer is a file format called V C F, which stands for Variant Call Format. Every variant caller — the software that finds differences between a sequenced sample and the reference genome — outputs V C F files. Every major genetic database stores variants in V C F or a close sibling. Every analysis tool that works with variation expects V C F as input. It is the universal language of genetic variation. If you are going to work in human genetics at any scale, you will encounter V C F every day.
+      </aside>
+    </section>
+
+    <!-- ========== 4. ROADMAP ========== -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>From sequencing to variant calling · the pipeline</li>
+        <li>VCF file structure · the core columns</li>
+        <li>The INFO field · population statistics</li>
+        <li>Genotypes · FORMAT and GT</li>
+        <li>Multi-sample VCF and joint genotyping</li>
+        <li>Scaling · dense vs sparse · the future</li>
+      </ol>
+      <aside class="notes">
+        Here is the flow for today. First, the full pipeline from a sequencing machine to a V C F file. Second, the structure of a V C F line — nine standard columns plus samples. Third, the I N F O field, which is where population-level statistics live. Fourth, genotypes and the F O R M A T column, including the key distinction between zero slash zero, zero slash one, and one slash one. Fifth, the multi-sample V C F and the concept of joint genotyping. And sixth, the hard problem of scaling V C F to biobank datasets — dense versus sparse formats and the future of the standard. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ========== 5. SECTION 1 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>From Sequencing<br>to Variant Calling</h1>
+      <aside class="notes">
+        Let's walk through how a physical D N A sample becomes a V C F file.
+      </aside>
+    </section>
+
+    <!-- ========== 6. THE PIPELINE ========== -->
+    <section>
+      <h2>The pipeline</h2>
+      <ol>
+        <li>Extract DNA · sequence on Illumina → billions of <strong>short reads</strong></li>
+        <li>Align to reference (GRCh38) → <strong>BAM / CRAM</strong> file</li>
+        <li>Variant call against reference → <strong>VCF</strong> file</li>
+      </ol>
+      <p style="margin-top:0.8em; font-size:0.9em;">Common tools: BWA · Bowtie2 · GATK · DeepVariant · FreeBayes</p>
+      <aside class="notes">
+        The pipeline is three stages. Stage one. You extract D N A from a sample and sequence it on a platform like Illumina. The output is millions or billions of short sequencing reads, each typically one hundred or one hundred fifty bases long. Stage two. You align those reads to a reference genome. For humans, the current standard is G R C h thirty-eight. Alignment is done by tools like B W A or Bowtie two. The output is a B A M file, or its more compressed version C R A M — a sorted list of every read and where it came from. Stage three. You compare the aligned reads to the reference at every position, and ask: does this sample differ from the reference here? That is variant calling. Tools like G A T K, DeepVariant, and FreeBayes perform this step. The output is a V C F file.
+      </aside>
+    </section>
+
+    <!-- ========== 7. WHAT CALLER DECIDES ========== -->
+    <section>
+      <h2>What the variant caller decides</h2>
+      <ul>
+        <li>Reference at chr1:12345 is <code>A</code></li>
+        <li>Reads at this position show consistent <code>T</code></li>
+        <li>Caller evaluates: read quality · mapping quality · strand bias · coverage</li>
+        <li>Decision: is this a <strong>real variant</strong>, or noise?</li>
+      </ul>
+      <aside class="notes">
+        Let's zoom into what the variant caller actually does. Say the reference has an A at a particular chromosomal position — chromosome one, position twelve thousand three hundred forty-five. Your sample's reads at that position consistently show a T instead. Is that a real variant, or is it sequencing noise? The caller evaluates multiple factors — read quality scores, mapping quality, strand bias, coverage depth, how the reads align around the variant. It assigns a probability that the variant is real, and if the probability is high enough, it outputs the variant. Otherwise it flags the site as uncertain or skips it. Every variant in a V C F file has been through this probabilistic test.
+      </aside>
+    </section>
+
+    <!-- ========== 8. SECTION 2 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>VCF File Structure</h1>
+      <aside class="notes">
+        Now let's look at the structure of a V C F file itself.
+      </aside>
+    </section>
+
+    <!-- ========== 9. VCF = TEXT ========== -->
+    <section>
+      <h2>A VCF is a plain text file</h2>
+      <ul>
+        <li>One <strong>line</strong> per variant</li>
+        <li>Each line: where the variant is, what changes, how confident</li>
+        <li>Tab-separated columns</li>
+        <li>Header lines start with <code>#</code></li>
+      </ul>
+      <aside class="notes">
+        A V C F file is surprisingly simple in concept. It is a plain text file. One line per variant. Each line specifies where the variant is located, what the reference allele is, what the alternate allele is, and how confident the caller is. Columns are tab-separated. Header lines at the top of the file start with a hash character. If you open a V C F file in a text editor, you can read it with your own eyes. There is nothing binary about it.
+      </aside>
+    </section>
+
+    <!-- ========== 10. CORE COLUMNS ========== -->
+    <section>
+      <h2>Nine core columns</h2>
+      <table>
+        <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CHROM</strong></td><td>Chromosome (chr1, chrX, ...)</td></tr>
+          <tr><td><strong>POS</strong></td><td>Position (1-based)</td></tr>
+          <tr><td><strong>ID</strong></td><td>Identifier (rsXXXX or <code>.</code>)</td></tr>
+          <tr><td><strong>REF</strong></td><td>Reference allele</td></tr>
+          <tr><td><strong>ALT</strong></td><td>Alternate allele</td></tr>
+          <tr><td><strong>QUAL</strong></td><td>Quality score</td></tr>
+          <tr><td><strong>FILTER</strong></td><td>PASS or failure reason</td></tr>
+          <tr><td><strong>INFO</strong></td><td>Site-level metadata</td></tr>
+          <tr><td><strong>FORMAT</strong></td><td>Per-sample field definitions</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are the nine core columns every V C F row contains. C H R O M, the chromosome. P O S, the position in one-based coordinates. I D, an optional identifier — often a d b S N P r s number if the variant is catalogued, or a dot if novel. R E F, the reference allele. A L T, the alternate allele observed in this sample. Q U A L, a quality score — higher means more confidence, thirty means ninety-nine point nine percent confidence. F I L T E R, either PASS or a reason for failure. I N F O, a field packed with site-level metadata. F O R M A T, which describes the structure of the per-sample columns that follow. These nine columns are the backbone of every V C F file ever written.
+      </aside>
+    </section>
+
+    <!-- ========== 11. EXAMPLE LINE ========== -->
+    <section>
+      <h2>One line · read it out</h2>
+      <div class="formula" style="font-size:0.9em; white-space:nowrap; overflow-x:auto;">
+        chr1&nbsp;&nbsp;1234567&nbsp;&nbsp;rs12345&nbsp;&nbsp;A&nbsp;&nbsp;T&nbsp;&nbsp;99.0&nbsp;&nbsp;PASS&nbsp;&nbsp;AC=3;AN=6;AF=0.5&nbsp;&nbsp;GT:DP&nbsp;&nbsp;0/1:32
+      </div>
+      <ul style="margin-top:0.8em;">
+        <li>chr1 pos 1,234,567 · ref <code>A</code> · alt <code>T</code></li>
+        <li>Quality 99 · passes filters · rsID <code>rs12345</code></li>
+        <li>3 alternate alleles in 6 total (AF = 50%)</li>
+        <li>This sample is <strong>heterozygous</strong> · 32-read depth</li>
+      </ul>
+      <aside class="notes">
+        Let's read out one concrete V C F line. Chromosome one, position one million two hundred thirty-four thousand five hundred sixty-seven. This variant has the identifier r s twelve thousand three hundred forty-five from d b S N P. The reference allele is A, the alternate is T. Quality is ninety-nine, very high. It passed all filters. In the I N F O field, the allele count is three, the allele number is six, the allele frequency is fifty percent. The per-sample data says the genotype is zero slash one — heterozygous — and the depth of sequencing at this position is thirty-two reads. That single line packs all the essential information you need about this variant and this sample.
+      </aside>
+    </section>
+
+    <!-- ========== 12. SECTION 3 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The INFO Field ·<br>Population Statistics</h1>
+      <aside class="notes">
+        The I N F O field is where population-level summary statistics live. Let's dig into it.
+      </aside>
+    </section>
+
+    <!-- ========== 13. AC / AN / AF ========== -->
+    <section>
+      <h2>Three fundamental fields</h2>
+      <table>
+        <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AC</strong> Allele Count</td><td>Number of alternate alleles observed</td></tr>
+          <tr><td><strong>AN</strong> Allele Number</td><td>Total alleles successfully called · ideally 2 × N</td></tr>
+          <tr><td><strong>AF</strong> Allele Frequency</td><td>AC ÷ AN</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        The three fundamental I N F O fields are A C, A N, and A F. A C stands for allele count — how many copies of the alternate allele were observed across all samples in the file. A N stands for allele number — the total number of alleles successfully called at this site. In a perfect dataset, A N equals two times the number of samples, because humans are diploid. But sometimes sequencing fails for some individuals at some sites, and those genotypes are marked as missing. A F, allele frequency, is simply A C divided by A N. These three fields together give you the population-level summary.
+      </aside>
+    </section>
+
+    <!-- ========== 14. AC EXAMPLE ========== -->
+    <section>
+      <h2>A concrete example</h2>
+      <ul>
+        <li>Sequence <strong>100 people</strong> → 200 alleles total</li>
+        <li>10 alternate alleles observed</li>
+      </ul>
+      <div class="cols" style="margin-top:1em;">
+        <div style="text-align:center;">
+          <h3>AC</h3>
+          <div class="bignum" style="font-size:3em;">10</div>
+        </div>
+        <div style="text-align:center;">
+          <h3>AN</h3>
+          <div class="bignum" style="font-size:3em;">200</div>
+        </div>
+        <div style="text-align:center;">
+          <h3>AF</h3>
+          <div class="bignum" style="font-size:3em; color:var(--terracotta);">0.05</div>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is a concrete example. You have sequenced one hundred people. Diploidy means you have two hundred alleles in total. Suppose you detect the alternate allele ten times across all one hundred people. Then A C equals ten, A N equals two hundred, and A F equals ten divided by two hundred, which is zero point zero five, or five percent. That A F value tells you the variant is common enough to be well-sampled but rare enough to be interesting. These are the same numbers we computed by hand in Chapter twenty for the allele frequency formula — they are stored explicitly in every V C F.
+      </aside>
+    </section>
+
+    <!-- ========== 15. WHY IT MATTERS ========== -->
+    <section>
+      <h2>Why these three numbers matter</h2>
+      <ul>
+        <li>Tell you how <strong>common or rare</strong> a variant is</li>
+        <li>Help decide <strong>pathogenic vs benign</strong></li>
+        <li>Feed directly into <strong>GWAS</strong>, burden tests, population genetics</li>
+      </ul>
+      <aside class="notes">
+        Why these three numbers matter. They tell you immediately how common or rare the variant is in your population. They are the starting point for deciding whether a variant is likely pathogenic — rare variants in disease genes often are — versus likely benign, which most common variants are. And they feed directly into every downstream analysis — genome-wide association studies, rare-variant burden tests, population-genetic statistics. Before you interpret any variant, check its A F.
+      </aside>
+    </section>
+
+    <!-- ========== 16. SECTION 4 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Genotypes ·<br>FORMAT and GT</h1>
+      <aside class="notes">
+        Now let's turn to individual-level genotypes — the per-sample information.
+      </aside>
+    </section>
+
+    <!-- ========== 17. FORMAT FIELD ========== -->
+    <section>
+      <h2>The FORMAT column</h2>
+      <ul>
+        <li>Defines <strong>what information</strong> appears for each sample</li>
+        <li>Colon-separated list of field names</li>
+        <li>Example: <code>GT:DP:AD</code></li>
+        <li>Each sample column follows the same template</li>
+      </ul>
+      <aside class="notes">
+        The F O R M A T column defines what per-sample information appears in the columns that follow. It is a colon-separated list of field names. For example, F O R M A T might be G T colon D P colon A D. Every sample column then follows the same template — three colon-separated values corresponding to G T, D P, and A D in that order. This lets V C F carry any number of per-sample fields in a flexible way.
+      </aside>
+    </section>
+
+    <!-- ========== 18. GENOTYPE CODES ========== -->
+    <section>
+      <h2>Genotype codes · the heart of VCF</h2>
+      <table>
+        <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>0/0</code></td><td>Homozygous <strong>reference</strong> — no variant</td></tr>
+          <tr><td><code>0/1</code></td><td><strong>Heterozygous</strong> — one ref, one alt</td></tr>
+          <tr><td><code>1/1</code></td><td>Homozygous <strong>alternate</strong> — both carry variant</td></tr>
+          <tr><td><code>./.</code></td><td><strong>Missing</strong> — genotype not called</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        The G T field is the heart of V C F. Here are the four codes you will see constantly. Zero slash zero means homozygous reference — both alleles match the reference, the person does not carry the variant. Zero slash one means heterozygous — one reference allele and one alternate allele, the person is a carrier. One slash one means homozygous alternate — both alleles carry the variant. Dot slash dot means missing — the genotype could not be determined, usually because sequencing coverage was too low or read quality too poor at this site. These four codes describe the genotype of any diploid individual at any bi-allelic site.
+      </aside>
+    </section>
+
+    <!-- ========== 19. PHASED vs UNPHASED ========== -->
+    <section>
+      <h2>Phased vs unphased</h2>
+      <div class="cols">
+        <div>
+          <h3>Unphased · <code>/</code></h3>
+          <ul>
+            <li>Know which alleles are present</li>
+            <li><strong>Don't know</strong> which came from mom vs dad</li>
+            <li>The default from variant calling</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Phased · <code>|</code></h3>
+          <ul>
+            <li>Know which allele is on which chromosome</li>
+            <li>Essential for <strong>haplotype</strong> work</li>
+            <li>Requires extra inference or family data</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        There is a subtle detail in genotype notation. A slash between the alleles — zero slash one — means the genotype is unphased. We know the person has one reference and one alternate allele, but we do not know which came from the mother and which from the father. A pipe symbol between the alleles — zero pipe one — means the genotype is phased. We know which allele sits on which chromosome. Phasing is essential for haplotype analysis — the topic of the previous chapter — because it tells us which variants are inherited together on the same chromosome. Phasing requires either extra computation or family data. By default, raw variant calling produces unphased genotypes.
+      </aside>
+    </section>
+
+    <!-- ========== 20. DP AD ========== -->
+    <section>
+      <h2>Supporting fields · DP and AD</h2>
+      <table>
+        <thead><tr><th>Field</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>DP</strong></td><td>Total read depth</td><td><code>DP=32</code></td></tr>
+          <tr><td><strong>AD</strong></td><td>Allelic depth (ref, alt)</td><td><code>AD=16,16</code></td></tr>
+        </tbody>
+      </table>
+      <ul style="margin-top:0.8em;">
+        <li><code>0/1</code> + <code>AD=16,16</code> → balanced heterozygote · consistent call</li>
+        <li><code>0/1</code> + <code>AD=28,4</code> → suspicious · possible sequencing error</li>
+      </ul>
+      <aside class="notes">
+        Beyond G T, two supporting fields are essential. D P is total read depth — how many sequencing reads covered this position in this sample. Higher depth gives you more confidence. A depth of five is marginal. Thirty or more is solid. A D is allelic depth, broken down by allele. If A D is sixteen comma sixteen, that means sixteen reads support the reference and sixteen support the alternate. For a heterozygote — a zero slash one — you would expect roughly fifty-fifty support, so sixteen and sixteen is consistent with the call. If instead you saw a zero slash one with A D of twenty-eight comma four, you would be suspicious — maybe the four alt reads are sequencing errors and the true genotype is homozygous reference.
+      </aside>
+    </section>
+
+    <!-- ========== 21. SECTION 5 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Multi-Sample VCF<br>and Joint Genotyping</h1>
+      <aside class="notes">
+        The real power of V C F comes when you work with many samples together.
+      </aside>
+    </section>
+
+    <!-- ========== 22. MSVCF ========== -->
+    <section>
+      <h2>Multi-sample VCF (msVCF)</h2>
+      <ul>
+        <li>One <strong>row</strong> per variant site</li>
+        <li>One <strong>column</strong> per sample</li>
+        <li>INFO summarises population · each sample column gives individual genotype</li>
+        <li>Same file · population and individual views simultaneously</li>
+      </ul>
+      <aside class="notes">
+        The multi-sample V C F, abbreviated m s V C F, is how we work with population data. Each variant site is one row. Each sample is one column. The I N F O field summarises population-level statistics like A C, A N, and A F. And each sample column gives that individual's genotype at that site. In a single file you have both the population view and the per-individual view. That is the fundamental data structure of modern human genetics.
+      </aside>
+    </section>
+
+    <!-- ========== 23. 3-PERSON EXAMPLE ========== -->
+    <section>
+      <h2>Three samples · one variant</h2>
+      <table>
+        <thead><tr><th>Person</th><th>Genotype</th><th>T alleles</th></tr></thead>
+        <tbody>
+          <tr><td>Alice</td><td><code>0/1</code> · heterozygous</td><td>1</td></tr>
+          <tr><td>Bob</td><td><code>1/1</code> · homozygous alt</td><td>2</td></tr>
+          <tr><td>Carol</td><td><code>0/0</code> · homozygous ref</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1em;">→ <strong>AC = 3</strong> · <strong>AN = 6</strong> · <strong>AF = 0.5</strong></p>
+      <aside class="notes">
+        Let's trace through a concrete example with three people. At a single site on chromosome one, the reference is A and we have detected a T variant. Alice has genotype zero slash one — heterozygous. She contributes one T allele. Bob is one slash one — homozygous alternate. He contributes two T alleles. Carol is zero slash zero — homozygous reference. She contributes zero T alleles. Total: three T alleles out of three people times two alleles, equals six total. So A C is three, A N is six, A F is zero point five. The same count we did by hand in Chapter twenty is now encoded in the I N F O field of one V C F line.
+      </aside>
+    </section>
+
+    <!-- ========== 24. VARIANT vs GENOTYPE ========== -->
+    <section>
+      <h2>Variant ≠ Genotype</h2>
+      <blockquote>
+        A <strong>variant</strong> is a site where an alternate allele exists in the population.<br>
+        A <strong>genotype</strong> is an individual's specific allele combination.
+      </blockquote>
+      <p style="margin-top:0.8em;">
+        One variant · many genotypes.<br>
+        Variant = population-level · genotype = individual-level.
+      </p>
+      <aside class="notes">
+        Here is a distinction that trips people up. A variant and a genotype are different concepts. A variant is a site where the reference allele and some alternate allele coexist in the population. That is a population-level statement — it exists regardless of any individual. A genotype is an individual's specific allele combination at that site. Alice, Bob, and Carol share the same variant — they all live in a population where the T allele exists. But they have three different genotypes — zero slash one, one slash one, and zero slash zero. One variant, many genotypes. Always keep the distinction clear.
+      </aside>
+    </section>
+
+    <!-- ========== 25. JOINT GENOTYPING ========== -->
+    <section>
+      <h2>Joint genotyping</h2>
+      <ul>
+        <li>Call variants across <strong>all samples simultaneously</strong></li>
+        <li>Even sites where most people are 0/0 get an explicit call</li>
+        <li>Prevents missing data from corrupting AC / AN / AF</li>
+        <li>Standard for gnomAD, UK Biobank, All of Us</li>
+      </ul>
+      <aside class="notes">
+        There is an important technical detail about how multi-sample V C Fs are built. If you call variants on each sample independently and then merge the results, you have a problem. Sites that are variant in one person but reference in another may not be recorded at all for the reference person — they might look like missing data. That would corrupt your allele frequency calculations. The solution is called joint genotyping. You call variants across all samples simultaneously, looking at reads from everyone at once, and explicitly record the genotype for every sample at every site — including the zero slash zeros. This ensures complete, consistent data. Every large-scale genomic resource — gnomAD, U K Biobank, All of Us — is built from joint genotyping.
+      </aside>
+    </section>
+
+    <!-- ========== 26. ATTENDANCE ANALOGY ========== -->
+    <section>
+      <h2>The attendance analogy</h2>
+      <div class="cols">
+        <div>
+          <h3>Without joint genotyping</h3>
+          <ul>
+            <li>Only write down who <strong>answered present</strong></li>
+            <li>Don't know who was absent</li>
+            <li>Incomplete information</li>
+          </ul>
+        </div>
+        <div>
+          <h3>With joint genotyping</h3>
+          <ul>
+            <li>Full <strong>roster</strong> of who is present or absent</li>
+            <li>Complete information</li>
+            <li>Correct AF calculations</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the mental model. Imagine you are taking attendance in a class. Without joint genotyping, you are like a teacher who only writes down the names of students who answered present when called. You do not know who was actually absent versus who just was not called on. That is incomplete information. With joint genotyping, you have a full roster, and you explicitly mark every student as present or absent. Complete information. That is what joint genotyping does for variants. Every sample gets an explicit genotype at every site — even if that genotype is zero slash zero, meaning absent from the variant.
+      </aside>
+    </section>
+
+    <!-- ========== 27. SECTION 6 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Scaling ·<br>Dense vs Sparse</h1>
+      <aside class="notes">
+        Now for the hard problem. What happens when your sample size goes from thousands to millions?
+      </aside>
+    </section>
+
+    <!-- ========== 28. THE SCALING PROBLEM ========== -->
+    <section>
+      <h2>The scaling problem</h2>
+      <ul>
+        <li>UK Biobank · sequenced <strong>~500,000</strong> people</li>
+        <li>Dense VCF: one genotype entry per sample per site</li>
+        <li>For a rare variant: <strong>499,990</strong> samples are 0/0</li>
+        <li>Storing all those 0/0s is <strong>wasteful</strong></li>
+      </ul>
+      <aside class="notes">
+        Modern sequencing projects have exploded in scale. U K Biobank has sequenced about five hundred thousand people. The All of Us programme in the U S aims for a million. When you store a dense multi-sample V C F at that scale, each row has half a million genotype columns. And here is the inefficiency. For a rare variant — which is the majority of all variants — maybe ten people are one slash one or zero slash one carriers, and the other four hundred ninety-nine thousand nine hundred ninety are zero slash zero. Writing down half a million zero slash zeros on every row is enormously wasteful.
+      </aside>
+    </section>
+
+    <!-- ========== 29. SPARSE VCF ========== -->
+    <section>
+      <h2>Sparse VCF</h2>
+      <ul>
+        <li>Store only <strong>non-reference</strong> genotypes</li>
+        <li>0/0 entries are <strong>omitted</strong>, implied from absence</li>
+        <li>Population stats (AC, AN, AF) still in INFO — no information loss</li>
+        <li>For 500k samples · rare variant stores ~10 entries, not 500,000</li>
+      </ul>
+      <aside class="notes">
+        The solution is called sparse V C F. The idea is simple. Store only the non-reference genotypes — the zero slash ones and one slash ones. Omit the zero slash zeros, and treat absence as implicit zero slash zero. For a rare variant in five hundred thousand samples, you store ten genotype entries instead of five hundred thousand. The population-level A C, A N, and A F are still stored in the I N F O field, so no information is lost. You just avoid the massive redundancy of the dense format.
+      </aside>
+    </section>
+
+    <!-- ========== 30. DENSE vs SPARSE TABLE ========== -->
+    <section>
+      <h2>Dense vs sparse · a comparison</h2>
+      <table>
+        <thead><tr><th>Aspect</th><th>Dense</th><th>Sparse</th></tr></thead>
+        <tbody>
+          <tr><td>Storage</td><td>All genotypes explicit</td><td>Only non-ref genotypes</td></tr>
+          <tr><td>File size</td><td>Very large, superlinear growth</td><td>Linear with carriers</td></tr>
+          <tr><td>Best for</td><td>10s–1000s of samples</td><td>Biobank scale (100k+)</td></tr>
+          <tr><td>Computational feasibility</td><td>Breaks at biobank scale</td><td>Enables modern genomics</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the direct comparison. Dense V C F stores every genotype explicitly and scales badly — file size grows superlinearly with sample count. It works fine for small projects with tens to thousands of samples, but it breaks at biobank scale. Sparse V C F stores only non-reference genotypes and scales linearly with the number of variant carriers. It is the only computationally feasible format at biobank scale. When you hear about gnomAD, U K Biobank, or All of Us, you are hearing about projects that depend on sparse V C F or one of its cousins.
+      </aside>
+    </section>
+
+    <!-- ========== 31. SECTION 7 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>The Future of VCF</h1>
+      <aside class="notes">
+        V C F is two decades old. And it is straining under modern data volumes. Let's look at the future.
+      </aside>
+    </section>
+
+    <!-- ========== 32. THE CHALLENGE ========== -->
+    <section>
+      <h2>The fundamental challenge</h2>
+      <ul>
+        <li>Adding new samples means <strong>updating every existing row</strong></li>
+        <li>File size grows <strong>superlinearly</strong> with sample count</li>
+        <li>gnomAD export in VCF = <strong>petabyte</strong> range</li>
+        <li>Doubling gnomAD → infeasible in standard VCF</li>
+      </ul>
+      <aside class="notes">
+        Here is the fundamental challenge. When you add new samples to a multi-sample V C F, you do not just add new rows for new variants observed in those samples. You also need to update every existing row to record that the new samples do not carry the old variants. Those updates grow the data held by all samples simultaneously. File size grows superlinearly. Exporting gnomAD to standard V C F today is in the petabyte range — that is a thousand terabytes. Doubling the size of gnomAD, which will certainly happen, would make V C F export completely infeasible. The format is hitting a wall.
+      </aside>
+    </section>
+
+    <!-- ========== 33. GA4GH ========== -->
+    <section>
+      <h2>GA4GH Future of VCF Working Group</h2>
+      <ul>
+        <li>Global Alliance for Genomics and Health · stewards the VCF standard</li>
+        <li>Future of VCF group formed <strong>2019</strong>, meets monthly</li>
+        <li>Interoperability with htsget · Beacon · CRAM / SAM / BAM</li>
+      </ul>
+      <aside class="notes">
+        The V C F standard is maintained by the Global Alliance for Genomics and Health, abbreviated G A four G H. Their Future of V C F Working Group was formed in twenty nineteen and meets monthly. They are tasked with assessing scaling solutions and making recommendations. V C F also needs to stay interoperable with related standards like h t s get, for downloading variation data from specific regions, Beacon, for querying genomic variants, and the read-level formats like C R A M, S A M, and B A M.
+      </aside>
+    </section>
+
+    <!-- ========== 34. THREE APPROACHES ========== -->
+    <section>
+      <h2>Three approaches to scaling</h2>
+      <ol>
+        <li><strong>Specification tweaks</strong> · SAV, SVCR, spVCF · keep the text format, compress smartly</li>
+        <li><strong>New binary format</strong> · engineered for large scale and targeted queries</li>
+        <li><strong>API-based hybrid</strong> · query protocol returns data in any VCF form</li>
+      </ol>
+      <aside class="notes">
+        Three broad approaches are on the table. First, specification tweaks — modifications to the V C F format itself that make it scale linearly or even sublinearly. Examples include Sparse Allele Vectors, or S A V, Scalable Variant Call Representation, or S V C R, and sparse Project V C F, or s p V C F. These keep the familiar text format but compress smartly. They are easy to adopt but depend on the community coalescing on one choice. Second, a completely new binary file format, engineered from scratch for large-scale data and targeted queries. Harder to adopt because it requires updating every library that reads or writes V C F. Third, an A P I-based hybrid — a query protocol over a backing store, returning data in whatever V C F flavour the client asks for. This third approach is considered the most promising path forward.
+      </aside>
+    </section>
+
+    <!-- ========== 35. WHY IT MATTERS ========== -->
+    <section>
+      <h2>Why this scaling effort matters</h2>
+      <ul>
+        <li>Enables <strong>reuse</strong> of large population-genomics datasets</li>
+        <li>Supports <strong>virtual cohorts</strong> — combining studies to gain statistical power</li>
+        <li>Especially valuable for <strong>rare disease</strong> research</li>
+      </ul>
+      <aside class="notes">
+        Why does this scaling effort matter? Because success enables the reuse of large population genomics datasets. The method of virtual cohorts — combining data from multiple separate studies to gain statistical power — particularly depends on V C F scaling. This matters most for rare disease research, where any single study has too few cases and the only route to discovery is pooling across many cohorts. The V C F scaling problem is therefore a central bottleneck for the next decade of medical genetics.
+      </aside>
+    </section>
+
+    <!-- ========== 36. SECTION 8 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Why VCF Matters</h1>
+      <aside class="notes">
+        Let's end by asking, stepping back, why V C F matters at all.
+      </aside>
+    </section>
+
+    <!-- ========== 37. BEFORE VCF ========== -->
+    <section>
+      <h2>Before VCF · the wild west</h2>
+      <ul>
+        <li>Every lab used its <strong>own format</strong></li>
+        <li>Cross-study comparison was a nightmare</li>
+        <li>Custom converters for every pair of tools</li>
+        <li>Reproducibility was hard</li>
+      </ul>
+      <aside class="notes">
+        Before V C F, variant data lived in the wild west. Every laboratory used its own format. Every analysis tool expected a different input. Comparing data across studies was a nightmare. You had to write custom converters for every pair of tools. Reproducibility was extremely difficult. This was the state of the field roughly until twenty ten.
+      </aside>
+    </section>
+
+    <!-- ========== 38. AFTER VCF ========== -->
+    <section>
+      <h2>After VCF · the universal standard</h2>
+      <ul>
+        <li>Directly compare variants across <strong>labs and technologies</strong></li>
+        <li>gnomAD, ClinVar, dbSNP distribute in VCF</li>
+        <li>Clinical reporting · research · everything</li>
+        <li>The same format scales from one exome to one million genomes</li>
+      </ul>
+      <aside class="notes">
+        After V C F, the landscape changed completely. A variant called in one laboratory can be directly compared to variants from another laboratory, even if they used different sequencing technologies or different variant callers. Major databases like gnomAD, ClinVar, and d b S N P distribute their data in V C F. Clinical diagnostic labs use V C F to report results to physicians. Every major analysis tool accepts V C F as input. And the same format that works for a single exome scales, with the right extensions, to millions of genomes. Universal standards have real value.
+      </aside>
+    </section>
+
+    <!-- ========== 39. SECTION 9 · SUMMARY ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 9</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up with the core takeaways.
+      </aside>
+    </section>
+
+    <!-- ========== 40. TAKEAWAYS ========== -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Pipeline: reads → BAM → <strong>VCF</strong></li>
+        <li>VCF = plain text · nine core columns · one line per variant</li>
+        <li>INFO: AC · AN · AF — population-level statistics</li>
+        <li>FORMAT + GT: <code>0/0</code> · <code>0/1</code> · <code>1/1</code> · <code>./.</code></li>
+        <li>Joint genotyping = complete data across all samples</li>
+        <li>Sparse VCF = future-proof scaling to biobank size</li>
+      </ul>
+      <aside class="notes">
+        Six things to remember. One. The pipeline from sequencing machine to V C F goes reads, then B A M or C R A M, then V C F. Two. V C F is a plain text file with nine core columns and one line per variant. Three. The I N F O field carries population-level statistics — A C, A N, and A F. Four. The F O R M A T field plus the G T field encode individual genotypes — zero slash zero, zero slash one, one slash one, and dot slash dot for missing. Five. Joint genotyping ensures complete and consistent data across all samples. And six. Sparse V C F formats are what make biobank-scale genomics computationally feasible.
+      </aside>
+    </section>
+
+    <!-- ========== 41. WHY MATTERS CLOSE ========== -->
+    <section>
+      <h2>The bigger picture</h2>
+      <blockquote style="font-size:1.05em;">
+        VCF is how genomes become data — how biological molecules become numbers that computers can analyse, compare, and share.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>From a single A→T change</li>
+        <li>…to biobanks with millions of variants across hundreds of thousands of people</li>
+        <li>Encoded as <code>0/0</code>, <code>0/1</code>, <code>1/1</code></li>
+      </ul>
+      <aside class="notes">
+        The bigger picture is this. V C F is how genomes become data — how biological molecules, physical D N A in cells, become numbers that computers can process, compare, and share. From a single A to T change in one person's genome, to biobank datasets containing millions of variants across hundreds of thousands of people. All encoded in the same compact digital language of zero slash zero, zero slash one, and one slash one. That is the achievement of V C F.
+      </aside>
+    </section>
+
+    <!-- ========== 42. PART IV WRAP ========== -->
+    <section>
+      <div class="cue">End of Part IV</div>
+      <h1 style="font-size:1.9em; line-height:1.1;">
+        Allele frequency · population structure ·<br>
+        linkage · recombination · <span style="color:var(--terracotta-deep);">VCF</span>
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Next: Part V · Functional Genetics
+      </p>
+      <aside class="notes">
+        This is also the end of Part Four, Population Genetics. Let me summarise the arc of the whole part. Chapter twenty taught us allele frequency — the fundamental statistic of population genetics. Chapter twenty-one showed why the same variant can have different frequencies in different populations, and introduced the concept of population structure. Chapter twenty-two traced the history from Mendel to Morgan, and showed how linkage was discovered. Chapter twenty-three dove into the modern understanding of recombination, including non-cross-overs, hotspots, and haplotypes. And today, chapter twenty-four, closed the loop by showing how all this information is encoded in V C F files. You now have the full conceptual and computational toolkit of population genetics. In Part Five, we move into functional genetics — how individual genes are studied, edited, and engineered. See you then.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>
