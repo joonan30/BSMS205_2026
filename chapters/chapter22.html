@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 22 · From Mendel to Morgan — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>From Mendel to Morgan</h1>
+      <div class="chapter-num">Chapter 22 · The Discovery of Linkage</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-two, From Mendel to Morgan, The Discovery of Linkage. In the previous chapter we talked about why the same variant can have different frequencies in different populations. Today we turn to a different question: on a single chromosome, which variants travel together? The answer starts with Mendel and a rule he thought was universal. And it ends with a young undergraduate who, in one night, invented modern genetic mapping.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:2.1em; line-height:1.1;">
+        When are two variants<br>
+        <span style="color:var(--terracotta-deep)">inherited together</span>,<br>
+        and when are they separated?
+      </h1>
+      <aside class="notes">
+        Here is the question. You have two variants at two different places in the genome. When does an offspring inherit both together, as a pair? When are they separated? Mendel said the answer is simple — they always separate independently. Morgan discovered the answer is much more interesting. And understanding it gives us a tool for locating genes, even when we cannot see them.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Mendel's second law</h2>
+      <blockquote>
+        <strong>Independent assortment</strong>: different gene pairs segregate <strong>independently</strong> during gamete formation.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Predicts the classic <strong>9 : 3 : 3 : 1</strong> ratio in F<sub>2</sub></li>
+        <li>Round yellow × wrinkled green → predictable distribution</li>
+      </ul>
+      <aside class="notes">
+        Let's start where Mendel left us. His second law, the law of independent assortment, says that different gene pairs segregate independently during gamete formation. The famous consequence is the nine to three to three to one ratio in the F two generation when you cross two dihybrids. If you cross round yellow peas with wrinkled green peas, the F two generation shows nine round yellow, three round green, three wrinkled yellow, and one wrinkled green. The seed shape and the seed colour act as if they do not know about each other. That was Mendel's claim.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>Mendel got lucky</h2>
+      <ul>
+        <li>Peas have <strong>seven</strong> chromosome pairs</li>
+        <li>The seven traits Mendel picked were on <strong>different chromosomes</strong></li>
+        <li>So they <em>really did</em> assort independently</li>
+        <li>If he had picked two traits on the <strong>same chromosome</strong>…</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        …he would have found something entirely new.
+      </blockquote>
+      <aside class="notes">
+        Here is the historical footnote that most people miss. Mendel studied seven traits in peas. Peas happen to have seven pairs of chromosomes. And the seven traits Mendel happened to pick each sit on a different chromosome. That is why independent assortment worked perfectly for him. If he had chosen two traits on the same chromosome, he would have seen very different ratios, and the history of genetics would have taken a different path. Mendel's universal rule was an artefact of his trait selection.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Why independent assortment happens</h2>
+      <ul>
+        <li>During <strong>meiosis I</strong>, homologous chromosome pairs line up at the equator</li>
+        <li>Which member of each pair goes to which pole: <strong>random</strong></li>
+        <li>Genes on <strong>different chromosomes</strong> shuffle independently</li>
+        <li>But genes on the <strong>same chromosome</strong>?</li>
+      </ul>
+      <aside class="notes">
+        Why does independent assortment happen for genes on different chromosomes? Because of how chromosomes behave during meiosis one. When a cell makes eggs or sperm, homologous chromosome pairs line up at the cell's equator, and then each pair is pulled apart. Which member of each pair goes to which pole is completely random. So chromosome one from your mother might go to one pole, while chromosome two from your father also goes to that pole, or to the other. The combinations shuffle randomly, and so genes on different chromosomes end up independently assorted. The interesting question is: what happens for genes on the same chromosome? If they sit on the same physical DNA molecule, shouldn't they travel together?
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Early clues · 1906 sweet peas</li>
+        <li>Morgan's fly room · the white-eyed male</li>
+        <li>Discovery of linkage</li>
+        <li>Sturtevant · the first genetic map</li>
+        <li>The mechanism · crossing over</li>
+        <li>Linkage in humans</li>
+      </ol>
+      <aside class="notes">
+        Here is how the story unfolds. First, early clues in nineteen oh-six with sweet peas. Second, Morgan's fly room at Columbia and the discovery of the first X-linked gene. Third, the discovery of linkage itself. Fourth, Sturtevant's insight turning recombination into a ruler — the first genetic map. Fifth, what is physically happening during meiosis to produce recombination. And sixth, how all of this applies to humans, and how it was used to map disease genes before the Human Genome Project. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · EARLY CLUES
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Early Clues ·<br>Sweet Peas, 1906</h1>
+      <aside class="notes">
+        Let's begin with the first observations that broke Mendel's second law.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Sweet peas · two traits that refused to separate</h2>
+      <ul>
+        <li>Bateson &amp; Punnett in the UK · <strong>sweet peas</strong></li>
+        <li>Flower colour × pollen shape → expected <strong>9:3:3:1</strong></li>
+        <li>Observed: <strong>purple + long</strong> and <strong>red + round</strong> dominated</li>
+        <li>Traits were <strong>traveling together</strong></li>
+      </ul>
+      <aside class="notes">
+        In nineteen oh-six, two British geneticists, Bateson and Punnett, were studying sweet peas. They were looking at two traits: flower colour, purple versus red, and pollen shape, long versus round. If Mendel's law of independent assortment held, the F two generation should have shown the classic nine to three to three to one ratio. But it did not. Instead, the parental combinations dominated. When the purple flower allele showed up, it usually brought the long pollen allele with it. When the red flower allele appeared, it usually brought the round pollen allele. The four possible combinations were not appearing in equal proportions. The traits were traveling together.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Coupling and repulsion</h2>
+      <div class="cols">
+        <div>
+          <h3>Coupling</h3>
+          <ul>
+            <li>Traits inherited <strong>together</strong> more than expected</li>
+            <li>Purple + long pollen</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Repulsion</h3>
+          <ul>
+            <li>Traits separate <strong>more often</strong> than expected</li>
+            <li>No good explanation yet</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.8em;">
+        They knew it was an exception. They could not yet explain it.
+      </blockquote>
+      <aside class="notes">
+        Bateson and Punnett coined two terms for what they observed. Coupling referred to traits that were inherited together more often than expected. Repulsion was the opposite — traits that separated more often than you would predict from chance. They documented the pattern rigorously, but they could not explain the mechanism. They knew they had found an exception to Mendel's law. They did not yet know why. The answer would require several more years of work — and an understanding of chromosomes that did not yet exist.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>What they had actually discovered</h2>
+      <blockquote>
+        Some genes are <strong>physically connected</strong> — on the same chromosome — so they tend to travel together in inheritance.
+      </blockquote>
+      <p style="margin-top:0.6em;">But in 1906, no one understood chromosomes well enough to say this.</p>
+      <aside class="notes">
+        In hindsight, what Bateson and Punnett had discovered was the physical reality of genes. Some genes are physically connected, because they lie on the same chromosome. A chromosome is a single DNA molecule. Genes on the same chromosome have no choice but to travel together when that chromosome is pulled into a gamete — except when something special happens to separate them. But in nineteen oh-six, nobody understood chromosomes well enough to make that connection. The answer required the arrival of Thomas Hunt Morgan and his fruit flies.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · MORGAN'S FLY ROOM
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Morgan's Fly Room ·<br>1910, Columbia</h1>
+      <aside class="notes">
+        Let's walk into Morgan's fly room, one of the most famous rooms in the history of biology.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>A skeptic turns to flies</h2>
+      <ul>
+        <li>Thomas Hunt Morgan · embryologist at Columbia</li>
+        <li>Initially <strong>doubted</strong> chromosomes had a role in heredity</li>
+        <li>Started breeding <em>Drosophila melanogaster</em> in milk bottles</li>
+        <li>The cramped lab became legendary — <strong>the Fly Room</strong></li>
+      </ul>
+      <aside class="notes">
+        The protagonist is Thomas Hunt Morgan, an embryologist at Columbia University. Morgan was initially a skeptic. He was not convinced that chromosomes had anything to do with heredity. To test the idea, he started breeding fruit flies — Drosophila melanogaster — in milk bottles in a cramped laboratory that came to be known as The Fly Room. Morgan chose fruit flies for practical reasons. They breed fast — a new generation every two weeks. They produce hundreds of offspring per cross. And they are cheap to maintain. These practical advantages turned out to matter enormously.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>A single white-eyed male · 1910</h2>
+      <ul>
+        <li>Among thousands of <strong>red-eyed</strong> flies · one male with <strong>white eyes</strong></li>
+        <li>A spontaneous <strong>mutation</strong> — never seen before in the stock</li>
+        <li>Morgan immediately recognised its value</li>
+        <li>Bred with normal red-eyed females</li>
+      </ul>
+      <aside class="notes">
+        In nineteen ten, something extraordinary turned up in the fly room. Among thousands of normal red-eyed flies, one single male appeared with white eyes. This was a spontaneous mutation — a new variant that had never been observed in the fly stock before. Morgan recognised its significance immediately. A new heritable trait that breeds true could be used as a marker to track inheritance. He crossed this white-eyed male with normal red-eyed females and began watching the offspring carefully.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>The unexpected F<sub>2</sub> pattern</h2>
+      <ul>
+        <li><strong>F<sub>1</sub></strong>: all red-eyed — red is dominant, Mendel works so far</li>
+        <li><strong>F<sub>2</sub></strong>: half of the <strong>males</strong> have white eyes</li>
+        <li><strong>F<sub>2</sub></strong>: <em>no</em> females have white eyes</li>
+        <li>This was not a 3:1 ratio. It was <strong>tied to sex</strong>.</li>
+      </ul>
+      <aside class="notes">
+        Here is what Morgan saw. The F one generation was straightforward — all offspring had red eyes. That fits Mendel. Red is dominant. But the F two generation broke the pattern. About half the males had white eyes, and zero females had white eyes. This was not a three to one ratio. It was something new — something tied to sex. Why would a single gene show different behaviour in males versus females? Morgan had to explain that.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>The X-chromosome explanation</h2>
+      <ul>
+        <li>Females: <strong>XX</strong> · Males: <strong>XY</strong></li>
+        <li>Hypothesis: the eye-colour gene sits on the <strong>X chromosome</strong></li>
+        <li>Males have only <strong>one X</strong> — no second copy to mask the white allele</li>
+        <li>F<sub>2</sub> males carrying the white X → white eyes</li>
+      </ul>
+      <aside class="notes">
+        Morgan's explanation was elegant and immediately testable. Females have two X chromosomes. Males have one X and one Y. If the eye-colour gene sits on the X chromosome, the pattern falls into place. The original white-eyed male had the white allele on his single X. The F one females inherited one white X from their father and one red X from their mother — they looked red because red is dominant. The F one males inherited their mother's red X and their father's Y — so all F one males were red. Then in the F two generation, some males inherited the white X from their F one mothers. With only one X and no way to mask the recessive white allele, those males appeared white-eyed. Every detail of the observed pattern was now explained.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Morgan 1910 · a gene lives on a chromosome</h2>
+      <figure>
+        <img src="../assets/figures/Morgan1910-Science-PostscriptDiagram.png" alt="Morgan 1910 Science X-linked inheritance diagram" style="max-height:380px;">
+        <figcaption>
+          Morgan's original 1910 diagram · X-linked inheritance of the white-eye mutation in <em>Drosophila</em>.<br>
+          First experimental proof that a specific gene lives on a specific chromosome.
+          Source: Morgan 1910, <em>Science</em> · public domain.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is Morgan's original nineteen ten figure. It traces the inheritance of the white-eye allele through three generations. Look carefully — you can see red-eyed and white-eyed parents in the P generation, all red offspring in the F one generation, and then in F two the split between red females, red males, and white males. But only males are white. This single experiment showed for the first time that a specific gene lives on a specific chromosome — the X. This was a revolution. Before this, Mendel's factors were abstract entities. After this, genes were physical things with physical addresses on physical chromosomes. Chromosomal genetics had begun.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · DISCOVERY OF LINKAGE
+         ==================================================== -->
+
+    <!-- Slide 17 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Discovery of Linkage</h1>
+      <aside class="notes">
+        Once one X-linked gene was found, the fly room found more. And when they crossed flies differing in two X-linked traits at once, something fascinating emerged.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Two X-linked traits at once</h2>
+      <ul>
+        <li>Parents: <strong>red eyes · normal wings</strong> × <strong>white eyes · miniature wings</strong></li>
+        <li>Expected (Mendel): four combinations, equal frequencies</li>
+        <li>Observed: <strong>parental combinations dominate</strong></li>
+        <li>Red + normal and white + miniature → overrepresented</li>
+        <li>Red + miniature and white + normal → rare</li>
+      </ul>
+      <aside class="notes">
+        More X-linked genes were discovered — genes for wing shape, body colour, and other traits. Morgan's group then crossed flies that differed in two X-linked traits at the same time. For example, red eyes with normal wings crossed with white eyes with miniature wings. If Mendel's second law held, the four possible combinations in the offspring should appear in equal frequencies. But they did not. The parental combinations — red with normal, and white with miniature — dominated. The recombinant types — red with miniature, and white with normal — were rare. The traits were clearly linked.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Linkage · the physical explanation</h2>
+      <blockquote>
+        Genes on the same chromosome are <strong>physically connected</strong>.<br>
+        During meiosis, linked genes travel together.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Like passengers on the same bus</li>
+        <li>They generally arrive at the same destination</li>
+        <li>But occasionally, something breaks the linkage…</li>
+      </ul>
+      <aside class="notes">
+        The explanation Morgan proposed was beautifully physical. Genes on the same chromosome are literally part of the same DNA molecule. During meiosis, when chromosomes line up and then segregate, linked genes travel together. You can think of them as passengers on the same bus. Unless something special happens, they arrive at the same stop. This was the concept of genetic linkage. But there is a key word in that sentence. Unless. Because sometimes the linkage does get broken — and what breaks it is one of the most beautiful phenomena in genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>The key insight · crossing over</h2>
+      <ul>
+        <li>During meiosis, homologous chromosomes <strong>physically exchange</strong> DNA segments</li>
+        <li>Two trains running parallel · they swap cars</li>
+        <li>A crossover <strong>between</strong> two linked genes breaks the linkage</li>
+        <li>This creates <strong>recombinant</strong> offspring</li>
+      </ul>
+      <aside class="notes">
+        The mechanism that breaks linkage is called crossing over. During meiosis, homologous chromosomes pair up and physically exchange segments of DNA. Imagine two trains running parallel to each other, briefly touching, and swapping a few cars. When a crossover lands between two linked genes, it separates them. An allele that started on one chromosome ends up on the other. This is what creates recombinant offspring — offspring with new combinations of parental alleles that were not present in either parent's original genotype. Morgan proposed this mechanism, and the rate of recombinant offspring was the experimental evidence.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>The crucial observation</h2>
+      <blockquote style="font-size:1.1em;">
+        The closer two genes are on a chromosome,<br>
+        the <strong>less likely</strong> a crossover will land between them.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Adjacent genes → almost always stay linked</li>
+        <li>Distant genes → separated more often</li>
+        <li>Distance is proportional to recombination frequency</li>
+      </ul>
+      <aside class="notes">
+        Here is the observation that changed everything. The closer two genes are on a chromosome, the less likely a crossover will land between them. Genes that are right next to each other almost never recombine — their alleles almost always stay linked. Genes that are far apart experience more crossovers between them and recombine more often. In other words, physical distance on the chromosome is proportional to recombination frequency. This simple relationship is about to become the foundation of an entire new field of science.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · STURTEVANT'S MAP
+         ==================================================== -->
+
+    <!-- Slide 22 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Sturtevant's Insight ·<br>The First Genetic Map</h1>
+      <aside class="notes">
+        And now for my favourite moment in the history of genetics. An undergraduate student, one night in nineteen eleven, turned recombination into a ruler.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>One undergraduate, one night, 1911</h2>
+      <blockquote>
+        "Recombination frequency can <strong>measure distance</strong>."
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Alfred Sturtevant · undergraduate in Morgan's lab</li>
+        <li>Went home with the data</li>
+        <li>By morning · <strong>the first genetic linkage map</strong></li>
+      </ul>
+      <aside class="notes">
+        Alfred Sturtevant was an undergraduate in Morgan's laboratory. He was listening to the discussions about linkage and recombination frequencies when an idea struck him. If recombination frequency is proportional to physical distance, then you could use recombination as a ruler. You could measure the distances between genes. You could build a map. Sturtevant took the data home with him that night. He worked through it. And by morning, he had constructed the very first genetic linkage map in human history. It showed six sex-linked genes on the Drosophila X chromosome, in their linear order, with distances between them.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>The unit: centiMorgan</h2>
+      <blockquote style="font-size:1.2em; text-align:center;">
+        1% recombination = <strong>1 centiMorgan (cM)</strong>
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Defined by Sturtevant, later named after Morgan</li>
+        <li>A <strong>genetic</strong> unit of distance — not a physical one</li>
+        <li>Still in universal use today</li>
+      </ul>
+      <aside class="notes">
+        Sturtevant defined the unit of genetic distance. One percent recombination equals one map unit, which was later named the centiMorgan in honour of his mentor. Note that the centiMorgan is a genetic unit, not a physical unit. It is measured by how often two loci recombine, not by how many base pairs separate them on the DNA. The relationship between genetic and physical distance is not uniform across the genome — some regions are hotspots for recombination, others are cold — but the centiMorgan has remained the workhorse unit of genetic mapping for more than a hundred years.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>How to infer gene order</h2>
+      <ul>
+        <li>Genes A and B: <strong>10% recombination</strong> → 10 cM apart</li>
+        <li>Genes B and C: <strong>5% recombination</strong> → 5 cM apart</li>
+        <li>Genes A and C: <strong>~15% recombination</strong> → consistent with A–B–C order</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        Gene order: <strong>A &mdash; B &mdash; C</strong>
+      </blockquote>
+      <aside class="notes">
+        Here is how you build a map. Suppose you are studying three genes, A, B, and C, all on the same chromosome. You cross flies and count recombinants for each pair. You find that A and B recombine at ten percent, so they are ten centiMorgans apart. B and C recombine at five percent, so they are five centiMorgans apart. Then you check A and C. If B is between A and C, then the distance from A to C should be roughly the sum, fifteen percent. When you do the experiment, that is what you find. The consistency of pairwise distances determines the linear order: A, then B, then C. This is how Sturtevant reconstructed the order of six genes on the X chromosome in a single night.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Sturtevant 1913 · the first genetic map</h2>
+      <figure>
+        <img src="../assets/figures/Sturtevant1913-JExpZool-Diagram1.png" alt="Sturtevant 1913 first genetic linkage map" style="max-height:320px; background:white; padding:10px;">
+        <figcaption>
+          Six sex-linked genes on the <em>Drosophila</em> X chromosome · distances in map units.<br>
+          First proof that genes are arranged <strong>linearly</strong> on chromosomes, like beads on a string.
+          Sturtevant 1913, <em>J. Exp. Zool.</em> · public domain.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is Sturtevant's original nineteen thirteen figure, showing the first genetic linkage map. Six sex-linked genes on the Drosophila X chromosome, arranged in their linear order, with distances labelled in map units. Look at the positions zero, one, thirty point seven, thirty-three point seven, and fifty-seven point six. Notice that two genes, C and O, are placed at the same position — because they showed complete linkage and no recombination could be detected between them in thousands of flies. This figure proved three things at once. Genes are arranged linearly along the chromosome. Recombination frequency reflects physical distance. And you can map genes without ever seeing them under a microscope. You just need to count offspring.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · THE MECHANISM
+         ==================================================== -->
+
+    <!-- Slide 27 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>How Crossing<br>Over Works</h1>
+      <aside class="notes">
+        Let's now zoom in on the physical mechanism of crossing over.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Meiosis I · homologues pair up</h2>
+      <ul>
+        <li>Each chromosome has already <strong>replicated</strong> → two sister chromatids</li>
+        <li>Homologous pairs align <strong>side by side</strong></li>
+        <li>At various points they physically touch → <strong>chiasmata</strong></li>
+        <li>Non-sister chromatids exchange DNA segments</li>
+      </ul>
+      <aside class="notes">
+        Crossing over happens during meiosis one. At this stage, each chromosome has already replicated, so it consists of two sister chromatids joined at the centromere. Homologous chromosomes then pair up side by side, forming what is called a bivalent. At various points along their length, the chromosomes physically touch. These contact points are called chiasmata — singular chiasma. At each chiasma, non-sister chromatids, one from the maternal chromosome and one from the paternal chromosome, exchange DNA segments. This is the physical event of crossing over. It is not a metaphor. The DNA is literally cut and rejoined.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The crossover · visualised</h2>
+      <figure>
+        <img src="../assets/figures/512px-Chromosomal_Crossover.png" alt="Chromosomal crossover diagram" style="max-height:340px;">
+        <figcaption>
+          Two homologous chromosomes (blue, red), each with two sister chromatids, exchange segments at a chiasma.<br>
+          Result: two parental + two <strong>recombinant</strong> chromatids per crossover.
+          Source: Wikimedia Commons · CC BY-SA 3.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the crossover visualised. The blue chromosome and the red chromosome are homologous — they carry the same genes, but different alleles. Each is already duplicated into two sister chromatids. They pair up. At the crossover point, one chromatid from each homologue exchanges a segment with the other. After the crossover, four chromatids exist. Two are parental — entirely blue or entirely red. Two are recombinant — part blue, part red. These four chromatids are packaged into four different gametes. If two genes sit on opposite sides of the crossover point, they end up in different gametes.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Two endpoints of the spectrum</h2>
+      <div class="cols">
+        <div>
+          <h3>Very close genes</h3>
+          <div class="bignum" style="font-size:3em;">~0%</div>
+          <ul>
+            <li>Tightly linked</li>
+            <li>Almost always together</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Distant / different chromosomes</h3>
+          <div class="bignum" style="font-size:3em;">50%</div>
+          <ul>
+            <li>Independent assortment</li>
+            <li>Back to Mendel</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two endpoints anchor the recombination spectrum. At one end, genes that are very close on the same chromosome. Crossovers between them are so rare that the recombination frequency approaches zero. These genes are said to be tightly linked and are almost always inherited together. At the other end, genes that are far apart on the same chromosome, or on completely different chromosomes. These recombine at approximately fifty percent. That is the ceiling. No matter how far apart two genes are, recombination frequency cannot exceed fifty percent, because at fifty percent they are assorting independently — which is exactly what Mendel observed. So Mendel's second law holds, but only as a special case at the high end of the distance spectrum.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Linkage group = one chromosome</h2>
+      <ul>
+        <li>Every chromosome defines a <strong>linkage group</strong></li>
+        <li>All the genes on it tend to be inherited together</li>
+        <li>Humans have <strong>23 linkage groups</strong> — 22 autosomes + X</li>
+      </ul>
+      <aside class="notes">
+        A related concept: the linkage group. Every chromosome defines one linkage group — the set of all genes physically connected on that chromosome. The genes in a linkage group tend to be inherited together, with deviations from that rule caused by crossing over. Humans have twenty-three linkage groups — twenty-two autosomes plus the X chromosome. Each linkage group is a separate physical domain of inheritance.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Double crossovers and interference</h2>
+      <ul>
+        <li>Two crossovers in the same region → can <strong>cancel each other out</strong></li>
+        <li>A–B–C · crossover in A–B <strong>and</strong> another in B–C → A and C appear unrecombined</li>
+        <li><strong>Interference</strong>: one crossover suppresses another nearby</li>
+        <li>Long-distance recombination is <strong>less than</strong> sum of short-distance parts</li>
+      </ul>
+      <aside class="notes">
+        One final complication. Sometimes two crossovers happen in the same chromosome region. If a crossover occurs between genes A and B, and another occurs between genes B and C, the two events can effectively cancel each other out — A and C end up together again, even though two exchanges actually happened. Sturtevant also discovered that crossovers are not independent of each other. One crossover makes another nearby crossover less likely. This is called interference. It is as if the chromosome, once cut and repaired at one spot, resists being cut again nearby. The practical consequence is that long-distance recombination frequencies are always less than the simple sum of the short-distance recombination frequencies in between. Linear additivity only works over short ranges.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · LINKAGE IN HUMANS
+         ==================================================== -->
+
+    <!-- Slide 33 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Linkage in Humans</h1>
+      <aside class="notes">
+        All of this was discovered in flies. How did it come to apply to humans?
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>No crosses, only families</h2>
+      <ul>
+        <li>We cannot do controlled crosses with people</li>
+        <li>Geneticists studied <strong>families</strong> and tracked co-inheritance patterns</li>
+        <li>1930s · <strong>nail-patella syndrome</strong> linked with <strong>ABO blood group</strong></li>
+        <li>Same chromosome — chromosome 9</li>
+      </ul>
+      <aside class="notes">
+        With humans, we cannot do controlled crosses for obvious ethical reasons. So geneticists had to work with families. You would track which alleles at various markers were inherited along with a disease, and then infer which regions of the genome were involved. One early success came in the nineteen thirties. Researchers noticed that nail-patella syndrome, a disorder affecting fingernails and kneecaps, was co-inherited with the A B O blood group more often than you would expect by chance. This was one of the first demonstrations of linkage in humans. Both loci turned out to be on chromosome nine.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Building the human linkage map</h2>
+      <ul>
+        <li>Markers: blood groups → proteins → microsatellites → <strong>SNPs</strong></li>
+        <li>Each generation of markers: <strong>denser maps</strong></li>
+        <li>By the 1990s · maps dense enough to locate disease genes</li>
+      </ul>
+      <aside class="notes">
+        Over the twentieth century, the density of human genetic markers kept increasing. In the early years it was blood groups, then protein polymorphisms, then microsatellites — short repetitive DNA sequences with variable lengths — and finally single-nucleotide polymorphisms, or S N Ps. Each generation of markers allowed denser linkage maps. By the nineteen nineties, the maps were dense enough to locate disease genes across the genome.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Linkage mapping · finding disease genes</h2>
+      <ul>
+        <li>Disease runs in a family · causal gene unknown</li>
+        <li>Check every marker: which one co-segregates with the disease?</li>
+        <li>Gene is <strong>close</strong> to that marker</li>
+        <li>Search narrows from 3 billion bp → a few million bp</li>
+      </ul>
+      <p style="margin-top:0.6em; font-size:0.9em;">
+        Successes: cystic fibrosis (chr 7) · Huntington's disease (chr 4)
+      </p>
+      <aside class="notes">
+        The logic of linkage mapping for disease genes is simple. A disease runs in a family. You do not know which gene causes it. You have a panel of genetic markers scattered across the genome. For each marker, you ask: is this marker inherited along with the disease more often than expected by chance? If yes, the disease gene must be on the same chromosome, close to that marker. You have narrowed your search from the entire three billion base pair genome to a chromosomal region of perhaps a few million base pairs. Before the Human Genome Project, linkage mapping was one of the only ways to find disease genes. Its biggest successes include cystic fibrosis, mapped to chromosome seven, and Huntington's disease, mapped to chromosome four. These discoveries transformed medical genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>From flies to genomes · same logic</h2>
+      <ul>
+        <li>Today: <strong>whole-genome</strong> genotyping and sequencing</li>
+        <li>Millions of SNPs · hundreds of thousands of people</li>
+        <li>Modern maps: <strong>recombination hotspots</strong>, haplotype blocks, LD</li>
+        <li>Underlying logic: <strong>unchanged</strong> since Sturtevant 1913</li>
+      </ul>
+      <aside class="notes">
+        Today we do not cross flies and count offspring. We sequence entire genomes and directly observe which DNA segments are inherited together across thousands of people. Modern recombination maps are built from millions of S N Ps genotyped in large populations. We can identify recombination hotspots — narrow regions where most crossovers happen. We can build haplotype maps — the blocks of correlated variants inherited as units. And we can study linkage disequilibrium, the statistical association between alleles at different loci, which reflects both recombination history and population history. But the underlying logic is exactly the same as Sturtevant's in nineteen thirteen. Physically close variants travel together. Distant variants separate. Recombination is the ruler.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 38 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up with the core takeaways.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Mendel's second law breaks for genes on the <strong>same chromosome</strong></li>
+        <li>Morgan 1910 · genes are physical · located on chromosomes</li>
+        <li><strong>Crossing over</strong> during meiosis breaks linkage and makes recombinants</li>
+        <li>Recombination frequency = <strong>genetic distance</strong> (1% = 1 cM)</li>
+        <li>Sturtevant 1913 · the first genetic map · still the template</li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One. Mendel's second law, independent assortment, breaks down for genes on the same chromosome. Linked genes tend to be inherited together. Two. Morgan's nineteen ten experiment with the white-eyed male fly showed that genes are physical entities with specific chromosomal locations. Genetics became chromosomal. Three. Crossing over during meiosis is the physical mechanism that breaks linkage and creates recombinant offspring. Chiasmata between non-sister chromatids. Four. Recombination frequency measures genetic distance, with one percent equalling one centiMorgan. This is the ruler that built the first century of genetic maps. Five. Sturtevant's nineteen thirteen map of the fly X chromosome remains the template for every genetic map since, from flies to humans to every species we study today.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>Why this matters · still</h2>
+      <ul>
+        <li><strong>Disease gene mapping</strong> — cystic fibrosis, Huntington's, thousands more</li>
+        <li><strong>Haplotype blocks</strong> — the basis of imputation in modern GWAS</li>
+        <li><strong>Linkage disequilibrium</strong> — statistical correlation of nearby variants</li>
+        <li>Every modern population genetics paper rests on these 1910–1913 discoveries</li>
+      </ul>
+      <aside class="notes">
+        Why does any of this still matter in the era of whole-genome sequencing? Four reasons. First, disease gene mapping built the foundation of medical genetics, and the logic is still used today for rare disorders. Second, haplotype blocks — regions of the genome inherited as units because of low internal recombination — are the basis of imputation, the statistical technique that lets us predict unmeasured genotypes from measured ones. Without imputation, modern G W A S would not exist. Third, linkage disequilibrium, the statistical correlation of nearby variants, is the key object of population genetics and association testing. And fourth, every modern paper in human population genetics implicitly rests on the nineteen ten to nineteen thirteen discoveries. Morgan showed genes are physical. Sturtevant showed distance can be measured. Everything else in this field builds on those two insights.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        From linkage to <span style="color:var(--terracotta-deep)">haplotypes</span><br>
+        and <span style="color:var(--terracotta-deep)">recombination hotspots</span>
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 23 · <strong>Recombination, Linkage, and Haplotype</strong>
+      </p>
+      <aside class="notes">
+        Where do we go from here? Morgan and Sturtevant gave us the foundation. But the modern story has more structure. Recombination does not happen uniformly along the chromosome — there are hotspots and coldspots. Blocks of tightly linked variants form haplotypes that behave like single units in the population. Linkage disequilibrium has a decay pattern that records demographic history. Chapter twenty-three, Recombination, Linkage, and Haplotype, picks up exactly there. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>
