@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 20 · Allele Frequency — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Allele Frequency</h1>
+      <div class="chapter-num">Chapter 20 · Part IV · Population Genetics</div>
+      <aside class="notes">
+        Welcome to Chapter twenty, Allele Frequency. This is the first chapter of Part Four, Population Genetics. Before the midterm we looked at single individuals and their genomes. From now on, we will look at groups of people, and how variants behave when we zoom out from one person to thousands or even hundreds of thousands. Allele frequency is the single most important concept in this new territory, so let's take our time with it.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:2.8em; line-height:1.05; margin-top:0.2em;">
+        Rare<br>or<br><span style="color:var(--terracotta-deep)">common?</span>
+      </h1>
+      <aside class="notes">
+        Here is a simple question that turns out to be surprisingly deep. When you find a genetic variant in someone, is that variant rare, or is it common? Rare and common are just two English words, but the answer changes everything downstream. It changes whether we call the variant pathogenic or benign, how we design studies, and what story we tell about evolution. So for the next forty minutes, we will treat this as the central question of the day.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>One genome tells you almost nothing</h2>
+      <ul>
+        <li>A harmless polymorphism in <strong>millions</strong> of people?</li>
+        <li>A brand-new disease mutation in <strong>this one person</strong>?</li>
+        <li>Somewhere in between?</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        From a single genome, you cannot tell.
+      </blockquote>
+      <aside class="notes">
+        Suppose I hand you one person's genome sequence, and you spot a variant that is not in the reference. What does that tell you? Honestly, not very much. It could be a completely harmless polymorphism that millions of people carry. It could be a disease-causing mutation that arose in this one person. Or it could be something in between. From a single genome, in isolation, you simply cannot tell. The information you need is not in the individual. It is in the population.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>Meaning lives in the population</h2>
+      <div class="cols">
+        <div>
+          <h3>Individual</h3>
+          <ul>
+            <li>A private event</li>
+            <li>Signal or noise?</li>
+            <li>Unknown significance</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Population</h3>
+          <ul>
+            <li>Shaped by <strong>mutation</strong></li>
+            <li>Filtered by <strong>selection</strong></li>
+            <li>Randomised by <strong>drift</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Now let's contrast the two views. On the left, the individual view. A variant in one person is a private event. We do not know if it is signal or noise. Its significance is unknown. On the right, the population view. When many individuals share a variant, that variant has been through something. It has been produced by mutation, filtered by natural selection, and shuffled around by random genetic drift over thousands of generations. In other words, meaning emerges from the population, not the individual.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <div class="cue">The modern reference dataset</div>
+      <div class="bignum">141,456</div>
+      <div class="bignum-label">people sequenced · gnomAD v2</div>
+      <ul>
+        <li>Hundreds of millions of variants cataloged</li>
+        <li>Detects alleles present in <strong>one copy out of 282,912</strong></li>
+        <li>Karczewski et al. 2020, <em>Nature</em></li>
+      </ul>
+      <aside class="notes">
+        So how do we actually look at populations today? The field has been revolutionised by a database called gnomAD, short for the Genome Aggregation Database. In version two, gnomAD sequenced one hundred forty one thousand four hundred fifty six people from diverse ancestries. That gives us hundreds of millions of cataloged variants. The scale is so large that gnomAD can reliably detect a variant even if it appears in just one allele copy out of two hundred eighty two thousand, nine hundred twelve. Whenever you see the word gnomAD in this chapter, picture that number, one forty one thousand genomes.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Defining allele frequency</li>
+        <li>How to calculate it · worked example</li>
+        <li>Minor Allele Frequency (MAF)</li>
+        <li>Variant categories by frequency</li>
+        <li>How selection shapes frequency</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, we define allele frequency precisely. Second, we calculate it with a concrete example from gnomAD. Third, we introduce Minor Allele Frequency, which is the version of the concept you will see most often in the literature. Fourth, we discuss how variants are categorised by frequency, and why the cutoffs are not universal. Fifth, and this is the evolutionary heart of the chapter, we see how natural selection actually shapes these frequencies. And finally we wrap up and look ahead to Population Structure. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · DEFINITION
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Defining<br>Allele Frequency</h1>
+      <aside class="notes">
+        Let's begin with a clean definition of allele frequency.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>What fraction of copies carry this variant?</h2>
+      <blockquote>
+        Allele frequency = the proportion of a specific allele<br>
+        among <strong>all alleles at that locus</strong> in a population.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Operates on a <strong>single locus</strong>, not the whole genome</li>
+        <li>Measured <strong>within a population</strong> — frequencies differ between groups</li>
+        <li>Ranges from <strong>zero</strong> (absent) to <strong>one</strong> (fixed)</li>
+      </ul>
+      <aside class="notes">
+        Now let's state the definition. Allele frequency is the proportion of a specific allele among all the alleles at a given genetic locus in a population. Three things to notice. First, it is defined at a single locus, not across the whole genome. Second, it is always measured within a particular population. The same variant can have very different frequencies in different populations. Third, it ranges from zero, meaning the allele is absent, to one, meaning every copy in the population is that allele. We call that second case fixation.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Why humans need the factor of two</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:4em;">2</div>
+          <div class="bignum-label">alleles per person per locus</div>
+        </div>
+        <div>
+          <ul>
+            <li>Humans are <strong>diploid</strong></li>
+            <li>One allele from mother</li>
+            <li>One allele from father</li>
+            <li>Each person contributes <strong>two</strong> to the population count</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the detail that trips people up. Humans are diploid. At every autosomal locus, you carry two alleles — one inherited from your mother, one from your father. So when we count alleles across a population, each person contributes two copies, not one. If you sequence a thousand people, you have two thousand alleles at every position. This factor of two shows up in every allele frequency calculation, so commit it to memory right now.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>A concrete example</h2>
+      <ul>
+        <li>Position on chromosome twenty-one: <code>chr21:2,232,323</code></li>
+        <li>Most people: genotype <strong>A / A</strong></li>
+        <li>One person in gnomAD: genotype <strong>A / T</strong> (heterozygous)</li>
+        <li>Everyone else: <strong>A / A</strong></li>
+        <li>Sample size: <strong>141,456</strong> people</li>
+      </ul>
+      <div class="cue" style="margin-top:1em;">Your task</div>
+      <p style="font-size:1.05em; font-weight:600;">What is the allele frequency of <strong>T</strong> at this locus?</p>
+      <aside class="notes">
+        Let's make this concrete. Suppose we look at a specific position on chromosome twenty-one, with the coordinate chr twenty-one, colon, two million two hundred thirty-two thousand three hundred twenty-three. At this position, the reference allele is A, adenine, and most people have the genotype A slash A. In the entire gnomAD dataset of one hundred forty-one thousand four hundred fifty-six people, we find exactly one person who is heterozygous, meaning they have one A and one T. Everyone else is A slash A. Your task, right now: what is the allele frequency of the T allele at this locus? Take a moment. We will work it out on the next slide.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Step one · count total alleles</h2>
+      <div class="formula" style="font-size:1.2em;">
+        141,456 people × 2 alleles = <strong>282,912 total alleles</strong>
+      </div>
+      <ul style="margin-top:0.8em;">
+        <li>Every person contributes two copies of chromosome twenty-one</li>
+        <li>The <strong>denominator</strong> of our fraction</li>
+      </ul>
+      <aside class="notes">
+        Step one. Count the total number of alleles in the dataset. We have one hundred forty-one thousand four hundred fifty-six people, and each contributes two alleles because of diploidy. So the total is two hundred eighty-two thousand, nine hundred twelve alleles. That is our denominator. It represents every single copy of this chromosomal position in the dataset.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Step two · count the variant alleles</h2>
+      <div class="formula">
+        One heterozygote  →  <strong>1 T allele</strong><br>
+        Everyone else  →  <strong>0 T alleles</strong>
+      </div>
+      <ul style="margin-top:0.8em;">
+        <li>Total observed: <strong>1 T allele</strong></li>
+        <li>The <strong>numerator</strong> of our fraction</li>
+      </ul>
+      <aside class="notes">
+        Step two. Count how many T alleles we actually observed. Our one heterozygote carries one T and one A, so they contribute one T allele to the count. Everyone else is homozygous for A, contributing zero T alleles. So in the entire dataset, we observed exactly one T allele. That is our numerator.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Step three · divide</h2>
+      <div class="formula" style="font-size:1.15em;">
+        1 ÷ 282,912 = <strong>0.0000035</strong>
+      </div>
+      <div class="bignum" style="font-size:3em; margin-top:0.2em;">0.00035%</div>
+      <div class="bignum-label">≈ three point five per million</div>
+      <blockquote style="margin-top:0.6em;">
+        Extremely rare — but <strong>detectable</strong> only at this sample size.
+      </blockquote>
+      <aside class="notes">
+        Step three. Divide the numerator by the denominator. One divided by two hundred eighty-two thousand nine hundred twelve equals zero point zero zero zero zero zero three five. As a percentage, that is zero point zero zero zero three five percent, or roughly three point five per million. That is extremely rare. And here is the important point: we could only even detect this variant because our sample is so large. In a dataset of one thousand people, a variant at this frequency would almost certainly be missed entirely. Scale lets us see the rare.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · GENERAL FORMULA
+         ==================================================== -->
+
+    <!-- Slide 14 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The General<br>Formula</h1>
+      <aside class="notes">
+        Now let's generalise. We walked through one example by hand. Here is the formula you will use every time.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>The formula</h2>
+      <div class="formula" style="font-size:1.25em; text-align:center;">
+        Allele frequency = <strong>variant alleles</strong> ÷ (2 × individuals)
+      </div>
+      <blockquote style="margin-top:1em;">
+        <strong>Heterozygote</strong> contributes <strong>1</strong> variant allele.<br>
+        <strong>Homozygote</strong> contributes <strong>2</strong> variant alleles.
+      </blockquote>
+      <aside class="notes">
+        Here is the formula. Allele frequency equals the number of variant alleles, divided by two times the number of individuals. The denominator comes from diploidy. The numerator is where you have to be careful. Each heterozygote — that is, someone with one copy of the variant — contributes one variant allele. Each homozygote — someone with two copies of the variant — contributes two variant alleles. Miss this counting rule, and you will get the wrong answer every time.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Four scenarios in gnomAD</h2>
+      <p style="font-size:0.8em; color:var(--ink-soft);">Total alleles in denominator: <strong>282,912</strong></p>
+      <table>
+        <thead>
+          <tr><th>Scenario</th><th>Hets (AT)</th><th>Homs (TT)</th><th>T alleles</th><th>Frequency</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Very rare</td><td>1</td><td>0</td><td>1</td><td>0.00035%</td></tr>
+          <tr><td>Rare</td><td>2</td><td>3</td><td><strong>8</strong></td><td>0.0028%</td></tr>
+          <tr><td>Low frequency</td><td>10</td><td>0</td><td>10</td><td>0.0035%</td></tr>
+          <tr><td>More common</td><td>0</td><td>10</td><td><strong>20</strong></td><td>0.0071%</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.75em; margin-top:0.5em;">Look at the <strong>rare</strong> row: two heterozygotes plus three homozygotes gives two plus six equals <strong>eight</strong> T alleles.</p>
+      <aside class="notes">
+        Let's practice with four scenarios. In every case the denominator is two hundred eighty-two thousand nine hundred twelve. The very rare row, one heterozygote and zero homozygotes, gives one T allele. That is our original example. Now look at the second row. Two heterozygotes contribute two T alleles. Three homozygotes contribute six T alleles, because each homozygote has two copies. Two plus six equals eight T alleles, not five, not six. Eight. That is the counting rule in action. The third and fourth rows are for you to verify on your own. Get comfortable with this. You will use it every time you open a variant browser.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · MINOR ALLELE FREQUENCY
+         ==================================================== -->
+
+    <!-- Slide 17 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Minor Allele<br>Frequency (MAF)</h1>
+      <aside class="notes">
+        Now let's introduce a term you will see constantly in the literature: Minor Allele Frequency, usually abbreviated M A F.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Two alleles at one position</h2>
+      <div class="cols" style="gap:3em;">
+        <div style="text-align:center;">
+          <h3>Major allele</h3>
+          <div class="bignum" style="font-size:3.6em;">92%</div>
+          <div class="bignum-label">reference / "normal"</div>
+        </div>
+        <div style="text-align:center;">
+          <h3>Minor allele</h3>
+          <div class="bignum" style="font-size:3.6em; color:var(--terracotta);">8%</div>
+          <div class="bignum-label"><strong>MAF = 0.08</strong></div>
+        </div>
+      </div>
+      <aside class="notes">
+        At most positions in the genome, when there is variation, we see two alleles in the population. One of them is more common — we call that the major allele. The other is less common — we call that the minor allele. The frequency of the minor allele is the M A F. In this example, ninety-two percent of alleles are A and eight percent are T. The M A F is zero point zero eight, or eight percent. Notice that by definition, M A F is always less than or equal to fifty percent. Above fifty percent, the labels flip.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why we track the minor, not the major</h2>
+      <ul>
+        <li>The major allele is usually the <strong>reference baseline</strong></li>
+        <li><strong>Variation</strong>, not uniformity, is what we study</li>
+        <li>MAF is the natural axis for GWAS, population genetics, disease risk</li>
+        <li>It also gives us a clean <strong>common vs rare</strong> shortcut</li>
+      </ul>
+      <aside class="notes">
+        Why do we focus on the minor allele rather than the major? Because the major allele is usually just the reference or the so-called normal state, which by definition is not varying. In genetics we study variation, so we track the varying copy — the minor allele. Almost every population-genetics tool you will ever use, from GWAS software to variant databases, is indexed by M A F. And as a bonus, M A F gives us a clean shorthand for talking about whether a variant is common or rare, which is the topic of the next section.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>A rough rule of thumb</h2>
+      <table>
+        <thead><tr><th>Label</th><th>MAF</th><th>Intuition</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Common</strong></td><td>&gt; 5%</td><td>Many people carry it</td></tr>
+          <tr><td><strong>Low frequency</strong></td><td>1 – 5%</td><td>Uncommon but not rare</td></tr>
+          <tr><td><strong>Rare</strong></td><td>&lt; 1%</td><td>Few people carry it</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.8em; font-size:0.85em;">A <strong>starting point only</strong> — as we'll see, real cutoffs vary by context.</p>
+      <aside class="notes">
+        Here is a rough rule of thumb that you can hold in your head. If M A F is above five percent, we call the variant common. If it is between one and five percent, we call it low frequency. If it is below one percent, we call it rare. This is a starting point, and it will get you most of the way in most conversations. But — and this is important — these cutoffs are not universal, and different studies use different thresholds. Let's look at that now.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · CATEGORIES
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Variant Categories<br>by Frequency</h1>
+      <aside class="notes">
+        Let's now talk about how variants are categorised by frequency, and why the lines between categories are not as clean as textbooks sometimes pretend.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The cutoffs are not universal</h2>
+      <blockquote style="font-size:1.05em;">
+        "The threshold of MAF in rare variants<br>
+        has <strong>not yet been clearly defined</strong>."
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Published cutoffs vary from <strong>0.1% to 5%</strong></li>
+        <li>Depends on disease, penetrance, sample size, method</li>
+        <li>Momozawa &amp; Mizukami 2021, <em>J Hum Genet</em></li>
+      </ul>
+      <aside class="notes">
+        Here is a surprise for beginners. The cutoffs for rare, low-frequency, and common are not universally defined. A comprehensive review in two thousand twenty-one stated plainly: the threshold of M A F in rare variants has not yet been clearly defined. Published cutoffs range from zero point one percent all the way up to five percent. Which cutoff the authors pick depends on the disease they are studying, how penetrant the variant is, how many samples they have, and what sequencing method they used. So whenever you read a paper, the first thing to look up is: how did these authors define their frequency categories?
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Different fields, different cutoffs</h2>
+      <table>
+        <thead>
+          <tr><th>Study</th><th>Common</th><th>Low</th><th>Rare</th><th>Ultra-rare</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1000 Genomes 2022</td><td>&gt; 1%</td><td>0.5 – 5%</td><td>≤ 1%</td><td>Singletons</td></tr>
+          <tr><td>Schizophrenia 2022</td><td>&gt; 1%</td><td>—</td><td>&lt; 0.1%</td><td>Singletons only</td></tr>
+          <tr><td>AD / dementia GWAS</td><td>&gt; 5%</td><td>1 – 5%</td><td>&lt; 1%</td><td>—</td></tr>
+          <tr><td>COVID-19 severity</td><td>≥ 5%</td><td>1 – 5%</td><td>0.1 – 1%</td><td>&lt; 0.1%</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.7em; margin-top:0.6em; color:var(--ink-soft);">
+        Byrska-Bishop 2022 · Akingbuwa 2022 · Andrews 2023 · Fallerini 2021
+      </p>
+      <aside class="notes">
+        Look at this table. Four major studies, four different schemes. The one thousand Genomes project, with very deep sequencing, defined common as above one percent. The schizophrenia genetics paper called rare anything below zero point one percent, because for a disease like schizophrenia the really interesting variants are ultra-rare. The Alzheimer's disease GWAS used the classic five percent cutoff. And the covid severity paper added a fourth ultra-rare tier below zero point one percent. So when someone says a variant is rare, your first response should be: rare by whose definition?
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Why the variation?</h2>
+      <ul>
+        <li><strong>Disease biology</strong> — highly penetrant disorders need stricter cutoffs</li>
+        <li><strong>Sample size</strong> — large cohorts can resolve finer frequency tiers</li>
+        <li><strong>Technology</strong> — array GWAS (&gt; 5%), WGS (down to singletons)</li>
+        <li><strong>Functional biology</strong> — 90% of singleton heritability is at MAF &lt; 0.01%</li>
+      </ul>
+      <aside class="notes">
+        Why does this variation exist? Four reasons. First, disease biology. For highly penetrant disorders like severe neurodevelopmental syndromes, the important variants are extremely rare, so the cutoffs get stricter. Second, sample size. You cannot meaningfully resolve ultra-rare variants in a sample of five hundred people, so those studies lump all rare variants together. Third, technology. Classic array-based GWAS could only reliably work above five percent. Whole-genome sequencing can go all the way down to singletons. Fourth, functional biology. One study found that ninety percent of singleton-driven heritability for gene expression comes from variants below zero point zero one percent. That tells us where the biological action is, and motivates stricter ultra-rare definitions.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>A working framework</h2>
+      <table>
+        <thead>
+          <tr><th>Category</th><th>MAF</th><th>Allele age</th><th>Selection</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Common</strong></td><td>&gt; 5%</td><td>Many generations</td><td>Neutral / weak</td></tr>
+          <tr><td><strong>Low-frequency</strong></td><td>1 – 5%</td><td>Intermediate</td><td>Mild</td></tr>
+          <tr><td><strong>Rare</strong></td><td>&lt; 1%</td><td>Recent — hundreds to thousands of years</td><td>Purifying</td></tr>
+          <tr><td><strong>Ultra-rare</strong></td><td>&lt; 0.1%</td><td>Very recent</td><td>Strong purifying</td></tr>
+          <tr><td><strong>Private / singleton</strong></td><td>≈ 0%</td><td>1 – 10 generations · often <em>de novo</em></td><td>Unfiltered</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Despite the variation in cutoffs, most studies follow this general framework. Five tiers. Common, above five percent, usually very old, weak or no selection. Low frequency, one to five percent, intermediate age, mild selection. Rare, below one percent, recent origin on the scale of hundreds to thousands of years, under purifying selection. Ultra-rare, below zero point one percent, very recent, strong purifying selection. And private or singleton variants at essentially zero percent, one to ten generations old, often de novo — arising fresh in this generation. These categories are not arbitrary. As we move down the table, variants get younger, rarer, and more strongly selected against. That progression is the key insight.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Common variants · old survivors</h2>
+      <ul>
+        <li>Persisted through <strong>many generations</strong></li>
+        <li>Mostly non-coding or low functional impact</li>
+        <li>Selection had time — and did not remove them</li>
+        <li>Plenty of people carry them → <strong>ideal for GWAS</strong></li>
+      </ul>
+      <aside class="notes">
+        Common variants are the old survivors of the genome. They have been around for many generations — thousands to tens of thousands of years. Most are either in non-coding regions or have only minor functional effects. The fact that they have persisted means selection has not been strong enough to remove them. And because they are carried by many people, they are ideal for genome-wide association studies, which need lots of carriers to detect statistical associations. When you see a GWAS hit at M A F twenty percent, you are looking at a variant with a long evolutionary history.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Rare variants · selection's fingerprint</h2>
+      <div class="cue">A striking gnomAD result</div>
+      <blockquote style="font-size:1.05em;">
+        Most loss-of-function variants<br>
+        in gnomAD are <strong>singletons</strong>.
+      </blockquote>
+      <ul>
+        <li>Breaks a gene → reduces fitness → selection removes it</li>
+        <li>New LoF variants keep arising through mutation</li>
+        <li>They just can't spread before selection catches them</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Karczewski et al. 2020, <em>Nature</em></p>
+      <aside class="notes">
+        Now for the most striking finding in the whole chapter. When gnomAD looked at loss-of-function variants — mutations that completely break a gene by introducing a premature stop codon or disrupting splicing — they found that most of these L o F variants are singletons. Each one appears in only one person out of one hundred forty-one thousand. Why? Because breaking an important gene reduces fitness, and natural selection removes these variants before they can spread. New L o F variants keep arising through mutation every generation, but they never get the chance to become common. This is the fingerprint of purifying selection, written directly onto the allele frequency spectrum.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Private variants · untested by evolution</h2>
+      <ul>
+        <li>Too new for selection to judge</li>
+        <li>Often arise <strong><em>de novo</em></strong> in this generation</li>
+        <li>Most will disappear within a few generations</li>
+        <li>A rare few persist — or, if lucky, spread</li>
+      </ul>
+      <aside class="notes">
+        Private variants, also called singletons, are at the opposite end of the spectrum. They are too new for selection to have meaningfully acted on them. Many arose de novo in this very generation — they are new mutations in a single individual. Most will simply disappear in the next few generations by random chance or because they reduce fitness. A small fraction will be lucky and persist. An even smaller fraction will be beneficial and spread. Private variants are the raw material of evolution, but most of them are evolutionary dead ends.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · SELECTION
+         ==================================================== -->
+
+    <!-- Slide 29 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>How Selection<br>Shapes Frequency</h1>
+      <aside class="notes">
+        We have been hinting at the role of selection all along. Now let's make it explicit.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Selection is a filter</h2>
+      <ul>
+        <li><strong>Beneficial</strong> → passes through, spreads</li>
+        <li><strong>Neutral</strong> → drifts randomly, sometimes survives</li>
+        <li><strong>Harmful</strong> → caught and removed</li>
+      </ul>
+      <blockquote style="margin-top:1em;">
+        A variant's frequency is a <strong>record</strong> of which process dominated.
+      </blockquote>
+      <aside class="notes">
+        Think of natural selection as a filter. Beneficial mutations pass through easily and tend to spread. Neutral mutations drift through randomly — some rise in frequency, some disappear, by pure chance. Harmful mutations get caught and removed. The allele frequency of any variant is a record, written in the genome, of which of these processes dominated over its history. That is why frequency is not just a descriptive statistic. It is evolutionary evidence.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>The more severe, the rarer</h2>
+      <table>
+        <thead>
+          <tr><th>Variant type</th><th>Protein effect</th><th>Typical frequency</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Synonymous</strong></td><td>No amino acid change</td><td>Often common</td></tr>
+          <tr><td><strong>Missense</strong></td><td>One amino acid changed</td><td>Intermediate</td></tr>
+          <tr><td><strong>Nonsense</strong></td><td>Protein truncated</td><td>Almost always rare</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.8em;">A gradient of selection intensity, visible in the data.</p>
+      <aside class="notes">
+        Here is that principle turned into data. There is a striking gradient in the genome. Synonymous variants, which do not change the amino acid, are often common — selection barely sees them. Missense variants, which change one amino acid, sit at intermediate frequencies. Nonsense variants, which truncate the protein, are almost always rare. The gradient is not a coincidence. It is a direct reflection of how hard selection pushes against each class of variant. The harder the push, the rarer the variant.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>When does selection even work?</h2>
+      <blockquote style="font-size:1.5em; text-align:center; padding:0.6em 0;">
+        s &gt; 1 / N<sub>e</sub>
+      </blockquote>
+      <ul>
+        <li><strong>s</strong> — selection coefficient (fitness impact)</li>
+        <li><strong>N<sub>e</sub></strong> — effective population size</li>
+        <li>Below this threshold → variant behaves as <strong>neutral</strong> → drift wins</li>
+      </ul>
+      <aside class="notes">
+        Selection is not omnipotent. There is a specific mathematical condition under which it even works. Selection is only effective when the selection coefficient s is greater than one over the effective population size, N e. The selection coefficient measures how much the variant affects fitness. The effective population size is, roughly, the number of individuals who contribute genetically to the next generation. If s is smaller than one over N e, the variant effectively behaves as neutral, and its fate is dominated by random drift, not selection. This one inequality explains a huge amount of what we see in population genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Population size sets the floor</h2>
+      <div class="cols">
+        <div>
+          <h3>Large N<sub>e</sub></h3>
+          <ul>
+            <li>1 / N<sub>e</sub> is tiny</li>
+            <li>Even weak selection is felt</li>
+            <li>Deleterious alleles purged</li>
+            <li>Few mildly harmful variants persist</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Small N<sub>e</sub></h3>
+          <ul>
+            <li>1 / N<sub>e</sub> is large</li>
+            <li>Only strong effects overcome drift</li>
+            <li>Mildly harmful variants behave neutrally</li>
+            <li>More deleterious alleles persist</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.95em;">
+        Humans: N<sub>e</sub> ≈ <strong>10,000 – 50,000</strong> (depends on ancestry).
+      </p>
+      <aside class="notes">
+        Let's think through what this means in practice. In a large population with a big effective size, one over N e is tiny. So even tiny fitness effects are visible to selection. Deleterious alleles get purged efficiently. Few mildly harmful variants persist. In a small population, one over N e is large. Only strong fitness effects can overcome the noise of drift. Mildly harmful variants effectively behave as neutral. So more deleterious alleles persist by chance. For humans, the effective population size is roughly ten thousand to fifty thousand, depending on ancestry. That puts our floor for effective selection at a fitness cost of around zero point zero one percent to zero point zero zero one percent. Above that, selection works. Below that, drift wins.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Why LoF variants persist despite selection</h2>
+      <ul>
+        <li>Mutation rate &gt; 0 → new LoF variants constantly arise</li>
+        <li>Finite population → selection needs <strong>time</strong> to act</li>
+        <li>Some linger for a few generations before being removed</li>
+        <li>A handful drift upward briefly before selection catches up</li>
+      </ul>
+      <aside class="notes">
+        One more nuance. If selection is so effective, why do we see any loss-of-function variants at all? The answer has three parts. First, the mutation rate is not zero. New L o F variants arise every generation in every human population. Second, the population is finite, so selection needs time to act. A new L o F variant does not vanish instantly; it takes several generations for purifying selection to remove it. Third, drift is always happening in the background, so occasionally a deleterious variant rises briefly in frequency before selection catches up. The net result is a steady state: L o F variants are overwhelmingly rare, but never completely absent. What gnomAD shows us is that steady state in stunning detail.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Frequency vs effect size · the master picture</h2>
+      <figure>
+        <img src="../assets/figures/Andrews2023-EBioMed-Fig1.jpg" alt="Alzheimer's disease genetic architecture: allele frequency vs effect size">
+        <figcaption>
+          Alzheimer's disease architecture · Andrews et al. 2023, <em>EBioMedicine</em> 90:104511 (CC BY-NC-ND 4.0).<br>
+          <strong>APP / PSEN1 / PSEN2</strong>: rare + huge effect · <strong>APOE ε4/ε4</strong>: ~2% + OR ~12 · <strong>GWAS hits</strong>: common + small effect.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Finally, let's put everything together in one master picture. This plot is from an Alzheimer's review by Andrews and colleagues in twenty twenty-three. On the x-axis, minor allele frequency, on a log scale. On the y-axis, effect size, measured as odds ratio, also on a log scale. Look at three regions. In the top left, extremely rare variants in A P P, P S E N one, and P S E N two, with very large effects — these cause autosomal dominant Alzheimer's disease. In the middle, the A P O E epsilon four double-allele genotype, at around two percent frequency, with a big odds ratio of roughly twelve. And in the bottom right, hundreds of common GWAS hits, each with a small effect. This inverse relationship — rare goes with large effect, common goes with small effect — is not limited to Alzheimer's. It appears across complex diseases, and it is exactly what selection predicts. Big effects cannot reach high frequency, because selection will not let them.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 36 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up with the core takeaways.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Allele frequency = <strong>variant alleles ÷ (2 × N)</strong></li>
+        <li>Categories reflect <strong>allele age</strong> and <strong>selection intensity</strong></li>
+        <li>LoF variants are mostly <strong>singletons</strong> — selection's fingerprint in gnomAD</li>
+        <li>Large N<sub>e</sub> lets selection see even <strong>weak</strong> effects</li>
+        <li>Big effect size → <strong>cannot</strong> reach high frequency</li>
+      </ul>
+      <aside class="notes">
+        Five things to remember. One, the calculation itself: variant alleles divided by two times the number of individuals. Two, the categories — common, low frequency, rare, ultra-rare, private — reflect both the age of the allele and the intensity of selection against it. Three, the striking gnomAD finding that loss-of-function variants are overwhelmingly singletons. That is selection's fingerprint, visible directly in the data. Four, the larger the effective population size, the weaker an effect selection can still detect. And five, the frequency by effect size picture: big-effect variants cannot become common, because selection will not let them.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>Why this matters in practice</h2>
+      <ul>
+        <li><strong>Variant interpretation</strong> — pathogenic vs benign hinges on frequency</li>
+        <li><strong>Study design</strong> — GWAS vs rare-variant burden tests</li>
+        <li><strong>Disease architecture</strong> — common + small, or rare + large?</li>
+        <li><strong>Drug target prioritisation</strong> — protective LoFs are gold</li>
+      </ul>
+      <aside class="notes">
+        Why does this matter in practice? Four places. First, variant interpretation. When you look at a genetic test result, the single most important piece of information is usually the allele frequency. Pathogenic variants are almost always rare. Second, study design. If your variants are common, you run a G W A S. If they are rare, you switch to rare-variant burden tests. The statistical strategy follows the frequency. Third, understanding disease architecture. For any given disorder, you want to know: is the heritability mostly explained by common small-effect variants, or rare big-effect ones? Fourth, and increasingly important, drug target prioritisation. When you find a gene where loss-of-function variants protect people from a disease, that gene is gold for drug development.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        Why do the same variants<br>
+        have <span style="color:var(--terracotta-deep);">different frequencies</span><br>
+        in different populations?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 21 · <strong>Population Structure</strong>
+      </p>
+      <aside class="notes">
+        One last question to leave you with. We have been talking about allele frequency in a population. But which population? If I measure the same variant in Europeans, East Asians, and Africans, do I get the same frequency? Spoiler: almost never. That observation, and what it means for medicine and for how we think about human history, is the subject of Chapter twenty-one, Population Structure. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

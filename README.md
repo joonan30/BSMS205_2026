@@ -1,6 +1,12 @@
 # BSMS205 Genetics (2026 Spring)
 
-## Lecture Slides
+Korea University · Spring 2026 · Lecture materials for **BSMS205 Genetics**.
+
+**Live HTML slides** (Ch 20+): https://joonan30.github.io/BSMS205_2026/
+
+---
+
+## Part I – III · PPTX Downloads (Ch 1–19, pre-midterm)
 
 | Chapter | Topic | Slides |
 |---------|-------|--------|
@@ -23,3 +29,78 @@
 | 17 | Partitioned Variance: Learn from Real-World Examples | [Download](https://www.dropbox.com/scl/fi/swczj4gcy0tojud653e8a/Chapter17_Partitioned_Variance_Learn_from_Real-World_Examples.pptx?rlkey=m59wt9f4ebrmf03ow389qvbgv&dl=0) |
 | 18 | Introduction to Genome-Wide Association Studies | [Download](https://www.dropbox.com/scl/fi/svb8f76jh712zrqjranht/Chapter18_Introduction_to_Genome-Wide_Association_Studies.pptx?rlkey=hw8c228zmluop904e18v5lpqb&dl=0) |
 | 19 | Genetic Architecture of Traits and Disorders | [Download](https://www.dropbox.com/scl/fi/4mmt23ub5pq6x5l5yhmpp/Chapter19_Genetic_Architecture_of_Traits_and_Disorders.pptx?rlkey=s35ic2hwdzf13gnixu32wanp9&dl=0) |
+
+---
+
+## Part IV – V · HTML Slides (Ch 20–30, post-midterm)
+
+Reveal.js decks served from GitHub Pages. Speaker notes embedded for TTS-based video generation.
+
+| Chapter | Topic | Live slides |
+|---------|-------|-------------|
+| 20 | Allele Frequency | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter20.html) |
+| 21 | Population Structure | *planned* |
+| 22 | From Mendel to Morgan: Discovery of Linkage | *planned* |
+| 23 | Recombination, Linkage, and Haplotype | *planned* |
+| 24 | Data Types for Alleles and Populations | *planned* |
+| 25 | Forward Genetics: From Phenotype to Gene | *planned* |
+| 26 | Reverse Genetics: From Gene to Function | *planned* |
+| 27 | CRISPRa Therapy for SCN2A Haploinsufficiency | *planned* |
+| 28 | Gene Regulation: Same Book, Different Readings | *planned* |
+| 29 | Gene Regulation: Methods and Applications | *planned* |
+| 30 | QTLs: Connecting Alleles to Molecular Traits | *planned* |
+
+---
+
+## Project Layout
+
+```
+BSMS205_2026/
+├── index.html                   # Course landing page
+├── chapters/
+│   └── chapter20.html           # reveal.js deck (+ <aside class="notes"> TTS scripts)
+├── assets/
+│   ├── css/claude-theme.css     # Warm parchment + terracotta theme
+│   └── figures/                 # Textbook figures
+├── tools/
+│   ├── extract_scripts.py       # HTML speaker notes → Python scripts list
+│   └── render.sh                # HTML → PDF → per-slide PNG (for video)
+└── README.md
+```
+
+## Local Preview
+
+```bash
+python3 -m http.server 8000
+# open http://localhost:8000
+```
+
+## Video Generation Pipeline
+
+Decks feed into the [AutoLecture](https://github.com/joonan30/AutoLecture) pipeline:
+
+```
+HTML  ── extract_scripts.py ──▶  per-slide narration (TTS-safe)
+ │
+ └── render.sh ──▶  PDF ──▶  slide-NN.png
+                                │
+                                ▼
+                        ffmpeg + Qwen3-TTS  ──▶  MP4
+```
+
+Prerequisites:
+
+```bash
+npm install -g decktape            # HTML → PDF rendering
+brew install poppler ffmpeg        # PDF → PNG, video assembly
+pip install mlx-audio python-pptx  # Apple Silicon TTS
+```
+
+## Design
+
+Slides follow the Claude theme — parchment `#FAF6F1` with terracotta `#D4724E`, Helvetica Neue ≥ 28 pt, 16:9 widescreen.
+Question-driven titles, no paragraphs on-slide, full narration lives in speaker notes.
+
+## Textbook
+
+Content adapted from *Human Genetics* (30 chapters, Part I–V).

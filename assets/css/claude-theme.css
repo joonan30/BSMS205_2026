@@ -1,0 +1,225 @@
+/* ============================================================
+   BSMS205 Genetics — Claude Theme for Reveal.js
+   Palette: parchment #FAF6F1, terracotta #D4724E, ink #2B2622
+   Font:   Helvetica Neue (body ≥ 28pt), tabular figures
+   ============================================================ */
+
+:root {
+  --parchment: #FAF6F1;
+  --parchment-deep: #F2EBE0;
+  --terracotta: #D4724E;
+  --terracotta-deep: #B85A38;
+  --ink: #2B2622;
+  --ink-soft: #5A514A;
+  --rule: #D9CFC0;
+  --highlight: #F4E4D6;
+}
+
+/* ---- base ---- */
+html, body, .reveal { background: var(--parchment); }
+.reveal {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-size: 30px;
+  color: var(--ink);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides > section,
+.reveal .slides > section > section {
+  padding: 40px 60px;
+  line-height: 1.4;
+}
+
+/* ---- headings ---- */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: "Helvetica Neue", "Helvetica", sans-serif;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  margin-bottom: 0.6em;
+}
+.reveal h1 { font-size: 2.4em; line-height: 1.1; }
+.reveal h2 { font-size: 1.6em; line-height: 1.15; border-bottom: 3px solid var(--terracotta); padding-bottom: 0.25em; display: inline-block; }
+.reveal h3 { font-size: 1.25em; color: var(--terracotta-deep); }
+
+/* ---- emphasis ---- */
+.reveal strong { color: var(--terracotta-deep); font-weight: 700; }
+.reveal em { color: var(--ink-soft); font-style: italic; }
+
+/* ---- bullets ---- */
+.reveal ul, .reveal ol { margin-left: 1.2em; }
+.reveal ul li, .reveal ol li { margin: 0.45em 0; }
+.reveal ul { list-style: none; }
+.reveal ul li::before {
+  content: "▸";
+  color: var(--terracotta);
+  display: inline-block;
+  width: 1.2em;
+  margin-left: -1.2em;
+  font-weight: 700;
+}
+
+/* ---- BIG NUMBER blocks ---- */
+.reveal .bignum {
+  font-size: 3.6em;
+  font-weight: 800;
+  color: var(--terracotta-deep);
+  line-height: 1;
+  margin: 0.2em 0 0.1em;
+  letter-spacing: -0.02em;
+}
+.reveal .bignum-label {
+  font-size: 0.9em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1em;
+}
+
+/* ---- formula / equation callout ---- */
+.reveal .formula {
+  background: var(--parchment-deep);
+  border-left: 6px solid var(--terracotta);
+  padding: 0.8em 1.2em;
+  margin: 0.8em 0;
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 1.1em;
+  border-radius: 4px;
+}
+
+/* ---- quote / key rule ---- */
+.reveal blockquote {
+  background: var(--highlight);
+  border-left: 6px solid var(--terracotta);
+  padding: 0.8em 1.2em;
+  margin: 0.8em auto;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: none;
+  width: auto;
+}
+
+/* ---- tables ---- */
+.reveal table {
+  margin: 0.5em 0;
+  border-collapse: collapse;
+  font-size: 0.78em;
+  width: 100%;
+}
+.reveal table th {
+  background: var(--terracotta);
+  color: var(--parchment);
+  padding: 0.5em 0.7em;
+  text-align: left;
+  border: none;
+  font-weight: 700;
+}
+.reveal table td {
+  padding: 0.45em 0.7em;
+  border-bottom: 1px solid var(--rule);
+}
+.reveal table tr:nth-child(even) td { background: var(--parchment-deep); }
+
+/* ---- code ---- */
+.reveal code {
+  background: var(--parchment-deep);
+  color: var(--terracotta-deep);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 0.9em;
+}
+
+/* ---- title slide ---- */
+.reveal .title-slide {
+  text-align: left;
+}
+.reveal .title-slide .eyebrow {
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.reveal .title-slide h1 {
+  font-size: 3em;
+  color: var(--ink);
+  margin: 0;
+}
+.reveal .title-slide .chapter-num {
+  font-size: 1em;
+  color: var(--ink-soft);
+  margin-top: 1.5em;
+  letter-spacing: 0.15em;
+}
+
+/* ---- section divider ---- */
+.reveal .section-divider {
+  text-align: left;
+}
+.reveal .section-divider .section-num {
+  font-size: 0.75em;
+  letter-spacing: 0.25em;
+  color: var(--terracotta);
+  font-weight: 700;
+}
+.reveal .section-divider h1 {
+  font-size: 2.6em;
+  line-height: 1.1;
+  margin-top: 0.3em;
+  color: var(--ink);
+}
+
+/* ---- 2-column layout ---- */
+.reveal .cols { display: flex; gap: 2em; align-items: flex-start; }
+.reveal .cols > div { flex: 1; }
+
+/* ---- figure / image ---- */
+.reveal figure { text-align: center; margin: 0; }
+.reveal figure img { max-height: 460px; border: 1px solid var(--rule); border-radius: 4px; }
+.reveal figure figcaption {
+  font-size: 0.6em;
+  color: var(--ink-soft);
+  margin-top: 0.6em;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* ---- question cue ---- */
+.reveal .cue {
+  font-size: 0.7em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+
+/* ---- links & controls ---- */
+.reveal a { color: var(--terracotta-deep); text-decoration: none; border-bottom: 1px dashed var(--terracotta); }
+.reveal .controls { color: var(--terracotta); }
+.reveal .progress { color: var(--terracotta); height: 4px; }
+
+/* ---- slide footer ---- */
+.reveal .slide-footer {
+  position: absolute;
+  bottom: 16px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.5em;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---- print ---- */
+@media print { .reveal .slide-footer { display: none; } }

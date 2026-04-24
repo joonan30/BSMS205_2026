@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSMS205 · Genetics — Lecture Slides</title>
+  <style>
+    :root {
+      --parchment: #FAF6F1;
+      --parchment-deep: #F2EBE0;
+      --terracotta: #D4724E;
+      --terracotta-deep: #B85A38;
+      --ink: #2B2622;
+      --ink-soft: #5A514A;
+      --rule: #D9CFC0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      line-height: 1.5;
+      font-feature-settings: "tnum" 1;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 72px 32px 96px; }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--terracotta);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0.2em 0 0.1em;
+      letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--ink-soft); font-size: 1.15rem; margin-bottom: 3em; }
+    h2 {
+      font-size: 1.25rem;
+      border-bottom: 3px solid var(--terracotta);
+      display: inline-block;
+      padding-bottom: 0.25em;
+      margin-top: 3em;
+    }
+    .part-label {
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 2em;
+    }
+    ul.chapters { list-style: none; padding: 0; margin: 0.5em 0 2em; }
+    ul.chapters li {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.9em 0;
+      display: flex;
+      align-items: baseline;
+      gap: 1em;
+    }
+    ul.chapters .num {
+      color: var(--terracotta);
+      font-weight: 700;
+      width: 3.2em;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    ul.chapters .title { flex: 1; }
+    ul.chapters a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px dashed transparent;
+      transition: border-color 0.15s;
+    }
+    ul.chapters a:hover { border-bottom-color: var(--terracotta); color: var(--terracotta-deep); }
+    ul.chapters .status {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.2em 0.6em;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .ready { background: var(--terracotta); color: var(--parchment); }
+    .pending { background: var(--parchment-deep); color: var(--ink-soft); }
+    .muted { color: var(--ink-soft); }
+    footer {
+      margin-top: 4em;
+      padding-top: 2em;
+      border-top: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">BSMS205 · Korea University</div>
+    <h1>Genetics</h1>
+    <div class="subtitle">Lecture slides — Spring 2026</div>
+
+    <div class="part-label">Part I · The Human Genome</div>
+    <ul class="chapters">
+      <li><span class="num">01</span><span class="title muted">The Human Genome Project</span><span class="status pending">Covered</span></li>
+      <li><span class="num">02</span><span class="title muted">The Telomere-to-Telomere Genome Project</span><span class="status pending">Covered</span></li>
+      <li><span class="num">03</span><span class="title muted">The CHM13 Cell Line</span><span class="status pending">Covered</span></li>
+      <li><span class="num">04</span><span class="title muted">Pangenome</span><span class="status pending">Covered</span></li>
+      <li><span class="num">05</span><span class="title muted">NGS Technologies</span><span class="status pending">Covered</span></li>
+      <li><span class="num">06</span><span class="title muted">Genome Assembly</span><span class="status pending">Covered</span></li>
+      <li><span class="num">07</span><span class="title muted">Genome Annotation</span><span class="status pending">Covered</span></li>
+    </ul>
+
+    <div class="part-label">Part II · Variation</div>
+    <ul class="chapters">
+      <li><span class="num">08</span><span class="title muted">SNVs and Indels</span><span class="status pending">Covered</span></li>
+      <li><span class="num">09</span><span class="title muted">Genotypes and Phenotypes</span><span class="status pending">Covered</span></li>
+      <li><span class="num">10</span><span class="title muted">Dominant Alleles in Human Disorders</span><span class="status pending">Covered</span></li>
+      <li><span class="num">11</span><span class="title muted">Haploinsufficiency</span><span class="status pending">Covered</span></li>
+      <li><span class="num">12</span><span class="title muted">Recessive Alleles in Human Disorders</span><span class="status pending">Covered</span></li>
+      <li><span class="num">13</span><span class="title muted">Structural Variations in Human Genomes</span><span class="status pending">Covered</span></li>
+    </ul>
+
+    <div class="part-label">Part III · Complex Traits</div>
+    <ul class="chapters">
+      <li><span class="num">14</span><span class="title muted">Additive and Dominant Alleles</span><span class="status pending">Covered</span></li>
+      <li><span class="num">15</span><span class="title muted">Polygenic Model in Traits</span><span class="status pending">Covered</span></li>
+      <li><span class="num">16</span><span class="title muted">Heritability</span><span class="status pending">Covered</span></li>
+      <li><span class="num">17</span><span class="title muted">Partitioned Variance</span><span class="status pending">Covered</span></li>
+      <li><span class="num">18</span><span class="title muted">Introduction to GWAS</span><span class="status pending">Covered</span></li>
+      <li><span class="num">19</span><span class="title muted">Genetic Architecture of Traits and Disorders</span><span class="status pending">Covered</span></li>
+    </ul>
+
+    <h2>Part IV · Population Genetics</h2>
+    <ul class="chapters">
+      <li><span class="num">20</span><span class="title"><a href="chapters/chapter20.html">Allele Frequency</a></span><span class="status ready">Ready</span></li>
+      <li><span class="num">21</span><span class="title">Population Structure</span><span class="status pending">Planned</span></li>
+      <li><span class="num">22</span><span class="title">From Mendel to Morgan: Discovery of Linkage</span><span class="status pending">Planned</span></li>
+      <li><span class="num">23</span><span class="title">Recombination, Linkage, and Haplotype</span><span class="status pending">Planned</span></li>
+      <li><span class="num">24</span><span class="title">Data Types for Alleles and Populations</span><span class="status pending">Planned</span></li>
+    </ul>
+
+    <h2>Part V · Functional Genetics</h2>
+    <ul class="chapters">
+      <li><span class="num">25</span><span class="title">Forward Genetics: From Phenotype to Gene</span><span class="status pending">Planned</span></li>
+      <li><span class="num">26</span><span class="title">Reverse Genetics: From Gene to Function</span><span class="status pending">Planned</span></li>
+      <li><span class="num">27</span><span class="title">CRISPRa Therapy for SCN2A Haploinsufficiency</span><span class="status pending">Planned</span></li>
+      <li><span class="num">28</span><span class="title">Gene Regulation: Same Book, Different Readings</span><span class="status pending">Planned</span></li>
+      <li><span class="num">29</span><span class="title">Gene Regulation: Methods and Applications</span><span class="status pending">Planned</span></li>
+      <li><span class="num">30</span><span class="title">QTLs: Connecting Alleles to Molecular Traits</span><span class="status pending">Planned</span></li>
+    </ul>
+
+    <footer>
+      Built with <a href="https://revealjs.com" style="color:var(--terracotta-deep);">reveal.js</a>.
+      Theme: Claude — parchment &amp; terracotta.
+      Textbook reference: <em>Human Genetics</em> (Part I–V, 30 chapters).
+    </footer>
+  </div>
+</body>
+</html>
