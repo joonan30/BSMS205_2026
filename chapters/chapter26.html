@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 26 · Reverse Genetics — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Reverse Genetics</h1>
+      <div class="chapter-num">Chapter 26 · From Gene to Function</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-six, Reverse Genetics, From Gene to Function. In the previous chapter we used G W A S and burden tests to identify candidate disease genes. Today we turn those candidates into mechanistic understanding. Reverse genetics is the experimental engine that converts statistical signals into biological causation.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">From the previous chapter</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        SCN2A is enriched for LoF<br>
+        in epilepsy cases.<br>
+        <span style="color:var(--terracotta-deep)">Now what?</span>
+      </h1>
+      <aside class="notes">
+        You finished a burden test. The gene S C N two A is enriched for loss-of-function variants in epilepsy cases. The statistics are convincing. You are confident this gene matters. But — what does S C N two A actually do in neurons? What happens when you lose it? Can you fix the problem by restoring its function? Statistical association cannot answer those questions. Only experimentation can. That is the job of reverse genetics.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The logic</h2>
+      <ul>
+        <li>Pick a gene</li>
+        <li><strong>Change it</strong> — remove · activate · edit</li>
+        <li>Observe what happens</li>
+        <li>Establish <strong>causality</strong>, not just correlation</li>
+      </ul>
+      <aside class="notes">
+        Reverse genetics is controlled experimentation on genes. The protocol is always the same. Pick a gene. Change it — remove it, activate it, edit it. Observe what happens. The goal is to establish that this gene actually causes the phenotype, not just correlates with it. In humans, where direct experiments are impossible for ethical reasons, the experiments happen in cell models, animal models, and computational models. But the conceptual logic is the same.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Where we do these experiments</h2>
+      <ul>
+        <li><strong>Cell models</strong> — human iPSCs, patient cells, organoids</li>
+        <li><strong>Animal models</strong> — mice, zebrafish, primates</li>
+        <li><strong>Computational predictions</strong> — when wet-lab is impossible</li>
+      </ul>
+      <aside class="notes">
+        Three platforms host modern reverse genetics. Cell models, primarily induced pluripotent stem cells from patients, differentiated into neurons or other relevant cell types, plus three-dimensional brain organoids. Animal models, especially mice and zebrafish for in vivo work, occasionally non-human primates. And computational predictions, when wet-lab experiments are not feasible. Each platform has trade-offs in cost, speed, and physiological relevance, and the modern field uses all three in combination.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Classic perturbations · loss vs gain of function</li>
+        <li>The CRISPR revolution · one platform, many tools</li>
+        <li>High-throughput screens · genome-scale reverse genetics</li>
+        <li>Functional rescue · proving causality</li>
+        <li>Putting it all together · the CHD8 case study</li>
+      </ol>
+      <aside class="notes">
+        Here is how today flows. First, the classic perturbation strategies — knock-out and overexpression — that form the conceptual foundation. Second, the CRISPR revolution that unified the field. Third, high-throughput screens that scale reverse genetics to whole genomes. Fourth, the rescue experiment, the gold standard for proving causality. And fifth, the C H D eight case study showing how all the pieces fit together. Let's begin.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Classic Perturbations</h1>
+      <aside class="notes">
+        Long before CRISPR, geneticists had powerful ways to perturb genes. Let's review the classic strategies.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Loss of function · what breaks?</h2>
+      <ul>
+        <li><strong>Knock-out</strong> — completely eliminate the gene</li>
+        <li><strong>Knock-down</strong> — reduce expression with RNAi</li>
+        <li>If lethal → essential gene</li>
+        <li>If specific defect → reveals the gene's normal function</li>
+      </ul>
+      <aside class="notes">
+        The simplest reverse-genetic experiment is loss of function. Knock-out completely eliminates the gene, by deletion or by introducing a premature stop codon. Knock-down reduces, but does not eliminate, expression — typically by R N A interference. R N A interference uses small R N A molecules to bind and degrade the target m R N A, reducing protein output. If knocking out a gene causes lethality, you learn it is essential. If it causes a specific defect — like neurons failing to fire action potentials — you learn what the gene normally does.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Gain of function · what's enough?</h2>
+      <ul>
+        <li><strong>Overexpression</strong> — drive the gene from a strong promoter</li>
+        <li><strong>Ectopic expression</strong> — turn it on where it's normally silent</li>
+        <li>Tests <strong>sufficiency</strong> · can this gene alone produce the outcome?</li>
+      </ul>
+      <aside class="notes">
+        The flip side is gain of function. Overexpression cranks up gene activity by placing the gene under a strong promoter that forces high m R N A and protein levels. Ectopic expression activates the gene in tissues or developmental stages where it is normally silent. Both approaches test the question of sufficiency. Can this gene, by itself, produce a particular outcome? For example, expressing a neural transcription factor in skin cells can sometimes reprogram them into neurons, showing that this single factor is sufficient for neural identity.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Conditional and inducible systems</h2>
+      <ul>
+        <li><strong>Tet-on / Tet-off</strong> — drug-controlled timing</li>
+        <li><strong>CRE-lox</strong> — tissue-specific deletion in mice</li>
+        <li>Avoids embryonic lethality from constitutive knock-outs</li>
+      </ul>
+      <aside class="notes">
+        For genes whose constitutive knock-out is embryonic lethal, you need conditional control. Two classic tools. Tet-on and tet-off systems use the antibiotic doxycycline to switch genes on or off — add the drug, the gene turns on or off depending on the variant. C R E recombinase paired with lox P sites enables tissue-specific deletion. You flank the target gene with lox P sites and drive C R E expression only in the tissue of interest, like cortex-specific neurons. The gene is deleted only there. These tools have been workhorses of mouse genetics for decades and are now combined with CRISPR for even greater precision.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The CRISPR Revolution</h1>
+      <aside class="notes">
+        CRISPR fundamentally changed the field. Let's see why.
+      </aside>
+    </section>
+
+    <section>
+      <h2>One platform, many tools</h2>
+      <blockquote>
+        A guide RNA + a Cas protein.<br>
+        The behaviour depends on which Cas you use.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Knock-out · base edit · prime edit · activate · repress · target RNA</li>
+        <li>One programming model unifies the entire toolkit</li>
+      </ul>
+      <aside class="notes">
+        The genius of CRISPR is its unified architecture. A single guide R N A targets the system to a specific D N A sequence. A Cas protein does the work. Different Cas variants do different things. The original Cas nine cuts. A catalytically dead version, called d Cas nine, just binds. Fused to other proteins, d Cas nine can activate or repress transcription, modify chromatin, or edit individual bases. Cas thirteen targets R N A instead of D N A. The brilliance is that the same programming concept — design a guide, deliver it with a Cas variant — works across all of these applications. The toolkit is huge, but conceptually unified.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The expanded CRISPR toolkit</h2>
+      <figure>
+        <img src="../assets/figures/Zhang2025-GenProtBio-Figure2.jpg" alt="CRISPR toolkit overview" style="max-height:380px;">
+        <figcaption>
+          From DNA cutting to base editing, prime editing, epigenome editing (CRISPRoff/CRISPRon), CRISPRi/CRISPRa, and Cas13 RNA targeting. Zhang et al. 2025, <em>GPB</em> · CC BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This figure summarises the modern CRISPR toolkit. Base editors fuse a deaminase enzyme to nicking Cas nine to convert specific bases without cutting both strands. Prime editors fuse a reverse transcriptase to enable precise insertions, deletions, and substitutions using a guide R N A template. Epigenome editors fuse methylases or histone-modifying enzymes to dead Cas nine to silence or activate genes without changing the D N A sequence. CRISPR i and CRISPR a use d Cas nine fused to repressors or activators to reversibly control transcription. And Cas thirteen targets R N A directly. Each of these is now a routine tool in modern genetics.
+      </aside>
+    </section>
+
+    <section>
+      <h2>CRISPR knock-outs · cutting DNA</h2>
+      <ul>
+        <li><strong>Cas9</strong> cuts both strands at the guide RNA target</li>
+        <li>Cell repairs the break · often makes mistakes</li>
+        <li>Frameshift in coding region → <strong>premature stop codon</strong></li>
+        <li>Standard way to create human-cell knock-outs</li>
+      </ul>
+      <aside class="notes">
+        The original CRISPR application is gene knock-out using Cas nine. The guide R N A directs Cas nine to a target sequence. Cas nine cuts both strands of the D N A. The cell tries to repair the break, but the non-homologous end-joining repair pathway is error-prone. It often inserts or deletes a few bases. If this happens in a coding region, it shifts the reading frame and creates a premature stop codon, which knocks out the gene. This is now the standard way to create knock-outs in human cells. You design a guide R N A targeting the gene, deliver it with Cas nine, and select the cells where the gene is fully inactivated.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Base editing · single-letter precision</h2>
+      <ul>
+        <li><strong>Cytosine base editor (CBE)</strong> · C → T</li>
+        <li><strong>Adenine base editor (ABE)</strong> · A → G</li>
+        <li>No double-strand break · no random indels</li>
+        <li>Perfect for modeling specific patient mutations</li>
+      </ul>
+      <aside class="notes">
+        Sometimes you do not want to destroy a gene. You want to introduce a specific patient mutation. Base editors are perfect for this. They fuse a deaminase enzyme to a modified Cas nine that nicks only one strand. Cytosine base editors convert C to T, by deaminating cytosine to uracil. Adenine base editors convert A to G. No double-strand break, no random indel collateral. If a patient has a C-to-T mutation in S C N two A, you can use a base editor to install that exact change in cultured neurons and study its effects. This makes base editing the cleanest way to model disease variants.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Prime editing · find and replace</h2>
+      <ul>
+        <li>Reverse transcriptase fused to nickase Cas9</li>
+        <li>Make any small <strong>insertion · deletion · substitution</strong></li>
+        <li>Specify desired sequence on the guide RNA itself</li>
+        <li>More flexible than base editing · more complex</li>
+      </ul>
+      <aside class="notes">
+        Prime editing goes one step further. It fuses a reverse transcriptase enzyme to a nickase Cas nine. The guide R N A carries both the target sequence and a template specifying the desired replacement sequence. Prime editing can introduce small insertions, deletions, or any base-to-base change. Think of it as a find-and-replace operation on the genome. It is more flexible than base editing but also more complex to implement, and the editing efficiency is currently lower. Prime editing is the most powerful precision-editing tool we have today, and it continues to improve.
+      </aside>
+    </section>
+
+    <section>
+      <h2>CRISPRa and CRISPRi · regulation, not editing</h2>
+      <div class="cols">
+        <div>
+          <h3>CRISPRa</h3>
+          <ul>
+            <li>dCas9 + activator (e.g. VP64)</li>
+            <li>Guide to promoter → <strong>turn gene up</strong></li>
+            <li>Targeted overexpression · no DNA change</li>
+          </ul>
+        </div>
+        <div>
+          <h3>CRISPRi</h3>
+          <ul>
+            <li>dCas9 + repressor (e.g. KRAB)</li>
+            <li>Guide to promoter → <strong>turn gene down</strong></li>
+            <li>Reversible knock-down</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Sometimes you do not want to edit the D N A at all. You just want to turn a gene up or down. Enter d Cas nine — a dead version of Cas nine that binds D N A but cannot cut. By itself it does little. Fused to other proteins, it becomes a programmable gene regulator. CRISPR a, for activation, uses d Cas nine fused to a transcriptional activator like V P sixty-four. Guide it to a gene's promoter and it recruits transcription machinery, turning the gene up. CRISPR i, for inhibition, uses d Cas nine fused to a repressor like K R A B. The complex sits on the promoter as a roadblock, blocking transcription. Both are reversible and tunable, with no permanent D N A change. They are the tools of choice for studying gene dosage and for many therapeutic applications.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Cas13 · targeting RNA</h2>
+      <ul>
+        <li>Cuts <strong>RNA</strong> instead of DNA</li>
+        <li>Knock down specific mRNAs without genome changes</li>
+        <li>Useful for splicing · localisation · stability studies</li>
+        <li>More programmable than RNAi</li>
+      </ul>
+      <aside class="notes">
+        Most CRISPR variants work on D N A. Cas thirteen, however, targets R N A. It cuts m R N A transcripts in a sequence-specific way, knocking them down without touching the genome. This is similar in spirit to R N A interference but more programmable. Cas thirteen is especially useful for studying R N A biology — splicing, localisation, transcript stability — and for temporary gene silencing where permanent edits would be problematic. It is a newer addition to the CRISPR toolkit and its applications are still expanding.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>High-Throughput<br>Screens</h1>
+      <aside class="notes">
+        So far we have talked about perturbing one gene at a time. But what if you want to test all twenty thousand genes at once? Welcome to high-throughput reverse genetics.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Pooled CRISPR screens</h2>
+      <ol>
+        <li>Library of <strong>~70,000 guide RNAs</strong> covering every gene</li>
+        <li>Deliver to a million cells · one guide per cell</li>
+        <li>Apply selective pressure (drug, sorting)</li>
+        <li>Sequence which guides are <strong>enriched</strong> or <strong>depleted</strong></li>
+      </ol>
+      <p style="margin-top:0.6em; font-size:0.9em;">
+        → Ranked list of genes that affect the phenotype.
+      </p>
+      <aside class="notes">
+        A pooled CRISPR screen works as follows. You make a library of seventy thousand or so guide R N As, covering every gene in the genome at multiple guides per gene. You package them into a viral vector and infect a million cells, with the m o i adjusted so each cell gets exactly one guide. You then apply a selective pressure — for example, treat with a drug, or sort cells based on a marker. Cells in which the knocked-out gene is required for survival or for the marker drop out. You then sequence which guide R N As remain enriched and which are depleted. The result is a ranked list of every gene that affects your phenotype.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What pooled screens have found</h2>
+      <ul>
+        <li><strong>Cancer essentiality</strong> · which genes do tumour cells need to survive?</li>
+        <li><strong>Drug resistance</strong> · which knockouts make cells sensitive?</li>
+        <li><strong>Viral host factors</strong> · which genes does a virus require?</li>
+        <li><strong>Differentiation</strong> · which genes drive cell-fate decisions?</li>
+      </ul>
+      <aside class="notes">
+        Pooled screens are now routine, and they have produced major discoveries. They mapped the gene-essentiality landscape of cancer cell lines — which genes each tumour cell depends on. They found drug-resistance and drug-sensitivity genes, helping prioritise combination therapies. They identified host factors required for viral infection — including for S A R S coronavirus two during the C O V I D pandemic. And they revealed master regulators of cell-fate decisions during differentiation. Each of these would have taken decades with one-gene-at-a-time methods. Pooled screens compress them into months.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Perturb-seq · linking knockouts to transcriptomes</h2>
+      <ul>
+        <li>Pooled CRISPR + <strong>single-cell RNA-seq</strong></li>
+        <li>Each cell: which gene was knocked out · how the transcriptome changed</li>
+        <li>Maps regulatory networks at scale</li>
+        <li>Now works <strong>in vivo</strong> via AAV delivery</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Santinha et al. 2023, <em>Nature</em></p>
+      <aside class="notes">
+        Pooled screens tell you which genes affect a phenotype, but not how. Perturb-seq fills that gap. It combines pooled CRISPR perturbations with single-cell R N A sequencing. For every cell you read out two things: which gene was knocked out, identified by the guide R N A barcode, and the cell's full transcriptome. Now, instead of just knowing that knocking out gene X kills cells, you can see which downstream genes change expression and infer the regulatory network. The Santinha twenty twenty-three paper extended Perturb-seq to in vivo work in the mouse brain using A A V delivery, opening up large-scale reverse-genetic screens in adult tissue.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Perturb-seq · in vivo workflow</h2>
+      <figure>
+        <img src="../assets/figures/Santinha2023-Nature-Figure1.png" alt="AAV-Perturb-seq in vivo workflow" style="max-height:360px;">
+        <figcaption>
+          AAV pooled gRNA library → mouse brain · single-nucleus RNA-seq → linked perturbation + transcriptome.<br>
+          Santinha et al. 2023, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is the in vivo Perturb-seq workflow. Pooled guide R N A library is packaged into A A V particles and injected systemically into a mouse expressing Cas nine in target cells. After several weeks, brain tissue is harvested and nuclei are isolated. Single-nucleus R N A-seq with a specialised five-prime capture method reads out both the cellular transcriptome and the guide R N A identity simultaneously. The result: a map of which genes were perturbed in which cells, and how the transcriptome changed. This is reverse genetics directly inside an intact brain.
+      </aside>
+    </section>
+
+    <section>
+      <h2>MPRA · testing regulatory sequences</h2>
+      <ul>
+        <li>Most GWAS hits are non-coding · in regulatory elements</li>
+        <li>MPRA = Massively Parallel Reporter Assay</li>
+        <li>Test <strong>thousands</strong> of candidate enhancers in parallel</li>
+        <li>Each linked to a reporter (e.g. GFP) and a barcode</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Agarwal et al. 2025, <em>Nature</em></p>
+      <aside class="notes">
+        CRISPR screens focus on genes. But ninety-three percent of G W A S hits are in non-coding regulatory regions. To test regulatory sequences at scale, the field developed massively parallel reporter assays, abbreviated M P R A. The idea is simple. You synthesise a library of two hundred thirty nucleotide oligonucleotides, each containing a different candidate regulatory element. You clone them upstream of a reporter gene, with each element tagged by a unique barcode. After integration into cells, you sequence the transcribed barcodes versus the integrated barcodes — the ratio gives you the activity of each element. The Agarwal twenty twenty-five paper used this approach to characterise hundreds of thousands of candidate cis-regulatory elements, mapping the regulatory landscape of the human genome.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Functional Rescue ·<br>Proving Causality</h1>
+      <aside class="notes">
+        Once you know losing a gene causes a phenotype, the gold standard is the rescue experiment.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Why rescue experiments are decisive</h2>
+      <blockquote>
+        Restore the gene · does the phenotype go away?
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>If yes → the gene is <strong>causal</strong>, not just correlated</li>
+        <li>The cleanest possible test of causation</li>
+      </ul>
+      <aside class="notes">
+        The rescue experiment is the cleanest test of causality. You know that knocking out a gene produces a phenotype. Now you put the gene back. If the phenotype goes away, you have proven that the gene is causal — not just statistically associated with the phenotype, but actually responsible for it. Rescue is the experimental gold standard, and three main strategies exist.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Three rescue strategies</h2>
+      <ol>
+        <li><strong>Gene complementation</strong> — add back a wild-type copy</li>
+        <li><strong>Gene correction</strong> — fix the mutation with base/prime editing</li>
+        <li><strong>Allelic activation</strong> — boost the remaining allele with CRISPRa</li>
+      </ol>
+      <aside class="notes">
+        Three rescue strategies are routine. One. Gene complementation. Add back a normal copy of the gene to mutant cells. The added copy can be transient, like injected m R N A, or stable, integrated at a safe-harbour locus. Two. Gene correction. Use base editing or prime editing to repair the mutation in its native genomic context. This is the cleanest test because the corrected allele is under its own native regulatory control. Three. Allelic activation. For haploinsufficiency disorders, where one functional copy is not enough, use CRISPR a to boost expression of the remaining intact allele. We will see this strategy applied to S C N two A in the next chapter.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Putting It Together ·<br>The CHD8 Case</h1>
+      <aside class="notes">
+        Let's trace one autism risk gene, C H D eight, through the full forward-and-reverse genetics workflow.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The CHD8 journey</h2>
+      <ol>
+        <li><strong>Forward</strong> · burden test · LoF enriched in autism cases</li>
+        <li><strong>Reverse</strong> · CRISPR knock-out → abnormal expression, synaptic defects</li>
+        <li><strong>Rescue</strong> · WT CHD8 added back → defects disappear</li>
+        <li><strong>Mechanism</strong> · Perturb-seq → CHD8 regulates 100s of chromatin and neuronal genes</li>
+      </ol>
+      <aside class="notes">
+        Step one. Forward genetics. Burden tests in autism cohorts identified C H D eight as enriched for loss-of-function variants. Step two. Reverse genetics. CRISPR knock-out of C H D eight in human induced pluripotent stem cell-derived neurons caused abnormal gene expression and synaptic defects. Step three. Rescue. Adding back a wild-type C H D eight allele restored normal function, proving causality. Step four. Mechanism. Perturb-seq showed that C H D eight regulates hundreds of downstream genes involved in chromatin remodelling and neuronal differentiation. We now understand C H D eight not just as a statistical signal, but as a chromatin regulator whose loss disrupts neuronal development. That is the full forward-to-reverse cycle.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Reverse genetics: <strong>gene → phenotype</strong> by perturbation</li>
+        <li>CRISPR unified the toolkit · cut · base edit · prime edit · regulate · target RNA</li>
+        <li>Pooled screens scale to <strong>genome-wide</strong> perturbations</li>
+        <li>Perturb-seq adds the transcriptome readout</li>
+        <li>MPRA tests regulatory sequences</li>
+        <li>Rescue experiments prove <strong>causation</strong></li>
+      </ul>
+      <aside class="notes">
+        Six takeaways. One. Reverse genetics goes from gene to phenotype, by deliberate perturbation. Two. CRISPR unified the toolkit — cut with Cas nine, base-edit with deaminase fusions, prime-edit with reverse transcriptase fusions, regulate with d Cas nine, target R N A with Cas thirteen. Three. Pooled CRISPR screens scale reverse genetics to whole-genome perturbations. Four. Perturb-seq adds the single-cell transcriptome readout, mapping regulatory networks. Five. M P R A tests regulatory sequences in parallel. And six. Rescue experiments — complementation, correction, or allelic activation — close the loop and prove causation.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        Reverse genetics meets the clinic ·<br>
+        <span style="color:var(--terracotta-deep)">CRISPRa for SCN2A</span>
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 27 · <strong>CRISPRa Therapy for SCN2A Haploinsufficiency</strong>
+      </p>
+      <aside class="notes">
+        Next chapter we apply everything we have learned to a real therapeutic problem. S C N two A haploinsufficiency causes a severe developmental epilepsy. Reverse genetics — specifically CRISPR a-based allelic activation — is now in development as a therapy. We will follow that story in detail. See you then.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({width:1280, height:720, margin:0.04, hash:true, slideNumber:'c/t', controls:true, progress:true, transition:'fade', plugins:[ RevealNotes, RevealHighlight ]});
+</script>
+</body>
+</html>

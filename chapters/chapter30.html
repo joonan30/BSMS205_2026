@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 30 · QTLs — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics · Final Lecture</div>
+      <h1>QTLs</h1>
+      <div class="chapter-num">Chapter 30 · Connecting Alleles to Molecular Traits</div>
+      <aside class="notes">
+        Welcome to Chapter thirty, the final chapter of this course. Today's topic is Quantitative Trait Loci, abbreviated Q T Ls. Q T Ls are the bridge between everything we have learned. They connect the variants identified by G W A S to the regulatory architecture we have just covered. By the end of today, you will see how the entire course fits together.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:1.95em; line-height:1.1;">
+        If you carry a variant,<br>
+        how does it actually <span style="color:var(--terracotta-deep)">change<br>RNA or protein levels?</span>
+      </h1>
+      <aside class="notes">
+        Here is today's question. You carry a particular genetic variant. We know from G W A S that it is associated with disease risk. But what does it actually do at the molecular level? Does it change how much R N A is made? Does it change how much protein? In which cell types? By how much? These are the questions Q T L analyses answer. They turn the abstract genotype-to-phenotype association into something concrete and mechanistic.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What QTLs are</h2>
+      <ul>
+        <li>Quantitative Trait Locus = variant linked to a <strong>measurable trait</strong></li>
+        <li><strong>eQTL</strong> · variant ↔ mRNA level</li>
+        <li><strong>pQTL</strong> · variant ↔ protein level</li>
+        <li>The bridge from <strong>genotype</strong> to <strong>molecular phenotype</strong></li>
+      </ul>
+      <aside class="notes">
+        A Q T L is a genetic variant statistically associated with variation in a quantitative trait. The trait can be anything you can measure numerically — height, blood pressure, cholesterol. In molecular genetics, the most important Q T Ls are those linking variants to molecular phenotypes. An expression Q T L, or e Q T L, links a variant to m R N A levels. A protein Q T L, or p Q T L, links a variant to protein levels. Together, they form the bridge from genotype to molecular phenotype, and they are what make modern human genetics interpretable.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Roadmap for the final lecture</h2>
+      <ol>
+        <li>How QTL mapping works · cis vs trans</li>
+        <li>eQTLs and pQTLs · what each tells you</li>
+        <li>Three landmark studies from 2025</li>
+        <li>Caveats · what QTLs do <em>not</em> tell you</li>
+        <li>Integrating with GWAS · finding causal genes</li>
+        <li>The complete genetics framework</li>
+      </ol>
+      <aside class="notes">
+        Here is the flow. First, the basic mechanics of Q T L mapping, including the crucial distinction between cis and trans Q T Ls. Second, the difference between e Q T Ls and p Q T Ls and what each one captures. Third, three landmark twenty twenty-five studies that illustrate the modern state of the field. Fourth, caveats — what Q T Ls do and do not tell you, including tissue specificity and the gap between e Q T L and p Q T L. Fifth, how Q T Ls combine with G W A S to identify causal genes. And sixth, a summary that ties together everything we have learned in the course.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>How QTL Mapping Works</h1>
+      <aside class="notes">
+        Let's start with the basic mechanics.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Three ingredients</h2>
+      <ol>
+        <li><strong>Genotype</strong> data · millions of SNPs per person</li>
+        <li><strong>Molecular phenotype</strong> data · RNA-seq for eQTL · mass spec for pQTL</li>
+        <li><strong>Statistical test</strong> · linear regression of trait on genotype</li>
+      </ol>
+      <aside class="notes">
+        Q T L mapping needs three ingredients. One. Genotype data — millions of S N Ps genotyped in a cohort, typically by array or sequencing. Two. Molecular phenotype data — m R N A levels from R N A-seq for e Q T Ls, protein levels from mass spectrometry for p Q T Ls. Three. A statistical test, usually a linear regression of the molecular phenotype on the genotype, asking whether the trait varies systematically with the number of alternate alleles.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The additive model</h2>
+      <table>
+        <thead><tr><th>Genotype</th><th>Encoding</th><th>Expected effect</th></tr></thead>
+        <tbody>
+          <tr><td>AA</td><td>0</td><td>baseline</td></tr>
+          <tr><td>AG</td><td>1</td><td>baseline + β₁</td></tr>
+          <tr><td>GG</td><td>2</td><td>baseline + 2β₁</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        The standard encoding is additive. Genotype is coded as zero for homozygous reference, one for heterozygous, and two for homozygous alternate. The model assumes each copy of the alternate allele has an additive effect on the molecular phenotype. If one copy raises expression by ten percent, two copies raise it by twenty percent. The statistical test fits a line through the data, and the slope, called beta one, is the per-allele effect size. If beta one is significantly different from zero, you have found a Q T L.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Cis-QTL vs trans-QTL</h2>
+      <div class="cols">
+        <div>
+          <h3>Cis</h3>
+          <ul>
+            <li>Variant <strong>near</strong> the gene</li>
+            <li>Within ±1 Mb</li>
+            <li>Strong, easy to detect</li>
+            <li>Usually a regulatory element</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Trans</h3>
+          <ul>
+            <li>Variant <strong>far away</strong> · different chromosome</li>
+            <li>Weaker effects</li>
+            <li>Often via a TF or signaling intermediate</li>
+            <li>Harder to detect</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Q T Ls come in two flavours. Cis-Q T Ls are variants located near the gene they regulate, typically within plus or minus one megabase of the gene's transcription start site. They are the easiest to detect because the effect sizes are larger, and they usually correspond to regulatory elements like promoters or enhancers. Trans-Q T Ls are variants that affect genes far away — on different chromosomes or many megabases distant. They are weaker, harder to find, and often act through intermediate molecules. For example, a variant in a transcription factor gene might affect dozens of downstream targets in trans.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Multiple testing</h2>
+      <ul>
+        <li>Millions of SNPs × thousands of genes = <strong>billions of tests</strong></li>
+        <li>Most associations are noise</li>
+        <li>Use FDR or permutation thresholds</li>
+        <li>Large samples needed for trans-QTLs (~50,000+)</li>
+      </ul>
+      <aside class="notes">
+        Q T L mapping involves a lot of statistical tests. Millions of S N Ps tested against thousands of genes adds up to billions of tests. Most are noise. To avoid false positives, you apply false discovery rate correction or permutation-based thresholds, which adjust significance to account for the testing burden. Cis-Q T Ls can be detected reliably with a few hundred to a few thousand samples. Trans-Q T Ls, with their smaller effects, often require tens of thousands of samples for adequate statistical power.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>eQTLs and pQTLs</h1>
+      <aside class="notes">
+        Now let's understand what each layer tells us.
+      </aside>
+    </section>
+
+    <section>
+      <h2>eQTLs · genetic effects on RNA</h2>
+      <ul>
+        <li>Most disease GWAS variants are <strong>actually eQTLs</strong></li>
+        <li>Don't change protein sequence · change <strong>expression level</strong></li>
+        <li>Tissue-specific · GTEx mapped 54 tissues</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">GTEx Consortium 2020, <em>Science</em></p>
+      <aside class="notes">
+        e Q T Ls are the most common type of Q T L. The reason matters. Most disease-associated G W A S variants are actually e Q T Ls. They do not change protein sequences. They change how much m R N A is made. A single variant in an enhancer can reduce gene expression by twenty or thirty percent, and that is enough to shift disease risk. Importantly, e Q T Ls are tissue-specific. A variant might affect expression in liver but not in brain. The G T Ex project mapped e Q T Ls across fifty-four human tissues and found that most e Q T Ls are active in only a subset of tissues — reflecting tissue-specific use of regulatory elements.
+      </aside>
+    </section>
+
+    <section>
+      <h2>pQTLs · genetic effects on protein</h2>
+      <ul>
+        <li>Measured in plasma by <strong>mass spectrometry</strong></li>
+        <li>Protein is closer to phenotype than RNA</li>
+        <li>Captures translation efficiency, stability, secretion</li>
+        <li>Only <strong>40 – 60%</strong> of eQTLs have a matching pQTL</li>
+      </ul>
+      <aside class="notes">
+        p Q T Ls take it one layer further. Instead of measuring R N A, you measure protein levels — usually in blood plasma using mass spectrometry. Protein is closer to phenotype than R N A is. R N A tells you what the cell is trying to make. Protein tells you what it actually made. Because proteins are subject to additional layers — translation efficiency, protein stability, secretion, degradation — p Q T Ls capture effects that e Q T Ls miss. Strikingly, only forty to sixty percent of e Q T Ls have a corresponding p Q T L for the same gene. R N A and protein regulation operate as distinct layers.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Why eQTL and pQTL diverge</h2>
+      <ul>
+        <li><strong>Translation efficiency</strong> · some mRNAs translate more</li>
+        <li><strong>Protein half-life</strong> · some proteins degrade fast</li>
+        <li><strong>Post-translational modifications</strong> · alter activity, stability, location</li>
+        <li><strong>Secretion</strong> · cellular vs plasma protein</li>
+      </ul>
+      <aside class="notes">
+        Why do e Q T L and p Q T L diverge so often? Four reasons. One. Translation efficiency varies. Some m R N A sequences translate much more efficiently than others. Two. Protein half-life differs. Some proteins are quickly degraded after synthesis. Three. Post-translational modifications can alter protein activity, stability, or localisation independent of m R N A levels. And four. For plasma proteins, secretion adds another layer — a cell might transcribe a protein but not secrete it. The result is that e Q T Ls reflect potential, while p Q T Ls reflect realised output. Both layers matter for disease, but they tell different stories.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Three Landmark Studies</h1>
+      <aside class="notes">
+        Let's look at three twenty twenty-five papers that illustrate the modern state of Q T L research.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Study 1 · Niu et al. 2025 · childhood pQTLs</h2>
+      <ul>
+        <li><strong>2,147 children and adolescents</strong> · plasma proteomics</li>
+        <li>1,216 high-confidence proteins measured</li>
+        <li>~70% of proteins influenced by genetics, age, sex, or BMI</li>
+        <li>1/3 of proteins have at least one significant pQTL</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Niu et al. 2025, <em>Nature Genetics</em></p>
+      <aside class="notes">
+        First study, Niu and colleagues twenty twenty-five in Nature Genetics. They measured plasma protein levels in twenty-one hundred forty-seven children and adolescents using mass spectrometry, identifying twelve hundred sixteen high-confidence proteins. About seventy percent of these proteins were influenced by at least one factor — genetics, age, sex, or B M I. Genetic effects were widespread: one-third of all proteins had at least one significant p Q T L. Some variants changed protein levels by just a few percent. Others caused thirty-fold changes. The key finding was that genetic control of protein levels is established early in life and persists into adulthood. The pediatric p Q T Ls replicated in adult cohorts.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Niu 2025 · genome-wide pQTL map</h2>
+      <figure>
+        <img src="../assets/figures/Niu2025-NatGenet-Fig3.png" alt="Niu 2025 plasma pQTL Manhattan plot" style="max-height:380px;">
+        <figcaption>
+          Most pQTLs are <strong>cis</strong> · in non-coding regulatory regions · only ~3% are missense.<br>
+          Niu et al. 2025, <em>Nat Genet</em>. CC BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This figure summarises the Niu twenty twenty-five p Q T L map. The Manhattan plot shows associations across all chromosomes. Most p Q T Ls cluster near their corresponding gene — cis-p Q T Ls dominate. By variant type, most are non-coding variants in introns or intergenic regions. Only about three percent are missense variants that alter the protein sequence directly. Local regulation, not coding changes, is the dominant mechanism. This pattern is consistent across protein abundance studies.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Study 2 · Hofmeister et al. 2025 · parent-of-origin</h2>
+      <ul>
+        <li>UK Biobank · ~109,000 participants</li>
+        <li>14,000 known pQTLs tested for <strong>parent-specific</strong> effects</li>
+        <li><strong>30+ significant POEs</strong> identified</li>
+        <li>40% of POEs are <strong>antagonistic</strong> · maternal vs paternal push opposite directions</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Hofmeister et al. 2025, <em>Nature</em></p>
+      <aside class="notes">
+        Second study, Hofmeister and colleagues twenty twenty-five in Nature. They tested whether p Q T Ls show parent-of-origin effects — cases where the maternal and paternal alleles have different effects. Standard genetic models assume the parent does not matter. But for imprinted genes, only one parental copy is expressed. Using one hundred nine thousand U K Biobank participants, they tested fourteen thousand known p Q T Ls and identified more than thirty significant parent-of-origin effects. Forty percent showed antagonistic effects — maternal and paternal alleles pushing the trait in opposite directions. Classical imprinted loci like H one nine I G F two, K C N Q one, and K L F fourteen M E S T were all confirmed. The findings replicated in the Estonian Biobank and the Norwegian Mo Ba cohort.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Study 3 · Wingo et al. 2025 · multi-ancestry brain pQTLs</h2>
+      <ul>
+        <li><strong>1,362 brain donors</strong> · African-American, Hispanic, non-Hispanic White</li>
+        <li>~11,750 proteins quantified</li>
+        <li><strong>858 fine-mapped causal pQTLs</strong></li>
+        <li>119 pQTL-protein-trait triads link variants → protein → disease</li>
+      </ul>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Wingo et al. 2025, <em>Nature Genetics</em></p>
+      <aside class="notes">
+        Third study, Wingo and colleagues twenty twenty-five in Nature Genetics. Most Q T L studies have been done in European-ancestry populations. The Wingo paper mapped brain p Q T Ls in a multi-ancestry cohort: thirteen hundred sixty-two brain donors from African-American, Hispanic Latino, and non-Hispanic White backgrounds. About eleven thousand seven hundred fifty proteins were quantified. They identified eight hundred fifty-eight fine-mapped causal p Q T Ls. By integrating these p Q T Ls with G W A S data for neurological and psychiatric diseases, they found one hundred nineteen p Q T L-protein-trait triads — direct links from genetic variant to protein level to disease.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Wingo 2025 · ancestry-specific pQTLs</h2>
+      <figure>
+        <img src="../assets/figures/Wingo2025-NatGenet-Fig2.png" alt="Wingo 2025 multi-ancestry brain pQTLs" style="max-height:360px;">
+        <figcaption>
+          Some pQTLs are <strong>ancestry-specific</strong> · some are <strong>shared</strong>.<br>
+          Wingo et al. 2025, <em>Nat Genet</em>. CC BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This LocusZoom figure illustrates a key finding. Some brain p Q T Ls are specific to one ancestry. Panel a shows a p Q T L at the D D X fifty-eight locus that is strongly associated with protein levels in African Americans but not in Hispanic or non-Hispanic White populations. Panel b shows another p Q T L at P P I L three that is shared across all three populations. The lesson is that genetic architecture is not universal. Some regulatory variants are population-specific, often because of differences in allele frequencies and linkage disequilibrium across ancestries. This is why multi-ancestry studies are essential for capturing the full picture of genetic regulation.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Caveats</h1>
+      <aside class="notes">
+        Q T Ls are powerful, but they have important limitations. Let's name them clearly.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Caveat 1 · association is not causation</h2>
+      <ul>
+        <li>QTL = correlation between variant and trait</li>
+        <li>True causal variant may be in <strong>linkage disequilibrium</strong></li>
+        <li>Or the variant may act via an <strong>intermediate</strong></li>
+        <li>Need fine-mapping and functional validation</li>
+      </ul>
+      <aside class="notes">
+        First caveat. A significant Q T L means a variant correlates with a molecular trait. It does not prove the variant directly causes the change. The variant might be in linkage disequilibrium with the true causal variant, just tagging it. Or it might act through an intermediate factor. The classic example is the F T O obesity locus. Variants in F T O are strongly associated with obesity, but the causal mechanism turns out to involve an enhancer in the F T O region that regulates I R X three, a gene many kilobases away. F T O variants are just markers. The functional element is elsewhere. Fine-mapping and CRISPR-based functional validation are needed to identify true causal variants.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Caveat 2 · tissue and cell-type specificity</h2>
+      <ul>
+        <li>QTLs are often <strong>context-dependent</strong></li>
+        <li>APOE eQTL active in liver · not the same elsewhere</li>
+        <li>IL2RA eQTL only after cytokine stimulation</li>
+        <li>Always check the right tissue · the right context</li>
+      </ul>
+      <aside class="notes">
+        Second caveat. Most Q T L effects are context-dependent. A variant might regulate a gene only in specific tissues, only in certain cell types, or only after specific stimulation. An A P O E e Q T L in the liver affects cholesterol metabolism. An I L two R A e Q T L in T cells affects immune activation, but only after cytokine stimulation triggers the relevant transcription factor. So when you interpret a disease variant, you must look at Q T Ls in the right tissue. For diabetes risk variants, that means pancreatic islet Q T Ls — not brain or liver. Tissue specificity is everything.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Caveat 3 · effect sizes are small</h2>
+      <ul>
+        <li>Cis-eQTL: typically <strong>5 – 20%</strong> of expression variance</li>
+        <li>Trans-QTL: <strong>&lt;1%</strong></li>
+        <li>pQTL: usually 1 – 5%</li>
+        <li>Small effects · but they accumulate across thousands of variants</li>
+      </ul>
+      <aside class="notes">
+        Third caveat. Most Q T L effects are small. A typical cis-e Q T L explains only five to twenty percent of variance in gene expression. A trans-Q T L often explains less than one percent. p Q T Ls tend to be even smaller, one to five percent per locus, because of the dilution from additional regulatory layers. But small effects matter. Complex traits are shaped by thousands of small-effect variants. Each individually is modest. Together they shape lifelong health.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>QTL × GWAS ·<br>Finding Causal Genes</h1>
+      <aside class="notes">
+        The real power of Q T Ls emerges when you combine them with G W A S.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The integration workflow</h2>
+      <ol>
+        <li>GWAS finds a disease locus (e.g. chr 19, Alzheimer's)</li>
+        <li>eQTL / pQTL mapping shows the same variants affect APOE and CLU</li>
+        <li><strong>Colocalization</strong> · GWAS and QTL signals share a causal variant</li>
+        <li>Strong evidence: APOE/CLU dysregulation mediates AD risk</li>
+      </ol>
+      <aside class="notes">
+        Here is the workflow that has revolutionised post-G W A S analysis. Step one. G W A S identifies a disease-associated locus — say a region on chromosome nineteen linked to Alzheimer's disease. Step two. e Q T L or p Q T L mapping in the relevant tissue shows that the same variants affect expression of A P O E and C L U in astrocytes. Step three. Colocalization analysis tests whether the G W A S signal and the Q T L signal are driven by the same causal variant. If they colocalize, you have strong evidence that A P O E and C L U dysregulation mediates Alzheimer's risk. This logic has identified causal genes for hundreds of G W A S loci — variants and genes that, without Q T L data, would have remained mysterious.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Mendelian randomisation</h2>
+      <blockquote>
+        Use genetic variants as <strong>instrumental variables</strong>.<br>
+        Test whether changing a molecular trait <strong>causally</strong> affects disease risk.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>If raising APOE protein reduces AD risk → APOE is a drug target</li>
+      </ul>
+      <aside class="notes">
+        Mendelian randomisation extends this further. It uses genetic variants as instrumental variables — natural experiments — to test whether changing a molecular trait causally affects disease risk. The logic. Genetic variants are randomly assigned at conception, so they are unconfounded by the environment. If a variant raises a protein level and that variant also reduces disease risk, you have evidence that the protein is causally protective. That makes the protein a candidate drug target. Mendelian randomisation has become a major tool in target identification, particularly when combined with p Q T L data on plasma proteins.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>The Complete Framework</h1>
+      <aside class="notes">
+        Let's step back and tie together everything we have learned this semester.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The full chain · variant to disease</h2>
+      <blockquote style="font-size:0.95em; line-height:1.6;">
+        DNA variant → RNA expression (eQTL) → Protein level (pQTL)<br>
+        → Pathway activity → Cellular phenotype → Disease risk
+      </blockquote>
+      <aside class="notes">
+        Here is the complete chain that connects D N A variation to disease risk. A variant in the D N A. That variant alters R N A expression — measurable as an e Q T L. The R N A change leads to a protein change — measurable as a p Q T L. The protein change alters pathway activity. The pathway change alters cellular phenotype. The cellular phenotype contributes to disease risk. Each arrow has been a chapter in this course. We have studied each layer in isolation. Q T Ls are how we tie them together quantitatively.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Course recap · Part IV</h2>
+      <ul>
+        <li>Ch 20 · <strong>allele frequency</strong> — the fundamental statistic</li>
+        <li>Ch 21 · <strong>population structure</strong> — why frequencies vary</li>
+        <li>Ch 22 · <strong>linkage</strong> — Mendel to Morgan</li>
+        <li>Ch 23 · <strong>recombination and haplotypes</strong> — how variants travel</li>
+        <li>Ch 24 · <strong>VCF</strong> — how all of this becomes data</li>
+      </ul>
+      <aside class="notes">
+        Part Four covered population genetics. Allele frequency in chapter twenty. Population structure in chapter twenty-one. Linkage in chapter twenty-two. Recombination and haplotypes in chapter twenty-three. And the V C F file format that encodes it all in chapter twenty-four. By the end of Part Four, you knew how variants are distributed in human populations, why frequencies vary, and how to work with the data.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Course recap · Part V</h2>
+      <ul>
+        <li>Ch 25 · <strong>forward genetics</strong> — phenotype to gene · GWAS · burden tests</li>
+        <li>Ch 26 · <strong>reverse genetics</strong> — CRISPR toolkit · screens · rescue</li>
+        <li>Ch 27 · <strong>CRISPRa therapy</strong> — SCN2A as the case study</li>
+        <li>Ch 28 · <strong>gene regulation principles</strong> — promoters · enhancers · loops</li>
+        <li>Ch 29 · <strong>regulation methods</strong> — RNA-seq · ChIP-seq · ATAC-seq · CUT&amp;RUN</li>
+        <li>Ch 30 · <strong>QTLs</strong> — connecting variant to molecular phenotype</li>
+      </ul>
+      <aside class="notes">
+        Part Five was about functional genetics. Forward genetics — finding genes from phenotypes. Reverse genetics — perturbing genes to discover function. The CRISPR a therapy case for S C N two A. The principles of gene regulation. The experimental methods to measure regulation. And today, Q T Ls — the bridge between variant and molecular trait. By the end of Part Five, you know not just where the variants are but what they do, in which cell types, and how that connects to disease.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What modern human genetics can now do</h2>
+      <ul>
+        <li>Find variants associated with disease at population scale</li>
+        <li>Determine which gene each variant regulates</li>
+        <li>Determine in which tissue and cell type</li>
+        <li>Test the gene's function with CRISPR</li>
+        <li>Design therapy by adjusting expression of the right gene</li>
+      </ul>
+      <aside class="notes">
+        Putting it all together. Modern human genetics can now find variants associated with disease at population scale, using G W A S and burden tests in cohorts of millions. We can use Q T Ls to determine which gene each variant regulates and in which tissue or cell type. We can test the gene's function directly with CRISPR knockouts, base edits, or activation. And when the picture is complete, we can design a therapy by adjusting the expression of the right gene in the right cells. We saw this end-to-end logic with S C N two A in chapter twenty-seven. This is what the field looks like in twenty twenty-five.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's end with the core takeaways.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>QTLs link <strong>variants</strong> to <strong>molecular phenotypes</strong></li>
+        <li>eQTLs and pQTLs · 40 – 60% concordance</li>
+        <li>Most are <strong>cis</strong> · most non-coding · most tissue-specific</li>
+        <li>Effect sizes small · but accumulate across the genome</li>
+        <li>QTL + GWAS = causal gene identification</li>
+        <li>Mendelian randomisation → causal inference for therapy</li>
+      </ul>
+      <aside class="notes">
+        Six takeaways. One. Q T Ls link genetic variants to molecular phenotypes — m R N A levels for e Q T Ls, protein levels for p Q T Ls. Two. e Q T Ls and p Q T Ls overlap only forty to sixty percent — they capture distinct regulatory layers. Three. Most Q T Ls are cis, most are non-coding, and most are highly tissue-specific. Four. Effect sizes per Q T L are small, but they accumulate across thousands of variants to shape complex traits. Five. The combination of Q T L and G W A S, through colocalization, identifies the causal genes underlying disease loci. And six. Mendelian randomisation extends this to causal inference, identifying drug targets directly from genetic data.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">End of course</div>
+      <h1 style="font-size:2.2em; line-height:1.1;">
+        From <span style="color:var(--terracotta-deep)">A and T and G and C</span><br>
+        to <span style="color:var(--terracotta-deep)">human disease</span>.
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft); font-size:1em;">
+        BSMS205 · Genetics · 2026 Spring · 30 chapters complete.
+      </p>
+      <aside class="notes">
+        And that brings us to the end of the course. Thirty chapters. We started with the human genome and the technologies that read it. We covered variation, inheritance, complex traits, population genetics, and functional genetics. We worked through real papers from the last few years. And we ended here, with Q T Ls — the bridge that connects A and T and G and C, the four letters of D N A, to actual human disease. That bridge is the central achievement of modern human genetics. It is what makes the field interpretable, actionable, and, ultimately, therapeutic. Thank you for being part of this class. Good luck on the rest of your work in genetics. See you next semester.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({width:1280, height:720, margin:0.04, hash:true, slideNumber:'c/t', controls:true, progress:true, transition:'fade', plugins:[ RevealNotes, RevealHighlight ]});
+</script>
+</body>
+</html>

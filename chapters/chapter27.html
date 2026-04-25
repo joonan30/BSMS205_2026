@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 27 · CRISPRa for SCN2A — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>CRISPRa Therapy for<br>SCN2A Haploinsufficiency</h1>
+      <div class="chapter-num">Chapter 27 · A case study in cis-regulatory therapy</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-seven, CRISPR a Therapy for S C N two A Haploinsufficiency. In the previous chapter we saw the modern reverse genetics toolkit, including CRISPR a — the system that uses a dead Cas nine fused to a transcriptional activator to boost gene expression. Today we follow that tool from the lab bench all the way toward the clinic, applied to one specific severe disorder. This is a real story. The paper came out in twenty twenty-five, in Nature.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        Can you treat a genetic disease<br>
+        by simply <span style="color:var(--terracotta-deep)">turning up the volume</span><br>
+        on the patient's normal allele?
+      </h1>
+      <aside class="notes">
+        Here is the central question. For many genetic disorders, one allele has a damaging mutation, but the other allele is completely normal. The problem is not the bad allele — it is that one good allele is not making enough protein on its own. So instead of fixing the bad allele, what if we just turned up the volume on the good one? Could that be a therapy? Today's chapter says yes — and we will see exactly how.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The therapeutic concept</h2>
+      <blockquote>
+        Don't replace the gene.<br>
+        Don't edit the mutation.<br>
+        <strong>Boost the remaining normal allele.</strong>
+      </blockquote>
+      <p style="margin-top:0.6em;">This is called <strong>dosage restoration therapy</strong>.</p>
+      <aside class="notes">
+        Here is the new therapeutic concept. For decades, genetic therapies fell into two categories. Gene replacement — add a new working copy. Gene editing — fix the broken copy. Both rewrite the genome. The Tamura twenty twenty-five paper demonstrates a third path. Don't replace. Don't edit. Just boost the existing normal allele. The patient already has a good copy. We just need it to work harder. This idea is called dosage restoration therapy, and it is now a real therapeutic strategy in development.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Roadmap</h2>
+      <ol>
+        <li>SCN2A and the haploinsufficiency problem</li>
+        <li>Loss vs gain of function variants</li>
+        <li>How CRISPRa works · the mechanism</li>
+        <li>The Tamura 2025 study · cellular rescue</li>
+        <li>Behavioral and seizure rescue</li>
+        <li>Why this matters · cis-regulatory therapy</li>
+      </ol>
+      <aside class="notes">
+        Here is the flow today. First, the biology of S C N two A and what haploinsufficiency means. Second, why not all S C N two A variants are alike — the loss-of-function versus gain-of-function distinction. Third, the molecular mechanism of CRISPR a. Fourth, the cellular results from the Tamura twenty twenty-five paper. Fifth, the higher-level results — seizures and behaviour. And sixth, the broader concept of cis-regulatory gene therapy that this paper exemplifies.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>SCN2A and the<br>Haploinsufficiency Problem</h1>
+      <aside class="notes">
+        Let's start with the gene itself.
+      </aside>
+    </section>
+
+    <section>
+      <h2>SCN2A · a sodium channel</h2>
+      <ul>
+        <li>Encodes <strong>Na<sub>V</sub>1.2</strong> · voltage-gated sodium channel</li>
+        <li>Critical for <strong>action potential</strong> generation</li>
+        <li>Especially important in early brain development</li>
+        <li>Highly expressed in excitatory neurons</li>
+      </ul>
+      <aside class="notes">
+        S C N two A encodes a protein called Na V one point two — a voltage-gated sodium channel. When a neuron fires an action potential, sodium channels open and let sodium ions rush into the cell, depolarising the membrane and propagating the electrical signal. Na V one point two is especially important in early brain development and in certain types of excitatory cortical neurons. Without enough of it, neurons cannot fire normally.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Haploinsufficiency · one copy is not enough</h2>
+      <div class="cols">
+        <div>
+          <h3>Normal</h3>
+          <ul>
+            <li>Two functional alleles</li>
+            <li>50% + 50% = <strong>100%</strong> protein</li>
+            <li>Neurons fire normally</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Haploinsufficient</h3>
+          <ul>
+            <li>One functional · one LoF</li>
+            <li>50% + 0% = <strong>50%</strong> protein</li>
+            <li>Neurons <strong>under-fire</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Haploinsufficiency means that one functional copy is not enough for normal function. In a healthy person, both alleles contribute about fifty percent of the protein, totalling one hundred percent. In a haploinsufficient patient, one allele has a loss-of-function mutation and produces zero protein. The remaining good allele produces fifty percent. That is half the normal level — and for some genes, like S C N two A, fifty percent is not enough. Neurons become under-excitable. They cannot fire properly. The result is severe disease.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Clinical consequences of SCN2A LoF</h2>
+      <ul>
+        <li><strong>Developmental delay</strong></li>
+        <li><strong>Epilepsy</strong> — including paradoxical seizures</li>
+        <li><strong>Autism spectrum disorder</strong></li>
+        <li><strong>Intellectual disability</strong></li>
+      </ul>
+      <aside class="notes">
+        The clinical consequences of S C N two A loss-of-function variants are severe. Patients show developmental delay, often noticed within the first year of life. They develop epilepsy — paradoxically, because losing an excitatory channel can also weaken inhibitory circuits, leading to seizures. Many patients also have autism spectrum disorder and intellectual disability. The combination is sometimes called developmental and epileptic encephalopathy. There is currently no targeted therapy. Standard antiepileptic drugs help only modestly.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The key insight</h2>
+      <blockquote style="font-size:1.05em;">
+        The remaining SCN2A allele is <strong>perfectly normal</strong>.<br>
+        It just isn't producing enough protein.
+      </blockquote>
+      <p style="margin-top:0.8em;">
+        Therapeutic question: <strong>can we make the good copy work harder?</strong>
+      </p>
+      <aside class="notes">
+        And here is the insight that motivates today's chapter. In an S C N two A haploinsufficient patient, the surviving allele is perfectly normal. There is nothing wrong with it. It is producing protein at the normal rate for one allele. The problem is just that one allele's worth of output is not enough. So the therapeutic question becomes: can we make the good copy work harder? Can we double its output? If yes, we restore the patient to roughly normal protein levels — a hundred percent — without ever touching the broken allele.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Not All Variants<br>Are the Same</h1>
+      <aside class="notes">
+        Before we get to therapy, an important diagnostic point. Not all S C N two A variants are equivalent.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Two opposite variant classes</h2>
+      <table>
+        <thead><tr><th>Class</th><th>Channel</th><th>Neuron</th><th>Phenotype</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Loss of function</strong></td><td>Reduced or absent</td><td>Hypoexcitable</td><td>Developmental delay · ASD</td></tr>
+          <tr><td><strong>Gain of function</strong></td><td>Excessive · prolonged opening</td><td>Hyperexcitable</td><td>Infantile spasms · early epilepsy</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        S C N two A variants split into two opposite classes. Loss of function variants — nonsense, frameshift, splice-disrupting, or destabilising missense — reduce or eliminate channel activity. Neurons become hypoexcitable, leading to developmental delay and autism. Gain-of-function variants — typically missense in the voltage sensor or inactivation gate — cause channels to open too easily or stay open too long. Neurons become hyperexcitable, leading to infantile spasms and severe early-onset epilepsy. The two classes need opposite therapies. CRISPR a — boosting expression — is appropriate only for the loss-of-function class.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Why the distinction matters for therapy</h2>
+      <ul>
+        <li>LoF haploinsufficiency · neurons need <strong>more</strong> Na<sub>V</sub>1.2 → use <strong>CRISPRa</strong></li>
+        <li>GoF · neurons have <strong>too much</strong> activity → would need CRISPRi or sodium channel blocker</li>
+        <li>Genetic diagnosis must distinguish the two classes</li>
+      </ul>
+      <aside class="notes">
+        The diagnostic distinction is critical. If a patient has loss of function and you boost S C N two A with CRISPR a, you restore them to normal. If you mistakenly boost a gain-of-function patient, you make them worse — pushing already over-excitable channels even higher. So accurate variant classification has to come first. The good news is that current functional assays in induced pluripotent stem cell-derived neurons can usually distinguish the two classes. Today's discussion focuses on the loss-of-function group.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>How CRISPRa Works</h1>
+      <aside class="notes">
+        Now let's understand the mechanism of CRISPR a.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Standard CRISPR · cuts DNA</h2>
+      <ul>
+        <li>Guide RNA targets the protein</li>
+        <li><strong>Cas9</strong> cuts both strands</li>
+        <li>Cell repairs the break, often with errors</li>
+        <li>Result: <strong>permanent</strong> DNA change</li>
+      </ul>
+      <aside class="notes">
+        Recall the standard CRISPR system. A guide R N A directs the Cas nine protein to a specific D N A sequence. Cas nine cuts both strands. The cell repairs the break, often with errors. The end result is a permanent change to the genome. That is great for knocking out genes or correcting mutations. But for haploinsufficiency, we do not want to change the D N A. We want to change the expression. So we use a different version.
+      </aside>
+    </section>
+
+    <section>
+      <h2>CRISPRa · activates without cutting</h2>
+      <ul>
+        <li><strong>dCas9</strong> — catalytically dead · binds DNA but cannot cut</li>
+        <li>Fused to <strong>activator</strong> domain (e.g. VPR = VP64 + p65 + Rta)</li>
+        <li>Guide to gene's <strong>promoter</strong> → recruits transcription machinery</li>
+        <li>More mRNA · more protein · <strong>DNA unchanged</strong></li>
+      </ul>
+      <aside class="notes">
+        CRISPR a uses a modified version of Cas nine called d Cas nine — dead Cas nine — that has been engineered to bind D N A but not cut. By itself, d Cas nine does little useful. But fused to a transcriptional activator domain — for example, V P R, which combines V P sixty-four, p sixty-five, and R t a — it becomes a powerful gene activator. Guide it to a target gene's promoter, and it recruits R N A polymerase and the rest of the transcription machinery, boosting expression. The D N A sequence is unchanged. The cell just makes more m R N A and more protein. Think of it as a volume knob.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The volume knob mental model</h2>
+      <div class="cols">
+        <div>
+          <h3>Standard CRISPR</h3>
+          <ul>
+            <li>Permanent DNA edit</li>
+            <li>Like rewriting the score</li>
+          </ul>
+        </div>
+        <div>
+          <h3>CRISPRa</h3>
+          <ul>
+            <li>Reversible expression change</li>
+            <li>Like turning up the volume</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the useful mental model. Standard CRISPR is like rewriting the musical score itself — the change is permanent and propagates indefinitely. CRISPR a is like turning up the volume knob on the amplifier. The score stays the same. The output increases. Stop the system, and the output goes back down. This reversibility is one of the key safety advantages of CRISPR a as a therapy.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>The Tamura 2025 Study</h1>
+      <aside class="notes">
+        Now let's look at the actual experiments.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Experimental design</h2>
+      <ol>
+        <li>Generate Scn2a haploinsufficient mice (one WT + one LoF allele)</li>
+        <li>Design CRISPRa: <strong>dCas9-VPR + guide RNA</strong> targeting Scn2a promoter</li>
+        <li>Package into <strong>AAV9</strong> · deliver systemically</li>
+        <li>Treat adolescent mice (P30–P60)</li>
+        <li>Measure: mRNA · sodium current · firing · seizures · behaviour</li>
+      </ol>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Tamura et al. 2025, <em>Nature</em></p>
+      <aside class="notes">
+        The experimental design has five steps. One. Generate mice carrying one wild-type Scn2a allele and one loss-of-function allele. These mice show reduced sodium currents, abnormal E E G, and behavioural deficits — a faithful model of human haploinsufficiency. Two. Design the CRISPR a system — d Cas nine fused to V P R, plus a guide R N A targeting the Scn2a promoter. Three. Package everything into an A A V nine viral vector for delivery. Four. Inject systemically into adolescent mice, postnatal day thirty to sixty. Five. Measure outcomes at the molecular, cellular, circuit, and behavioural levels.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Result 1 · expression restored</h2>
+      <figure>
+        <img src="../assets/figures/Tamura2022-bioRxiv-Fig3.jpg" alt="SCN2A expression and sodium current after CRISPRa" style="max-height:340px;">
+        <figcaption>
+          mRNA from <strong>~50%</strong> (Het) → <strong>~80–90%</strong> (Het + CRISPRa) of WT.<br>
+          Sodium current from ~50% → ~85% of WT.<br>
+          Tamura et al. 2022 <em>bioRxiv</em>. CC BY-NC-ND 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the molecular result. The left panel shows m R N A levels. Wild-type mice are at one hundred percent. Untreated heterozygotes are at about fifty percent — half the normal level, exactly as expected for haploinsufficiency. After CRISPR a treatment, m R N A jumps back up to roughly eighty to ninety percent. Nearly complete restoration. The right panel shows the functional consequence — sodium current amplitude in patch-clamp recordings. Same story: from fifty percent up to eighty-five percent of normal. Boosting m R N A directly translates into more functional channels at the neuronal membrane.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Result 2 · firing rescued</h2>
+      <figure>
+        <img src="../assets/figures/Tamura2022-bioRxiv-Fig2.jpg" alt="Action potential firing rescue with CRISPRa" style="max-height:320px;">
+        <figcaption>
+          WT (black) fires many spikes · Het (cyan) fires few · Het+CRISPRa (purple) fires <strong>like WT</strong>.<br>
+          Tamura et al. 2022 <em>bioRxiv</em>. CC BY-NC-ND 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the cellular result that matters most. Each panel shows action potentials recorded from a single neuron in response to current injection. Wild-type neurons in black fire many fast spikes. Heterozygous neurons in cyan fire much less — they are sluggish, with only half the normal sodium channel density. After CRISPR a treatment, the heterozygous neurons in purple fire just like wild-type. Firing rescue is essentially complete. This is the cellular proof of concept — restore the protein, restore the function.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Behavior and Seizures</h1>
+      <aside class="notes">
+        Cellular rescue is encouraging. But we want to know whether it translates to the whole animal.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Result 3 · seizure protection</h2>
+      <figure>
+        <img src="../assets/figures/Tamura2022-bioRxiv-Fig4.jpg" alt="CRISPRa protects against chemoconvulsant-induced seizures" style="max-height:340px;">
+        <figcaption>
+          4-AP induced seizures · 60 min survival.<br>
+          Het (cyan) ~40% survive · Het+CRISPRa (purple) <strong>~WT</strong> survival.<br>
+          Tamura et al. 2022 <em>bioRxiv</em>. CC BY-NC-ND 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the most clinically meaningful result. The mice were challenged with four-aminopyridine, a chemoconvulsant that triggers seizures by blocking potassium channels. The graph shows survival over sixty minutes. Wild-type mice in black do well. Untreated heterozygous mice in cyan are highly vulnerable — about sixty percent die from severe tonic-clonic seizures within an hour. But CRISPR a-treated heterozygous mice in purple survive at nearly the wild-type rate. This is not just a lab measurement. Seizures are the most dangerous symptom of S C N two A haploinsufficiency in human patients. CRISPR a provides clinically meaningful protection.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Result 4 · behavioural improvement</h2>
+      <ul>
+        <li>Synaptic transmission · restored in cortical pyramidal cells</li>
+        <li>Social interaction · improved</li>
+        <li>Overall phenotype · near-normal</li>
+        <li>Treatment in <strong>adolescence</strong> · still works</li>
+      </ul>
+      <aside class="notes">
+        Beyond seizure protection, the treated mice showed improvements at the synaptic and behavioural levels. Excitatory synaptic transmission in cortical pyramidal cells was restored. Social interaction tests improved. The overall phenotype moved from disease state to near-normal. And critically — the treatment was given in adolescence, long after early brain development. That is a remarkable finding. It suggests that the therapeutic window for S C N two A intervention is not limited to early infancy. Patients diagnosed later in childhood may still benefit. That dramatically broadens the clinical relevance of this approach.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Also tested in human cells</h2>
+      <ul>
+        <li>Human iPSC-derived neurons with SCN2A LoF</li>
+        <li>CRISPRa boosted SCN2A expression</li>
+        <li>Sodium currents recovered</li>
+        <li>Approach is <strong>not mouse-specific</strong></li>
+      </ul>
+      <aside class="notes">
+        The Tamura paper also tested CRISPR a in human induced pluripotent stem cell-derived neurons carrying an S C N two A loss-of-function variant. The same boost in expression and the same recovery of sodium currents was observed. This is critical because it shows the approach is not mouse-specific — it works in human cells. That is a necessary stepping stone toward clinical translation.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Why This Matters ·<br>Cis-Regulatory Therapy</h1>
+      <aside class="notes">
+        Let's step back and put this in a broader context.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Five advantages of CRISPRa therapy</h2>
+      <ul>
+        <li><strong>No DNA cutting</strong> — no risk of off-target indels or rearrangements</li>
+        <li><strong>Endogenous regulation</strong> — gene stays under native promoter and enhancers</li>
+        <li><strong>Tunable and reversible</strong> — adjust dose · stop if needed</li>
+        <li><strong>Mutation-agnostic</strong> — works for any LoF as long as one allele is intact</li>
+        <li><strong>Late intervention possible</strong> — adolescent mice still rescued</li>
+      </ul>
+      <aside class="notes">
+        CRISPR a therapy has five major advantages over alternatives. One. No D N A cutting, so no off-target indels, no chromosomal rearrangements. Two. Endogenous regulation — the activated gene is still under its native promoter and enhancers, so expression remains responsive to normal developmental and physiological signals. Three. The effect is tunable and reversible. You can adjust the dose. If problems arise, you can stop. Compare that to a permanent gene edit. Four. Mutation-agnostic. The same CRISPR a system works for any loss-of-function variant — nonsense, frameshift, splice — as long as the other allele is intact. You do not need a different therapy for each mutation. And five, the most surprising finding — the late therapeutic window.
+      </aside>
+    </section>
+
+    <section>
+      <h2>How CRISPRa compares to alternatives</h2>
+      <table>
+        <thead><tr><th>Strategy</th><th>What it does</th><th>Trade-off</th></tr></thead>
+        <tbody>
+          <tr><td>Gene replacement</td><td>Add a new SCN2A copy via AAV</td><td>SCN2A is too large for AAV (6 kb)</td></tr>
+          <tr><td>Base editing</td><td>Correct point mutations</td><td>Only works for specific mutation types</td></tr>
+          <tr><td>Small molecules</td><td>Modulate channel activity</td><td>Non-specific · affects all Na channels</td></tr>
+          <tr><td><strong>CRISPRa</strong></td><td>Boost normal allele</td><td>Requires viral delivery · long-term safety TBD</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Let's compare CRISPR a to other therapeutic strategies. Gene replacement, the classic approach, packages a fresh S C N two A copy into A A V. The trouble is that S C N two A is about six kilobases, larger than the four point seven kilobase A A V capacity. You need split vectors or trimmed promoters, both of which compromise expression control. Base editing can correct specific point mutations but does not work for all variant types — frameshifts, splice mutations, large deletions are all out of reach. Small molecule sodium channel modulators exist but are not selective for Na V one point two — they also hit the other sodium channel subtypes, with side effects. CRISPR a is the only approach that is both mutation-agnostic and dosage-restoring. The trade-offs are viral delivery and long-term persistence, which still need to be characterised.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The bigger picture · cis-regulatory gene therapy</h2>
+      <ul>
+        <li>SCN1A in <strong>Dravet syndrome</strong> · CRISPRa development active</li>
+        <li>SIM1 in <strong>obesity</strong> from haploinsufficiency · CRISPRa works in mice</li>
+        <li>HTT in <strong>Huntington's</strong> · CRISPRi to silence repeat expansion</li>
+        <li>Hundreds of haploinsufficiency disorders are <strong>candidates</strong></li>
+      </ul>
+      <aside class="notes">
+        CRISPR a for S C N two A is part of a broader trend called cis-regulatory gene therapy. Other examples are already in development. CRISPR a for S C N one A in Dravet syndrome — another sodium channelopathy. CRISPR a for S I M one in obesity caused by haploinsufficiency. CRISPR i for the H T T repeat expansion in Huntington's disease, where you want to silence rather than activate. The unifying principle is to adjust gene expression to restore balance, rather than rewrite the genome. Hundreds of haploinsufficiency disorders are candidates for this strategy — Shank three in Phelan-McDermid syndrome, M E C P two in Rett syndrome, F O X P one in intellectual disability, and many others. If CRISPR a for S C N two A reaches the clinic successfully, the door opens for all of them.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>SCN2A LoF causes <strong>haploinsufficiency</strong> · neurons under-fire</li>
+        <li>The remaining allele is <strong>perfectly normal</strong> · just under-expressed</li>
+        <li>CRISPRa = dCas9 + activator → boost expression without cutting</li>
+        <li>Tamura 2025 · cellular firing, sodium current, seizures, behaviour <strong>all rescued</strong></li>
+        <li>Works in adolescent mice and in human iPSC neurons</li>
+        <li>Foundational case for <strong>cis-regulatory gene therapy</strong></li>
+      </ul>
+      <aside class="notes">
+        Six takeaways. One. S C N two A loss-of-function variants cause haploinsufficiency. Neurons under-fire. Two. The remaining allele is perfectly normal — it is just not making enough protein on its own. Three. CRISPR a uses dead Cas nine fused to a transcriptional activator to boost expression without cutting D N A. Four. The Tamura twenty twenty-five paper showed cellular, circuit, seizure, and behavioural rescue in haploinsufficient mice. Five. The treatment works in adolescent mice and in human iPSC-derived neurons — not mouse-specific, not limited to early development. And six. This is the foundational case for cis-regulatory gene therapy, a new paradigm that may apply to hundreds of other haploinsufficiency disorders.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        How does <span style="color:var(--terracotta-deep)">gene regulation</span><br>
+        actually work?
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 28 · <strong>Gene Regulation — Same Book, Different Readings</strong>
+      </p>
+      <aside class="notes">
+        Today we used CRISPR a to boost gene expression for therapy. But how is gene expression actually controlled in the first place? Why do different cells in the same body, with identical D N A, end up so different? That is the topic of Chapter twenty-eight, Gene Regulation, Same Book, Different Readings. See you then.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({width:1280, height:720, margin:0.04, hash:true, slideNumber:'c/t', controls:true, progress:true, transition:'fade', plugins:[ RevealNotes, RevealHighlight ]});
+</script>
+</body>
+</html>

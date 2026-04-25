@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 25 · Forward Genetics — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ========== TITLE ========== -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Forward Genetics</h1>
+      <div class="chapter-num">Chapter 25 · Part V · Functional Genetics</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-five, Forward Genetics, From Phenotype to Gene. This is the first chapter of Part Five, where we shift from population-level genetics to functional genetics — how we actually identify which genes matter for which traits. Today's question is the foundational one for all of medical genetics. You see a phenotype. How do you find the gene?
+      </aside>
+    </section>
+
+    <!-- ========== HOOK ========== -->
+    <section>
+      <div class="cue">The detective question</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        You have <span style="color:var(--terracotta-deep)">4 million variants</span><br>
+        in one patient's genome.<br>
+        Which one is the <span style="color:var(--terracotta-deep)">culprit?</span>
+      </h1>
+      <aside class="notes">
+        Here is a problem you will face if you ever work in clinical genetics. A patient walks in with a severe developmental disorder. You sequence their genome. You find roughly four million variants — places where their D N A differs from the reference. Most are completely harmless. One, possibly, is the cause. How do you find it? This is the central problem of forward genetics. You start from the phenotype, the observable trait, and work backwards to the genetic cause. It is detective work. Today we learn the modern toolkit.
+      </aside>
+    </section>
+
+    <!-- ========== FORWARD VS REVERSE ========== -->
+    <section>
+      <h2>Forward vs reverse genetics</h2>
+      <div class="cols">
+        <div>
+          <h3>Forward</h3>
+          <ul>
+            <li><strong>Phenotype → gene</strong></li>
+            <li>Start with disease</li>
+            <li>Search for cause</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Reverse</h3>
+          <ul>
+            <li><strong>Gene → phenotype</strong></li>
+            <li>Start with gene</li>
+            <li>Manipulate · observe</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.8em;">Today: <strong>forward</strong>. Next chapter: reverse.</p>
+      <aside class="notes">
+        Genetics has two complementary directions. Forward genetics goes from phenotype to gene. You see a disease, you find the cause. Reverse genetics goes the other direction. You take a gene, manipulate it, and observe the consequences. Today's chapter is about forward — the discovery direction. The next chapter will be about reverse — the validation direction. Together, they form the loop of how we figure out what genes do.
+      </aside>
+    </section>
+
+    <!-- ========== ROADMAP ========== -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Evolution of gene hunting · 1860s to today</li>
+        <li>GWAS · finding common variants</li>
+        <li>What GWAS tells you · and what it doesn't</li>
+        <li>Burden tests · finding rare variants</li>
+        <li>GWAS vs burden tests · two sides of one coin</li>
+        <li>Case study · schizophrenia architecture</li>
+      </ol>
+      <aside class="notes">
+        Here is how today flows. First, a quick history of gene hunting from Mendel to the present. Second, the modern workhorse, the genome-wide association study or G W A S. Third, the limits of G W A S — what it can and cannot tell you. Fourth, the complementary method for rare variants, the burden test. Fifth, how G W A S and burden tests fit together as two sides of the same coin. And sixth, a case study using schizophrenia, where both methods together reveal the full genetic architecture. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION 1 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>The Evolution<br>of Gene Hunting</h1>
+      <aside class="notes">
+        First, a brief history. The methods of forward genetics have changed dramatically across the last hundred and fifty years.
+      </aside>
+    </section>
+
+    <!-- ========== HISTORY 1 ========== -->
+    <section>
+      <h2>1860s – 1900s · classical genetics</h2>
+      <ul>
+        <li>Mendel: pedigrees and breeding</li>
+        <li>Morgan: chromosome mapping in flies</li>
+        <li>Tools: cross-breeding · pedigree analysis</li>
+        <li>Output: <strong>inheritance patterns</strong></li>
+      </ul>
+      <aside class="notes">
+        The earliest era was classical genetics, from the eighteen-sixties to the early nineteen-hundreds. Mendel established the rules of inheritance with pea plants. Morgan extended them with fruit flies and chromosome mapping. The tools were cross-breeding and pedigree analysis. The output was inheritance patterns. They had no idea what D N A was, but they could reliably trace traits through generations and infer the existence of discrete heritable units.
+      </aside>
+    </section>
+
+    <!-- ========== HISTORY 2 ========== -->
+    <section>
+      <h2>1980s – 1990s · linkage analysis</h2>
+      <ul>
+        <li>Track chromosomal regions through families</li>
+        <li>Microsatellite markers · cM resolution</li>
+        <li>Major successes: <strong>CFTR</strong> · <strong>HTT</strong> · <strong>DMD</strong></li>
+        <li>Limited to <strong>rare, high-penetrance</strong> Mendelian disease</li>
+      </ul>
+      <aside class="notes">
+        The next era, the nineteen-eighties and nineties, was linkage analysis. The idea was to track which chromosomal regions co-segregate with a disease across multi-generation families. By the use of microsatellite markers, the resolution was at the centiMorgan level. Hundreds of single-gene disorders were identified this way — cystic fibrosis with the C F T R gene, Huntington's disease with H T T, Duchenne muscular dystrophy with D M D. The limitation was that linkage analysis only works for rare, high-penetrance Mendelian diseases that run in clear pedigrees. It struggles with complex diseases where many small effects combine.
+      </aside>
+    </section>
+
+    <!-- ========== HISTORY 3 ========== -->
+    <section>
+      <h2>2000s – 2010s · the GWAS era</h2>
+      <ul>
+        <li>Microarrays: genotype <strong>millions</strong> of SNPs at scale</li>
+        <li>10,000 to 1,000,000 individuals</li>
+        <li>Common variants only · MAF &gt; 1%</li>
+        <li>100+ loci per complex trait</li>
+      </ul>
+      <aside class="notes">
+        The two-thousands brought a revolution. Microarray technology made it possible to genotype hundreds of thousands of variants simultaneously, in tens of thousands of people. This is the genome-wide association study era. By the twenty-tens, sample sizes had grown to one million participants for some studies. G W A S detects common variants — those at minor allele frequency above one percent — and routinely identifies hundreds of risk loci per complex trait. This made the genetics of common disease tractable for the first time.
+      </aside>
+    </section>
+
+    <!-- ========== HISTORY 4 ========== -->
+    <section>
+      <h2>2010s – present · sequencing era</h2>
+      <ul>
+        <li>Whole-exome and whole-genome sequencing</li>
+        <li><strong>Burden tests</strong>: aggregate rare variants per gene</li>
+        <li>Reveals rare-variant architecture</li>
+        <li>10,000 to 100,000 individuals</li>
+      </ul>
+      <aside class="notes">
+        The current era, beginning around the twenty-tens, is sequencing. Whole-exome and whole-genome sequencing detect every variant — including ultra-rare ones that only appear in a single person. To make sense of these, the field developed burden tests, which aggregate rare variants by gene. Today, the rare-variant architecture of major diseases is being mapped in cohorts of ten thousand to one hundred thousand individuals. The two methods, G W A S and burden tests, now form the dual workhorses of human forward genetics.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION 2 GWAS ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>GWAS · Genome-Wide<br>Association Studies</h1>
+      <aside class="notes">
+        Let's now look at G W A S in detail.
+      </aside>
+    </section>
+
+    <!-- ========== GWAS QUESTION ========== -->
+    <section>
+      <h2>The simple question</h2>
+      <blockquote style="font-size:1.05em;">
+        Across many people, are certain genetic variants <strong>more common</strong> in individuals with a disease than in those without?
+      </blockquote>
+      <aside class="notes">
+        At its core, G W A S asks one simple question. Across many people, are certain genetic variants more common in individuals with a disease than in those without? You collect cases and controls, you genotype them, and you look for variants whose frequency differs between the two groups. That's it. The genius is in the scale.
+      </aside>
+    </section>
+
+    <!-- ========== GWAS PROCEDURE ========== -->
+    <section>
+      <h2>The procedure</h2>
+      <ol>
+        <li>Recruit cases (e.g. <strong>50,000</strong> with diabetes) and matched controls</li>
+        <li>Genotype <strong>~1 million SNPs</strong> per person</li>
+        <li>For every SNP: test frequency in cases vs controls</li>
+        <li>Apply genome-wide significance threshold: <strong>p &lt; 5 × 10⁻⁸</strong></li>
+        <li>Report list of associated <strong>loci</strong></li>
+      </ol>
+      <aside class="notes">
+        The procedure has five steps. One. Recruit a large cohort — say fifty thousand people with type two diabetes and fifty thousand matched controls. Two. Genotype roughly one million S N Ps in every participant. Three. For every S N P, statistically test whether its allele frequency differs between cases and controls. Four. Apply the genome-wide significance threshold of p less than five times ten to the negative eight, which is the strict Bonferroni correction for testing one million markers. Five. Report the list of loci that pass — typically dozens to hundreds for a well-powered study.
+      </aside>
+    </section>
+
+    <!-- ========== GWAS EXAMPLE ========== -->
+    <section>
+      <h2>Real example · type 2 diabetes</h2>
+      <ul>
+        <li>Suzuki et al. 2024, <em>Nature</em></li>
+        <li><strong>1.4 million</strong> participants</li>
+        <li><strong>600+</strong> risk loci identified</li>
+        <li>Each individual locus shifts risk by ~5–10%</li>
+        <li>Together: pathways for insulin secretion, beta-cell function</li>
+      </ul>
+      <aside class="notes">
+        Here is a real example. The largest type two diabetes G W A S to date, Suzuki and colleagues twenty twenty-four in Nature, included one point four million participants and found over six hundred risk loci. Each individual locus shifts disease risk by only five to ten percent — a small effect for any single variant. But collectively, those six hundred loci illuminate the biology — pathways for insulin secretion, glucose metabolism, and pancreatic beta-cell function. G W A S works not because any one variant is decisive, but because each variant is a probe pointing toward a biological mechanism.
+      </aside>
+    </section>
+
+    <!-- ========== GWAS OUTPUT ========== -->
+    <section>
+      <h2>The summary statistics</h2>
+      <table>
+        <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>BETA</strong></td><td>Effect size · log odds ratio</td></tr>
+          <tr><td><strong>SE</strong></td><td>Standard error</td></tr>
+          <tr><td><strong>P</strong></td><td>P-value · genome-wide threshold 5e-8</td></tr>
+          <tr><td><strong>FREQ</strong></td><td>Allele frequency</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        The output of every G W A S is a table called summary statistics. For each variant tested, you get the effect size beta, expressed as a log odds ratio. The standard error of that estimate. The p-value, which must beat the genome-wide threshold of five times ten to the negative eight. And the allele frequency. These four numbers, repeated across one million S N Ps, become the input for everything else — polygenic risk scores, fine mapping, Mendelian randomisation, and trans-trait genetic correlation analyses.
+      </aside>
+    </section>
+
+    <!-- ========== APPLICATIONS ========== -->
+    <section>
+      <h2>Five applications of summary statistics</h2>
+      <ul>
+        <li><strong>Polygenic risk scores</strong> — combine thousands of variants into one number</li>
+        <li><strong>Genetic correlation</strong> — find shared architecture between traits</li>
+        <li><strong>Mendelian randomisation</strong> — natural experiments for causation</li>
+        <li><strong>Fine-mapping</strong> — narrow loci to credible causal variants</li>
+        <li><strong>Gene prioritisation</strong> — combine with eQTL data</li>
+      </ul>
+      <aside class="notes">
+        G W A S summary statistics are remarkably reusable. Five major applications. One. Polygenic risk scores combine the effects of thousands of variants into a single genetic risk estimate, which can identify high-risk individuals without single dramatic mutations. Two. Genetic correlation compares the summary statistics of two traits, revealing shared genetic factors — for example, the strong genetic correlation between schizophrenia and bipolar disorder. Three. Mendelian randomisation uses variants as natural experiments to test causal relationships, like whether L D L cholesterol actually causes heart disease. Four. Fine-mapping narrows a broad locus down to a credible set of likely causal variants. And five. Gene prioritisation combines G W A S signals with expression Q T L data to figure out which gene a regulatory variant actually controls.
+      </aside>
+    </section>
+
+    <!-- ========== GWAS LIMITS ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>What GWAS<br>Doesn't Tell You</h1>
+      <aside class="notes">
+        For all its power, G W A S has real limitations. Let's understand them clearly.
+      </aside>
+    </section>
+
+    <!-- ========== LIMIT 1: NON-CODING ========== -->
+    <section>
+      <h2>Limitation 1 · most hits are not in genes</h2>
+      <div class="bignum">93%</div>
+      <div class="bignum-label">of GWAS hits are in <strong>non-coding</strong> regions</div>
+      <ul style="margin-top:0.6em;">
+        <li>Variant might be 500 kb away from the nearest gene</li>
+        <li>Which gene does it regulate? Need extra experiments</li>
+      </ul>
+      <aside class="notes">
+        Limitation one. Roughly ninety-three percent of G W A S hits sit in non-coding regions of the genome — between or far from any gene. They are presumed to act through gene regulation. But which gene? A regulatory variant can sit five hundred kilobases from the gene it controls. Without additional functional data — eQTLs, chromatin contact maps, regulatory annotation — you cannot identify the target gene from the G W A S hit alone. This is one of the central frontiers of post-G W A S research.
+      </aside>
+    </section>
+
+    <!-- ========== LIMIT 2: LD ========== -->
+    <section>
+      <h2>Limitation 2 · linkage disequilibrium</h2>
+      <ul>
+        <li>Multiple variants are <strong>correlated</strong> at any locus</li>
+        <li>Statistical hit ≠ causal variant</li>
+        <li>Need <strong>fine-mapping</strong> to narrow down</li>
+      </ul>
+      <aside class="notes">
+        Limitation two. Because of linkage disequilibrium — which we covered in the previous chapter — multiple variants at any locus are statistically correlated. The variant with the smallest p-value in a G W A S is not necessarily the causal one. It might be a marker that travels with the true causal variant. Fine-mapping methods, like SuSiE and PAINTOR, are needed to narrow the signal down to a credible set of likely causal variants.
+      </aside>
+    </section>
+
+    <!-- ========== LIMIT 3: COMMON ONLY ========== -->
+    <section>
+      <h2>Limitation 3 · common variants only</h2>
+      <ul>
+        <li>GWAS tests <strong>one variant at a time</strong></li>
+        <li>Sample size of one cannot pass significance</li>
+        <li>Misses rare, high-impact mutations entirely</li>
+        <li>For rare variants, switch to <strong>burden tests</strong></li>
+      </ul>
+      <aside class="notes">
+        Limitation three. G W A S tests each variant individually. If a variant is so rare that only a handful of people in the cohort carry it, there is no statistical power to detect any effect, no matter how large. So G W A S is fundamentally restricted to common variants — those above about one percent frequency. Many severe Mendelian and developmental disorders are caused by ultra-rare or de novo mutations that G W A S simply cannot find. For those, you need burden tests.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION 4 BURDEN ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Burden Tests ·<br>Hunting Rare Variants</h1>
+      <aside class="notes">
+        Now let's turn to the complementary method: burden tests.
+      </aside>
+    </section>
+
+    <!-- ========== BURDEN PROBLEM ========== -->
+    <section>
+      <h2>The rare-variant problem</h2>
+      <ul>
+        <li>A variant is found in <strong>1 person</strong> out of 50,000</li>
+        <li>Sample size of <strong>one</strong> · no per-variant statistics</li>
+        <li>But many such variants together may converge on <strong>one gene</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the rare-variant problem. Suppose a variant is found in just one person out of fifty thousand. The sample size is literally one. You cannot run any statistical test on a single observation. But many such ultra-rare variants, scattered across a gene, may all damage the same protein. If you test the gene as a unit instead of testing each variant individually, you regain statistical power. That is the key insight of burden tests.
+      </aside>
+    </section>
+
+    <!-- ========== BURDEN IDEA ========== -->
+    <section>
+      <h2>The burden test idea</h2>
+      <blockquote>
+        Don't test variants. Test <strong>genes</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>For each gene · count damaging variants in cases vs controls</li>
+        <li>Aggregate <strong>across</strong> the gene</li>
+        <li>Excess in cases → gene is a risk factor</li>
+      </ul>
+      <aside class="notes">
+        Here is the simple shift in framing. Don't test variants. Test genes. For each gene, count how many people in your case cohort carry any damaging mutation in that gene, and how many in your control cohort carry any damaging mutation. Then ask: is there an excess in cases? If yes, that gene is a risk factor. The aggregation is across the gene, not across the variants. Each variant is allowed to be ultra-rare, even unique to one family. As long as the gene as a whole is enriched for damage in cases, the test has power.
+      </aside>
+    </section>
+
+    <!-- ========== BURDEN PROCEDURE ========== -->
+    <section>
+      <h2>How burden tests work</h2>
+      <ol>
+        <li>Sequence cases and controls (~10,000 + 10,000)</li>
+        <li>Filter to <strong>damaging</strong> variants — LoF, predicted-deleterious missense</li>
+        <li>Filter to <strong>rare</strong> — MAF &lt; 0.1%</li>
+        <li>Per gene · count carriers in cases vs controls</li>
+        <li>Statistical test · genome-wide threshold p &lt; 2.5e-6 (~20,000 genes)</li>
+      </ol>
+      <aside class="notes">
+        Here is the procedure. One. Sequence a cohort of cases and controls — usually around ten thousand each. Two. Identify variants and filter to those predicted to be damaging — loss-of-function variants like nonsense or frameshift, plus missense variants predicted deleterious by tools like CADD or PolyPhen. Three. Filter to rare variants — typically minor allele frequency below zero point one percent. Four. For each gene, count the number of cases who carry any qualifying variant, and the number of controls. Five. Apply a statistical test, with a genome-wide threshold of about p less than two point five times ten to the negative six, the Bonferroni correction for testing twenty thousand genes.
+      </aside>
+    </section>
+
+    <!-- ========== BURDEN AUTISM EXAMPLE ========== -->
+    <section>
+      <h2>Real example · autism risk genes</h2>
+      <table>
+        <thead><tr><th>Gene</th><th>Cases LoF</th><th>Controls LoF</th><th>Odds ratio</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CHD8</strong></td><td>35</td><td>2</td><td>18.5</td></tr>
+          <tr><td><strong>SCN2A</strong></td><td>28</td><td>3</td><td>9.8</td></tr>
+          <tr><td><strong>SYNGAP1</strong></td><td>22</td><td>1</td><td>23.1</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.7em; color:var(--ink-soft);">Satterstrom et al. 2020, <em>Cell</em></p>
+      <aside class="notes">
+        Here is a real example from the Satterstrom paper, twenty twenty in Cell. Looking at autism cases versus controls, three genes pop out as strongly enriched for loss-of-function variants. C H D eight has thirty-five carriers in cases versus two in controls — odds ratio eighteen point five. S C N two A has twenty-eight versus three — odds ratio nine point eight. S Y N G A P one has twenty-two versus one — odds ratio twenty-three. Each individual variant in these genes is rare, often de novo. But the gene-level signal is overwhelming. These are high-confidence autism risk genes, identified entirely through the burden test framework.
+      </aside>
+    </section>
+
+    <!-- ========== USE CASES ========== -->
+    <section>
+      <h2>Where burden tests shine</h2>
+      <ul>
+        <li><strong>De novo</strong> mutations — recurrent across unrelated cases</li>
+        <li><strong>Ultra-rare</strong> private variants — aggregated across a gene</li>
+        <li><strong>Recessive</strong> diseases — compound heterozygotes / homozygotes</li>
+        <li><strong>Gene intolerance</strong> — depleted in healthy controls (gnomAD pLI)</li>
+      </ul>
+      <aside class="notes">
+        Burden tests are particularly powerful in four scenarios. One. De novo mutations — brand-new mutations not inherited from either parent. Even single occurrences are informative if the same gene is hit recurrently across unrelated cases. Two. Ultra-rare private variants. Each mutation may be unique to one family, but aggregating across the gene overcomes the per-variant rarity. Three. Recessive diseases requiring two damaging hits in the same gene. The test detects an excess of compound heterozygotes or homozygotes. Four. Gene intolerance — measured by depletion of L o F variants in healthy controls, captured in the gnomAD pLI score. The most intolerant genes are the most likely disease-relevant ones.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION 5 ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>GWAS vs Burden ·<br>Two Sides of One Coin</h1>
+      <aside class="notes">
+        Now let's see how the two methods complement each other.
+      </aside>
+    </section>
+
+    <!-- ========== SIDE BY SIDE ========== -->
+    <section>
+      <h2>Two methods · two regimes</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>GWAS</th><th>Burden</th></tr></thead>
+        <tbody>
+          <tr><td>Variant frequency</td><td>Common (&gt;1%)</td><td>Rare (&lt;0.1%)</td></tr>
+          <tr><td>Effect size</td><td>Small (OR 1.05–1.3)</td><td>Large (OR 2–50)</td></tr>
+          <tr><td>Variant location</td><td>Mostly non-coding</td><td>Mostly coding</td></tr>
+          <tr><td>Mechanism</td><td>Regulation</td><td>Protein disruption</td></tr>
+          <tr><td>Sample size</td><td>50K – 1M</td><td>5K – 50K</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the head-to-head comparison. G W A S detects common variants with small effects, mostly in non-coding regulatory regions, requiring sample sizes of fifty thousand to a million. Burden tests detect rare variants with large effects, mostly in protein-coding regions, requiring smaller samples of five thousand to fifty thousand. The two methods are not in competition. They illuminate different parts of the genetic architecture of any complex trait. To understand a disease fully, you need both.
+      </aside>
+    </section>
+
+    <!-- ========== METAPHOR ========== -->
+    <section>
+      <h2>Volume knob vs light switch</h2>
+      <div class="cols">
+        <div>
+          <h3>GWAS · volume knob</h3>
+          <ul>
+            <li>Many small adjustments</li>
+            <li>Doesn't break the system</li>
+            <li>Tunes expression up or down</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Burden · light switch</h3>
+          <ul>
+            <li>Single dramatic flip</li>
+            <li>Knocks out the protein</li>
+            <li>System changes drastically</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is a useful mental metaphor. G W A S variants are like volume knobs. Each one adjusts the expression level of some gene by a small amount. The system still works, but it is shifted slightly. Burden test variants are like light switches. They turn off the gene completely. The system changes dramatically. A complex disease typically involves both — many volume knobs nudging the system in a vulnerable direction, plus occasional light switches that flip individual carriers into severe disease.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION 6 SCHIZ ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Case Study ·<br>Schizophrenia</h1>
+      <aside class="notes">
+        Let's apply both methods to a real disease — schizophrenia — to see how they fit together.
+      </aside>
+    </section>
+
+    <!-- ========== SCHIZ GWAS ========== -->
+    <section>
+      <h2>GWAS findings</h2>
+      <ul>
+        <li><strong>287</strong> genome-wide significant loci</li>
+        <li>Each variant: OR 1.03 – 1.15 (3 – 15% risk)</li>
+        <li>Together: ~20% of liability variance</li>
+        <li>95% in non-coding regions</li>
+        <li>Trubetskoy et al. 2022, <em>Nature</em></li>
+      </ul>
+      <aside class="notes">
+        On the G W A S side, Trubetskoy and colleagues twenty twenty-two reported two hundred eighty-seven genome-wide significant loci for schizophrenia. Each variant individually shifts risk by only three to fifteen percent. But together, those two hundred eighty-seven loci explain about twenty percent of the genetic liability — a substantial chunk. Ninety-five percent of the hits sit in non-coding regions, suggesting they act primarily through gene regulation rather than protein disruption.
+      </aside>
+    </section>
+
+    <!-- ========== SCHIZ BURDEN ========== -->
+    <section>
+      <h2>Burden findings</h2>
+      <ul>
+        <li><strong>10</strong> high-confidence risk genes</li>
+        <li>Each LoF mutation: OR 3 – 50 (3- to 50-fold risk)</li>
+        <li>Frequency: ~0.01 – 0.1% of cases per gene</li>
+        <li>Top genes: <strong>SETD1A · GRIN2A · GRIA3 · TRIO</strong></li>
+        <li>Singh et al. 2022, <em>Nature</em></li>
+      </ul>
+      <aside class="notes">
+        On the burden side, Singh and colleagues twenty twenty-two identified ten high-confidence schizophrenia risk genes. Each loss-of-function mutation in these genes shifts risk by a factor of three to fifty. The carrier frequency in cases is tiny — about zero point zero one to zero point one percent per gene. The genes include S E T D one A, encoding a histone methyltransferase, and the glutamate receptor subunits G R I N two A and G R I A three. Carrying a single L o F mutation in one of these genes is a major individual risk factor for schizophrenia, even though across the whole population such mutations are extremely uncommon.
+      </aside>
+    </section>
+
+    <!-- ========== CONVERGENCE ========== -->
+    <section>
+      <h2>Biological convergence</h2>
+      <blockquote>
+        Both common and rare variants converge on the same pathways.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li><strong>Synaptic function</strong> — glutamate signalling</li>
+        <li><strong>Chromatin regulation</strong> — gene expression control</li>
+        <li><strong>Neurodevelopment</strong> — early cortical patterning</li>
+      </ul>
+      <aside class="notes">
+        And here is the most important finding. Both the G W A S signals and the burden test signals converge on the same biological pathways. Synaptic function, particularly glutamate signalling. Chromatin regulation. Early neurodevelopment. The two methods, working on totally different variant classes, point at the same biology. That convergence is what gives us confidence that we are reading real disease mechanisms, and not statistical artefacts. It also identifies pathways as drug targets that would benefit the entire genetically heterogeneous patient population.
+      </aside>
+    </section>
+
+    <!-- ========== FROM ASSOC TO CAUSE ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>From Association<br>to Causation</h1>
+      <aside class="notes">
+        Forward genetics gets you a list of candidate genes. But association is not causation. The next step is functional validation.
+      </aside>
+    </section>
+
+    <!-- ========== ASSOC LIMIT ========== -->
+    <section>
+      <h2>Association is not causation</h2>
+      <ul>
+        <li>GWAS or burden hit → <strong>candidate gene</strong></li>
+        <li>Need to verify that the gene <strong>actually causes</strong> phenotype</li>
+        <li>What does it do? How does it act? Can we rescue it?</li>
+        <li>The next half is <strong>reverse genetics</strong></li>
+      </ul>
+      <aside class="notes">
+        A G W A S or burden hit gives you a candidate gene — a gene statistically associated with the disease. But statistics cannot prove mechanism. Just because a gene shows up in your forward genetics scan does not mean you understand what it does, how it contributes to disease, or whether the variant we observe is gain or loss of function. To answer those questions, you have to manipulate the gene deliberately and observe the consequences. That is reverse genetics — the topic of next chapter.
+      </aside>
+    </section>
+
+    <!-- ========== SUMMARY ========== -->
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up.
+      </aside>
+    </section>
+
+    <!-- ========== TAKEAWAYS ========== -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Forward genetics: <strong>phenotype → gene</strong></li>
+        <li>GWAS finds <strong>common</strong>, small-effect, mostly non-coding variants</li>
+        <li>Burden tests find <strong>rare</strong>, large-effect, protein-coding variants</li>
+        <li>The two methods <strong>complement</strong>, not compete</li>
+        <li>Together → full architecture of disease (Schizophrenia)</li>
+        <li>Association requires <strong>reverse genetics</strong> for mechanism</li>
+      </ul>
+      <aside class="notes">
+        Six takeaways. One. Forward genetics goes from phenotype to gene. Two. G W A S finds common variants with small effects, mostly in non-coding regulatory regions. Three. Burden tests find rare variants with large effects, mostly in protein-coding sequences. Four. The two methods are complementary — they detect different parts of the genetic architecture and they need each other. Five. Together, as in the schizophrenia case study, they reveal the full architecture and converge on shared biological pathways. And six. Statistical association alone is not enough. To go from candidate gene to mechanism, you need reverse genetics — which we will cover in chapter twenty-six.
+      </aside>
+    </section>
+
+    <!-- ========== NEXT ========== -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        From <span style="color:var(--terracotta-deep)">candidate gene</span><br>
+        to <span style="color:var(--terracotta-deep)">mechanism</span>
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 26 · <strong>Reverse Genetics — From Gene to Function</strong>
+      </p>
+      <aside class="notes">
+        The next chapter is reverse genetics — how we move from a candidate gene identified by G W A S or a burden test to actual functional understanding. We will cover CRISPR knockouts, base editing, CRISPR activation, and high-throughput functional screens. See you then.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

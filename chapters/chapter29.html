@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 29 · Gene Regulation Methods — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Gene Regulation</h1>
+      <div class="chapter-num">Chapter 29 · Methods and Applications</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-nine, Gene Regulation, Methods and Applications. Last chapter we learned the principles — promoters, enhancers, three-dimensional chromatin loops. Today we look at the experimental methods that actually let us measure all of this in real cells. We will cover R N A-seq, single-cell R N A-seq, ChIP-seq, ATAC-seq, and CUT and RUN. By the end you will know which tool to use for which question.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        How do we <span style="color:var(--terracotta-deep)">measure</span><br>
+        gene regulation?
+      </h1>
+      <aside class="notes">
+        We finished the previous chapter knowing that gene regulation has many layers — transcription factor binding, chromatin accessibility, histone marks, three-dimensional architecture. Today we ask the practical question. How do we measure these things? What is the experimental toolkit? Each method gives a different layer of regulatory information. Used together, they reveal the complete regulatory logic of any cell type.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Roadmap</h2>
+      <ol>
+        <li>RNA-seq · gene expression</li>
+        <li>Single-cell RNA-seq · cellular heterogeneity</li>
+        <li>Histone marks · the chromatin code</li>
+        <li>ChIP-seq · protein-DNA interactions</li>
+        <li>ATAC-seq · open chromatin</li>
+        <li>CUT&amp;RUN · high resolution</li>
+        <li>Integrated epigenomics · putting it together</li>
+      </ol>
+      <aside class="notes">
+        Here is the flow. We start with R N A-seq, the workhorse method for measuring gene expression. Then single-cell R N A-seq, which reveals heterogeneity hidden in bulk experiments. Then we shift to chromatin profiling — first the histone modification code, then ChIP-seq for mapping protein-DNA interactions, then ATAC-seq for chromatin accessibility, then CUT and RUN for high-resolution mapping. We finish by showing how all these layers integrate into a complete picture of regulation.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>RNA-seq</h1>
+      <aside class="notes">
+        Let's start with R N A-seq.
+      </aside>
+    </section>
+
+    <section>
+      <h2>RNA-seq workflow</h2>
+      <ol>
+        <li>Extract total RNA from cells or tissue</li>
+        <li>Reverse transcribe → cDNA · fragment</li>
+        <li>Add adapters · sequence (50–150 bp reads)</li>
+        <li>Align to genome · count reads per gene</li>
+        <li>Normalise · differential expression analysis</li>
+      </ol>
+      <aside class="notes">
+        R N A-seq has five basic steps. One. Extract total R N A from your sample — tissue, cultured cells, or sorted populations. Two. Reverse transcribe the R N A into complementary D N A, then fragment it into pieces of about two hundred to five hundred base pairs. Three. Add sequencing adapters and run on an Illumina sequencer, generating millions of fifty to one hundred fifty base-pair reads. Four. Align the reads back to the reference genome and count how many reads mapped to each gene. Five. Normalise the counts and run statistical tests to identify differentially expressed genes between conditions. The result tells you which genes are on, which are off, and how their expression differs between samples.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Bulk RNA-seq · the big picture</h2>
+      <figure>
+        <img src="../assets/figures/RNAseq-workflow-bulk.png" alt="Bulk RNA-seq workflow" style="max-height:340px;">
+        <figcaption>
+          RNA from many cells averaged together · output: counts per gene.<br>
+          Source: Microbe Notes.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is the bulk R N A-seq workflow. R N A is extracted from a population of cells — could be a tissue biopsy, a culture dish, or a sorted population. Everything gets pooled. The output tells you the average gene expression profile across all the cells in the sample. That is powerful for comparing tissues, like liver versus brain. Or comparing conditions — healthy versus diseased. But bulk R N A-seq has a hidden cost. It averages over the cellular composition. If your sample is a mixture of neurons, astrocytes, and microglia, the result is a blend that does not reflect any one cell type.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Normalisation · why we need it</h2>
+      <table>
+        <thead><tr><th>Method</th><th>What it corrects</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CPM</strong></td><td>Sequencing depth</td></tr>
+          <tr><td><strong>FPKM / RPKM</strong></td><td>Depth + gene length</td></tr>
+          <tr><td><strong>TPM</strong></td><td>Depth + length (better cross-sample)</td></tr>
+          <tr><td>DESeq2 normalisation</td><td>Depth + RNA composition for DE testing</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Raw read counts are not directly comparable across genes or samples. Two reasons. Longer genes generate more reads simply because there is more transcript to sequence. And different samples may have been sequenced to different depths. So we normalise. C P M, counts per million, scales by total sequencing depth. F P K M and R P K M correct for both depth and gene length. T P M is similar but rescaled so all values in a sample sum to one million, which makes cross-sample comparisons cleaner. For differential expression analysis specifically, tools like DESeq2 use a more sophisticated median-of-ratios method that also corrects for R N A composition.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Single-Cell RNA-seq</h1>
+      <aside class="notes">
+        Bulk R N A-seq averages across cells. Single-cell R N A-seq does not. Let's see how.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The droplet trick</h2>
+      <ul>
+        <li>Encapsulate each cell in a tiny <strong>oil droplet</strong></li>
+        <li>Each droplet has a gel bead with a unique barcode</li>
+        <li>Cell lyses in droplet · mRNA tagged with cell barcode during RT</li>
+        <li>Pool · sequence · de-multiplex by barcode</li>
+      </ul>
+      <aside class="notes">
+        Single-cell R N A-seq uses a beautiful microfluidic trick. Each cell is encapsulated in a tiny oil droplet along with a gel bead carrying a unique D N A barcode. When the cell lyses inside the droplet, its m R N A is captured and reverse-transcribed, with the cell's barcode attached to every c D N A molecule. After all cells are processed, you break the droplets, pool the c D N A, and sequence everything. Each read carries the cell barcode, so you can trace it back to its cell of origin. The most common platform is ten-X Genomics, which can process about ten thousand cells per run.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Bulk vs single-cell</h2>
+      <figure>
+        <img src="../assets/figures/RNAseq-workflow-singlecell.png" alt="Single-cell RNA-seq workflow" style="max-height:340px;">
+        <figcaption>
+          Each cell barcoded individually · output: cell × gene matrix.<br>
+          Source: Microbe Notes.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This figure shows the single-cell workflow side by side with bulk. Bulk gives you one average profile per sample. Single-cell gives you one profile per cell — typically thousands or tens of thousands of cells per experiment. The output is a cell-by-gene matrix. Each row is a cell. Each column is a gene. Each value is the expression of that gene in that cell. From this matrix you can do dimensionality reduction with U MAP or t-S N E, cluster cells by similarity, and identify cell types. In brain tissue, single-cell R N A-seq can resolve dozens of distinct neuronal subtypes that were completely invisible in bulk experiments.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What scRNA-seq reveals · cell identity</h2>
+      <table>
+        <thead><tr><th>Cell type</th><th>Marker genes</th></tr></thead>
+        <tbody>
+          <tr><td>T cells</td><td>CD3 · CD4 · CD8</td></tr>
+          <tr><td>B cells</td><td>CD19 · MS4A1</td></tr>
+          <tr><td>Excitatory neurons</td><td>SLC17A7</td></tr>
+          <tr><td>Inhibitory neurons</td><td>GAD1</td></tr>
+          <tr><td>Astrocytes</td><td>GFAP</td></tr>
+          <tr><td>Microglia</td><td>CX3CR1</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Single-cell R N A-seq reveals cell identity through marker gene expression. T cells in blood are identified by C D three, C D four, and C D eight. B cells by C D nineteen and M S four A one. In the brain, excitatory neurons express S L C seventeen A seven, the gene for the vesicular glutamate transporter. Inhibitory neurons express G A D one, glutamate decarboxylase. Astrocytes express G F A P. Microglia express C X three C R one. All of these cells share the same genome. What makes them different is their gene expression program. That is the take-home message — cell identity is defined by which genes are read, not by which D N A is present.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The Histone Code</h1>
+      <aside class="notes">
+        Now let's shift from R N A to chromatin. The protein machinery that controls D N A access. We start with histone modifications.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The chromatin code</h2>
+      <table>
+        <thead><tr><th>Mark</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>H3K4me3</strong></td><td>Active promoter</td></tr>
+          <tr><td><strong>H3K27ac</strong></td><td>Active enhancer or promoter</td></tr>
+          <tr><td><strong>H3K4me1</strong></td><td>Enhancer (active or poised)</td></tr>
+          <tr><td><strong>H3K36me3</strong></td><td>Active gene body · elongation</td></tr>
+          <tr><td><strong>H3K27me3</strong></td><td>Polycomb repression</td></tr>
+          <tr><td><strong>H3K9me3</strong></td><td>Constitutive heterochromatin</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Histones carry chemical modifications that work as a combinatorial code. Six marks dominate the literature. H three K four me three — trimethylation of histone three lysine four — marks active promoters. H three K twenty-seven ac marks active enhancers and promoters. H three K four me one marks all enhancers, both active and poised. H three K thirty-six me three is found in gene bodies during active transcription. H three K twenty-seven me three is the repressive mark deposited by Polycomb complexes. And H three K nine me three marks constitutive heterochromatin — permanently silenced regions like centromeres. Different combinations of these marks define different chromatin states.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Combining marks · chromatin states</h2>
+      <ul>
+        <li><strong>Active promoter</strong> · H3K4me3 + H3K27ac</li>
+        <li><strong>Active enhancer</strong> · H3K4me1 + H3K27ac</li>
+        <li><strong>Poised enhancer</strong> · H3K4me1 (no H3K27ac)</li>
+        <li><strong>Polycomb-repressed</strong> · H3K27me3</li>
+        <li><strong>Heterochromatin</strong> · H3K9me3</li>
+      </ul>
+      <aside class="notes">
+        Chromatin state is defined by combinations of marks. An active promoter shows H three K four me three plus H three K twenty-seven ac. An active enhancer shows H three K four me one plus H three K twenty-seven ac. A poised enhancer has H three K four me one but no H three K twenty-seven ac — ready but not yet active. Polycomb-repressed regions carry H three K twenty-seven me three. Constitutive heterochromatin shows H three K nine me three. By measuring all these marks across the genome, you can annotate every region with its functional state. That is the goal of epigenomic mapping.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>ChIP-seq</h1>
+      <aside class="notes">
+        How do we actually map where these marks are in the genome? ChIP-seq.
+      </aside>
+    </section>
+
+    <section>
+      <h2>ChIP-seq protocol</h2>
+      <ol>
+        <li><strong>Crosslink</strong> proteins to DNA with formaldehyde</li>
+        <li>Fragment chromatin (~200–500 bp)</li>
+        <li>Add antibody · pull down protein-DNA complexes</li>
+        <li>Reverse crosslinks · purify DNA · sequence</li>
+        <li>Map reads · call peaks</li>
+      </ol>
+      <aside class="notes">
+        ChIP-seq stands for chromatin immunoprecipitation followed by sequencing. The protocol has five steps. One. Crosslink proteins to D N A in living cells using formaldehyde. This freezes protein-D N A interactions in place. Two. Lyse the cells and fragment the chromatin into pieces of two hundred to five hundred base pairs. Three. Add an antibody specific to your target protein — a histone mark, a transcription factor — and use magnetic beads to pull down the protein-D N A complexes. Four. Reverse the crosslinks, purify the D N A, and sequence it. Five. Map the reads to the genome and call peaks — regions with significantly higher read density than expected by chance.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The result · peak profiles</h2>
+      <figure>
+        <img src="../assets/figures/ChIPseq-workflow.png" alt="ChIP-seq workflow" style="max-height:360px;">
+        <figcaption>
+          Antibody enriches DNA fragments bound by target protein → peaks at binding sites.<br>
+          Source: Microbe Notes.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        The ChIP-seq workflow shown here. Crosslinking captures protein-D N A interactions. Sonication fragments the D N A. The antibody specifically pulls down complexes containing your target. Sequencing reveals the genomic locations where the protein was bound. The output is a peak profile — sharp peaks at binding sites, low signal elsewhere. ChIP-seq for H three K twenty-seven ac maps active enhancers and promoters. ChIP-seq for C T C F maps insulator sites and loop anchors. ChIP-seq for a transcription factor like p fifty-three maps every place that factor regulates genes.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>ATAC-seq</h1>
+      <aside class="notes">
+        Now a different approach. Instead of immunoprecipitating one protein at a time, ATAC-seq measures all the open chromatin in the genome at once.
+      </aside>
+    </section>
+
+    <section>
+      <h2>ATAC-seq · the Tn5 trick</h2>
+      <ul>
+        <li><strong>Tn5 transposase</strong> loaded with sequencing adapters</li>
+        <li>Cuts DNA <strong>only</strong> in accessible chromatin</li>
+        <li>Inserts adapters in the same step (tagmentation)</li>
+        <li>Result: open regions sequenced · closed regions invisible</li>
+      </ul>
+      <aside class="notes">
+        ATAC-seq stands for Assay for Transposase-Accessible Chromatin. It exploits a hyperactive bacterial transposase called Tn five. The trick is that Tn five can only access D N A that is not wrapped tightly around nucleosomes. Where chromatin is open, Tn five binds and cuts. Where chromatin is closed, Tn five cannot reach. In a single reaction called tagmentation, Tn five simultaneously cuts the D N A and inserts sequencing adapters. The fragments that result are exactly the regions of the genome that were accessible. Sequence them, and you have a genome-wide map of open chromatin.
+      </aside>
+    </section>
+
+    <section>
+      <h2>ATAC-seq output</h2>
+      <figure>
+        <img src="../assets/figures/ATACseq-workflow.png" alt="ATAC-seq workflow" style="max-height:360px;">
+        <figcaption>
+          Tn5 cuts only at open chromatin · sharp peaks at accessible regulatory regions.<br>
+          Source: Microbe Notes.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the ATAC-seq workflow. Tn five enters the permeabilised nucleus, cuts and tags accessible D N A, and the fragments are amplified and sequenced. The output is sharp peaks at open promoters, enhancers, and other regulatory elements. ATAC-seq is fast — about three hours from cells to library — and works with very few cells, as little as five hundred. It also requires no antibody. By looking at transcription factor motifs enriched within ATAC peaks, you can infer which factors are active in a cell type, even without ChIP-seq data for them. ATAC-seq is now the standard first-pass tool for mapping the regulatory landscape of any new cell type.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>CUT&amp;RUN</h1>
+      <aside class="notes">
+        ATAC-seq is great for accessibility. ChIP-seq is great for specific proteins. CUT and RUN combines the best of both.
+      </aside>
+    </section>
+
+    <section>
+      <h2>CUT&amp;RUN · targeted cleavage</h2>
+      <ul>
+        <li>No crosslinking · no sonication</li>
+        <li>Antibody binds target · pA-MNase fusion binds antibody</li>
+        <li>Calcium activates MNase → cuts only <strong>at the binding site</strong></li>
+        <li>Tiny fragments diffuse out · sequenced</li>
+      </ul>
+      <aside class="notes">
+        CUT and RUN is a newer method that improves on ChIP-seq. The protocol does not use crosslinking or sonication, both of which can introduce artifacts. Instead, intact cells are gently permeabilised. An antibody binds the target protein. A protein A-micrococcal nuclease fusion, called pA-MNase, then binds the antibody. When calcium is added, the nuclease activates and cuts the D N A — but only right at the binding site, since that is where the antibody and pA-MNase are positioned. Small D N A fragments diffuse out of the nucleus into the buffer, where they are collected and sequenced.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Why CUT&amp;RUN beats ChIP-seq</h2>
+      <figure>
+        <img src="../assets/figures/CUTandRUN-workflow.png" alt="CUT&amp;RUN workflow" style="max-height:340px;">
+        <figcaption>
+          Sharper peaks · lower background · 100–10,000 cells (vs millions for ChIP-seq).<br>
+          Source: BioRender.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Compared to ChIP-seq, CUT and RUN gives sharper peaks because the cutting is precisely targeted. It produces lower background because only fragments near the antibody are released. It works with far fewer cells — as few as one hundred, compared to millions for ChIP-seq. And it avoids crosslinking artifacts. For these reasons, CUT and RUN has become the preferred method for many transcription factors and for studies of rare cell populations. Standard ChIP-seq is still used heavily, especially for histone marks, but CUT and RUN is gaining ground rapidly.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Integrated Epigenomics</h1>
+      <aside class="notes">
+        Now let's put all the layers together. Each method gives a piece of the puzzle. Combined, they give the complete picture.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Each method · one layer</h2>
+      <table>
+        <thead><tr><th>Method</th><th>What it measures</th></tr></thead>
+        <tbody>
+          <tr><td>RNA-seq</td><td>Gene expression</td></tr>
+          <tr><td>scRNA-seq</td><td>Single-cell expression</td></tr>
+          <tr><td>ChIP-seq</td><td>Protein-DNA binding</td></tr>
+          <tr><td>ATAC-seq</td><td>Chromatin accessibility</td></tr>
+          <tr><td>CUT&amp;RUN</td><td>High-res protein binding</td></tr>
+          <tr><td>Hi-C</td><td>3D contacts</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Each method illuminates one regulatory layer. R N A-seq tells you which genes are expressed. Single-cell R N A-seq adds heterogeneity. ChIP-seq maps where transcription factors and histones bind. ATAC-seq maps open chromatin. CUT and RUN gives high-resolution binding maps. Hi-C, which we did not cover today, measures three-dimensional chromatin contacts. Each is necessary. None is sufficient. Together, they give the complete picture.
+      </aside>
+    </section>
+
+    <section>
+      <h2>An active enhancer · multi-track signature</h2>
+      <ul>
+        <li>ATAC-seq: <strong>open</strong></li>
+        <li>H3K27ac ChIP-seq: <strong>active mark</strong></li>
+        <li>H3K4me1 ChIP-seq: <strong>enhancer mark</strong></li>
+        <li>RNA-seq nearby gene: <strong>highly expressed</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is what an active enhancer looks like when you align all the data tracks. The ATAC-seq track shows an open peak — accessible chromatin. The H three K twenty-seven ac ChIP-seq track shows the active mark. The H three K four me one ChIP-seq track confirms enhancer identity. R N A polymerase two is not at the enhancer itself but is loading at the nearby promoter. R N A-seq shows the target gene is highly expressed. The combined signature — open + H three K twenty-seven ac + H three K four me one + active target — is unambiguous evidence of an active enhancer.
+      </aside>
+    </section>
+
+    <section>
+      <h2>A repressed gene · the opposite signature</h2>
+      <ul>
+        <li>ATAC-seq: <strong>closed</strong></li>
+        <li>H3K27me3 ChIP-seq: <strong>repressive mark</strong></li>
+        <li>H3K4me3: absent</li>
+        <li>RNA-seq: <strong>no expression</strong></li>
+      </ul>
+      <aside class="notes">
+        The opposite signature defines a Polycomb-repressed gene. ATAC-seq shows closed, inaccessible chromatin. H three K twenty-seven me three ChIP-seq is enriched. H three K four me three, the active promoter mark, is absent. R N A-seq shows the gene is silent. This signature is typical of developmental genes that are turned off in the wrong cell type — for example, liver-specific genes in a neuron. The Polycomb system keeps them silenced but ready to be reactivated if conditions change.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Why It Matters<br>for Genetics</h1>
+      <aside class="notes">
+        Let's connect this back to medical genetics.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Most disease variants are regulatory</h2>
+      <ul>
+        <li><strong>~93%</strong> of GWAS hits are non-coding</li>
+        <li>Often disrupt <strong>enhancer activity</strong></li>
+        <li>Small expression changes → real disease risk</li>
+      </ul>
+      <aside class="notes">
+        Recall from earlier in Part Five — about ninety-three percent of G W A S hits sit in non-coding regions, mostly in enhancers. They typically disrupt transcription factor binding sites, weakening enhancer activity, and reducing target gene expression. The change in expression may be only ten or twenty percent, but multiplied across many such variants, the effect on disease risk becomes substantial. To interpret these variants, you need the regulatory annotation. ATAC-seq, ChIP-seq, and CUT and RUN data tell you which non-coding regions are functional enhancers, in which cell types, and what gene they control.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Type 2 diabetes example</h2>
+      <ul>
+        <li>Most T2D risk variants in <strong>pancreatic islet enhancers</strong></li>
+        <li>Reduce insulin gene expression by 10–20%</li>
+        <li>Each variant: tiny effect</li>
+        <li>~600 variants combined → significant disease risk</li>
+      </ul>
+      <aside class="notes">
+        Concrete example. Most type two diabetes risk variants from G W A S sit in enhancers active in pancreatic islet cells — beta cells specifically. Each variant slightly reduces enhancer activity and therefore slightly reduces insulin gene expression. Each individual variant has a tiny effect. But over six hundred such variants combined produce a substantial increase in disease risk. The diagnostic and therapeutic implications follow directly from the regulatory architecture. You need ATAC-seq and ChIP-seq data from beta cells to make sense of any of this.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Therapeutic targets</h2>
+      <ul>
+        <li>Insufficient expression → <strong>CRISPRa</strong> (Ch. 27)</li>
+        <li>Excess expression → <strong>CRISPRi</strong></li>
+        <li>Wrong epigenetic state → <strong>epigenetic editors</strong></li>
+        <li>Therapy follows the regulatory architecture</li>
+      </ul>
+      <aside class="notes">
+        Once you understand the regulatory architecture of a disease, therapy design follows naturally. If a disease is caused by insufficient expression, as in S C N two A haploinsufficiency, use CRISPR a to boost expression of the normal allele. If excess expression — too much M Y C in cancer — use CRISPR i. If the chromatin state is wrong, use epigenetic editors to write or erase specific histone marks. The toolkit is now extensive, and it maps directly onto the regulatory layers we have discussed all chapter.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 9</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li><strong>RNA-seq</strong> — gene expression genome-wide</li>
+        <li><strong>scRNA-seq</strong> — cell-type heterogeneity</li>
+        <li><strong>ChIP-seq</strong> — protein-DNA interactions</li>
+        <li><strong>ATAC-seq</strong> — open chromatin · fast · low input</li>
+        <li><strong>CUT&amp;RUN</strong> — high resolution protein binding</li>
+        <li>Together → complete regulatory architecture · disease interpretation · therapy design</li>
+      </ul>
+      <aside class="notes">
+        Six takeaways. One. R N A-seq measures gene expression genome-wide. Two. Single-cell R N A-seq reveals cellular heterogeneity hidden in bulk experiments. Three. ChIP-seq maps where specific proteins bind. Four. ATAC-seq maps open chromatin without antibodies, fast and with low input. Five. CUT and RUN gives high-resolution protein-D N A binding maps. And six. Combined, these methods reveal the complete regulatory architecture of any cell type — necessary for interpreting disease variants and designing therapies.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Next lecture · the final chapter</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        Connecting variants to <span style="color:var(--terracotta-deep)">molecular phenotypes</span>
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 30 · <strong>QTLs · Connecting Alleles to Molecular Traits</strong>
+      </p>
+      <aside class="notes">
+        For our final chapter, we ask: how do we connect specific variants in the genome to the molecular phenotypes we measure with R N A-seq, ATAC-seq, and ChIP-seq? The answer is quantitative trait loci, abbreviated Q T Ls. They are the bridge between genotype and molecular phenotype, and they tie together everything we have learned in this course. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({width:1280, height:720, margin:0.04, hash:true, slideNumber:'c/t', controls:true, progress:true, transition:'fade', plugins:[ RevealNotes, RevealHighlight ]});
+</script>
+</body>
+</html>

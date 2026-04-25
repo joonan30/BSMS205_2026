@@ -43,12 +43,12 @@ Reveal.js decks served from GitHub Pages. Speaker notes embedded for TTS-based v
 | 22 | From Mendel to Morgan: Discovery of Linkage | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter22.html) |
 | 23 | Recombination, Linkage, and Haplotype | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter23.html) |
 | 24 | Data Types for Alleles and Populations | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter24.html) |
-| 25 | Forward Genetics: From Phenotype to Gene | *planned* |
-| 26 | Reverse Genetics: From Gene to Function | *planned* |
-| 27 | CRISPRa Therapy for SCN2A Haploinsufficiency | *planned* |
-| 28 | Gene Regulation: Same Book, Different Readings | *planned* |
-| 29 | Gene Regulation: Methods and Applications | *planned* |
-| 30 | QTLs: Connecting Alleles to Molecular Traits | *planned* |
+| 25 | Forward Genetics: From Phenotype to Gene | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter25.html) |
+| 26 | Reverse Genetics: From Gene to Function | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter26.html) |
+| 27 | CRISPRa Therapy for SCN2A Haploinsufficiency | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter27.html) |
+| 28 | Gene Regulation: Same Book, Different Readings | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter28.html) |
+| 29 | Gene Regulation: Methods and Applications | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter29.html) |
+| 30 | QTLs: Connecting Alleles to Molecular Traits | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter30.html) |
 
 ---
 

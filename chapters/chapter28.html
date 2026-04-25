@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 28 · Gene Regulation — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Gene Regulation</h1>
+      <div class="chapter-num">Chapter 28 · How Cells Read the Same Book Differently</div>
+      <aside class="notes">
+        Welcome to Chapter twenty-eight, Gene Regulation, How Cells Read the Same Book Differently. Today's question is one of the most fundamental in biology. Every cell in your body has the same D N A. So why does a liver cell look nothing like a neuron? The answer is gene regulation — the molecular processes that control which genes are turned on, when, and how much. We will spend the next thirty minutes building up the modern picture, from local promoters to long-range enhancers to three-dimensional chromatin loops.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Today's central question</div>
+      <h1 style="font-size:1.9em; line-height:1.1;">
+        Same DNA. Same library.<br>
+        Why do <span style="color:var(--terracotta-deep)">different cells<br>read different chapters?</span>
+      </h1>
+      <aside class="notes">
+        Imagine the genome as a massive library. Every cell type — neurons, hepatocytes, T cells, muscle — has access to the same collection of about twenty thousand books. But each cell type reads a different subset. Neurons read the synapse chapter. Liver cells read the metabolism chapter. Immune cells read the defence chapter. Why? How? That is what gene regulation is all about. And it matters profoundly, because most disease-associated variants do not change protein sequences. They change when and how much genes are expressed.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The central dogma · revisited</h2>
+      <ul>
+        <li>DNA → RNA → protein</li>
+        <li>Multiple <strong>control points</strong> at every step</li>
+        <li><strong>Transcriptional regulation</strong> is the most fundamental</li>
+        <li>If a gene isn't transcribed, nothing downstream matters</li>
+      </ul>
+      <aside class="notes">
+        The classic central dogma says D N A becomes R N A becomes protein. That is true but incomplete. Each arrow has multiple control points. R N A processing — alternative splicing, capping, polyadenylation, R N A editing. m R N A stability — controlled by the three-prime untranslated region, R N A-binding proteins, and microRNAs. Translation efficiency. Protein stability and turnover. But the most fundamental control point is the very first one — transcription itself. If a gene is not transcribed, nothing downstream can rescue it. So today we focus on transcriptional regulation.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Roadmap</h2>
+      <ol>
+        <li>Promoters · the local on-ramp</li>
+        <li>Pre-initiation complex and pause-release</li>
+        <li>Enhancers · long-range control</li>
+        <li>Combinatorial logic and cell-type specificity</li>
+        <li>3D chromatin looping · CTCF and cohesin</li>
+        <li>TADs and enhancer hijacking</li>
+        <li>The IGF2 / H19 case study</li>
+      </ol>
+      <aside class="notes">
+        Here is how today flows. We start at the promoter — the local D N A region just upstream of every gene. We see how R N A polymerase assembles the pre-initiation complex and the surprising mechanism of promoter-proximal pausing. Then we zoom out to enhancers — short D N A elements that can be megabases away from the genes they control. We unpack the combinatorial logic that gives cell-type specificity. Then we ask the geometric question — how do enhancers, far away in linear D N A, physically contact promoters? The answer is three-dimensional chromatin looping, mediated by C T C F and cohesin. We finish with topologically associating domains — T A Ds — and a striking case study of imprinted gene regulation at the I G F two H one nine locus.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Promoters</h1>
+      <aside class="notes">
+        Let's start at the promoter.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What a promoter is</h2>
+      <ul>
+        <li>DNA region <strong>immediately upstream</strong> of a gene</li>
+        <li>Where RNA polymerase II assembles to begin transcription</li>
+        <li>Contains short binding motifs · TATA box · Inr · CpG island</li>
+        <li>The on-ramp to the gene</li>
+      </ul>
+      <aside class="notes">
+        A promoter is the D N A region immediately upstream of a gene's transcription start site. It is where R N A polymerase two and the general transcription factors assemble to begin transcription. Promoters contain short D N A motifs that serve as binding sites — for example, the T A T A box about thirty base pairs upstream, the initiator element overlapping the start site, and C p G islands surrounding many housekeeping genes. Different promoters use different combinations of these motifs. The on-ramp to the gene varies by gene class.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Common promoter elements</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Position</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><strong>TATA box</strong></td><td>~30 bp upstream</td><td>Recruits TBP · classic but not universal</td></tr>
+          <tr><td><strong>Initiator</strong></td><td>Overlaps TSS</td><td>Positions Pol II in TATA-less promoters</td></tr>
+          <tr><td><strong>CpG island</strong></td><td>±200 bp around TSS</td><td>Marks housekeeping genes</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Three key promoter elements appear most often. The T A T A box, located about thirty base pairs upstream, recruits the T A T A-binding protein, T B P. It was the first promoter element discovered, but it is actually present in only about ten to twenty percent of human genes. The initiator element, which overlaps the transcription start site, is found in T A T A-less promoters and helps position R N A polymerase. C p G islands are stretches of unusually high cytosine-guanine dinucleotide content, around two hundred base pairs flanking the start site of many constitutively expressed housekeeping genes. They are kept unmethylated when the gene is active.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Building the pre-initiation complex</h2>
+      <ol>
+        <li>TFIID (with TBP) binds the TATA box</li>
+        <li>TFIIB joins · then RNA Pol II + TFIIF</li>
+        <li>TFIIE and TFIIH arrive · TFIIH unwinds DNA</li>
+        <li>Pol II begins transcription</li>
+      </ol>
+      <aside class="notes">
+        For transcription to start, R N A polymerase two does not just land on the D N A and begin copying. It needs help from a set of general transcription factors — labelled T F I I A through T F I I H. The assembly process is sequential. T F I I D, which contains T B P, binds the T A T A box first. T F I I B joins. R N A polymerase two arrives in complex with T F I I F. Then T F I I E and T F I I H come in. T F I I H has helicase activity — it uses A T P to unwind the D N A double helix at the start site. R N A polymerase two then begins synthesising R N A. The full assembly is called the pre-initiation complex, abbreviated P I C.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Promoter-proximal pausing</h2>
+      <ul>
+        <li>After ~20–60 bp, Pol II <strong>pauses</strong></li>
+        <li>Like a runner waiting in the starting blocks</li>
+        <li>Released by <strong>P-TEFb</strong> phosphorylation of Pol II CTD</li>
+        <li>Enables <strong>fast</strong> activation in response to signals</li>
+      </ul>
+      <aside class="notes">
+        Here is a regulatory checkpoint that surprised the field when it was discovered. R N A polymerase two does not transcribe straight through. Twenty to sixty base pairs after starting, it pauses. The paused polymerase is like a runner in the starting blocks, ready to go but waiting for a signal. Release of the pause is controlled by a kinase called P-TEFb, which phosphorylates the C-terminal domain of polymerase two. This pause-and-release mechanism allows extremely fast gene activation. Genes like F O S and J U N — immediate-early genes that respond to cell stress — can be turned on within minutes because their polymerase is already paused, just waiting for the release signal. No need to assemble a fresh pre-initiation complex from scratch.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Enhancers ·<br>Long-Range Control</h1>
+      <aside class="notes">
+        Promoters are the local on-ramp. Most of the regulatory complexity, however, comes from far away — from enhancers.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What an enhancer is</h2>
+      <ul>
+        <li>Short DNA element · 50 – 1500 bp</li>
+        <li>Binding platform for <strong>multiple transcription factors</strong></li>
+        <li>Recruits coactivators (Mediator, p300/CBP)</li>
+        <li>Loops through 3D space to <strong>contact a promoter</strong></li>
+      </ul>
+      <aside class="notes">
+        An enhancer is a short D N A element, typically fifty to fifteen hundred base pairs long, that serves as a binding platform for transcription factors. When several transcription factors bind to an enhancer, they recruit coactivator proteins like the Mediator complex and the histone acetyltransferase p three hundred slash C B P. Together, these proteins physically loop through three-dimensional space and contact the promoter of a target gene. The contact accelerates transcription initiation. Enhancers, in other words, are remote control units for gene expression.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Distance independence</h2>
+      <ul>
+        <li>Can be <strong>1 megabase</strong> from the gene</li>
+        <li>Upstream · downstream · or in an intron</li>
+        <li>Works in either orientation</li>
+        <li>Example: SHH gene · ZRS enhancer <strong>>1 Mb</strong> away</li>
+      </ul>
+      <aside class="notes">
+        One striking property of enhancers is that they work over vast genomic distances. An enhancer can be one megabase from its target gene. It can sit upstream, downstream, or inside an intron. It works in either orientation. The classic example is the gene S H H, sonic hedgehog, which is essential for limb and brain development. S H H is regulated by an enhancer called Z R S that sits more than one million base pairs away. Mutations in Z R S cause polydactyly — extra fingers — in humans, because Z R S fails to properly activate S H H during limb development. The mutation is in the enhancer, not the gene.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Combinatorial logic</h2>
+      <blockquote style="font-size:1.0em;">
+        Multiple TFs must bind <strong>together</strong> for an enhancer to fire.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Muscle enhancer: <strong>MYOD + MEF2 + SRF</strong></li>
+        <li>Neuron enhancer: <strong>NEUROD + REST + SOX</strong></li>
+        <li>Active only in cells with the right TF combination</li>
+      </ul>
+      <aside class="notes">
+        Enhancers do not act alone. They typically require multiple transcription factors binding simultaneously. This is called combinatorial logic. A muscle-specific enhancer requires myo-D, M E F two, and S R F all bound at once. A neuron-specific enhancer requires neuro-D, R E S T, and S O X factors. The enhancer is active only in cells that express the right combination. This is the molecular basis for cell-type specificity. The same enhancer sequence in the genome is silent in liver cells, where the right factors are not expressed, and active in muscle cells, where they are.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Histone marks identify active enhancers</h2>
+      <table>
+        <thead><tr><th>Mark</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>H3K4me1</strong></td><td>Marks all enhancers (active and poised)</td></tr>
+          <tr><td><strong>H3K27ac</strong></td><td>Marks <em>active</em> enhancers</td></tr>
+          <tr><td>eRNA</td><td>Short bidirectional transcripts at active enhancers</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        We can find enhancers experimentally because they carry distinctive histone modifications. H three K four me one — monomethylation of histone three lysine four — marks all enhancers, both active and poised. H three K twenty-seven ac — acetylation of lysine twenty-seven — specifically marks active enhancers. The combination of both marks identifies active enhancer regions across the genome. Many active enhancers also produce short, bidirectional transcripts called enhancer R N A, or eRNA. Whether eRNAs are functional or just byproducts is still debated, but their presence reliably correlates with enhancer activity.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Rapid evolution · functional conservation</h2>
+      <ul>
+        <li>Enhancer sequences evolve <strong>faster</strong> than coding regions</li>
+        <li>Human-mouse enhancer similarity: ~50–60% (vs 85–90% for coding)</li>
+        <li>But essential developmental enhancers are <strong>deeply conserved</strong></li>
+        <li>Species differences (e.g. human brain) emerge from enhancer changes</li>
+      </ul>
+      <aside class="notes">
+        An interesting evolutionary fact about enhancers. They evolve much faster than protein-coding sequences. If you align human and mouse coding regions, you typically see eighty-five to ninety percent identity. For enhancers, you often see only fifty to sixty percent. This makes biological sense — changes to an enhancer alter when and where a gene is expressed without breaking the protein itself. So enhancers are a major substrate for evolutionary change. At the same time, some enhancers are profoundly conserved. Enhancers controlling H O X genes, which define body segment identity, are recognisable across all vertebrates. Much of human-specific brain evolution is now thought to come not from new genes but from new enhancer activity.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>3D Chromatin Looping</h1>
+      <aside class="notes">
+        Enhancers are far away in linear D N A. So how do they physically reach a promoter? The answer is three-dimensional chromatin looping.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The cast of characters</h2>
+      <ul>
+        <li><strong>CTCF</strong> · DNA-binding protein · loop anchor · ~40 – 60K sites genome-wide</li>
+        <li><strong>Cohesin</strong> · ring-shaped complex · embraces DNA · extrudes loops</li>
+        <li>Cohesin slides until stopped by CTCF</li>
+        <li>Convergent CTCF orientation (><) → stable loop</li>
+      </ul>
+      <aside class="notes">
+        Two architectural protein systems do most of the loop-forming work. C T C F is a D N A-binding protein with about forty to sixty thousand binding sites scattered across the human genome. It acts as a loop anchor and as an insulator. Cohesin is a ring-shaped protein complex that physically embraces D N A and slides along it, extruding loops bidirectionally until it hits something that stops it. The thing that stops cohesin is C T C F — but only when C T C F is in a specific orientation. The C T C F binding site is asymmetric, and the protein blocks cohesin only from one direction. So loops form when two C T C F sites point toward each other — convergent orientation, drawn as right-arrow then left-arrow. Over ninety percent of chromatin loops have convergent C T C F anchors.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The convergent orientation rule</h2>
+      <figure>
+        <img src="../assets/figures/Osato2019-bioRxiv-Fig1.jpg" alt="CTCF convergent orientation determines loop formation" style="max-height:380px;">
+        <figcaption>
+          Cohesin extrudes until stopped by convergent CTCF anchors → enhancer-promoter loop forms.<br>
+          Osato 2019, <em>bioRxiv</em>. CC BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This figure illustrates the convergent orientation rule. The cohesin ring, shown in orange, extrudes a D N A loop bidirectionally. C T C F proteins bound to specific sites — green for reverse orientation, red for forward — block cohesin only from their N-terminal side. When two C T C F sites are in convergent orientation, with their blocking sides facing each other, cohesin gets caught between them and the loop is stabilised. Inside that loop, an enhancer can find and contact a promoter. Outside the loop, those interactions are disfavoured. This convergent C T C F rule explains why most chromatin loops have the geometry they have, and it tells you how to predict where loops will form just from the linear sequence.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Topologically Associating Domains (TADs)</h2>
+      <ul>
+        <li>Genomic neighbourhoods · 100 kb to a few Mb</li>
+        <li>Enhancer–promoter contacts <strong>within</strong> the same TAD</li>
+        <li>Boundaries: convergent CTCF sites</li>
+        <li>Crossing TAD boundaries is <strong>rare</strong></li>
+      </ul>
+      <aside class="notes">
+        Loops are organised into larger neighbourhoods called Topologically Associating Domains, abbreviated T A Ds. A T A D is a region — typically one hundred kilobases to a few megabases — where chromatin contacts are frequent within the domain but rare across its boundaries. The boundaries are usually marked by convergent C T C F sites. Inside a T A D, enhancers and promoters interact freely. Across T A D boundaries, they generally do not. So T A Ds act as insulated regulatory neighbourhoods. They prevent enhancers in one part of the genome from accidentally activating genes in a different part.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Enhancer hijacking · when boundaries break</h2>
+      <ul>
+        <li>Chromosomal rearrangement disrupts a TAD boundary</li>
+        <li>Strong enhancer ends up next to the <strong>wrong</strong> gene</li>
+        <li>Classic example: T-cell leukaemia · TCR enhancer near MYC</li>
+        <li>MYC overexpression drives the cancer</li>
+      </ul>
+      <aside class="notes">
+        What happens when T A D boundaries break? Enhancer hijacking. A chromosomal rearrangement — translocation, deletion, inversion — can disrupt the convergent C T C F sites that define a boundary. Suddenly an enhancer that was confined to its native T A D can reach across and activate a gene in a previously separate domain. The classic example is in T-cell acute lymphoblastic leukaemia. A translocation between chromosomes eight and fourteen brings a T-cell receptor super-enhancer into proximity with the M Y C oncogene. M Y C, a master regulator of cell proliferation, becomes massively overexpressed. The result is leukaemia. Enhancer hijacking is now recognised as a common mechanism in many cancers, especially where the protein-coding sequence of an oncogene is unchanged but its regulation is rewired.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Case Study ·<br>IGF2 / H19</h1>
+      <aside class="notes">
+        Let's see all of these concepts come together in one elegant example — the imprinted I G F two H one nine locus.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The IGF2 / H19 setup</h2>
+      <ul>
+        <li>Two genes near each other · share a distal enhancer</li>
+        <li>Between them: a <strong>differentially methylated region</strong> (DMR)</li>
+        <li>DMR can recruit CTCF — but only when <strong>unmethylated</strong></li>
+        <li>Genomic <strong>imprinting</strong> · which gene is on depends on parent of origin</li>
+      </ul>
+      <aside class="notes">
+        Here is the setup. The I G F two H one nine locus contains two genes — I G F two, encoding insulin-like growth factor two, and H one nine, encoding a long non-coding R N A. They share a single distal enhancer. Between them is a differentially methylated region, a D M R. The D M R can recruit C T C F — but only when it is unmethylated. When the D M R is methylated, C T C F cannot bind. This locus is imprinted, meaning expression depends on parent of origin. The same D N A sequence is read very differently depending on whether it came from the mother or the father.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Paternal allele · IGF2 ON</h2>
+      <ul>
+        <li>DMR is <strong>methylated</strong></li>
+        <li>CTCF cannot bind · no insulator</li>
+        <li>Enhancer loops to the <strong>IGF2</strong> promoter</li>
+        <li>IGF2 expressed · H19 silent</li>
+      </ul>
+      <aside class="notes">
+        On the paternal allele, the D M R is methylated. C T C F cannot bind methylated D N A, so no insulator forms. With the path clear, the enhancer loops directly to the I G F two promoter and activates it. I G F two is expressed. H one nine is silent. Note what is happening here. The enhancer's intrinsic activity has not changed. What has changed is which promoter it can reach in three-dimensional space.
+      </aside>
+    </section>
+
+    <section>
+      <h2>Maternal allele · H19 ON</h2>
+      <ul>
+        <li>DMR is <strong>unmethylated</strong></li>
+        <li>CTCF binds · creates an <strong>insulator</strong></li>
+        <li>Insulator blocks the enhancer from reaching IGF2</li>
+        <li>Enhancer loops to <strong>H19</strong> instead · H19 expressed · IGF2 silent</li>
+      </ul>
+      <aside class="notes">
+        On the maternal allele, the D M R is unmethylated. C T C F binds the D M R and creates an insulator boundary. The insulator blocks the enhancer from reaching I G F two. With its preferred contact blocked, the enhancer loops to the H one nine promoter instead. H one nine is expressed. I G F two is silent. So the same D N A sequence, with the same enhancer, produces opposite outcomes on the two parental alleles — driven entirely by methylation status, C T C F binding, and three-dimensional chromatin geometry.
+      </aside>
+    </section>
+
+    <section>
+      <h2>The architecture in one figure</h2>
+      <figure>
+        <img src="../assets/figures/Merkenschlager2013-Cell-Fig1.png" alt="IGF2/H19 chromatin loops" style="max-height:340px;">
+        <figcaption>
+          Paternal: methylated DMR · enhancer reaches IGF2.<br>
+          Maternal: unmethylated DMR + CTCF · enhancer redirected to H19.<br>
+          Merkenschlager &amp; Odom 2013, <em>Cell</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This figure puts it all together. On the linear genome, the I G F two and H one nine promoters are separated by the differentially methylated region and the distal enhancer. In three dimensions, the chromatin folds differently on the two parental alleles. On the paternal allele, the methylated D M R cannot bind C T C F, the insulator is inactive, and a cohesin-stabilised loop brings the enhancer to I G F two. On the maternal allele, C T C F binds the unmethylated D M R, the insulator is active, and the enhancer is redirected to H one nine. This locus has been the textbook example of imprinting for thirty years, and it remains the clearest demonstration that chromatin architecture, not sequence, determines outcome.
+      </aside>
+    </section>
+
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's wrap up.
+      </aside>
+    </section>
+
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Cell identity = <strong>gene expression</strong>, not DNA sequence</li>
+        <li>Promoters: local on-ramp · pre-initiation complex · pause-release</li>
+        <li>Enhancers: long-range, combinatorial, cell-type specific</li>
+        <li>3D looping (CTCF + cohesin) brings them together</li>
+        <li>TADs insulate · breaking them causes <strong>enhancer hijacking</strong></li>
+        <li>IGF2 / H19 — same DNA, opposite outcomes by 3D geometry</li>
+      </ul>
+      <aside class="notes">
+        Six takeaways. One. Cell identity is defined by gene expression patterns, not by D N A sequence. Same library, different chapters. Two. Promoters are the local on-ramp where the pre-initiation complex assembles, with pause-release giving fast control. Three. Enhancers provide long-range, combinatorial, cell-type-specific regulation. Four. Three-dimensional chromatin looping, mediated by C T C F and cohesin, brings enhancers and promoters into physical contact. Five. Topologically associating domains insulate regulatory neighbourhoods. When their boundaries break, enhancer hijacking can drive cancer. And six. The I G F two H one nine case shows beautifully how the same D N A sequence can produce opposite outcomes through different three-dimensional geometries.
+      </aside>
+    </section>
+
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1;">
+        How do we <span style="color:var(--terracotta-deep)">measure</span><br>
+        gene regulation in actual cells?
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">
+        Chapter 29 · <strong>Gene Regulation — Methods and Applications</strong>
+      </p>
+      <aside class="notes">
+        Today we covered the principles. Next chapter we will see the methods. ATAC-seq for chromatin accessibility. ChIP-seq for transcription factor binding. Hi-C for three-dimensional structure. Single-cell methods for cell-type-resolved regulation. And the applications — how all of these tools help us interpret disease variants. See you then.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({width:1280, height:720, margin:0.04, hash:true, slideNumber:'c/t', controls:true, progress:true, transition:'fade', plugins:[ RevealNotes, RevealHighlight ]});
+</script>
+</body>
+</html>
