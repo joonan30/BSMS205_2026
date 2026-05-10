@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 17 · Partitioned Variance — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Partitioned<br>Variance</h1>
+      <div class="chapter-num">Chapter 17 · Part III · Complex Traits</div>
+      <aside class="notes">
+        Welcome to Chapter seventeen of BSMS two oh five Genetics. Last lecture we built up the heritability framework — Fisher's model, additive versus dominant effects, the partitioning of phenotypic variance. Today we leave the chalkboard behind and watch the framework do real work. We will look at real biomedical studies — height, BMI, schizophrenia, the gut microbiome, even Tylenol during pregnancy — and see how partitioning variance separates genuine causes from spurious correlations. The math we learned last week is about to earn its keep.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        If two things move<br>together — does one<br><span style="color:var(--terracotta-deep)">cause</span> the other?
+      </h1>
+      <aside class="notes">
+        Here is the question I want you to hold all hour. Suppose autistic children show different gut bacteria than non-autistic children. Suppose mothers who took Tylenol have slightly more children with autism. Suppose tall fathers have tall sons. Each of these is a real correlation. The question is — does correlation here mean causation? The whole machinery of variance partitioning, which we built last week, exists to answer exactly this kind of question. Today we will see it work on three real cases.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>From theory to the world</h2>
+      <div class="cols">
+        <div>
+          <h3>Last lecture · Ch16</h3>
+          <ul>
+            <li>Fisher's <strong>VP = A + D + E</strong></li>
+            <li>Heritability <strong>h²</strong></li>
+            <li>Additive vs dominant variance</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Today · Ch17</h3>
+          <ul>
+            <li>Apply to <strong>real traits</strong></li>
+            <li>Real <strong>biomedical studies</strong></li>
+            <li>Causation vs <strong>confounding</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        A quick bridge from last week to this week. Last lecture we built Fisher's framework on paper — phenotypic variance equals additive plus dominance plus environmental variance, and heritability is the additive piece. That is theory. This week the same equation has to survive contact with the real world — actual diseases, actual exposures, actual data sets of millions of people. The framework is more than an exam topic. It is the tool researchers use to decide whether a headline like "Tylenol causes autism" is real or noise.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The simple, powerful idea</div>
+      <h1 style="font-size:1.9em; line-height:1.2; margin-top:0.3em;">
+        Variation comes from<br><strong>many sources</strong>.<br>
+        <span style="color:var(--terracotta-deep);">Pull them apart</span><br>before drawing conclusions.
+      </h1>
+      <aside class="notes">
+        Here is the entire chapter compressed into one sentence. When you see variation in any trait — a disease, a behavior, a measurement — that variation comes from genes, environment, behavior, and their interactions, all tangled together. If you do not pull these strands apart, you will mistake correlation for causation. If you do pull them apart — if you partition the variance — you can finally see what is actually driving the trait. That is the single move that separates careful biology from sloppy biology.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Real traits · real numbers</h2>
+      <table>
+        <thead><tr><th>Trait</th><th>Approx. h²</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Height</strong></td><td>~80%</td><td>Among most heritable traits in humans</td></tr>
+          <tr><td><strong>Schizophrenia</strong></td><td>~65%</td><td>Polygenic, twin-study based</td></tr>
+          <tr><td><strong>BMI</strong></td><td>~30-50%</td><td>Strong gene–environment interaction</td></tr>
+          <tr><td><strong>Depression</strong></td><td>~40%</td><td>Heterogeneous · context-dependent</td></tr>
+          <tr><td><strong>Educational attainment</strong></td><td>~40%</td><td>Mostly environmental + social</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Before we go into the case studies, anchor yourself with these numbers. Height — about eighty percent heritable, one of the most genetic traits we measure. Schizophrenia — about sixty-five percent. B M I — about fifty percent, with strong gene by environment interaction. Depression — about forty percent. Educational attainment — about forty percent, mostly environmental and social. These are not exact constants. They depend on the population and the environment. But they give you a sense of where genes matter most, and where environment dominates. We will come back to these numbers later when we ask why h squared is not a single fixed number.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>The framework — VP partitioned across layers</li>
+        <li>Case 1 · the microbiome and autism</li>
+        <li>Case 2 · Tylenol and autism — sibling controls</li>
+        <li>Why h² differs across populations</li>
+        <li>Gene × environment interactions</li>
+        <li>Lessons for causal inference</li>
+        <li>Summary &amp; bridge to GWAS</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, the framework — what does it mean to partition variance across biological layers, not just genes versus environment. Second, case one — Yap and colleagues asking whether the gut microbiome causes autism. Third, case two — Ahlqvist and colleagues asking whether Tylenol during pregnancy causes autism, using two and a half million Swedish children. Fourth, we revisit why heritability for the same trait differs across populations. Fifth, gene by environment interaction. Sixth, the broader lessons for causal inference. And finally we summarize and bridge to chapter eighteen, the world of genome-wide association studies.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · THE FRAMEWORK, REVISITED
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>The Framework,<br>Revisited</h1>
+      <aside class="notes">
+        Let's spend a few minutes refreshing the partitioning framework, but with a twist — we will extend it beyond just genes versus environment, into the layered structure that real biology actually has.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Fisher's equation · the universal template</h2>
+      <div class="formula" style="text-align:center; font-size:1.6em; margin:0.6em 0;">
+        V<sub>P</sub> = V<sub>A</sub> + V<sub>D</sub> + V<sub>E</sub>
+      </div>
+      <ul>
+        <li><strong>V<sub>A</sub></strong> · additive genetic variance</li>
+        <li><strong>V<sub>D</sub></strong> · dominance variance</li>
+        <li><strong>V<sub>E</sub></strong> · environmental variance</li>
+        <li>Plus <strong>V<sub>GE</sub></strong> for gene–environment interaction</li>
+      </ul>
+      <aside class="notes">
+        Here is Fisher's equation again, the template that powers everything we are doing today. Phenotypic variance equals additive genetic plus dominance plus environmental variance. In real studies we usually add a gene by environment interaction term, V G E, when those interactions matter. The trick of this chapter is not the equation itself — it is the realization that this template applies to many more layers than just classical heritability. You can partition variance between microbiome and behavior, between shared family environment and unique experiences, between any two correlated sources you want to disentangle.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Shared C vs unique E environment</h2>
+      <div class="cols">
+        <div>
+          <h3>Shared environment · C</h3>
+          <ul>
+            <li><strong>Same household</strong>, parents, neighborhood</li>
+            <li>Diet, schools, language</li>
+            <li>Makes siblings <strong>resemble</strong> each other</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Unique environment · E</h3>
+          <ul>
+            <li><strong>Differs between siblings</strong></li>
+            <li>Specific experiences, accidents, friends</li>
+            <li>Makes siblings <strong>differ</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        A key refinement for today: environmental variance is not one thing. It splits into shared environment, often labeled big C, and unique environment, labeled small e. Shared environment is everything siblings have in common — same household, same parents, same neighborhood, same food on the table. It tends to make siblings resemble each other. Unique environment is everything that differs between siblings — the specific friends one made, the illness only one had, the teacher one liked. It tends to make siblings differ. This split between C and E is exactly what twin and sibling studies exploit, and it will be central to case two later today.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Twin and family designs</h2>
+      <table>
+        <thead><tr><th>Design</th><th>What it estimates</th><th>Logic</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MZ vs DZ twins</strong></td><td>h² (additive)</td><td>MZ share 100% genes; DZ share 50%</td></tr>
+          <tr><td><strong>Adoption studies</strong></td><td>Genes vs C</td><td>Adoptees share C, not genes</td></tr>
+          <tr><td><strong>Sibling controls</strong></td><td>Removes A &amp; C</td><td>Within-family comparison</td></tr>
+          <tr><td><strong>SNP-based h²</strong></td><td>Common-variant h²</td><td>Uses genome-wide SNPs directly</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are the four big study designs that estimate variance components in humans. Monozygotic versus dizygotic twin comparisons give you classical h squared, by exploiting that identical twins share one hundred percent of their genome and fraternal twins share fifty percent. Adoption studies separate genetic from shared environmental effects, because adoptees share C but not A with their adoptive families. Sibling controls — the design behind today's Tylenol study — hold A and C constant by comparing siblings. And SNP-based h squared, which uses genome-wide markers directly, is the modern molecular alternative we will see in chapter eighteen. Each of these designs is a different way of slicing the same equation.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Variance can be partitioned across layers</h2>
+      <ul>
+        <li>Not just genes vs environment</li>
+        <li>Genome · transcriptome · <strong>microbiome</strong> · behavior</li>
+        <li>Each layer contributes some <strong>fraction</strong> of variance</li>
+        <li>The same logic — applied to <em>any</em> source of variation</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Fisher's framework is a <strong>template</strong>,<br>
+        not just a genetics formula.
+      </blockquote>
+      <aside class="notes">
+        And here is the conceptual leap of this chapter. Variance partitioning is not limited to the classical genes-versus-environment split. You can partition variance across biological layers — your genome, your transcriptome, your microbiome, your behavior, your social environment. Each layer contributes some fraction of the total variation in any given trait. That layered view is exactly what the Yap study uses to ask whether the gut microbiome causes autism, by introducing a microbiome-association index that plays the same mathematical role as heritability. Fisher gave us a template, not just a formula about chromosomes.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · CASE 1 · MICROBIOME AND AUTISM
+         ==================================================== -->
+
+    <!-- Slide 12 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Case 1<br>The Microbiome<br>and Autism</h1>
+      <aside class="notes">
+        Now to our first case study — Yap and colleagues in twenty twenty-one, in the journal Cell. The question they tackled is one you have probably seen in popular science articles: does the gut microbiome cause autism? We will see how variance partitioning gave a sharp answer to a question that had been blurry for years.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>The popular hypothesis</h2>
+      <ul>
+        <li>Autistic children show <strong>different gut bacteria</strong></li>
+        <li>Some studies → "microbiome → autism"</li>
+        <li>Spawned <strong>commercial products</strong> claiming to treat ASD</li>
+        <li>Real correlation — but is it <strong>causal</strong>?</li>
+      </ul>
+      <aside class="notes">
+        First, the backstory. Multiple studies had reported that autistic children show a different mix of gut bacteria from non-autistic peers. That observation got popularized fast. There were popular articles, podcasts, even commercial products claiming you could change a child's microbiome to treat autism. The correlation was real. The question — and it is the only question that matters — is whether that correlation reflects causation. Yap's team set out to test it cleanly using variance partitioning.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Yap et al., 2021 · the design</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.5em;">247</div>
+          <div class="bignum-label">children · ASD &amp; controls</div>
+        </div>
+        <div>
+          <ul>
+            <li>Measured <strong>3 things</strong>:</li>
+            <li>Autism diagnosis</li>
+            <li>Dietary patterns</li>
+            <li>Gut <strong>microbiome</strong> composition</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        The design. Yap and colleagues studied two hundred forty-seven children, including those with autism spectrum disorder and matched controls. For each child they measured three things: the autism diagnosis itself, dietary patterns, and the composition of the gut microbiome. Three layers — phenotype, behavior, and microbes. The trick is that they did not just ask "are these three correlated." They asked how much of the variance in each layer is explained by the others.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <div class="cue">A new partitioning metric</div>
+      <h1 style="font-size:2.4em; line-height:1.1; margin-top:0.2em;">
+        b² · the <span style="color:var(--terracotta-deep);">microbiome</span><br>analog of h².
+      </h1>
+      <p style="margin-top:0.8em; font-size:1.05em;">
+        Fraction of variance in a trait explained by <strong>microbiome composition</strong>.
+      </p>
+      <aside class="notes">
+        Here is their key methodological move. They invented a metric called b squared — the microbiome-association index. It plays the same mathematical role as heritability, but for microbes instead of genes. If the microbiome explains a lot of variance in a trait, b squared is high. If the microbiome explains little, b squared is low. This is a beautiful example of the framework being a template — Fisher's machinery applied to a non-genetic biological layer.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>What the b² values showed</h2>
+      <table>
+        <thead><tr><th>Trait</th><th>Microbiome b²</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ASD diagnosis</strong></td><td>0 – 9%</td><td>Essentially zero</td></tr>
+          <tr><td>Dietary patterns</td><td>40 – 64%</td><td>Microbiome reflects diet</td></tr>
+          <tr><td>Stool consistency</td><td>~50%</td><td>Direct gut effect</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">The microbiome explains <strong>almost none</strong> of ASD variance.</p>
+      <aside class="notes">
+        Here are the numbers, and they are striking. The microbiome explained essentially zero percent of variance in autism diagnosis — somewhere between zero and nine percent, statistically indistinguishable from no signal. But the same microbiome explained a huge chunk of variance in dietary patterns, between forty and sixty-four percent, and about half the variance in stool consistency. Stop and think about what this pattern means. The microbiome is a real biological signal — it tracks diet and digestion strongly. It just does not track autism diagnosis. So whatever differences appear in autistic kids' microbiomes, they are not enough to predict the autism status itself.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <div class="cue">The headline finding</div>
+      <div class="bignum" style="color:var(--terracotta);">≈ 0%</div>
+      <div class="bignum-label">of ASD variance explained by the microbiome</div>
+      <ul>
+        <li>Knowing a child's gut bacteria → <strong>tells you nothing</strong> about ASD</li>
+        <li>The popular story is <strong>backwards</strong></li>
+      </ul>
+      <aside class="notes">
+        Let me put it bluntly. The microbiome explains essentially zero percent of variance in autism. Knowing a child's gut bacterial composition tells you nothing useful about whether that child has autism. The popular story — gut bugs influencing the brain to cause autism — is not supported. So if the microbiome differences are real, where do they come from?
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>The hidden chain · behavior mediates</h2>
+      <blockquote style="font-size:1.1em; text-align:center;">
+        autism → <strong>selective eating</strong> → altered diet<br>
+        → different microbiome
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Many autistic children have <strong>selective eating</strong> patterns</li>
+        <li>Texture, flavor, routine preferences</li>
+        <li>Limited diet → <strong>less diverse</strong> microbiome</li>
+        <li>The microbiome is a <strong>mirror</strong>, not a cause</li>
+      </ul>
+      <aside class="notes">
+        Here is the chain that variance partitioning revealed. Autism affects behavior, and many autistic children have selective eating patterns — strong preferences for certain textures, flavors, or food routines. That selective eating shapes the diet. The diet shapes the microbiome. So the chain is: autism leads to selective eating, leads to altered diet, leads to a different microbiome. The microbiome is reflecting autism-related behavior, not causing it. The microbiome is a mirror, not a culprit. That is what zero b squared looks like in practice.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Layered variance · what's really there</h2>
+      <table>
+        <thead><tr><th>Layer</th><th>Role in ASD</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Genetic (A, D)</strong></td><td>Neurodevelopment, sensory processing</td></tr>
+          <tr><td><strong>Behavioral</strong></td><td>Selective eating, routines</td></tr>
+          <tr><td><strong>Environmental</strong></td><td>Diet, microbiome (responds to behavior)</td></tr>
+          <tr><td><strong>G × E</strong></td><td>Possible — but not driving ASD</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the layered picture Yap's analysis ends up revealing. Genetic factors influence neurodevelopment and sensory processing — that is where autism risk genes sit. Behavioral factors, shaped by genes plus experience, drive selective eating. Environmental factors, including the microbiome, respond to behaviors — what you eat literally feeds different bacteria. And gene by environment interactions may exist on top, but they are not what is driving the autism diagnosis. By partitioning variance across these layers, Yap's team showed that the microbiome is downstream of behavior, which is downstream of genetics. Causation, not correlation, is what variance partitioning is built to find.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Why this matters</h2>
+      <ul>
+        <li>Real-world claims about microbiome → autism collapsed</li>
+        <li>Commercial "microbiome treatments" lose their basis</li>
+        <li>Public health → don't <strong>treat the mirror</strong></li>
+        <li>The framework <strong>protects</strong> us from bad inference</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Treat the cause, not the reflection.
+      </blockquote>
+      <aside class="notes">
+        Why does this matter beyond a journal paper? Because real money and real treatment decisions had been hanging on the microbiome-autism story. Commercial probiotic products were being marketed for autism. Parents were spending money. By partitioning variance properly, Yap's team showed that we were treating the mirror, not the cause. Without that analysis we would still be chasing the wrong target. This is the framework protecting us from a bad inference, with real public-health stakes.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · CASE 2 · TYLENOL AND AUTISM
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Case 2<br>Tylenol &amp; Autism<br>Sibling Controls</h1>
+      <aside class="notes">
+        Now to case two. Same disease, different question, different study design. Ahlqvist and colleagues, in J A M A in twenty twenty-four, asked: does taking acetaminophen — Tylenol — during pregnancy increase autism risk? This question is high-stakes. Acetaminophen is one of the most commonly used drugs during pregnancy. If the link were real, it would change clinical practice for millions of women.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The setup</h2>
+      <ul>
+        <li><strong>Tylenol</strong> · acetaminophen — common in pregnancy</li>
+        <li>Generally considered safe for fever &amp; pain</li>
+        <li>Past decade · several studies → small association with ASD</li>
+        <li>Pregnant people <strong>worried</strong>; clinicians unsure</li>
+      </ul>
+      <aside class="notes">
+        First the context. Acetaminophen is one of the most commonly used medications during pregnancy — it treats fever, treats pain, and is generally considered safe. But over the last decade or so, several observational studies suggested a small association between prenatal acetaminophen use and a higher risk of autism and A D H D in the child. Pregnant people read those studies, got worried, and clinicians did not have a clean answer. So Ahlqvist and colleagues set out to test it definitively.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <div class="cue">The dataset</div>
+      <div class="bignum">2,480,000</div>
+      <div class="bignum-label">children · Sweden · 24 years</div>
+      <ul>
+        <li>National medical registries</li>
+        <li>Detailed medication records during pregnancy</li>
+        <li>Childhood diagnoses of <strong>autism &amp; ADHD</strong></li>
+      </ul>
+      <aside class="notes">
+        And here is the scale. Two and a half million children born in Sweden, tracked through national medical registries. Sweden's nationalized health system means researchers can see detailed records of medication use during pregnancy, and follow the same children through childhood for diagnoses of autism and A D H D. That is a sample size other countries simply cannot match — and it lets you look at very subtle effects, if they exist.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Step 1 · the population analysis</h2>
+      <table>
+        <thead><tr><th>Outcome</th><th>Hazard ratio</th><th>Looks like</th></tr></thead>
+        <tbody>
+          <tr><td>Autism (ASD)</td><td>~1.05</td><td>5% higher risk</td></tr>
+          <tr><td>ADHD</td><td>~1.07</td><td>7% higher risk</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">A small but <strong>real-looking</strong> association. Same as past studies.</p>
+      <aside class="notes">
+        Step one — the standard population-level analysis. They asked: across all two and a half million children, do those whose mothers took acetaminophen during pregnancy have a higher rate of autism and A D H D than those whose mothers did not? The answer was yes, by a small amount. Hazard ratio about one point zero five for autism, about one point zero seven for A D H D. Translated, that is roughly five to seven percent higher risk. Small, but real-looking, and consistent with the previous studies. At this point a worried parent might think: confirmed.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>The clever pivot · sibling controls</h2>
+      <ul>
+        <li>Compare <strong>siblings</strong> within the same family</li>
+        <li>One pregnancy with acetaminophen, the next without</li>
+        <li>Holds <strong>constant</strong>: genes, parents, SES, home, lifestyle</li>
+        <li>What's left → <strong>only</strong> the within-mother difference</li>
+      </ul>
+      <aside class="notes">
+        Step two — the clever pivot. Instead of comparing different families, Ahlqvist and colleagues compared siblings within the same family. Some mothers took acetaminophen during one pregnancy and not another. By comparing those siblings, you hold constant everything that siblings share — genetic background, parental health, socioeconomic status, the house they grow up in, the family's lifestyle. What is left between those siblings is, by construction, just the within-mother difference between pregnancies. That is exactly the unique-environment effect we defined earlier.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Sibling control · the result</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="color:var(--terracotta); font-size:5em;">1.0</div>
+          <div class="bignum-label">hazard ratio · all outcomes</div>
+        </div>
+        <div>
+          <ul>
+            <li>Autism · <strong>no association</strong></li>
+            <li>ADHD · <strong>no association</strong></li>
+            <li>Other outcomes · same flat result</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        And here is the punchline. When they compared siblings, the hazard ratio dropped to one point zero — flat. No association. Autism — no link. A D H D — no link. Every neurodevelopmental outcome they tested gave the same flat answer once siblings were compared. The acetaminophen effect, by itself, was zero. The earlier weak association was not the drug. It was something tangled together with the drug.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>What was the confound?</h2>
+      <ul>
+        <li><strong>Familial confounding</strong> — shared family factors</li>
+        <li>More health problems · more stress · different care behaviors</li>
+        <li>Same factors → both medication use <em>and</em> child outcomes</li>
+        <li>Genes + shared environment → A + C</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Hidden chain · shared family factors → <strong>both</strong> Tylenol use<br>and child neurodevelopment.
+      </blockquote>
+      <aside class="notes">
+        So what was the confound? Think about which families are more likely to use acetaminophen during pregnancy. Probably ones where the mother has more health problems, or more stress, or different attitudes toward seeking medical care. Those same factors — both genetic and environmental — also influence the child's neurodevelopment. So the apparent association was not caused by Tylenol. It was caused by the shared family-level factors that drive both Tylenol use and the child's outcome. In Fisher's language, the population-level analysis confounded the drug effect with both A — additive genetic factors that families share — and C, shared environment.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Connecting back to Fisher</h2>
+      <div class="formula" style="text-align:center; font-size:1.4em; margin:0.5em 0;">
+        V<sub>P</sub> = V<sub>A</sub> + V<sub>C</sub> + V<sub>E</sub>
+      </div>
+      <ul>
+        <li><strong>Population analysis</strong> · drug confounded with A + C</li>
+        <li><strong>Sibling analysis</strong> · subtracts A &amp; C</li>
+        <li>Leaves only <strong>E</strong> — the unique pregnancy effect</li>
+        <li>Drug effect on E · <strong>zero</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the same story rewritten in Fisher's language. Phenotypic variance equals additive plus shared environment plus unique environment. In the population analysis, the medication signal was tangled with A and with C — genetic and shared family factors that families bring to both pregnancies. In the sibling analysis, A and C are subtracted out, because siblings share them. What remains is only E — the unique environmental difference between one pregnancy and another in the same mother. And the medication's effect on E was exactly zero. This is one of the cleanest examples of variance partitioning saving a clinical conclusion in the recent literature.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The clinical impact</h2>
+      <ul>
+        <li>Acetaminophen during pregnancy → <strong>no causal effect</strong> on ASD/ADHD</li>
+        <li>Confirms safety for fever &amp; pain management</li>
+        <li>Removes a major source of <strong>parental anxiety</strong></li>
+        <li>Variance partitioning → <strong>actual</strong> medical guidance</li>
+      </ul>
+      <aside class="notes">
+        The clinical takeaway from Ahlqvist's study is huge. Acetaminophen, when taken for legitimate reasons during pregnancy, does not cause autism or A D H D. The earlier reports were confounded. That conclusion gives clinicians a clear answer, removes a major source of anxiety from millions of pregnancies, and arguably saves lives — because untreated fever during pregnancy carries its own real risks. Variance partitioning is not just a statistical exercise. In this case, it directly improved medical practice.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · WHY h² VARIES
+         ==================================================== -->
+
+    <!-- Slide 30 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Why h²<br>Differs</h1>
+      <aside class="notes">
+        Now let's zoom out and revisit something that often confuses students: the same trait can have very different heritability estimates in different populations. Why? Because heritability is a ratio, and the denominator depends on the environment.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>h² is a ratio · context-dependent</h2>
+      <div class="formula" style="text-align:center; font-size:1.4em; margin:0.5em 0;">
+        h² = V<sub>A</sub> / V<sub>P</sub>
+      </div>
+      <ul>
+        <li><strong>Same V<sub>A</sub></strong>, different V<sub>P</sub> → different h²</li>
+        <li>Bigger environmental variation → <strong>smaller</strong> h²</li>
+        <li>Smaller environmental variation → <strong>larger</strong> h²</li>
+        <li>h² is a <strong>population statistic</strong>, not an individual one</li>
+      </ul>
+      <aside class="notes">
+        Always remember — h squared is a ratio. Additive genetic variance over total phenotypic variance. If you increase the environmental piece of the denominator, h squared shrinks, even if the genes are doing exactly the same thing. Conversely, if you reduce environmental variation — say by giving everyone access to the same nutrition — h squared rises. This is why the same trait can have very different heritability in different populations. It is also why h squared is a property of a population, never of an individual person.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Height · the textbook example</h2>
+      <table>
+        <thead><tr><th>Population</th><th>h² for height</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Modern wealthy nation</td><td><strong>~80%</strong></td><td>Nutrition uniformly good</td></tr>
+          <tr><td>1900s Western Europe</td><td>~65%</td><td>Variable nutrition</td></tr>
+          <tr><td>Famine-affected region</td><td>much lower</td><td>Environment dominates</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.4em;">Same genes — different heritability.</p>
+      <aside class="notes">
+        Height is the cleanest example. In a modern wealthy nation, where nutrition is uniformly good, environmental variance in height is small, so heritability sits around eighty percent. In nineteen hundreds Western Europe, where some kids ate well and some did not, nutrition contributed more to the variance, so heritability was lower — around sixty-five percent. In a region experiencing famine, environmental variance dominates utterly, so heritability of height drops dramatically. The genes have not changed. The environment has. This is why a heritability number always needs a population context.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Educational attainment · environment dominates</h2>
+      <ul>
+        <li>h² for years of schooling · ~<strong>40%</strong></li>
+        <li>~60% of variance is <strong>environmental + social</strong></li>
+        <li>Schools, family resources, peer networks</li>
+        <li>Policy can <strong>change</strong> the outcome dramatically</li>
+      </ul>
+      <aside class="notes">
+        Take another contrasting example. Educational attainment — years of schooling completed — has heritability around forty percent. That is much lower than height, and the rest is environment, broadly construed: schools, family resources, peer networks, social context. Policy decisions can shift this enormously. Build better schools, expand financial aid, and you change the environmental component, which changes the outcome distribution. Heritability is not destiny — it is a number that exists at a particular time and place.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Schizophrenia &amp; depression · context matters</h2>
+      <table>
+        <thead><tr><th>Trait</th><th>Approx. h²</th><th>Sensitivity</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Schizophrenia</strong></td><td>~65%</td><td>Stable across populations</td></tr>
+          <tr><td><strong>Major depression</strong></td><td>~40%</td><td>Highly context-dependent</td></tr>
+          <tr><td><strong>Anxiety disorders</strong></td><td>~30–40%</td><td>Stress &amp; trauma sensitive</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Mental health traits show this pattern especially clearly. Schizophrenia has a relatively stable heritability around sixty-five percent across populations — its genetic architecture seems robust to context. Major depression sits around forty percent and is highly context-dependent — the same genetic risk plays out very differently in a high-stress environment than a low-stress one. Anxiety disorders are similar, with heritability often in the thirty to forty percent range. The lesson: lower heritability does not mean genes do not matter. It means the environment is doing more of the variation, and therefore intervention has more leverage.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · GENE × ENVIRONMENT
+         ==================================================== -->
+
+    <!-- Slide 35 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Gene ×<br>Environment</h1>
+      <aside class="notes">
+        We have separated genes from environment. But genes and environment also interact — the effect of a gene can depend on the environment, and the effect of an environment can depend on the genes. This is V G E in Fisher's framework. Let's look at it.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>What G × E means</h2>
+      <ul>
+        <li>Same genotype, <strong>different</strong> environments → different phenotype</li>
+        <li>Same environment, <strong>different</strong> genotypes → different phenotype</li>
+        <li>The two effects don't simply <strong>add</strong> — they <em>multiply</em></li>
+        <li>Captured as <strong>V<sub>GE</sub></strong> in the variance equation</li>
+      </ul>
+      <aside class="notes">
+        Gene by environment interaction means that the effect of a gene depends on the environment, and vice versa. Two people with the same genotype can have very different phenotypes if they live in very different environments. Two people in the same environment can have very different phenotypes if their genotypes are different. And critically, those two effects do not just add — they multiply, or interact. That extra interaction term is V G E in the variance equation.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Real-world G × E examples</h2>
+      <table>
+        <thead><tr><th>Trait</th><th>Gene</th><th>Environment</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Lung cancer</strong></td><td>CYP1A1, GSTM1</td><td>Smoking</td></tr>
+          <tr><td><strong>Obesity</strong></td><td>FTO</td><td>High-calorie diet, exercise</td></tr>
+          <tr><td><strong>Depression</strong></td><td>5-HTT, CRHR1</td><td>Childhood stress, trauma</td></tr>
+          <tr><td><strong>PKU</strong></td><td>PAH</td><td>Dietary phenylalanine</td></tr>
+          <tr><td><strong>Lactose intolerance</strong></td><td>LCT</td><td>Dairy intake</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are some classic G by E examples. Lung cancer — variants in C Y P one A one and G S T M one increase risk only in smokers; without smoking the variants barely matter. Obesity — the F T O risk variant has a much larger effect on B M I in sedentary, high-calorie environments than in active ones. Depression — variants in serotonin transporter and stress hormone genes interact strongly with childhood trauma. P K U — phenylketonuria — is the textbook case where a genetic mutation produces severe disease only when the diet contains phenylalanine; remove phenylalanine and the gene's effect disappears. And lactose intolerance — your L C T genotype only matters if you actually drink milk. Each row is gene plus environment, multiplying.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>FTO and BMI · the cleanest case</h2>
+      <ul>
+        <li><strong>FTO</strong> risk allele · ~3 kg heavier on average</li>
+        <li>Effect <strong>much smaller</strong> in physically active people</li>
+        <li>Effect <strong>much larger</strong> in sedentary, high-calorie diets</li>
+        <li>Same gene, different environment → different impact</li>
+      </ul>
+      <blockquote style="margin-top:0.5em;">
+        Genes load the gun.<br>Environment pulls the trigger.
+      </blockquote>
+      <aside class="notes">
+        Take F T O, the strongest single common variant for B M I. The risk allele adds, on average, about three kilograms to body weight. But that average hides a striking interaction. In physically active populations, with controlled calorie intake, the F T O effect is much smaller. In sedentary populations with high-calorie diets, the F T O effect is much larger. Same gene, completely different impact, depending on environment. The old saying captures it well — genes load the gun, environment pulls the trigger. That is V G E in three words.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>PKU · environment as cure</h2>
+      <ul>
+        <li>Mutations in <strong>PAH</strong> · cannot break down phenylalanine</li>
+        <li>Normal diet → <strong>severe</strong> intellectual disability</li>
+        <li>Phenylalanine-restricted diet → <strong>normal</strong> development</li>
+        <li>100% genetic disease — and <strong>environmentally cured</strong></li>
+      </ul>
+      <aside class="notes">
+        And here is the most dramatic G by E example in clinical genetics. P K U — phenylketonuria. Mutations in P A H prevent breakdown of phenylalanine. On a normal diet, that gene leads to severe intellectual disability. On a phenylalanine-restricted diet — basically removing certain proteins — the same person develops normally. The disease is one hundred percent genetic in origin, but it is one hundred percent prevented by an environmental intervention. The lesson is profound: a high heritability does not mean a trait cannot be changed, and a genetic cause does not mean a genetic cure is required.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>Why G × E matters for h²</h2>
+      <ul>
+        <li>If V<sub>GE</sub> is large → h² estimates depend on environment</li>
+        <li>Different populations → different <strong>environmental mixtures</strong></li>
+        <li>Same gene effect can be <strong>amplified</strong> or <strong>silenced</strong></li>
+        <li>One reason heritability is <strong>not portable</strong> across populations</li>
+      </ul>
+      <aside class="notes">
+        Let's tie this back to where we started. If V G E is large, heritability estimates become highly dependent on the environment they are measured in. The same gene effect can be amplified in one environment and silenced in another. This is one of the main reasons heritability is not portable across populations. A heritability of fifty percent in Sweden does not mean fifty percent in Korea or fifty percent in Kenya, because the environmental mixtures and therefore the G by E patterns are different. Always read heritability with its environment context.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · LESSONS FOR INFERENCE
+         ==================================================== -->
+
+    <!-- Slide 41 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Lessons for<br>Causal Inference</h1>
+      <aside class="notes">
+        Time to extract the lessons that apply beyond these two studies. These are the rules of thumb that should change how you read a headline, a paper, or a press release in genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>The two-study pattern</h2>
+      <table>
+        <thead><tr><th></th><th>Yap (microbiome)</th><th>Ahlqvist (Tylenol)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Question</strong></td><td>Microbiome → ASD?</td><td>Tylenol → ASD?</td></tr>
+          <tr><td><strong>Method</strong></td><td>b² across layers</td><td>Sibling controls</td></tr>
+          <tr><td><strong>Confound</strong></td><td>Behavior (eating)</td><td>Family factors (A + C)</td></tr>
+          <tr><td><strong>Real effect</strong></td><td>≈ 0%</td><td>HR ≈ 1.0</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are the two studies side by side. Yap asked whether the microbiome causes autism, partitioned variance using b squared across layers, and found that the apparent link came from selective eating behavior. Ahlqvist asked whether Tylenol causes autism, used sibling controls, and found that the apparent link came from shared family factors. Different questions, different methods, but the same underlying logic: observe an association, partition the variance, discover that the effect was driven by a confounder, not direct causation.
+      </aside>
+    </section>
+
+    <!-- Slide 43 -->
+    <section>
+      <h2>Lesson 1 · partition before concluding</h2>
+      <ul>
+        <li>Apparent associations <strong>often vanish</strong> after partitioning</li>
+        <li>Microbiome → ASD · vanished</li>
+        <li>Tylenol → ASD · vanished</li>
+        <li>If you skip the partition step → wrong answer</li>
+      </ul>
+      <aside class="notes">
+        Lesson one. Apparent associations very often vanish or shrink dramatically once you partition variance properly. Both of today's studies showed this. The microbiome-autism link, popular in headlines, vanished. The Tylenol-autism link, the source of years of parental worry, vanished. If you skip the partitioning step and treat raw correlations as causation, you will end up with the wrong answer more often than you would expect. Skepticism is warranted.
+      </aside>
+    </section>
+
+    <!-- Slide 44 -->
+    <section>
+      <h2>Lesson 2 · A + C must be controlled</h2>
+      <ul>
+        <li>Family members <strong>share</strong> A and C</li>
+        <li>Studies that ignore them → spurious causation</li>
+        <li><strong>Sibling controls</strong> · twin studies · adoption studies</li>
+        <li>Polygenic scores · molecular replacements for these designs</li>
+      </ul>
+      <aside class="notes">
+        Lesson two. Distinguishing additive genetic variance A from shared environment C from unique environment E is essential. Family members share both A and C. If a study ignores those shared components — as the original Tylenol-autism studies did — it will mistake shared family factors for environmental causes. Sibling controls, twin studies, adoption studies, and now polygenic scores are all ways to subtract A and C and isolate the effect you actually care about.
+      </aside>
+    </section>
+
+    <!-- Slide 45 -->
+    <section>
+      <h2>Lesson 3 · the framework is universal</h2>
+      <ul>
+        <li>Fisher's V<sub>P</sub> = V<sub>A</sub> + V<sub>D</sub> + V<sub>E</sub> · over 100 years old</li>
+        <li>Works for genome, microbiome, behavior, environment</li>
+        <li>Any biological or social <strong>layer</strong></li>
+        <li>Still the <strong>gold standard</strong> for complex trait analysis</li>
+      </ul>
+      <aside class="notes">
+        Lesson three. Fisher's framework, more than one hundred years old, remains the universal tool. We applied it to genes today, but Yap applied it to the microbiome, and Ahlqvist applied it to family-level confounders. The same equation, rephrased for whatever layer the question lives in. That generality is why we spent so much time on the math last week. It is not just for height and skin color. It is for any complex trait, biological or social, where multiple sources of variation are tangled together.
+      </aside>
+    </section>
+
+    <!-- Slide 46 -->
+    <section>
+      <h2>Lesson 4 · don't trust raw correlations</h2>
+      <blockquote style="font-size:1.1em;">
+        "X causes Y" headlines<br>
+        without partitioning are <strong>not science</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Did they account for shared family factors?</li>
+        <li>Did they consider behavioral pathways?</li>
+        <li>Did they partition variance into A, C, E?</li>
+        <li>If not — <strong>grain of salt</strong></li>
+      </ul>
+      <aside class="notes">
+        Lesson four — and the most useful for everyday life. When you read a headline claiming X causes Y, ask yourself: did the study control for shared family factors, did it consider behavioral pathways, did it actually partition variance? If the answer to any of those is no, take the claim with a grain of salt. Real causal inference is hard work. Most headlines do not do that work. Variance partitioning is what separates the genuine causal claim from the eye-catching but misleading association.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY & BRIDGE
+         ==================================================== -->
+
+    <!-- Slide 47 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 48 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>VP = A + D + E + GE · the universal partitioning template</li>
+        <li>h² varies by population · <strong>height ~80% · BMI ~30-50% · depression ~40%</strong></li>
+        <li>Microbiome → ASD · b² ≈ 0 · behavior was the confound</li>
+        <li>Tylenol → ASD · HR = 1.0 in siblings · family factors were the confound</li>
+        <li>G × E (FTO, PKU, smoking) · same gene, different impact</li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — V P equals A plus D plus E, possibly plus G E, is the universal partitioning template. It works on genes, on the microbiome, on family-level confounds. Two — heritability varies across populations because the environment varies; height around eighty percent, B M I around fifty percent, depression around forty percent. Three — the Yap microbiome study showed the apparent microbiome-autism link is actually a behavioral pathway, with b squared near zero. Four — the Ahlqvist Tylenol study showed the apparent drug-autism link is actually shared family factors, with hazard ratio one in siblings. Five — gene by environment interactions, like F T O and obesity, P K U and diet, smoking and lung cancer genes, mean that the same gene can have very different effects in different environments. Hold those five points.
+      </aside>
+    </section>
+
+    <!-- Slide 49 -->
+    <section>
+      <h2>The big picture</h2>
+      <blockquote style="font-size:1.1em; text-align:center;">
+        Heritability is <strong>real</strong>.<br>
+        Confounding is <strong>also real</strong>.<br>
+        Partition before concluding.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Theory protected us from bad inference twice today</li>
+        <li>Same template — applied to two completely different questions</li>
+        <li>That is why we learned the math</li>
+      </ul>
+      <aside class="notes">
+        The big picture. Heritability is real — height really is mostly genetic, schizophrenia really has a strong genetic component. Confounding is also real — the apparent microbiome and Tylenol effects on autism vanished once partitioning was done. Both lessons matter. Don't dismiss genetics; don't accept correlations naively. Partition before concluding. That is why we spent the last lecture grinding through Fisher's math — so that today we could read two real biomedical studies and understand what they actually show.
+      </aside>
+    </section>
+
+    <!-- Slide 50 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.15; margin-top:0.3em;">
+        If heritability is real —<br>
+        can we find the<br>
+        actual <span style="color:var(--terracotta-deep);">variants</span> behind it?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 18 · <strong>Genome-Wide Association Studies (GWAS)</strong>
+      </p>
+      <aside class="notes">
+        And here is the question I want you to bring to next lecture. We have spent two chapters establishing that heritability is real and meaningful. Schizophrenia is sixty-five percent heritable. Height is eighty percent heritable. B M I is fifty percent heritable. So the obvious follow-up is: if these traits are this heritable — can we actually find the specific genetic variants that explain the heritability? Can we point to a S N P, a chromosomal location, a gene, and say "here is part of the answer"? That is the project of chapter eighteen. The technology is called the genome-wide association study, or G W A S, and it is the bridge from heritability as a number to genetics as a map. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

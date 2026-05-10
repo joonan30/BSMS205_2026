@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11 · Haploinsufficiency — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Haplo-<br>insufficiency</h1>
+      <div class="chapter-num">Chapter 11 · Part II · Variation</div>
+      <aside class="notes">
+        Welcome to Chapter eleven of BSMS two oh five Genetics. Last time we asked what makes a variant dominant. Today we zoom into one of the most common mechanisms of dominance — haploinsufficiency. The idea is simple: some genes need both copies turned on to work, and breaking just one copy is enough to cause disease. We will define the term, explain why it happens, and most importantly, we will learn how to measure it using two real tools that you yourselves will use — pLI and LOEUF. Let's begin.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.6em; line-height:1.05; margin-top:0.2em;">
+        When is half<br>not <span style="color:var(--terracotta-deep)">enough</span>?
+      </h1>
+      <aside class="notes">
+        Here is the question that frames today's lecture. You have two copies of every gene — one from Mom, one from Dad. For most genes, one working copy is plenty. The cell makes enough protein, life goes on. But for some genes, one copy is not enough. Half the dose breaks the system. Today we will figure out which genes those are, why they are special, and how we can spot them by looking at population data.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Two copies · why we usually have a buffer</h2>
+      <ul>
+        <li>Diploid: <strong>one allele from Mom</strong>, <strong>one from Dad</strong></li>
+        <li>For most genes, <strong>one copy</strong> covers normal demand</li>
+        <li>The other copy = <strong>biological backup</strong></li>
+        <li>But not always — some genes are <strong>tight on dose</strong></li>
+      </ul>
+      <aside class="notes">
+        Step back to the basics. Humans are diploid. You have two alleles of every autosomal gene, one from each parent. For the vast majority of genes, this gives you a built-in safety margin — if one copy gets damaged, the other one keeps the cell running. That redundancy is what makes most loss-of-function mutations recessive. But not every gene works on a comfortable budget. Some genes operate so close to the edge that losing one copy already drops protein levels into a danger zone. Those are the genes we study today.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The cake analogy</div>
+      <blockquote style="font-size:1.05em;">
+        A recipe needs <strong>two cups of sugar</strong>.<br>
+        With <strong>one</strong>, you get something cake-<em>like</em>.<br>
+        It just doesn't taste right.
+      </blockquote>
+      <p style="margin-top:0.8em;">Haploinsufficient genes follow the <strong>two-cup recipe</strong>.</p>
+      <aside class="notes">
+        I like this analogy from the textbook. Imagine baking a cake that calls for two cups of sugar. With one cup, you still get something cake-shaped, but the texture is off and the flavor is wrong. The recipe is not forgiving. Haploinsufficient genes work like that recipe — they require both alleles producing protein at full capacity. Cut the sugar in half and the cell does not get a half-functional gene product. It gets disease.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>From Chapter 10 → here</h2>
+      <div class="cols">
+        <div>
+          <h3>Last time</h3>
+          <ul>
+            <li><strong>Dominant alleles</strong> · one bad copy is enough</li>
+            <li>Many <strong>mechanisms</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Today</h3>
+          <ul>
+            <li><strong>One mechanism in detail:</strong></li>
+            <li><strong>Haploinsufficiency</strong> — dose-sensitive genes</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Quick bridge from last time. In Chapter ten we introduced dominant alleles — variants where one bad copy is enough to cause disease. We saw that dominance can come from several different mechanisms — gain-of-function, dominant-negative, and haploinsufficiency. Today we zoom in on that last one. Haploinsufficiency is one of the most common reasons that loss-of-function variants behave dominantly, and it is the easiest to measure quantitatively. So let's learn how.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Definitions · haploinsufficient vs haplosufficient</li>
+        <li>Why selection rare-ifies bad PTVs</li>
+        <li>Measuring intolerance · pLI</li>
+        <li>The next-gen score · LOEUF</li>
+        <li>Case study · SCN2A</li>
+        <li>Why this matters in the clinic</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is the route. First, we nail down the definitions — what is haploinsufficient, what is haplosufficient, and what does loss-of-function tolerant mean. Second, we connect this to natural selection — why these variants are rare in healthy populations. Third, we learn pLI, the first big tool from the ExAC study in twenty sixteen. Fourth, LOEUF, the refined tool from the gnomAD study in twenty twenty. Fifth, we look at one real haploinsufficient gene — S C N two A — as a case study. Sixth, we discuss how this knowledge changes clinical practice and even drug development. And then we wrap up. Let's go.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · DEFINITIONS
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Defining<br>the Terms</h1>
+      <aside class="notes">
+        Let's start with three precise definitions. Haploinsufficient. Haplosufficient. Loss-of-function tolerant. These three words sound similar but mean different things, and you need them sharp before we move to the data.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Haploinsufficient · one copy is not enough</h2>
+      <ul>
+        <li>One allele knocked out (often a <strong>PTV</strong>)</li>
+        <li>Remaining copy <strong>cannot keep up</strong></li>
+        <li>Result: <strong>disease</strong> or abnormal trait</li>
+        <li>These genes are <strong>dose-sensitive</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Cut the protein in half → the cell can't compensate.
+      </blockquote>
+      <aside class="notes">
+        Definition number one. Haploinsufficiency happens when one copy of a gene gets knocked out — usually by what we call a P T V, a protein-truncating variant — and the remaining copy cannot produce enough protein to keep things normal. The cell does not have a way to ramp up the surviving allele. The result is disease, often a developmental disorder. The key property of these genes is dose-sensitivity. They run on a tight production budget, and you cannot cut that budget in half without breaking something.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Haplosufficient · one copy is fine</h2>
+      <ul>
+        <li>One working copy → <strong>enough protein</strong></li>
+        <li>The cell <strong>tolerates</strong> the missing allele</li>
+        <li>Most genes behave this way</li>
+        <li>This is the <em>default</em> state for diploids</li>
+      </ul>
+      <aside class="notes">
+        Definition number two. Haplosufficient genes are the comfortable case. One working copy makes plenty of protein for normal function. The cell does not even notice that the other allele is broken. Most of our twenty thousand genes fall into this category. That is why most loss-of-function mutations in our genome do not cause disease in heterozygotes — they hit haplosufficient genes where the spare copy covers the loss.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>LoF-tolerant · even both copies can go</h2>
+      <ul>
+        <li>Some genes are <strong>even more forgiving</strong></li>
+        <li>You can lose <strong>one or both copies</strong> without harm</li>
+        <li>Often have <strong>backup paralogs</strong> elsewhere</li>
+        <li>Or simply <strong>not critical</strong> for fitness</li>
+      </ul>
+      <aside class="notes">
+        Definition number three — and this one surprises students. There are genes where you can lose not just one copy but both, and still walk around perfectly healthy. We call these loss-of-function tolerant, or LoF-tolerant for short. The classic example is the olfactory receptor family — humans have hundreds of genes for detecting smells. Knock one out, and you have lost the ability to detect, say, a single specific molecule. You will never notice. Either there is a backup paralog elsewhere in the genome, or the gene's function simply was not under strong selection.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>The dose-sensitivity spectrum</h2>
+      <table>
+        <thead><tr><th>Class</th><th>One copy lost</th><th>Two copies lost</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Haploinsufficient</strong></td><td>Disease</td><td>Often lethal</td><td>Transcription factors, channels</td></tr>
+          <tr><td>Haplosufficient</td><td>No phenotype</td><td>Recessive disease</td><td>Most disease genes</td></tr>
+          <tr><td><strong>LoF-tolerant</strong></td><td>No phenotype</td><td>Often no phenotype</td><td>Olfactory receptors</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the full spectrum in one table. On one end, haploinsufficient genes — losing one copy already causes disease, losing both is often lethal. In the middle, haplosufficient genes — heterozygotes are fine, but if you lose both copies you get a recessive disease. On the other end, LoF-tolerant genes — losing one or even both copies often produces no phenotype. The key insight today is that this spectrum is not random. It reflects how much selective pressure each gene is under. And we can read that pressure off of population data.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <div class="cue">A surprising number</div>
+      <div class="bignum">~100</div>
+      <div class="bignum-label">PTVs · in every healthy person</div>
+      <ul>
+        <li>Healthy adults each carry <strong>about 100 PTVs</strong></li>
+        <li>Most sit in <strong>LoF-tolerant genes</strong></li>
+        <li>A PTV by itself is <strong>not</strong> a death sentence</li>
+        <li>What matters is <strong>which gene</strong> got hit</li>
+      </ul>
+      <aside class="notes">
+        Here is a number that will surprise you. The average healthy adult carries about one hundred protein-truncating variants — full-on stop codons or frameshifts that destroy gene function. That came from a Mac Arthur et al. twenty twelve study analyzing one hundred eighty-five genomes. So having a PTV is not unusual. Having a PTV is not the same as having a disease. The reason most people walk around fine despite carrying these variants is that they almost all sit in genes that can absorb the loss. The dangerous PTVs — the ones in haploinsufficient genes — are extremely rare in healthy people. And in a moment we will see exactly why.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · SELECTION
+         ==================================================== -->
+
+    <!-- Slide 13 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Selection<br>Removes the Worst</h1>
+      <aside class="notes">
+        Why are PTVs in haploinsufficient genes so rare? The answer is evolution. Specifically, a force called purifying selection. Let's spend a few minutes on this, because it is the conceptual engine behind every constraint score we will use today.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Natural selection · in one sentence</h2>
+      <blockquote style="font-size:1.1em;">
+        Variants that <strong>reduce fitness</strong><br>
+        get <strong>filtered out</strong> across generations.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li><strong>Fitness</strong> = ability to survive and reproduce</li>
+        <li>Helpful variants <strong>spread</strong>; harmful ones <strong>vanish</strong></li>
+        <li>Slow-motion <strong>quality control</strong> on the genome</li>
+      </ul>
+      <aside class="notes">
+        Natural selection in one sentence: variants that reduce fitness get filtered out across generations. Fitness here means the ability to survive and reproduce. If a mutation gives you better disease resistance, you are more likely to have kids who carry it, and the variant spreads. If a mutation kills you before you reproduce — say, a PTV in a gene critical for brain development — that variant dies with you. Over thousands of generations, this acts as a slow-motion quality-control system on the genome.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Purifying selection · the cleanup crew</h2>
+      <ul>
+        <li>Type of natural selection that <strong>removes harmful variants</strong></li>
+        <li>Most active on <strong>essential genes</strong></li>
+        <li>PTVs in haploinsufficient genes → <strong>strongly disfavored</strong></li>
+        <li>PTVs in LoF-tolerant genes → <strong>no pressure</strong> to remove</li>
+      </ul>
+      <aside class="notes">
+        Inside natural selection sits a specific subtype called purifying selection — the cleanup crew. Its job is to remove harmful mutations from the population. PTVs in haploinsufficient genes are harmful, because they cause developmental disorders, neurological disease, or cancer. So purifying selection removes them quickly — those variants do not stick around in the population. PTVs in LoF-tolerant genes face no such pressure. They accumulate freely. That difference is exactly the signal we are about to learn how to read.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>The signal we exploit</h2>
+      <blockquote style="font-size:1.05em;">
+        If a gene has <strong>far fewer PTVs</strong><br>
+        than expected by chance,<br>
+        selection has been <strong>removing them</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Few PTVs in healthy people = <strong>essential gene</strong></li>
+        <li>Many PTVs = <strong>tolerant gene</strong></li>
+        <li>This is the basis of <strong>every constraint metric</strong></li>
+      </ul>
+      <aside class="notes">
+        And here is the key insight that turns selection into a measurement tool. If we look at a large population of healthy people and we see that a gene has far fewer PTVs than we would expect by random chance, that is evidence that purifying selection has been actively removing those PTVs. The gene must be essential. Conversely, if a gene has roughly the expected number of PTVs, selection is not pushing back, and the gene is probably tolerant. This compare-observed-to-expected logic is the foundation of every constraint score in genomics today.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · pLI
+         ==================================================== -->
+
+    <!-- Slide 17 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Measuring with<br>pLI</h1>
+      <aside class="notes">
+        Now to the first big tool. In twenty sixteen, the ExAC consortium analyzed sixty thousand seven hundred six adult exomes and developed a score called pLI — the probability of being loss-of-function intolerant. This is one of the most cited metrics in human genetics, and you will see it on almost every gene browser you open this semester. Let's understand it.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>The ExAC study · 2016</h2>
+      <ul>
+        <li><strong>60,706 adult exomes</strong> · the largest at the time</li>
+        <li>Adults <strong>without</strong> severe developmental disorders</li>
+        <li>Healthy population = <strong>baseline</strong></li>
+        <li>Lek et al. 2016, <em>Nature</em></li>
+      </ul>
+      <aside class="notes">
+        The study itself. Sixty thousand seven hundred six adult exomes — the protein-coding parts of the genome where most disease mutations hide. Crucially, these were adults without severe developmental disorders, meaning the dataset represents a healthy baseline. That choice matters: if you sequenced sick patients, you would find lots of disease-causing PTVs. By focusing on healthy adults, the study captures what selection has already filtered out. Lek et al, twenty sixteen, Nature. One of the most influential papers in modern human genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>What pLI means</h2>
+      <div class="formula">
+        pLI = probability that a gene is loss-of-function <strong>intolerant</strong>
+      </div>
+      <ul>
+        <li>Score from <strong>0 to 1</strong></li>
+        <li><strong>pLI ≥ 0.9</strong> → highly intolerant · likely <strong>haploinsufficient</strong></li>
+        <li><strong>pLI ≈ 0</strong> → tolerates PTVs · LoF-tolerant</li>
+        <li>A binary-style readout: <em>intolerant or not</em></li>
+      </ul>
+      <aside class="notes">
+        Here is what pLI actually means. It is the probability that a gene is loss-of-function intolerant — a number between zero and one. By convention, a pLI of zero point nine or higher flags a gene as highly intolerant, almost certainly haploinsufficient. A pLI near zero means the gene tolerates PTVs just fine. In practice, most people use pLI as a yes-no test: is this gene intolerant or not? That binary nature is its strength and, as we will see in a moment, also its weakness.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>How pLI is calculated</h2>
+      <div class="formula">
+        compare <strong>observed</strong> PTVs ↔ <strong>expected</strong> PTVs
+      </div>
+      <ul>
+        <li><strong>Expected</strong>: from gene length × background mutation rate</li>
+        <li><strong>Observed</strong>: actual PTVs found in 60,706 exomes</li>
+        <li>Big shortfall → <strong>strong selection</strong> against PTVs</li>
+        <li>Big shortfall → <strong>high pLI</strong></li>
+      </ul>
+      <aside class="notes">
+        How is pLI calculated? The recipe is simple in concept. First, you predict how many PTVs you would expect to see in a gene, given how long it is and the background mutation rate. Bigger genes naturally accumulate more mutations, so you adjust for that. Second, you count how many PTVs are actually observed in the sixty thousand seven hundred six exomes. Third, you compare. If observed is much lower than expected — say, zero observed when fifty were expected — selection must have been actively removing PTVs because they reduced fitness. That is a high pLI gene. Bigger shortfall, higher pLI.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>3,230 highly intolerant genes</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.4em;">3,230</div>
+          <div class="bignum-label">genes with pLI ≥ 0.9</div>
+        </div>
+        <div>
+          <ul>
+            <li>~16% of all human genes</li>
+            <li>Enriched in <strong>ribosome assembly</strong></li>
+            <li>Enriched in <strong>chromatin regulation</strong></li>
+            <li>Enriched in <strong>cell cycle control</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        The headline number from ExAC. Three thousand two hundred thirty genes had pLI greater than or equal to zero point nine — about sixteen percent of all human genes. And these are not random. They cluster in specific functional categories: ribosome assembly, chromatin regulation, the cell cycle, transcription factors. In other words, the cellular machinery you absolutely cannot mess with. That biological coherence is one reason we trust the metric — it picks out exactly the categories you would predict from first principles.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>pLI flags known disease genes</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Lek2016-Nature-Figure3.png" alt="pLI distributions across functional gene categories">
+        <figcaption>
+          <strong>Figure 1.</strong> Known haploinsufficient (dominant) disease genes pile up at high pLI; recessive disease genes spread more broadly. pLI captures real biology. Source: Lek et al. 2016, <em>Nature</em>. CC-BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the validation figure from the ExAC paper. They took genes already known to cause dominant, haploinsufficient disorders, and asked: where do these genes fall on the pLI distribution? The answer — overwhelmingly piled up at the high end. Recessive disease genes, in contrast, are spread more broadly, because losing one copy of a recessive gene does not reduce fitness. This is the key validation: pLI is not just a number. It picks out the genes we already know are dose-sensitive. Which means it can also predict new ones.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Why use healthy adults?</h2>
+      <ul>
+        <li>Haploinsufficient genes → <strong>developmental disorders</strong></li>
+        <li>Healthy adults already <strong>survived</strong> and may have <strong>reproduced</strong></li>
+        <li>Selection has <strong>already worked</strong> on this sample</li>
+        <li>The signal you see = <strong>what survived selection</strong></li>
+      </ul>
+      <aside class="notes">
+        Why study healthy adults? Why not patients? Because haploinsufficient genes typically cause severe developmental disorders, and people with those disorders either did not survive to adulthood or did not reproduce. By sequencing healthy adults, ExAC was looking at a population that purifying selection had already pruned. The signal you see in the data is exactly the signal of what survived selection. It is a beautifully indirect way to identify essential genes: you do not look for the disease; you look for the absence of variants where disease should have appeared.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>PTVs are mostly singletons</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Lek2016-Nature-Figure1.png" alt="Allele frequency distribution of PTVs in ExAC">
+        <figcaption>
+          <strong>Figure 2.</strong> Most PTVs in ExAC appear in only one person — the signature of purifying selection keeping harmful variants rare. Source: Lek et al. 2016, <em>Nature</em>. CC-BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        And here is one more figure from the same paper that drives the point home. This shows the allele frequency distribution of PTVs in ExAC. The vast majority appear only once — they are singletons, found in just one of the sixty thousand people. That extreme rarity is the signature of purifying selection actively keeping these harmful variants from spreading through the population. PTVs in haploinsufficient genes are overwhelmingly singletons. PTVs in LoF-tolerant genes are spread more across the frequency spectrum, because there is no selective pressure pushing them down.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · LOEUF
+         ==================================================== -->
+
+    <!-- Slide 25 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>The Refined Score:<br>LOEUF</h1>
+      <aside class="notes">
+        pLI was a huge advance, but four years later the field upgraded it. In twenty twenty, the gnomAD consortium published a refined metric called LOEUF that fixed several limitations of pLI. Today, most modern analyses prefer LOEUF. Let's understand why.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>The gnomAD study · 2020</h2>
+      <ul>
+        <li><strong>141,456 individuals</strong> · more than 2× ExAC</li>
+        <li>Both <strong>exomes and whole genomes</strong></li>
+        <li>Adults without severe developmental disorders</li>
+        <li>Karczewski et al. 2020, <em>Nature</em></li>
+      </ul>
+      <aside class="notes">
+        The gnomAD study. Karczewski et al, twenty twenty, Nature. They more than doubled the sample size — one hundred forty-one thousand four hundred fifty-six individuals — and combined both exome and whole-genome sequences for broader coverage. Same selection criterion as ExAC: adults without severe developmental disorders. Same goal: identify which genes are intolerant to loss of function. But with more data and better filtering tools, gnomAD could produce a more refined score.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>What LOEUF means</h2>
+      <div class="formula">
+        LOEUF = <strong>L</strong>oss-of-function <strong>O</strong>bserved/<strong>E</strong>xpected <strong>U</strong>pper-bound <strong>F</strong>raction
+      </div>
+      <ul>
+        <li><strong>Continuous</strong> score (no hard threshold)</li>
+        <li><strong>Lower</strong> = more intolerant</li>
+        <li><strong>LOEUF &lt; 0.35</strong> ≈ likely haploinsufficient</li>
+        <li>Adjusted for <strong>statistical uncertainty</strong></li>
+      </ul>
+      <aside class="notes">
+        LOEUF stands for Loss-of-function Observed over Expected Upper-bound Fraction. The name is a mouthful, but the idea is simpler than pLI. It is just observed PTVs divided by expected PTVs, with a confidence interval applied. The "upper-bound fraction" part means we take the upper end of the confidence interval — a conservative estimate. Lower LOEUF means more intolerant. Below about zero point three five is the rough cutoff for likely haploinsufficient genes. And critically, unlike pLI, this is a continuous score — no hard yes-or-no threshold.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>pLI vs LOEUF · what changed</h2>
+      <div class="cols">
+        <div>
+          <h3>pLI</h3>
+          <ul>
+            <li><strong>Yes / no</strong> test</li>
+            <li>Cutoff at 0.9</li>
+            <li>Misses <strong>moderate</strong> intolerance</li>
+          </ul>
+        </div>
+        <div>
+          <h3>LOEUF</h3>
+          <ul>
+            <li><strong>Sliding scale</strong></li>
+            <li>Lower = more intolerant</li>
+            <li>Captures <strong>shades of gray</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Side-by-side comparison. pLI is essentially a yes-no test — you either clear the zero-point-nine bar or you do not. That works well for clearly intolerant genes but misses genes with moderate intolerance, the ones that fall in a gray zone. LOEUF is a sliding scale — a dimmer switch instead of a light switch. It tells you not just whether a gene is intolerant but how intolerant it is. That granularity matters for variant prioritization in clinical diagnosis, and for ranking drug targets, because biology rarely has hard thresholds.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The LOFTEE upgrade</h2>
+      <ul>
+        <li><strong>LOFTEE</strong> = LoF Transcript Effect Estimator</li>
+        <li>Filters out <strong>fake PTVs</strong> · sequencing errors, alt transcripts</li>
+        <li>Output: <strong>443,769 high-confidence PTVs</strong></li>
+        <li>Cleaner input → <strong>more reliable score</strong></li>
+      </ul>
+      <aside class="notes">
+        One more important upgrade gnomAD added — a tool called LOFTEE, which stands for Loss-of-Function Transcript Effect Estimator. LOFTEE filters out variants that look like PTVs on paper but are not really. Things like sequencing errors, or stop codons that fall in alternative transcripts where they do not actually truncate the main protein. After LOFTEE filtering, the gnomAD team had four hundred forty-three thousand seven hundred sixty-nine high-confidence PTVs across the dataset. Cleaner input, more reliable observed counts, more accurate LOEUF.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>LOEUF lines up with biology</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Karczewski2020-Nature-Figure3.png" alt="LOEUF distributions across gene categories">
+        <figcaption>
+          <strong>Figure 3.</strong> Genes with low LOEUF are essential in mouse knockouts and enriched for human disease. External validation that LOEUF captures real biological importance. Source: Karczewski et al. 2020, <em>Nature</em>. CC-BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the validation figure from the gnomAD paper. They show LOEUF score on the x-axis and several measures of gene importance on the y-axis: whether knocking out the gene is lethal in mouse models, whether it is associated with developmental abnormalities, and whether it appears in human disease catalogs. The pattern is striking — low LOEUF genes are overwhelmingly essential, while high LOEUF genes can often be knocked out without major consequences. This external validation tells us LOEUF is not just a statistic. It tracks with biology you can verify in mice and clinic.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · SCN2A CASE STUDY
+         ==================================================== -->
+
+    <!-- Slide 31 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Case Study:<br>SCN2A</h1>
+      <aside class="notes">
+        Now let's make this concrete with one gene. SCN two A is a sodium channel critical for brain development. PTVs in this gene cause severe neurodevelopmental disorders and epilepsy. It is also a textbook example of a haploinsufficient gene, and we have followed it from Chapter ten. Let's see what its constraint scores look like.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>SCN2A · the dosage profile</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3em;">165.8</div>
+          <div class="bignum-label">expected PTVs</div>
+        </div>
+        <div>
+          <div class="bignum" style="font-size:3em; color:var(--terracotta);">18</div>
+          <div class="bignum-label">observed PTVs</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">o/e = <strong>0.11</strong> · pLI = <strong>1.0</strong> · LOEUF very low</p>
+      <aside class="notes">
+        Here are the numbers for SCN two A from gnomAD. Expected number of PTVs in a population this large — about one hundred sixty-five point eight. Observed number — only eighteen. The observed-over-expected ratio is zero point one one, meaning we see only eleven percent of the PTVs we would expect by chance. That extreme depletion gives SCN two A a pLI of one point zero — the maximum score — and one of the lowest LOEUF values in the genome. This is purifying selection at full power, because PTVs in this gene cause severe disease and patients rarely reproduce.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>SCN2A on gnomAD · the actual page</h2>
+      <figure>
+        <img src="../assets/figures/textbook/gnomad-SCN2A.png" alt="gnomAD constraint table for SCN2A">
+        <figcaption>
+          <strong>Figure 4.</strong> The gnomAD constraint table for SCN2A. pLoF row: expected 165.8, observed 18, o/e = 0.11, pLI = 1.0. Missense Z-score = 8.73 also shows depletion. Source: gnomAD Browser, <code>ENSG00000136531</code>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the actual gnomAD page for SCN two A. This is what you will see when you look up any gene on gnomAD dot broadinstitute dot org. The table shows expected versus observed counts across categories. The top row, p Lo F — protein-truncating variants — gives you the numbers we just discussed. Below that, missense variants are also depleted with a Z-score of eight point seven three, meaning even single amino acid changes are under selection. Bookmark this page. You will be using it for projects this semester.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>The clinical reality of SCN2A</h2>
+      <ul>
+        <li>~<strong>1,500–2,000</strong> known affected individuals worldwide</li>
+        <li>Severe <strong>epilepsy</strong> and <strong>neurodevelopmental disorders</strong></li>
+        <li>De novo PTVs (not inherited) → <strong>fitness essentially zero</strong></li>
+        <li>That is why the constraint signal is <strong>so strong</strong></li>
+      </ul>
+      <aside class="notes">
+        On the clinical side. About fifteen hundred to two thousand affected individuals are currently catalogued worldwide. Most have severe epilepsy or neurodevelopmental disorders. Almost all carry de novo mutations — variants that arose in the parental germline, not inherited from a parent. Because patients rarely reproduce, fitness from a SCN two A PTV is essentially zero. Every generation, new PTVs arise by mutation, and every generation, selection erases them. That is why so few survive in healthy populations, and why the constraint signal is so strong. You are seeing selection in action.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · IMPLICATIONS
+         ==================================================== -->
+
+    <!-- Slide 35 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Why It Matters<br>in the Clinic</h1>
+      <aside class="notes">
+        So we have these scores. So what? Why should you, a future scientist or physician, care? Three reasons. Variant prioritization, drug target selection, and a surprising flip — sometimes losing a gene is good for you. Let's go through each.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Variant prioritization in diagnosis</h2>
+      <ul>
+        <li>Patient has a rare PTV in <strong>Gene X</strong></li>
+        <li>pLI = 1.0 / LOEUF = 0.1 → <strong>very suspicious</strong></li>
+        <li>pLI = 0 / LOEUF = 1.5 → <strong>probably not the cause</strong></li>
+        <li>Constraint scores = <strong>front-line filter</strong> for clinicians</li>
+      </ul>
+      <aside class="notes">
+        Use number one — variant prioritization. A patient with a suspected genetic disease gets exome sequenced. The pipeline returns a list of rare variants — often dozens. You cannot follow up on all of them. So you check pLI and LOEUF for each gene. A PTV in a gene with pLI of one and LOEUF of zero point one? Highly suspicious — that variant goes to the top of the list. A PTV in a gene with pLI of zero and LOEUF above one? Probably not the cause — deprioritize. Constraint scores are now a front-line filter in every clinical genomics lab.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Drug target prioritization</h2>
+      <ul>
+        <li>Drug target = often a gene we want to <strong>turn off</strong></li>
+        <li>Lower LOEUF → likely <strong>more side effects</strong> if inhibited</li>
+        <li>Higher LOEUF → maybe <strong>safer to inhibit</strong></li>
+        <li>Constraint helps <strong>rank candidates</strong> early</li>
+      </ul>
+      <aside class="notes">
+        Use number two — drug development. Most drugs work by turning a target gene off. So before you spend a billion dollars on a drug program, you want to ask: what happens to humans who are naturally born with one or two broken copies of this gene? If the gene is highly intolerant — low LOEUF — those people would likely have severe disease, which means inhibiting the gene with a drug would probably cause major side effects. If the gene is more tolerant, inhibiting it may be safer. Pharma companies now routinely screen drug target candidates by LOEUF before committing resources. It is a powerful early filter.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>The PCSK9 twist · LoF can be <em>good</em></h2>
+      <blockquote style="font-size:1.05em;">
+        Some humans are born with <strong>broken PCSK9</strong>.<br>
+        They have <strong>low cholesterol</strong> and <strong>less heart disease</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Drug companies designed <strong>PCSK9 inhibitors</strong></li>
+        <li>Essentially: <strong>"PTVs in a pill"</strong></li>
+        <li>Constraint data → <strong>therapeutic opportunities</strong></li>
+      </ul>
+      <aside class="notes">
+        And finally — the most beautiful application. Sometimes losing a gene is good for you. The classic example is P C S K nine. Some people are born with naturally broken P C S K nine — PTVs that disable the gene. They have low cholesterol levels and dramatically reduced heart disease risk, with no apparent downsides. Drug companies took notice. They designed P C S K nine inhibitors that mimic the natural loss-of-function — essentially PTVs in a pill. Today these are FDA-approved cholesterol drugs. So constraint data does not just flag dangerous genes. It also flags safe-to-target genes, and sometimes therapeutic opportunities you would not have predicted.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 39 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li><strong>Haploinsufficiency</strong> = one copy is not enough · dose-sensitive</li>
+        <li>Healthy people carry ~<strong>100 PTVs</strong> · mostly in tolerant genes</li>
+        <li><strong>Purifying selection</strong> removes harmful PTVs over generations</li>
+        <li><strong>pLI ≥ 0.9</strong> or <strong>LOEUF &lt; 0.35</strong> → likely haploinsufficient</li>
+        <li><strong>SCN2A</strong>: 165.8 expected, 18 observed, pLI 1.0</li>
+        <li>Constraint scores → <strong>diagnosis · drug targets · therapy</strong></li>
+      </ul>
+      <aside class="notes">
+        Six things to take away. One — haploinsufficiency means one copy is not enough; these are dose-sensitive genes. Two — every healthy person carries about a hundred PTVs, but almost all sit in tolerant genes. Three — purifying selection removes harmful PTVs across generations, which is the signal we exploit. Four — pLI greater than zero point nine, or LOEUF less than zero point three five, flags a gene as likely haploinsufficient. Five — SCN two A is the textbook case: one hundred sixty-five point eight expected PTVs, eighteen observed, pLI one point zero. And six — these scores guide diagnosis, drug target selection, and even therapeutic discovery. Carry those six points forward.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1; margin-top:0.3em;">
+        Now what if<br>
+        one bad copy is <span style="color:var(--terracotta-deep);">tolerated</span> —<br>
+        and you need <span style="color:var(--terracotta-deep);">two</span>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 12 · <strong>Recessive Alleles</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. Today we focused on genes where one bad copy is enough to cause disease. But for many genes, one copy is fine — heterozygous carriers walk around perfectly healthy. Disease only appears when both copies are broken. How does that work? How common is it? And why are some recessive variants surprisingly frequent in certain populations? That is the story of Chapter twelve, recessive alleles. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

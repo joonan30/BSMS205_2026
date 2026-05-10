@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 9 · Transmission — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Transmission<br>Across Generations</h1>
+      <div class="chapter-num">Chapter 9 · Part II · Variation</div>
+      <aside class="notes">
+        Welcome to Chapter nine. In Chapter eight we built the vocabulary for genetic variants — what they look like, the different types, how we classify them. Today we ask the obvious next question. Where do those variants actually come from? You carry roughly four to five million variants compared to the reference genome. Some you inherited from your parents. A small number are brand new — they appeared for the first time in you. This chapter is about both routes, and about a striking finding from large family studies in Iceland and elsewhere that reshaped how we think about mutation, age, and disease risk.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        You have ~4 million variants.<br>
+        <span style="color:var(--terracotta-deep)">Where</span> did they come from?
+      </h1>
+      <aside class="notes">
+        Hold this question in your head for the next hour. You have somewhere between four and five million genetic variants compared to the reference genome. That is a big number. But here is the thing — it did not all appear out of nowhere. Almost every single one of those variants was already present in one of your parents. They have been traveling through your family, through your ancestors, for hundreds, thousands, sometimes millions of years. A tiny fraction, however, is genuinely brand new. Those are mutations that occurred for the first time in you, during the formation of the sperm or egg that made you. Today is about telling those two stories apart.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Two sources · two very different stories</h2>
+      <div class="cols">
+        <div>
+          <h3>Inherited</h3>
+          <ul>
+            <li>~<strong>99.98%</strong> of your variants</li>
+            <li>Already in mom or dad</li>
+            <li>Travel through populations</li>
+            <li>Follow <strong>Mendel's laws</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>De novo</h3>
+          <ul>
+            <li>~<strong>0.02%</strong> of your variants</li>
+            <li>Not in either parent</li>
+            <li>Brand new in <strong>you</strong></li>
+            <li>~<strong>70</strong> per generation</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two sources. Inherited variants make up about ninety-nine point nine eight percent of your variation. They came from your parents — already present in their genomes, transmitted through sperm and egg. They follow Mendel's laws, which means at every position you randomly received one chromosome copy from each parent. The other category, de novo variants, makes up only about zero point zero two percent — but those few dozen new mutations carry outsized importance for medicine and evolution. They are mutations not present in either parent. They appeared for the first time in you. The typical number is around seventy per generation, though as we'll see today, the technology you use to count them changes the answer.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>The picture, in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/fig9-1.png" alt="Two sources of genetic variants: inherited vs de novo">
+        <figcaption>
+          <strong>Figure 1.</strong> Two sources of genetic variants. Inherited (~99.98%) follow Mendelian segregation across generations. De novo (~0.02%) arise newly during gametogenesis or early embryogenesis — not in either parent.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture in a single figure. On one side, inherited variants — they appear in mom, in dad, in you, in your siblings, in grandparents. They flow forward and backward across generations. On the other side, de novo variants — they appear for the first time in you, sometimes in your sibling, but not in either parent. Same molecules, same chemistry. Two completely different evolutionary trajectories. One has been filtered by selection for thousands of generations. The other has not faced selection at all yet.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <div class="cue">A memorable hook</div>
+      <h1 style="font-size:2em; line-height:1.1; margin-top:0.3em;">
+        Every year your father ages,<br>
+        you receive ~<span style="color:var(--terracotta-deep)">1.5</span> more mutations.
+      </h1>
+      <p style="margin-top:1em; color:var(--ink-soft);">A 40-year-old father transmits ~30 more new mutations than a 20-year-old father.</p>
+      <aside class="notes">
+        I'll give you the most memorable finding right at the start, because it will help you anchor everything else. Every additional year of your father's age at conception transmits about one and a half new mutations to you. That is the paternal age effect. A forty-year-old father, compared to a twenty-year-old father, transmits roughly thirty extra de novo mutations. Your mother's age also matters, but contributes only about zero point four mutations per year. By the end of this lecture, you'll understand exactly why the difference is so dramatic — and it comes down to a basic difference in how sperm and eggs are made.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Inherited variants and Mendelian segregation</li>
+        <li>Identity by descent · what relatedness looks like</li>
+        <li>Recombination · mosaic chromosomes</li>
+        <li>De novo variants · what they are, why they matter</li>
+        <li>The paternal age effect · biology and math</li>
+        <li>Landmark studies · Iceland and the long-read revolution</li>
+        <li>Clinical implications &amp; summary</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, we cover inherited variants — Mendel at the DNA level. Then identity by descent, or I B D, which lets us measure relatedness directly from sequence. Then recombination, which shuffles parental chromosomes before transmission. Then we shift to de novo variants — what they are, where they come from, and why they cause many severe pediatric conditions. Then the paternal age effect, which is the dominant signal in the data. Then the landmark Icelandic studies and the recent long-read revolution from the Porubsky group. And finally, clinical implications and a summary. Let's start with what your parents handed you.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · INHERITED VARIANTS
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Inherited<br>Variants</h1>
+      <aside class="notes">
+        Let's start with the ninety-nine point nine eight percent — the variants you inherited from your parents. The mechanics of how this works are exactly Mendel's laws, but seen at the level of single base pairs instead of pea-plant phenotypes. Three concepts to cover: segregation at heterozygous sites, identity by descent, and recombination.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Mendelian segregation · at the DNA level</h2>
+      <ul>
+        <li>You got <strong>one</strong> chromosome copy from each parent at every position</li>
+        <li>At <strong>heterozygous</strong> parental sites: random 50/50</li>
+        <li>At <strong>homozygous</strong> parental sites: deterministic</li>
+      </ul>
+      <div class="formula" style="margin-top:0.6em;">
+        Mother A/G  ·  Father G/G<br>
+        →  child = A/G (50%) or G/G (50%)
+      </div>
+      <aside class="notes">
+        Mendelian segregation at the D N A level looks like this. At every single position in your genome, you received one chromosome copy from each parent. If a parent is heterozygous — say mom carries an A on one chromosome and a G on the other — then which one you receive is a fifty-fifty random draw. If a parent is homozygous, like a father who is G slash G, then you definitely receive a G from him. These probabilities multiply across positions. A single C F T R variant transmitted at fifty percent — that is Mendel's law of segregation, written directly in nucleotides. No experimental crosses needed; we read it from a sequencer.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Identity by descent · IBD</h2>
+      <blockquote style="margin-top:0.4em;">
+        When you inherit a DNA segment from a relative,<br>
+        you get an <strong>exact copy</strong> — identical by descent.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Quantifies <strong>relatedness</strong> directly from DNA</li>
+        <li>Foundation of consumer genetics &amp; forensics</li>
+        <li>Shared segments shrink with each generation</li>
+      </ul>
+      <aside class="notes">
+        Now identity by descent, or I B D. The idea is simple but powerful. When you inherit a stretch of D N A from a relative, you receive an exact copy of that stretch — the same letters, position by position. Two people share a segment I B D when they both inherited it from a recent common ancestor. This is the foundation of every consumer genetics service — twenty three and Me, AncestryDNA — and it is also how forensic genetic genealogy works. The further back you go in the family tree, the smaller and rarer the shared segments become, because each generation cuts them down by recombination.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>How much DNA do relatives share?</h2>
+      <table>
+        <thead><tr><th>Relationship</th><th>% IBD shared</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Parent–child</td><td><strong>50%</strong></td><td>One chromosome copy from them everywhere</td></tr>
+          <tr><td>Full siblings</td><td>~50% (varies)</td><td>Each randomly drew one of two parental chromosomes</td></tr>
+          <tr><td>Grandparent–grandchild</td><td>~25%</td><td>Two generations of 50% transmission</td></tr>
+          <tr><td>First cousins</td><td>~12.5%</td><td>Four meiotic steps from common ancestor</td></tr>
+          <tr><td>Second cousins</td><td>~3.1%</td><td>Six meiotic steps</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are the I B D percentages for common relationships. Parent–child, exactly fifty percent — you received one copy from them at every position. Full siblings, fifty percent on average, but it varies. Grandparent–grandchild, about twenty-five percent — half of fifty. First cousins, around twelve and a half percent. Second cousins, around three percent, where the signal starts to get noisy and harder to detect. Notice the parent–child number is exact, but every other relationship has a variance, because recombination plays a stochastic role at each meiosis.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Why siblings are not exactly 50% identical</h2>
+      <ul>
+        <li>At each position, both you and your sibling drew a parental chromosome</li>
+        <li>Three outcomes, three probabilities:</li>
+      </ul>
+      <table style="margin-top:0.6em;">
+        <thead><tr><th>Outcome</th><th>Probability</th><th>Sharing</th></tr></thead>
+        <tbody>
+          <tr><td>Same from both parents</td><td>25%</td><td>Identical</td></tr>
+          <tr><td>Same from one parent</td><td>50%</td><td>Half-identical</td></tr>
+          <tr><td>Different from both</td><td>25%</td><td>Non-identical</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.4em;">Average <strong>50%</strong> — actual range typically <strong>45–55%</strong>.</p>
+      <aside class="notes">
+        Siblings are an interesting case. They average fifty percent I B D — but it is an average, and the variation is wider than people expect. At each position, both you and your sibling each randomly drew one of two parental chromosomes. Twenty-five percent of the time you both pulled the same one from both parents — fully identical at that spot. Fifty percent of the time you matched on one parent only — half-identical. And twenty-five percent of the time, you pulled the alternate from both parents — non-identical at that position. Average across the genome, that gives fifty percent. But the actual sibling-to-sibling number for a real pair typically falls between forty-five and fifty-five percent. So one sibling pair can be genuinely more genetically similar than another.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Mendelian segregation &amp; IBD, in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/fig9-2.png" alt="Mendelian segregation and identity by descent in siblings">
+        <figcaption>
+          <strong>Figure 2.</strong> Each parent randomly transmits one of two chromosomes (50/50) at every position. Siblings inherit different combinations, producing shared and non-shared segments. Average IBD ≈ 50%, observed range ≈ 45–55%.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture. Each parent's two chromosomes are different colors. At each position one of them is randomly chosen for transmission. Two siblings each go through that random draw independently. The result is a chromosome painting where some segments match between the siblings — those are I B D, inherited from the same parental chromosome — and other segments don't match. Stitch this across all twenty-three pairs and the average lands at fifty percent. Notice this is exactly Mendel's first law, operating on whole chromosomes.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Recombination · chromosomes are mosaics</h2>
+      <ul>
+        <li>Chromosomes do <strong>not</strong> pass to you intact</li>
+        <li>Meiosis: <strong>crossing over</strong> shuffles segments</li>
+        <li>Your mother's chr-1 = mosaic of her parents' chr-1s</li>
+        <li>~<strong>1–2 crossovers</strong> per chromosome per generation</li>
+      </ul>
+      <aside class="notes">
+        And now the third piece — recombination. This is the big subtle one. Chromosomes do not pass intact. During meiosis, before the egg or sperm is finished, there is an event called crossing over. The two parental copies of each chromosome physically swap segments. So the chromosome one your mother passed to you is not actually her mother's chromosome one or her father's — it is a mosaic. A piece from her mother, then a piece from her father, then back to her mother again. Typically there are one or two crossovers per chromosome per generation. That sounds small, but multiplied across twenty-three chromosomes and many generations, it produces the rich shuffling that makes every sibling unique.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Recombination creates mosaic chromosomes</h2>
+      <figure>
+        <img src="../assets/figures/textbook/fig9-3.png" alt="Recombination creates mosaic chromosomes during meiosis">
+        <figcaption>
+          <strong>Figure 3.</strong> During meiosis, crossing over exchanges segments between the two parental chromosomes (one from grandmother, one from grandfather). The transmitted chromosome is a mosaic — creating new allele combinations and sibling diversity.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is recombination as a picture. Before your mother passes a chromosome on to you, the two copies inside her — one from each of her own parents — physically exchange segments at one or two points. The chromosome you actually receive is a patchwork. Some pieces of it came from your maternal grandmother, others from your maternal grandfather. This is why even with only a few crossovers per chromosome, sibling diversity is enormous — every sibling gets a different patchwork. Recombination is also why I B D segments shrink over generations. Each meiosis breaks them apart a little more.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Common vs rare inherited variants</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>Common (&gt;1%)</th><th>Rare (&lt;1%)</th></tr></thead>
+        <tbody>
+          <tr><td>Age</td><td>Ancient · thousands–millions of years</td><td>Recent · hundreds–thousands</td></tr>
+          <tr><td>Selection</td><td>Survived → usually benign</td><td>May be deleterious</td></tr>
+          <tr><td>Clinical role</td><td>Complex-trait risk</td><td>Mendelian disease</td></tr>
+          <tr><td>Example</td><td><em>APOE4</em> · Alzheimer's risk</td><td><em>BRCA1</em> family-specific LoF</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        One last piece of the inherited story — the difference between common and rare inherited variants. Common variants, frequency above one percent in the population, tend to be ancient. They have been around for thousands or even millions of years. Selection has had plenty of time to filter them, so most are benign or have only subtle effects. Rare variants, below one percent frequency, are typically more recent. They have not yet been filtered by selection. Many cause Mendelian disease, and they are the bread and butter of clinical sequencing. A B R C A one nonsense mutation in a single family is a perfect example. Both kinds are inherited — Mendel's laws — but they live in very different parts of the medical genetics landscape.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · DE NOVO VARIANTS
+         ==================================================== -->
+
+    <!-- Slide 16 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>De Novo<br>Variants</h1>
+      <aside class="notes">
+        Now the small but mighty zero point zero two percent. De novo variants are mutations that did not come from either parent. They appeared for the first time in you. Numerically, they are a tiny fraction. Clinically and evolutionarily, they punch far above their weight.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>What are they?</h2>
+      <ul>
+        <li><strong>Mutations not present</strong> in either parent</li>
+        <li>Arose <strong>during gametogenesis</strong> (sperm/egg formation), or</li>
+        <li>Arose <strong>postzygotic</strong> (early embryo) → mosaicism</li>
+        <li>Found by <strong>trio sequencing</strong> (child + mom + dad)</li>
+      </ul>
+      <aside class="notes">
+        De novo variants are mutations present in you but absent in both parents. There are two main timing windows. First, during gametogenesis — when sperm or eggs are being made. The vast majority of de novo variants happen here. Second, postzygotic — after fertilization, in the early embryonic divisions. Postzygotic mutations create what we call mosaicism, because they only exist in some of your cells, not all of them. We find de novo variants by trio sequencing — sequencing the child plus both parents, and looking for variants present in the child that are absent in both mom and dad.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <div class="cue">How many per person?</div>
+      <div class="bignum">~70</div>
+      <div class="bignum-label">de novo single-nucleotide variants (typical short-read estimate)</div>
+      <ul>
+        <li>Long-read sequencing reveals <strong>~100–200</strong> total mutations</li>
+        <li>Adds repetitive DNA invisible to short reads</li>
+        <li>Plus indels and structural variants</li>
+      </ul>
+      <aside class="notes">
+        How many de novo variants per person? The typical short-read sequencing estimate is around seventy single-nucleotide variants — that is the number you'll see in most textbooks and most clinical reports. But that number is incomplete. Recent long-read studies show the true total is closer to one hundred to two hundred when you include mutations in repetitive D N A that short reads cannot see, plus small insertions and deletions, plus structural variants. So the headline number depends on the technology. We'll come back to this when we look at the Porubsky study.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why de novo variants matter</h2>
+      <ol>
+        <li><strong>Engine of new variation</strong> — every common variant started here</li>
+        <li><strong>Cause severe disorders</strong> — autism, achondroplasia, schizophrenia risk</li>
+        <li><strong>Window into replication biology</strong> — mutation patterns reveal repair</li>
+      </ol>
+      <blockquote style="margin-top:0.6em;">
+        Today's polymorphisms<br>
+        = yesterday's de novo mutations.
+      </blockquote>
+      <aside class="notes">
+        Three reasons de novo variants matter. One — they are the engine of new genetic variation. Every single common polymorphism in the population today started life as a de novo mutation in some individual long ago. Evolution requires this stream of new mutations to operate on. Two — they cause many severe pediatric disorders. Autism spectrum disorder has a strong de novo component in genes affecting brain development. Achondroplasia, the most common form of dwarfism, is almost always de novo because affected individuals historically rarely reproduced. Schizophrenia risk is correlated with paternal age, which we'll see is a clue about its de novo origin. Three — they teach us biology. Studying where mutations occur reveals how D N A replication and repair actually work in real cells.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · PATERNAL AGE EFFECT
+         ==================================================== -->
+
+    <!-- Slide 20 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The Paternal<br>Age Effect</h1>
+      <aside class="notes">
+        Now the biggest single signal in this entire field. Father's age at conception is the dominant factor in de novo mutation rate. Mother's age contributes too, but only a fraction as much. Why? It comes down to how sperm and eggs are actually produced — a very simple, very stark biological asymmetry.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Sperm vs egg · a fundamental asymmetry</h2>
+      <div class="cols">
+        <div>
+          <h3>Oogenesis (♀)</h3>
+          <ul>
+            <li>All eggs <strong>made before birth</strong></li>
+            <li>Arrested until ovulation</li>
+            <li>~<strong>23</strong> cell divisions total</li>
+            <li>Minimal age effect</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Spermatogenesis (♂)</h3>
+          <ul>
+            <li>Starts at <strong>puberty</strong></li>
+            <li>Continuous · throughout life</li>
+            <li>Divisions every <strong>~16 days</strong></li>
+            <li>Strong age-dependent effect</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the asymmetry. Oogenesis — egg formation — is essentially finished before a girl is even born. The cells that will eventually become eggs go through about twenty-three cell divisions, and then they sit, arrested, sometimes for forty years, until ovulation. Almost no replication happens after birth. So mom's eggs accumulate very few replication errors with age. Spermatogenesis is the opposite. Sperm production starts at puberty and continues throughout life. The spermatogonial stem cells divide roughly every sixteen days. So by the time a man is forty, his stem cells have divided hundreds of additional times compared to a man who is twenty. Each division is an opportunity for replication errors. That is the entire engine of the paternal age effect.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The math · sperm cell divisions by age</h2>
+      <table>
+        <thead><tr><th>Father's age</th><th>Approx. sperm cell divisions</th></tr></thead>
+        <tbody>
+          <tr><td>20 years</td><td>~150</td></tr>
+          <tr><td>30 years</td><td>~230</td></tr>
+          <tr><td>40 years</td><td>~330</td></tr>
+          <tr><td>50 years</td><td>~430</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.4em;">Each division = one opportunity for a <strong>replication error</strong>.</p>
+      <aside class="notes">
+        Here is the math, broken out. A sperm cell from a twenty-year-old father has gone through roughly one hundred fifty divisions since the man was an embryo. By age thirty, that number is up to about two hundred thirty. By forty, three hundred thirty. By fifty, four hundred thirty. Each one of those divisions is an opportunity for the polymerase to make a mistake that will not get fully corrected. Compare that to oogenesis, which clocks in at about twenty-three divisions, total, full stop. That single number — divisions — drives almost everything you see in the data.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>The paternal age effect, in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/fig9-4.png" alt="Paternal age effect on de novo mutations vs maternal age">
+        <figcaption>
+          <strong>Figure 4.</strong> Continuous spermatogenesis means each year of paternal age adds ~1.5 de novo mutations. Oogenesis is essentially complete before birth, so maternal age adds only ~0.4 mutations per year.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture. Two lines, both showing de novo mutations transmitted to a child as a function of parent age. The paternal line is steep — about one and a half new mutations per year of father's age. The maternal line is shallow — about zero point four mutations per year. Both go up with age, but the paternal slope is roughly four times steeper. The biological cause is the asymmetry on the previous slide. The number-of-divisions equation drives everything.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Parent-of-origin · 75–81% paternal</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.6em;">~4 : 1</div>
+          <div class="bignum-label">paternal-to-maternal ratio of de novo mutations</div>
+        </div>
+        <div>
+          <ul>
+            <li>Father contributes <strong>~55</strong> SNVs (avg)</li>
+            <li>Mother contributes <strong>~14</strong> SNVs (avg)</li>
+            <li>Direct consequence of <strong>division counts</strong></li>
+            <li>Confirmed across many studies</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the parent-of-origin breakdown. Roughly four out of every five de novo mutations come from the father. Father contributes around fifty-five single-nucleotide variants on average. Mother contributes around fourteen. So three quarters to four fifths of de novo mutations are paternal in origin. This ratio has been confirmed across many independent studies, including the long-read work we'll see in a minute. It is a direct consequence of the biology — many more divisions in sperm than in egg means many more replication errors carried forward.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · LANDMARK STUDIES
+         ==================================================== -->
+
+    <!-- Slide 25 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Landmark<br>Studies</h1>
+      <aside class="notes">
+        Now let's look at the data. Three studies, each a milestone. Kong twenty-twelve, the first direct measurement. Jonsson twenty-seventeen, the expanded analysis with more than fifteen hundred families. And Porubsky twenty-twenty-five, the long-read revolution that nearly doubled the count.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Kong et al. 2012 · the first direct count</h2>
+      <ul>
+        <li><strong>78 Icelandic families</strong> · trio sequencing</li>
+        <li>Mutation rate: <strong>1.20 × 10⁻⁸</strong> per base per generation</li>
+        <li>~<strong>63 SNVs</strong> per child (father age ~30)</li>
+        <li>Paternal age effect: <strong>+2 mutations / year</strong></li>
+        <li>Linked to <strong>schizophrenia</strong> &amp; <strong>autism</strong> risk</li>
+      </ul>
+      <aside class="notes">
+        Kong et al, twenty-twelve, in Nature. This was the first direct measurement of the human de novo mutation rate from family sequencing. Seventy-eight Icelandic families — Iceland is a goldmine for this kind of work because of well-kept genealogical records. They reported a mutation rate of one point two times ten to the minus eight per base per generation. About sixty-three new single-nucleotide variants per child for a thirty-year-old father. They found the paternal age effect was about two mutations per year. And — crucially — they linked older fatherhood statistically to schizophrenia and autism risk. That paper anchored the entire field.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Jónsson et al. 2017 · the expanded view</h2>
+      <ul>
+        <li><strong>1,548 trios</strong> · 20× larger than Kong 2012</li>
+        <li>Paternal effect: <strong>+1.51 / year</strong> (refined down from +2)</li>
+        <li>Maternal effect: <strong>+0.37 / year</strong> — newly detected</li>
+        <li><strong>Regional hotspots</strong>: 50× higher maternal C&gt;G on chr-8p</li>
+        <li>~<strong>75–81%</strong> paternal origin confirmed</li>
+      </ul>
+      <aside class="notes">
+        Jonsson et al, twenty-seventeen, also from the Iceland group. Twenty times more families — fifteen hundred forty-eight trios. They refined the paternal effect from two per year down to about one point five one per year. They detected a real maternal age effect for the first time, at zero point three seven per year — about four times weaker than paternal. And they found something genuinely surprising. Certain regions of the genome — a twenty-megabase block on chromosome eight p, for example — show up to fifty-fold higher maternal C-to-G mutation rates. That suggests aging eggs have local mutational processes, possibly tied to double-strand-break repair, that aging sperm don't. It's a striking regional pattern that nobody had predicted.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Porubsky et al. 2025 · the long-read revolution</h2>
+      <ul>
+        <li>Multi-generation <strong>CEPH 1463</strong> pedigree · 4 generations</li>
+        <li>Long-read sequencing across the <strong>full genome</strong></li>
+        <li><strong>98–206</strong> total mutations per child — nearly double prior counts</li>
+        <li>~<strong>16%</strong> are <strong>postzygotic</strong> (mosaic) — no parent bias</li>
+        <li>Hotspots in tandem repeats, centromeres, segmental duplications</li>
+      </ul>
+      <aside class="notes">
+        And the most recent landmark — Porubsky et al, twenty-twenty-five, in Nature. They used long-read sequencing on the famous C E P H fourteen sixty-three pedigree, four generations of a single family. Long reads can see into repetitive D N A that short reads can't, and this is where the prior counts had been blind. Total mutation count came out at ninety-eight to two hundred six per child — nearly double what short-read methods had reported. They also found that about sixteen percent of those mutations are postzygotic — meaning they arose after fertilization, in the early embryo. Postzygotic mutations show no paternal bias, because they happen in the embryo's own dividing cells. And they identified specific hotspot regions — tandem repeats, centromeres, segmental duplications — where mutations recur far more often than elsewhere.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The CEPH 1463 pedigree · four generations</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Porubsky2025-Nature-Figure2.png" alt="De novo mutations in CEPH 1463 four-generation pedigree">
+        <figcaption>
+          <strong>Figure 5.</strong> Porubsky et al. 2025 (CC-BY 4.0). Long-read sequencing of a four-generation pedigree. Germline SNVs cluster at allele balance ≈ 0.50; postzygotic mutations sit below 0.25. Strong paternal age effect for germline mutations (~+1.55/year), none for postzygotic. Repetitive regions show large excess.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture from the Porubsky paper. Four generations sequenced with long reads. Panel A shows the counts of germline mutations versus postzygotic mutations versus indels, broken down by individual. Panel B shows allele balance — germline mutations sit right at zero point five zero, exactly what you'd expect for a true heterozygous variant transmitted at fertilization, while postzygotic mutations sit below zero point two five because they only exist in some cells. Panel C shows the paternal age effect — about plus one point five five mutations per year for germline, but flat for postzygotic. And panel D shows that repetitive regions have far more mutations per base than unique regions. This figure is the current gold standard for what we know about human de novo mutation.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Three studies · same picture, sharper resolution</h2>
+      <table>
+        <thead><tr><th>Study</th><th>N families</th><th>Tech</th><th>Paternal effect</th></tr></thead>
+        <tbody>
+          <tr><td>Kong 2012</td><td>78</td><td>Short-read</td><td>+2 / year</td></tr>
+          <tr><td>Jónsson 2017</td><td>1,548</td><td>Short-read</td><td>+1.51 / year</td></tr>
+          <tr><td>Porubsky 2025</td><td>4-gen pedigree</td><td><strong>Long-read</strong></td><td>+1.55 / year</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.4em;">Estimate of <strong>~1.5 mutations per paternal year</strong> has held up across technologies.</p>
+      <aside class="notes">
+        Three studies, increasing scale, increasingly accurate. Kong twenty-twelve, seventy-eight families, two mutations per paternal year. Jonsson twenty-seventeen, fifteen hundred families, refined down to one point five one. Porubsky twenty-twenty-five, four-generation pedigree with long reads, one point five five. The estimate of about one and a half mutations per paternal year has held up beautifully across two decades and three different sequencing technologies. That is the kind of robustness that turns a finding into a textbook fact.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · CLINICAL IMPLICATIONS
+         ==================================================== -->
+
+    <!-- Slide 31 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Clinical<br>Implications</h1>
+      <aside class="notes">
+        How does any of this matter in the clinic? Two main places — counseling on paternal age, and identifying de novo variants in children with disease. Let's go through each.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Paternal age &amp; mutation burden</h2>
+      <table>
+        <thead><tr><th>Father's age</th><th>Extra mutations vs age 20</th><th>Relative increase</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;30</td><td>~0–15</td><td>baseline</td></tr>
+          <tr><td>30–40</td><td>+15 to +30</td><td>~35%</td></tr>
+          <tr><td>40–50</td><td>+30 to +45</td><td>~70%</td></tr>
+          <tr><td>&gt;50</td><td>+45 to +60+</td><td>&gt;100%</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.4em;"><strong>Most are harmless</strong> — but disease risk for specific conditions does rise.</p>
+      <aside class="notes">
+        Here is what the paternal age numbers translate to in practice. A father over fifty transmits roughly sixty more mutations than a father at age twenty — that is more than a hundred percent increase over baseline. Now the important caveat: most of these extra mutations are harmless. They land in non-functional regions, or they are silent, or selection will quietly handle them. But specific conditions — schizophrenia, autism, achondroplasia, Apert syndrome — show genuine increased incidence with paternal age, because they require a single de novo hit in a sensitive gene. So the conversation in genetic counseling is nuanced: more mutations, but most don't matter clinically.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Trio sequencing · the standard workflow</h2>
+      <div class="formula">
+        Sequence: child + mother + father<br>
+         ↓<br>
+        Find variants present in <strong>child</strong>, absent in <strong>both parents</strong><br>
+         ↓<br>
+        Filter: depth, allele balance, mapping quality<br>
+         ↓<br>
+        Prioritize: LoF / damaging missense in disease genes
+      </div>
+      <aside class="notes">
+        The workflow for finding de novo variants. Sequence the child and both parents. Identify variants present in the child but absent in both parents. Apply quality filters — depth above twenty, allele balance between thirty and seventy percent, high mapping quality. Then prioritize the candidates that look biologically meaningful — loss-of-function variants or damaging missense variants in genes already linked to the patient's phenotype. This trio approach is standard in pediatric clinical sequencing today, and it is how a substantial fraction of severe developmental disorders get diagnosed.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Watch out · false positives &amp; mosaicism</h2>
+      <ul>
+        <li><strong>Sequencing errors</strong> can mimic de novo variants</li>
+        <li><strong>Parental mosaicism</strong>: low-level mutation in some parental cells</li>
+        <li>Same variant may appear de novo in <strong>multiple</strong> children</li>
+        <li>Critical for <strong>recurrence-risk</strong> counseling</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Apparent de novo ≠ truly de novo<br>
+        until you rule out parental mosaicism.
+      </blockquote>
+      <aside class="notes">
+        Two very important caveats. First, sequencing errors at low coverage can look exactly like de novo variants — that is why we apply strict quality filters and often validate clinically reportable variants by Sanger sequencing or P C R. Second, and arguably more important clinically, parental mosaicism. If a parent carries the mutation in some of their cells but not others — say in a fraction of their germline — the variant looks de novo when you sequence parental blood, because blood D N A is mostly variant-free. But the recurrence risk in future siblings is no longer one in seventy million; it could be five percent, ten percent, sometimes higher. So before counseling a family on recurrence, it is essential to look hard for parental mosaicism with sensitive sequencing.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Inherited vs de novo · summary table</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>Inherited</th><th>De novo</th></tr></thead>
+        <tbody>
+          <tr><td>Per genome</td><td>~4–5 million</td><td>~70–200</td></tr>
+          <tr><td>Source</td><td>Parents' genomes</td><td>New mutations</td></tr>
+          <tr><td>Age</td><td>Ancient–recent</td><td>Brand new</td></tr>
+          <tr><td>Detection</td><td>Standard variant calling</td><td>Trio sequencing</td></tr>
+          <tr><td>Inheritance</td><td>Mendelian</td><td>Not transmitted from parents</td></tr>
+          <tr><td>Selection filter</td><td>Already filtered</td><td>Not yet filtered</td></tr>
+          <tr><td>Clinical role</td><td>Common → complex; rare → Mendelian</td><td>Severe developmental disorders</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        And here is the side-by-side summary, all in one table. Inherited variants — millions of them, ancient or recent, from your parents' genomes, follow Mendelian rules, already filtered by selection. De novo variants — only dozens to a couple hundred, brand new, not in either parent, found by trio sequencing, and not yet faced any selective pressure. Clinically, inherited common variants drive complex traits, inherited rare variants drive Mendelian disease, and de novo variants are major contributors to severe pediatric developmental disorders. Two categories, very different roles.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 36 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Variants come from <strong>two sources</strong>: inherited (~99.98%) &amp; de novo (~0.02%)</li>
+        <li>Inheritance follows <strong>Mendel</strong>; recombination creates <strong>mosaic</strong> chromosomes</li>
+        <li><strong>~70</strong> de novo SNVs per generation (short-read); ~100–200 with long-read</li>
+        <li><strong>~1.5 mutations / paternal year</strong> · ~0.4 / maternal year</li>
+        <li><strong>75–81% paternal origin</strong> · driven by continuous spermatogenesis</li>
+        <li><strong>Trio sequencing</strong> finds them; <strong>parental mosaicism</strong> is the catch</li>
+      </ul>
+      <aside class="notes">
+        Six things to take away. One — variants in your genome come from two sources, inherited from parents at about ninety-nine point nine eight percent, and de novo at about zero point zero two percent. Two — inheritance follows Mendel's laws at the D N A level, and recombination during meiosis means every chromosome you carry is actually a mosaic of grandparental segments. Three — typical short-read counts give about seventy de novo single-nucleotide variants per child; long-read sequencing nearly doubles that count. Four — paternal age adds about one point five mutations per year, maternal age about zero point four. Five — three quarters to four fifths of de novo mutations come from the father, driven by continuous sperm cell divisions throughout life. Six — clinically, trio sequencing identifies de novo variants in children, but you must always check parents for mosaicism before counseling on recurrence risk.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.1em; line-height:1.1; margin-top:0.3em;">
+        We know how variants arise.<br>
+        Now: how does <span style="color:var(--terracotta-deep)">one variant</span><br>
+        cause disease?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 10 · <strong>Dominant Alleles &amp; the Logic of Disease</strong>
+      </p>
+      <aside class="notes">
+        And one question to leave you with for next time. We've now seen what variants are, how they're classified, and how they pass through generations — both inherited and de novo. The next obvious question is: how does a single variant — sometimes just one base change — cause a serious genetic disease? Why is one copy of a variant sometimes enough to dominate the phenotype? That is dominant inheritance, and it is the focus of Chapter ten. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 19 · Genetic Architecture of Traits and Disorders — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Genetic Architecture<br>of Traits &amp; Disorders</h1>
+      <div class="chapter-num">Chapter 19 · Part III · Complex Traits</div>
+      <aside class="notes">
+        Welcome to Chapter nineteen, the final chapter of Part Three on complex traits, and the last chapter we will cover before the midterm. Last time, in Chapter eighteen, we walked through how genome-wide association studies work — how millions of common variants are screened and how Manhattan plots reveal hits. Today we step back and ask a bigger question. Once you have all those hits, what shape do they take across the genome? How do rare and common variants fit together for one disease? That structure is what we call the genetic architecture, and it is the through-line of today's lecture.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question from Chapter 18</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        GWAS gave us hundreds of hits.<br>
+        Why can't we <span style="color:var(--terracotta-deep)">predict</span> who gets sick?
+      </h1>
+      <aside class="notes">
+        Here is the puzzle we left hanging at the end of Chapter eighteen. GWAS, with hundreds of thousands of cases, has identified hundreds — sometimes thousands — of variants associated with diseases like Alzheimer's or schizophrenia. So why is genetic prediction still so imperfect? Why do some people with high-risk variants stay healthy, while others with seemingly low risk get sick? The answer is not that GWAS failed. The answer is that disease risk is shaped by a layered structure of genetic influences, and you cannot read that structure from a single hit list. You have to see the architecture.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Genetic architecture · the working definition</h2>
+      <div class="formula" style="font-size:1.05em; text-align:center;">
+        architecture = (allele frequency) × (effect size) × (locus count)
+      </div>
+      <ul style="margin-top:0.6em;">
+        <li><strong>Allele frequency</strong> · how rare or common</li>
+        <li><strong>Effect size</strong> · how strong each variant pushes risk</li>
+        <li><strong>Locus count</strong> · how many sites contribute</li>
+      </ul>
+      <aside class="notes">
+        Here is the working definition we will use today. Genetic architecture is the joint structure of three things: how rare or common each contributing variant is, how strongly each one pushes disease risk, and how many such loci exist across the genome. You will see that a single disease can have variants spanning the full range — from one-in-a-million mutations with massive effects, to common alleles that nudge risk by a tiny amount but exist at hundreds of loci. The architecture is the full picture, not any one slice.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>The city analogy</h2>
+      <div class="cols">
+        <div>
+          <h3>City</h3>
+          <ul>
+            <li>A few <strong>skyscrapers</strong> — huge, rare</li>
+            <li>Many <strong>houses</strong> — small, common</li>
+            <li>Roads, utilities, neighborhoods</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Genome</h3>
+          <ul>
+            <li>A few <strong>rare-large</strong> mutations</li>
+            <li>Many <strong>common-small</strong> variants</li>
+            <li>Modifiers, interactions, context</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Think of architecture like a city. A city is not just buildings — it has skyscrapers, houses, roads, utilities, neighborhoods, all woven together. Some structures are huge and rare, like a downtown tower. Others are small but everywhere, like single-family homes. Genetic architecture works the same way. A few rare mutations have massive effects, a flood of common variants each have tiny effects, and on top of all of that you have modifiers, interactions, and environmental context. A city does not function from the skyscrapers alone, and neither does a disease.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>The canonical picture</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Andrews2023-EBioMed-Fig1.jpg" alt="Allele frequency vs effect size — the canonical 4-zone plot for Alzheimer's disease">
+        <figcaption>
+          <strong>Figure 1.</strong> The master picture for genetic architecture: allele frequency on the x-axis, effect size on the y-axis. Rare-large variants in the upper left, common-small variants in the lower right. Andrews et al. 2023, <em>EBioMedicine</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Hold this figure in your head for the entire lecture. On the x-axis, allele frequency — how rare or common a variant is. On the y-axis, effect size — how strongly the variant pushes risk. Plot every Alzheimer-associated variant on this grid and you get a surprisingly orderly picture. Rare variants like APP and PSEN1 mutations land in the upper-left — extremely rare, enormous effect. Common GWAS hits land in the lower-right — common but tiny effect. APOE epsilon four sits awkwardly in the middle — common enough to study, strong enough to matter. This single chart is the canonical way to draw the architecture of any complex disease.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>What does an architecture look like?</li>
+        <li>Case study · <strong>Alzheimer's disease</strong></li>
+        <li>Case study · <strong>autism spectrum disorder</strong></li>
+        <li>Genetic heterogeneity → biological convergence</li>
+        <li>Why architecture matters · drugs, PRS, counseling</li>
+        <li>The omnigenic horizon</li>
+        <li>Summary · bridge to Part IV</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, we sharpen what genetic architecture actually means and look at the canonical Andrews diagram in detail. Then we walk through two flagship case studies — Alzheimer's and autism — because together they show the full range of architectures complex disease can take. Third, we step back and ask why so many genetic routes lead to the same clinical endpoint, which gets us to convergence. Fourth, we discuss what this means for drug development and polygenic scores. Fifth, we touch on the omnigenic model, the most provocative current proposal. And we end by bridging to Part Four after midterm.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHAT DOES AN ARCHITECTURE LOOK LIKE?
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>What does an<br>architecture look like?</h1>
+      <aside class="notes">
+        Let's spend a few minutes with the geometry of the picture itself. Once you understand the four zones of the frequency-effect plot, every disease in the rest of the lecture will fit into them.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>The four zones</h2>
+      <table>
+        <thead><tr><th>Frequency</th><th>Effect</th><th>What lives here</th></tr></thead>
+        <tbody>
+          <tr><td>Rare</td><td><strong>Large</strong></td><td>Mendelian mutations · APP, PSEN1, BRCA1</td></tr>
+          <tr><td>Rare</td><td>Small</td><td>Hard to find · usually invisible</td></tr>
+          <tr><td>Common</td><td>Large</td><td><strong>Almost empty</strong> · selection removes them</td></tr>
+          <tr><td>Common</td><td>Small</td><td>GWAS hits · the polygenic background</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        The frequency-effect plot has four zones. Upper-left, rare and large effect, is where Mendelian disease genes live — APP, PSEN1, BRCA1. Lower-left, rare and small, is essentially invisible to current methods because each variant is too rare to detect a tiny effect. Upper-right, common and large, is conspicuously empty — a variant that is both common and harmful gets filtered out by natural selection over generations. Lower-right, common and small, is where the typical GWAS hit sits — easy to find with large samples, but each one barely moves risk. The whole architecture is the population of points across these four zones.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Why no common-large?</h2>
+      <blockquote style="margin-top:0.4em;">
+        A common allele with a large harmful effect<br>
+        gets <strong>removed by selection</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Strong effect → reduced reproduction</li>
+        <li>Allele frequency drops over generations</li>
+        <li>Result: the upper-right zone is <strong>nearly empty</strong></li>
+      </ul>
+      <aside class="notes">
+        Why is the upper-right corner of that plot almost empty? Because evolution is not patient with strongly harmful common alleles. If a variant cuts your reproductive success and is at high frequency, every generation strips a fraction of it out of the population. Over evolutionary time, common-large variants either drift down to rare or are removed entirely. The exception is variants that exert their effect after reproductive age — which is why something like APOE epsilon four, an Alzheimer's risk allele acting in your seventies, can persist at fifteen percent frequency without ever being selected against.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Common-small or rare-large?</h2>
+      <div class="cols">
+        <div>
+          <h3>Rare-large</h3>
+          <ul>
+            <li>Mendelian disease genes</li>
+            <li>Family pedigrees, exome sequencing</li>
+            <li>~<strong>1%</strong> of cases each</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Common-small</h3>
+          <ul>
+            <li>GWAS-style signals</li>
+            <li>Hundreds of thousands of cases</li>
+            <li>Tiny effects · summed via PRS</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">Most diseases sit on the <strong>spectrum between</strong>.</p>
+      <aside class="notes">
+        Two extreme strategies dominated genetics in different eras. The rare-large hunt — pedigrees, linkage, then exome sequencing — is how Mendelian disease genes were found. Each variant explains roughly one percent of cases, but the explanation is mechanistic and clean. The common-small hunt — GWAS — is how the polygenic background was uncovered, but it requires hundreds of thousands of samples and each hit has tiny effect. Most real diseases sit on the spectrum between these poles. The job of the modern human geneticist is to map both ends and the middle.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Variant types contribute too</h2>
+      <ul>
+        <li><strong>SNVs</strong> · single-letter changes</li>
+        <li><strong>Indels</strong> · small insertions / deletions</li>
+        <li><strong>CNVs</strong> · duplications and deletions of segments</li>
+        <li><strong>Structural variants</strong> · large rearrangements</li>
+        <li><strong>Regulatory variants</strong> · noncoding, change expression</li>
+      </ul>
+      <aside class="notes">
+        Architecture is not only about frequency and effect. The kind of variant matters too. Single nucleotide variants — single-letter changes — are the most common. Indels are small insertions or deletions of a few bases. Copy number variants and structural variants are larger rearrangements that delete or duplicate whole segments of DNA. And then there are noncoding regulatory variants that do not change a protein at all but tweak when or where a gene is expressed. Different diseases lean on different variant classes. Autism, as we will see, leans heavily on de novo CNVs and protein-truncating variants. Schizophrenia leans on common SNVs. The architecture must specify not just where the variants sit, but what kind they are.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <div class="cue">The composite reality</div>
+      <h2 style="margin-top:0.4em;">No single "disease gene"</h2>
+      <ul>
+        <li>Most traits show a <strong>composite architecture</strong></li>
+        <li>Mixture of rare + common + modifiers</li>
+        <li>Same diagnosis · <strong>many genetic routes</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Many roads · same destination.
+      </blockquote>
+      <aside class="notes">
+        The headline of modern human genetics is this. For almost every common disease we have studied with whole-genome sequencing and large GWAS, the architecture is composite — a mixture of rare and common variants, with modifiers and interactions on top. There is no single disease gene. The same diagnosis can arise through many different genetic routes. Two patients in the same Alzheimer clinic might have completely different variants behind their disease. We will see this concretely in the next two case studies.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · ALZHEIMER'S
+         ==================================================== -->
+
+    <!-- Slide 13 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Case study<br>Alzheimer's disease</h1>
+      <aside class="notes">
+        Now let's look at our first concrete architecture — Alzheimer's disease, the most common cause of dementia. Alzheimer's is the textbook example because all four zones of the frequency-effect plot are populated, and we know enough about the underlying biology to see where the variants converge.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Three layers of risk</h2>
+      <table>
+        <thead><tr><th>Layer</th><th>Examples</th><th>Frequency</th><th>Effect (OR)</th></tr></thead>
+        <tbody>
+          <tr><td>Rare-large</td><td><em>APP, PSEN1, PSEN2</em></td><td>&lt; 1%</td><td><strong>~100×</strong></td></tr>
+          <tr><td>Strong common</td><td><em>APOE</em> ε4/ε4</td><td>~2%</td><td><strong>~12×</strong></td></tr>
+          <tr><td>Common-small</td><td>GWAS hits (<em>TREM2, ABCA1</em>…)</td><td>5 – 40%</td><td>1.1 – 1.5×</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Alzheimer's risk lives in three layers. The first layer is rare, large-effect mutations in three genes — APP, PSEN one, and PSEN two — that cause early-onset familial Alzheimer's. If you carry one, your risk is essentially one hundred percent, but these mutations explain less than one percent of all cases. The second layer is the APOE epsilon four allele, the strongest common risk factor we know about. One copy roughly triples your risk, two copies push it about twelve-fold. About two percent of people of European ancestry carry two copies. The third layer is the long tail of GWAS hits — TREM two, ABCA one, and dozens more — each common but each only nudging risk by ten to fifty percent. The full architecture is all three layers stacked.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Layer 1 · early-onset familial AD</h2>
+      <ul>
+        <li>Three genes: <strong>APP · PSEN1 · PSEN2</strong></li>
+        <li>Symptoms before age 65 — sometimes 30s–40s</li>
+        <li>Penetrance ~<strong>100%</strong> if you carry one</li>
+        <li>But: explains <strong>&lt; 1%</strong> of all AD cases</li>
+      </ul>
+      <aside class="notes">
+        The first layer — early-onset familial Alzheimer's — is the Mendelian fraction. Three genes. APP encodes amyloid precursor protein, the source of amyloid beta itself. PSEN one and PSEN two encode the catalytic subunit of the gamma-secretase enzyme that cleaves APP. Mutations in any of these three throw amyloid processing out of balance, plaques accumulate early, symptoms can appear in the thirties or forties, and penetrance is essentially complete. These are the rare-large dots in the upper-left of the frequency-effect plot. They are devastating, mechanistically informative, and they explain less than one percent of cases.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Layer 2 · APOE ε4</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.6em;">~12×</div>
+          <div class="bignum-label">risk for ε4/ε4 homozygotes</div>
+        </div>
+        <div>
+          <ul>
+            <li>3 alleles: <strong>ε2 · ε3 · ε4</strong></li>
+            <li>~15% of Europeans carry at least one ε4</li>
+            <li>1 copy: ~3× risk · 2 copies: ~12×</li>
+            <li>Common <em>and</em> strong — rare combo</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        APOE epsilon four sits in a strange and important spot on the architecture plot. APOE has three common variants — epsilon two, three, and four. Epsilon three is the reference. Epsilon four is the risk allele. About fifteen percent of Europeans carry at least one copy, which is common by any standard. But its effect is unusually strong — one copy roughly triples Alzheimer risk, two copies push it about twelve-fold. That is large enough that some researchers argue homozygous epsilon four carriers should be reclassified as a deterministic genetic form of late-onset Alzheimer's. Common, and strong, in the same allele. The reason it survives at fifteen percent frequency is that it acts after reproductive age, so selection is essentially blind to it.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>Layer 3 · the polygenic background</h2>
+      <ul>
+        <li>Large meta-GWAS · hundreds of thousands of cases</li>
+        <li>Implicated pathways:
+          <ul>
+            <li><strong>Immune</strong> · microglia (TREM2)</li>
+            <li><strong>Lipid</strong> · cholesterol handling (ABCA1, APOE)</li>
+            <li><strong>Synaptic</strong> · neuron–neuron signaling</li>
+          </ul>
+        </li>
+        <li>Each hit small · together they shift risk</li>
+      </ul>
+      <aside class="notes">
+        The third layer is the polygenic background — dozens of common variants, each with tiny effect, identified by large GWAS meta-analyses like Bellenguez two thousand twenty-two. The hits cluster into three biological themes. First, immune function — especially microglia, the brain's resident immune cells. Second, lipid metabolism — the brain handles enormous amounts of cholesterol, and dysregulation matters. Third, synaptic function. Each individual hit barely moves risk. But sum them into a polygenic score and the top decile is meaningfully higher risk than the bottom decile, even with no APOE epsilon four and no Mendelian mutation.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Convergence · microglial efferocytosis</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Andrews2023-EBioMed-Fig3.jpg" alt="Prioritized AD risk genes converge on microglial efferocytosis pathway">
+        <figcaption>
+          <strong>Figure 2.</strong> Many AD risk genes — both rare and common — converge on microglial efferocytosis: the process by which microglia clear dead cells and debris. Andrews et al. 2023, <em>EBioMedicine</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the convergence story. Despite the genetic diversity — three Mendelian genes plus APOE plus dozens of GWAS hits — many of these genes funnel into a single biological process: microglial efferocytosis. That is the process by which microglia, the brain's garbage-collector cells, recognize damaged neurons and protein aggregates and clear them away. TREM two recognizes the eat-me signal. ABCA one and APOE handle the cholesterol byproducts of digestion. If this clearance pipeline is impaired, amyloid accumulates, and you get the disease. The architecture is heterogeneous at the gene level but startlingly convergent at the pathway level.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Risk accumulates · the K-ROAD cohort</h2>
+      <figure>
+        <img src="../assets/figures/textbook/KROAD2025-NatCommun-Fig5.png" alt="K-ROAD cohort showing accumulating genetic risk for Alzheimer's">
+        <figcaption>
+          <strong>Figure 3.</strong> Korean Rare Alzheimer's Database (K-ROAD): more risk factors → higher amyloid burden, lower MMSE, worse memory. Risk is <em>cumulative</em>. K-ROAD 2025, <em>Nat Commun</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is concrete evidence that the layers add up, and it comes from a Korean cohort — important because most genetic studies are still skewed toward European ancestry. The K-ROAD consortium grouped patients by how many genetic risk factors they carried — APOE epsilon four, high polygenic score, rare noncoding variants, structural variants. As you move from no risk factors to one to two to three, amyloid burden climbs, MMSE cognitive scores drop, dementia severity worsens, and memory deteriorates. All four panels show statistically significant trends. This is composite architecture in action — the architecture is not just descriptive, it predicts patient outcomes when you can measure all the layers at once.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Why a Korean cohort matters</h2>
+      <ul>
+        <li>Most GWAS data: <strong>European ancestry</strong></li>
+        <li>Allele frequencies <strong>differ by population</strong></li>
+        <li>K-ROAD captures Korean-specific signals</li>
+        <li>Same architecture · <strong>different dot positions</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The picture has the same shape.<br>The dots sit in different places.
+      </blockquote>
+      <aside class="notes">
+        A quick aside on why population-specific cohorts like K-ROAD matter. Most GWAS data is dominated by European ancestry samples, which means our polygenic scores work best for Europeans and increasingly worse for everyone else. Allele frequencies genuinely differ across populations — a variant that is common in Europe might be rare in Korea or vice versa. The architecture as a structural concept is the same — rare-large mutations, an APOE-like strong common allele, and a polygenic background. But the specific points on the plot move. Korean-ancestry studies like K-ROAD are essential because precision medicine needs population-appropriate data.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>The composite Alzheimer model</h2>
+      <ul>
+        <li>Patient A · <strong>PSEN1</strong> mutation · early-onset</li>
+        <li>Patient B · <strong>APOE ε4/ε4</strong> · onset late 60s</li>
+        <li>Patient C · high <strong>PRS</strong> + vascular risk · onset late 70s</li>
+        <li>Same diagnosis · three different architectures</li>
+      </ul>
+      <aside class="notes">
+        Imagine three patients in the same Alzheimer's clinic. Patient A carries a PSEN one mutation and developed symptoms at forty-eight. Patient B is APOE epsilon four homozygous, onset at sixty-eight. Patient C has no rare mutation and no APOE epsilon four, but sits in the top five percent of the polygenic risk distribution, plus untreated hypertension and diabetes — onset at seventy-eight. All three carry the same clinical diagnosis. All three have wildly different genetic architectures. That is the heart of what we mean by composite architecture.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · AUTISM
+         ==================================================== -->
+
+    <!-- Slide 22 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Case study<br>Autism spectrum disorder</h1>
+      <aside class="notes">
+        Now a contrasting architecture — autism spectrum disorder. Alzheimer's is heavy on rare-large plus common variants. Autism leans on a different mix that includes de novo mutations, inherited rare variants, and a polygenic background. It is perhaps the most genetically heterogeneous condition we will discuss.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Four genetic contributors</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Kim2025-MolCells-Fig3.jpg" alt="Multiple genetic contributors to autism risk">
+        <figcaption>
+          <strong>Figure 4.</strong> ASD architecture has at least four contributing layers: de novo CNVs, de novo PTVs, inherited rare variants, and common SNP polygenic risk. Kim et al. 2025, <em>Mol Cells</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Autism architecture has at least four layers, all stacked on the same individual. De novo copy number variants — large duplications or deletions that arose new in the child. De novo protein-truncating variants — single-base or small mutations that knock out a gene, also new in the child. Inherited rare variants passed down from parents. And a polygenic background of common SNPs explaining roughly thirty to forty percent of population liability. No single layer explains autism. They all contribute, in different mixes for different children.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>De novo variants · the new mutation</h2>
+      <ul>
+        <li><strong>Not inherited</strong> from either parent</li>
+        <li>Arise in sperm, egg, or early embryo</li>
+        <li>Two key flavors:
+          <ul>
+            <li><strong>dnPTV</strong> · de novo protein-truncating</li>
+            <li><strong>dnCNV</strong> · de novo copy-number</li>
+          </ul>
+        </li>
+        <li>Each rare · together <strong>major contributor</strong> to severe ASD</li>
+      </ul>
+      <aside class="notes">
+        De novo variants are mutations that are not present in either parent — they arose new in the sperm, egg, or very early embryo of the affected child. There are two flavors that matter for autism. De novo protein-truncating variants — mutations that introduce a premature stop codon and knock out one copy of a gene. And de novo copy number variants — large deletions or duplications. Each individual de novo mutation is by definition rare. But because they accumulate across hundreds of different genes affecting brain development, collectively they explain a meaningful fraction of severe autism — especially level three cases requiring substantial support.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Inherited rare + polygenic</h2>
+      <div class="cols">
+        <div>
+          <h3>Inherited rare</h3>
+          <ul>
+            <li>From parents who may not have ASD</li>
+            <li>Each tiny effect</li>
+            <li>Add up across the genome</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Polygenic (common)</h3>
+          <ul>
+            <li>~<strong>30–40%</strong> of liability</li>
+            <li>Standard GWAS-style variants</li>
+            <li>Modulates rare-variant effects</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Beyond de novo variants, autism risk also comes from inherited rare variants — passed from parents who themselves may not have autism. Each one slightly increases risk, and they accumulate. Then on top of that is the polygenic background of common SNPs, which together explain roughly thirty to forty percent of population-level liability. And here is the key interaction — the polygenic background modulates the impact of rare variants. A child with a rare protein-truncating mutation against a high-polygenic-risk background is more likely to be diagnosed than the same mutation against a low-polygenic-risk background. Layers do not just add — they multiply.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Convergence · synapse + chromatin</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Satterstrom2020-Cell-Fig4.jpg" alt="Network of ASD genes converging on synaptic and chromatin pathways">
+        <figcaption>
+          <strong>Figure 5.</strong> Despite hundreds of genes, ASD-associated variants converge on two major hubs: <strong>synaptic signaling</strong> and <strong>chromatin regulation</strong>. Satterstrom et al. 2020, <em>Cell</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        And here is the convergence story for autism. Satterstrom and colleagues sequenced the exomes of more than thirty thousand individuals, identifying about a hundred autism risk genes. The genes are extremely diverse, but they cluster into two major functional hubs. The first hub is synaptic signaling — how neurons communicate with each other. The second hub is chromatin regulation — how DNA is packaged and which genes get turned on or off. Many roads, two main destinations. Different children with autism may carry mutations in completely different genes, but those genes funnel into shared developmental processes.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Mid-fetal cortex · timing matters</h2>
+      <ul>
+        <li>Many ASD genes peak in <strong>mid-fetal cortex</strong></li>
+        <li>Specific developmental window · weeks 12–24</li>
+        <li>Timing × tissue × pathway = phenotype</li>
+        <li>Same gene · different impact at different ages</li>
+      </ul>
+      <aside class="notes">
+        Architecture is not just frequency and effect — it is also about when and where. Many autism risk genes are most highly expressed during a specific developmental window, mid-fetal cortical development, roughly weeks twelve to twenty-four of gestation. That is when the cortex is being built, and disrupting these genes during that window has lasting consequences. The same gene, the same mutation, would have a much milder effect if it were active in adulthood. Timing, tissue, and pathway combine to produce the phenotype.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>The female protective effect</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.6em;">4×</div>
+          <div class="bignum-label">more males than females diagnosed</div>
+        </div>
+        <div>
+          <ul>
+            <li>Females need <strong>higher genetic burden</strong></li>
+            <li>Affected females carry <strong>more</strong> rare variants</li>
+            <li>Biological + diagnostic factors</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Autism is diagnosed about four times more often in males than in females. The leading explanation is the female protective effect — females appear to require a higher genetic burden to cross the diagnostic threshold. Affected females carry on average more de novo mutations and more rare variants than affected males. Some of this is biological — X-linked genes, hormonal effects. Some is diagnostic — females with autism may present differently and be underdiagnosed. The point for today is that sex modifies how the architecture maps onto a diagnosis. Same dots on the plot, different threshold lines.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · HETEROGENEITY → CONVERGENCE
+         ==================================================== -->
+
+    <!-- Slide 29 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Many roads<br>same destination</h1>
+      <aside class="notes">
+        Step back. We have just walked through two diseases with very different architectures. Yet a common pattern emerged in both — diverse genetic causes funneling into a small number of biological pathways. Let's name that pattern explicitly.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Genetic heterogeneity</h2>
+      <ul>
+        <li><strong>Locus heterogeneity</strong> · different <em>genes</em> → same phenotype</li>
+        <li><strong>Allelic heterogeneity</strong> · different <em>mutations</em> in same gene → different effects</li>
+        <li><strong>Phenotypic heterogeneity</strong> · same variant → different patients</li>
+      </ul>
+      <aside class="notes">
+        Three flavors of heterogeneity to keep straight. Locus heterogeneity — different genes can produce the same phenotype. In dilated cardiomyopathy, mutations in TTN, LMNA, DSP, or FLNC all lead to a weakened heart. Allelic heterogeneity — different mutations within the same gene can have different effects. A missense mutation in TTN might cause mild disease, a truncating mutation severe early disease. Phenotypic heterogeneity — the same variant in different patients can manifest differently depending on the rest of their genetic background, age, sex, and environment. All three forms blur the simple Mendelian map of genotype to phenotype.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Biological convergence</h2>
+      <table>
+        <thead><tr><th>Disease</th><th>Convergent pathways</th></tr></thead>
+        <tbody>
+          <tr><td>Alzheimer's</td><td><strong>Microglial clearance</strong> · lipid metabolism · amyloid</td></tr>
+          <tr><td>Autism</td><td><strong>Synaptic signaling</strong> · chromatin · neurodevelopment</td></tr>
+          <tr><td>DCM (heart)</td><td>Sarcomere · cell adhesion · ECM</td></tr>
+          <tr><td>Schizophrenia</td><td>Synapse · immune · dopamine</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        And here is the flip side — biological convergence. Despite the gene-level heterogeneity, every well-studied disease shows a small number of pathways where the variants accumulate. Alzheimer's converges on microglial clearance, lipid metabolism, and amyloid processing. Autism converges on synaptic signaling, chromatin regulation, and neurodevelopment. Dilated cardiomyopathy converges on sarcomere structure, cell adhesion, and extracellular matrix. Schizophrenia converges on synapse, immune, and dopamine pathways. The architecture is messy at the gene level and orderly at the pathway level. That asymmetry is the central insight.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>The river analogy</h2>
+      <blockquote style="font-size:1.05em;">
+        Many small streams · different starting points<br>
+        flow into the <strong>same major rivers</strong><br>
+        and reach the same ocean.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Genes = streams · pathways = rivers · disease = ocean</li>
+        <li>Heterogeneity at the source · convergence downstream</li>
+      </ul>
+      <aside class="notes">
+        Here is the analogy I want you to leave with. Think of a river system. Many small streams start in many different places — some in the mountains, some in the forests, some on the plains. They each look different. But as they flow downhill, they merge into the same major rivers, which all reach the same ocean. The starting points are heterogeneous. The downstream destination converges. Genes are streams. Pathways are rivers. The disease endpoint is the ocean. That is why two patients with completely different mutations can present with the same clinical syndrome.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · WHY ARCHITECTURE MATTERS
+         ==================================================== -->
+
+    <!-- Slide 33 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Why architecture<br>matters</h1>
+      <aside class="notes">
+        So we have a structural picture of how genetic risk is laid out. Why should anyone outside academic genetics care? Three reasons — drug development, polygenic risk scores in the clinic, and genetic counseling.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Drug discovery · target the convergence</h2>
+      <ul>
+        <li>Don't fix every mutation · <strong>fix the pathway</strong></li>
+        <li>AD: boost microglial efferocytosis (TREM2 agonists)</li>
+        <li>ASD: chromatin / synapse modulators</li>
+        <li>Heterogeneous patients · <strong>shared therapy</strong></li>
+      </ul>
+      <aside class="notes">
+        First, drug development. If hundreds of mutations all funnel into the same pathway, you do not need to design a drug for each mutation. You design a drug for the pathway. In Alzheimer's, TREM two agonists are being developed to boost microglial clearance — the idea is to enhance the convergent pathway regardless of which upstream mutation a patient carries. In autism, chromatin and synapse modulators are early-stage candidates. The convergence picture turns drug discovery from a per-gene problem into a per-pathway problem, which is much more tractable.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Polygenic risk scores · interpreting them</h2>
+      <ul>
+        <li>PRS sums many <strong>common-small</strong> effects</li>
+        <li>Top decile vs bottom · meaningful risk gap</li>
+        <li>But: works best in <strong>European</strong> ancestry</li>
+        <li>Architecture-aware PRS · across all layers</li>
+      </ul>
+      <aside class="notes">
+        Second, polygenic risk scores. A PRS is a single number summing the small contributions of many common variants. People in the top decile of PRS have meaningfully higher risk than the bottom decile — for diseases like coronary artery disease, that gap can be as large as a Mendelian risk factor. But PRS today has two big limitations. First, it works best in European ancestry, because that is where most GWAS data come from. Second, it captures only the common-small layer of the architecture. The next generation of risk scores will be architecture-aware — integrating rare variants, common variants, and APOE-like strong common alleles into a single integrated risk estimate.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Genetic counseling · context matters</h2>
+      <blockquote style="margin-top:0.4em;">
+        A pathogenic mutation alone<br>
+        does <strong>not</strong> tell the whole story.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Same TTN variant · <strong>different outcomes</strong></li>
+        <li>Polygenic background modifies penetrance</li>
+        <li>Family history + environment + PRS</li>
+      </ul>
+      <aside class="notes">
+        Third, genetic counseling. Old model — find a pathogenic mutation, declare the patient at risk, end of story. New model — find the mutation, then ask about the rest of the architecture. What is the polygenic background? Are there other rare variants in related genes? What is the family history and the environmental context? Two patients carrying the same TTN cardiomyopathy mutation can have very different outcomes — one has high polygenic risk and develops severe disease at thirty, the other has low polygenic risk and never has symptoms. The mutation is one piece, not the whole answer.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Penetrance is modifiable</h2>
+      <ul>
+        <li><strong>Penetrance</strong> = P(phenotype | genotype)</li>
+        <li>Modified by:
+          <ul>
+            <li>Polygenic background</li>
+            <li>Other rare variants (multi-hit)</li>
+            <li>Sex · age · environment</li>
+          </ul>
+        </li>
+        <li>"100% penetrant" is a Mendelian myth in complex disease</li>
+      </ul>
+      <aside class="notes">
+        A word on penetrance — the probability that a genotype produces the phenotype. In classical Mendelian genetics, penetrance is often treated as fixed — close to one hundred percent for a pathogenic mutation. In reality, penetrance is modifiable. Polygenic background changes it. Co-occurring rare variants in related genes change it. Sex, age, and environment all change it. Even classic Huntington's disease, long considered fully penetrant, shows variable age of onset shaped by polygenic modifiers. In complex disease, treating penetrance as a single number is a simplification we have to outgrow.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · OMNIGENIC
+         ==================================================== -->
+
+    <!-- Slide 38 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>The omnigenic<br>horizon</h1>
+      <aside class="notes">
+        One more horizon to introduce before we close. The polygenic picture says many variants contribute. The omnigenic model — proposed by Boyle, Li, and Pritchard in twenty seventeen — pushes that further. It claims essentially every gene expressed in a relevant tissue contributes, even tiny amounts.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>Polygenic vs omnigenic</h2>
+      <div class="cols">
+        <div>
+          <h3>Polygenic</h3>
+          <ul>
+            <li><strong>Hundreds</strong> of loci</li>
+            <li>Each tiny · sum matters</li>
+            <li>Pathway-focused</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Omnigenic</h3>
+          <ul>
+            <li><strong>Thousands</strong> · "all" expressed genes</li>
+            <li>Core genes + peripheral genes</li>
+            <li>Network-wide effects</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.95em; color:var(--ink-soft);">
+        Boyle, Li, Pritchard 2017 — provocative, debated, useful frame.
+      </p>
+      <aside class="notes">
+        Polygenic says hundreds of loci with tiny effects. Omnigenic says it is thousands, and that essentially every gene expressed in the relevant tissue contributes some effect, however small. The model splits genes into a small number of core genes that act directly on disease biology, and a vast majority of peripheral genes that contribute through gene regulatory networks. The hypothesis is provocative and debated, but it captures something real — when sample sizes get big enough, GWAS keeps finding more hits, and they spread across more and more of the genome. The architecture may be even broader than we think.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>What the architecture is for</h2>
+      <ul>
+        <li>Predict who is at risk · <strong>and how much</strong></li>
+        <li>Choose drug targets <strong>where convergence is strong</strong></li>
+        <li>Counsel patients with <strong>full context</strong></li>
+        <li>Build cohorts that <strong>span ancestries</strong></li>
+        <li>Move from "disease gene" → <strong>disease landscape</strong></li>
+      </ul>
+      <aside class="notes">
+        Putting it together — what the genetic architecture is actually for. It is for prediction, where the goal is not just yes-or-no risk but a quantitative estimate. It is for drug discovery, where the question is which pathways are worth investing decades of research into. It is for counseling, where the answer to a patient's question is contextual, not categorical. It is for cohort design, where we have to do better than the European-ancestry default. And philosophically, it is the bridge from the Mendelian "disease gene" framing to the modern "disease landscape" framing. That landscape is what Part Three has been building toward all semester.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY + BRIDGE
+         ==================================================== -->
+
+    <!-- Slide 41 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together for Chapter nineteen, and for all of Part Three.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Architecture = <strong>frequency × effect × locus count</strong></li>
+        <li>Four zones · the upper-right is empty (selection)</li>
+        <li>AD: <strong>APP/PSEN</strong> + <strong>APOE ε4</strong> + GWAS hits</li>
+        <li>ASD: <strong>de novo</strong> + inherited rare + polygenic</li>
+        <li>Many genes → <strong>shared pathways</strong> (convergence)</li>
+        <li>Drugs target the convergence · PRS sums the polygenic layer</li>
+      </ul>
+      <aside class="notes">
+        Six points to take away. One — genetic architecture is the joint structure of allele frequency, effect size, and locus count. Two — the frequency-effect plot has four zones, and selection keeps the common-large corner empty for traits that affect reproduction. Three — Alzheimer's architecture has three layers stacked: APP-PSEN Mendelian mutations, APOE epsilon four as a strong common allele, and a polygenic background. Four — autism architecture has de novo mutations plus inherited rare variants plus polygenic background. Five — across diseases, hundreds of genes converge on a few biological pathways. Six — that convergence is what makes drug discovery and risk prediction tractable. Hold those six points and Chapter nineteen will stay with you.
+      </aside>
+    </section>
+
+    <!-- Slide 43 -->
+    <section>
+      <div class="cue">After the midterm</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        From individuals<br>
+        to <span style="color:var(--terracotta-deep);">populations</span>.
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Part IV · Chapter 20 · <strong>Allele Frequency</strong>
+      </p>
+      <aside class="notes">
+        And this is the last chapter of Part Three, and the last chapter before the midterm. Part Three was about complex traits in individuals — heritability, GWAS, polygenic scores, and today, genetic architecture. After the midterm, we shift gears entirely. Part Four is about populations. We start with Chapter twenty on allele frequency, where we will see exactly how the canonical frequency-effect plot we have been staring at all lecture is generated by the dynamics of mutation, drift, and selection over evolutionary time. The architecture is the snapshot. Population genetics is the movie. See you on the other side of the midterm.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

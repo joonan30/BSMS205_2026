@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7 · Annotation and Databases for Genetic Variants — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Annotation &amp;<br>Databases</h1>
+      <div class="chapter-num">Chapter 7 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome to Chapter seven, the final chapter of Part One. Last week we finished the sequencing chapter — whole-genome and whole-exome sequencing. We can now read genomes by the millions. But here is the uncomfortable truth: when you sequence a person, you get four to five million variants. Most of them are noise. Today we ask the central question — which ones matter? That question is the entire field of variant annotation. Let's begin.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        You sequenced a patient.<br>
+        You got <span style="color:var(--terracotta-deep)">5 million</span> variants.<br>
+        Now <em>what</em>?
+      </h1>
+      <aside class="notes">
+        Hold this scenario in your head for the lecture. You ran whole-genome sequencing on a four-year-old child with seizures and developmental delay. The pipeline ran overnight. In the morning, your VCF file has roughly five million variant lines. One of those lines, somewhere in there, is the cause of her disease. The other four million nine hundred ninety-nine thousand are background noise — variants she shares with the rest of humanity. How do you find the one that matters? That is what today is about.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>The data deluge · per genome</h2>
+      <table>
+        <thead><tr><th>Variant type</th><th>Count per person</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SNVs</strong> · single nucleotide variants</td><td>~4 – 5 million</td></tr>
+          <tr><td><strong>Small indels</strong> · insertions / deletions</td><td>~400,000 – 500,000</td></tr>
+          <tr><td><strong>Structural variants</strong> · large rearrangements</td><td>thousands</td></tr>
+          <tr><td><strong>Causal variant</strong> for a rare disease</td><td><strong>typically 1</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">A <strong>needle-in-a-haystack</strong> problem at scale.</p>
+      <aside class="notes">
+        Here is the scale problem in numbers. Every healthy human carries about four to five million single nucleotide variants — places where their genome differs from the reference by a single letter. They also carry roughly four to five hundred thousand small insertions and deletions, and thousands of larger structural variants. These numbers are normal. They are the genetic signature of being human. For a rare disease patient, the typical answer is one variant — a single de novo or inherited change — buried in those millions. Annotation is how we find it.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The core operation</div>
+      <h1 style="font-size:2em; line-height:1.1; margin-top:0.2em;">
+        <span style="color:var(--terracotta-deep)">Annotation</span><br>
+        adds <em>meaning</em> to each variant.
+      </h1>
+      <ul style="margin-top:1em;">
+        <li>Raw VCF: <code>chr17:43,124,027 · T → G</code></li>
+        <li>Annotated: <strong>BRCA1 · missense · p.Cys61Gly · pathogenic</strong></li>
+      </ul>
+      <aside class="notes">
+        Annotation is the operation that turns a coordinate into a story. Take a raw variant from the VCF — chromosome seventeen, position forty-three million, T to G. By itself, that line is meaningless. Annotation adds the gene name — BRCA one. The consequence — a missense change. The protein change — cysteine sixty-one to glycine. The clinical interpretation — pathogenic, a known breast cancer founder mutation. Same data point. Worlds apart in usefulness.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Four questions for every variant</h2>
+      <ol>
+        <li><strong>LOCATION</strong> — gene? exon? regulatory region?</li>
+        <li><strong>FUNCTION</strong> — protein change? splicing effect?</li>
+        <li><strong>POPULATION</strong> — common or rare?</li>
+        <li><strong>CLINICAL</strong> — known disease association?</li>
+      </ol>
+      <blockquote style="margin-top:0.6em;">
+        Every annotation pipeline is some answer<br>to <strong>these four questions</strong>.
+      </blockquote>
+      <aside class="notes">
+        Every variant annotation tool — and there are dozens — is at heart trying to answer four questions. Where is it? In a gene, an exon, a promoter, an intron, or some completely uncharacterized region? What does it do? Does it change a protein, break a splice site, or sit silently? How common is it? Seen in one in ten people, or never seen before? And finally, has anyone seen it cause disease before? You will see this four-question frame again and again today, because it organizes the whole field.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Annotation: the four core questions</li>
+        <li>The three-tier database system</li>
+        <li>HGVS nomenclature &amp; a worked variant</li>
+        <li>Computational pathogenicity predictors</li>
+        <li>ACMG/AMP classification framework</li>
+        <li>Biobanks &amp; population diversity</li>
+        <li>A clinical case · the filtering funnel</li>
+      </ol>
+      <aside class="notes">
+        Here is the path. First, the four-question framework and the tools that automate annotation. Second, the three-tier database hierarchy: dbSNP, gnomAD, and ClinVar. Third, the HGVS nomenclature standard and a fully worked variant interpretation example. Fourth, when ClinVar fails us — computational predictors like CADD, REVEL, and AlphaMissense. Fifth, how clinicians actually classify variants using the ACMG criteria. Sixth, why population diversity in biobanks is essential. And seventh, a real clinical case showing the filtering funnel from millions to one. Let's go.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · THE FOUR QUESTIONS
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>The Four<br>Core Questions</h1>
+      <aside class="notes">
+        We start with the foundational frame. Every variant in a VCF must answer these four questions before any clinical or research conclusion is possible. Skip any one of them and you can be badly wrong.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>The four-question frame</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter7_fig1.png" alt="Four core questions of variant annotation: location, function, population, clinical">
+        <figcaption>
+          <strong>Figure 1.</strong> Every variant must be evaluated across four dimensions: genomic location, functional consequence, population frequency, and clinical relevance.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here are the four questions in one figure. Notice they form a logical pipeline. Location tells you what the variant could possibly affect. Function tells you what it actually does at the molecular level. Population frequency tells you how plausible it is as a rare-disease cause. And clinical interpretation pulls in everything we already know from prior cases. Each question constrains the next. A variant in a non-coding intergenic region — question one already softens the impact assumption.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Question 1 · Location</h2>
+      <ul>
+        <li><strong>Coding exon</strong> — most likely to disrupt protein</li>
+        <li><strong>Intron</strong> — usually neutral, except splice sites</li>
+        <li><strong>5' / 3' UTR</strong> — translation, stability</li>
+        <li><strong>Promoter / enhancer</strong> — regulatory</li>
+        <li><strong>Intergenic</strong> — often unannotated function</li>
+      </ul>
+      <aside class="notes">
+        Location first. A variant in a coding exon directly changes a protein and demands attention. A variant in the middle of an intron is usually irrelevant — except at the splice donor or acceptor sites, where it can break splicing entirely. UTRs, the regions flanking the coding sequence, can affect translation efficiency or RNA stability. Promoters and enhancers control whether a gene is expressed at all. And intergenic variants — between genes, with no known function — are the largest category and the hardest to interpret. Where the variant sits constrains every downstream question.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Question 2 · Function</h2>
+      <table>
+        <thead><tr><th>Class</th><th>Effect</th><th>Severity</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Stop-gain</strong></td><td>Premature stop · truncated protein</td><td>HIGH</td></tr>
+          <tr><td><strong>Frameshift</strong></td><td>Reading frame disrupted</td><td>HIGH</td></tr>
+          <tr><td><strong>Splice site</strong></td><td>Exon skipping · intron retention</td><td>HIGH</td></tr>
+          <tr><td><strong>Missense</strong></td><td>One amino acid changed</td><td>MODERATE</td></tr>
+          <tr><td><strong>Synonymous</strong></td><td>Silent · same amino acid</td><td>LOW</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Function adds a severity tier. Stop-gain variants insert a premature stop codon and produce a truncated, usually non-functional protein — high impact. Frameshifts shift the reading frame and produce gibberish downstream — also high. Splice site variants destroy the donor or acceptor sequence and cause exon skipping or intron retention — high. Missense variants swap one amino acid for another — moderate, because the effect depends on the substitution. And synonymous variants change a nucleotide but not the amino acid — usually low impact, though not always silent. This severity ladder is what tools like SnpEff use to triage.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Question 3 · Population frequency</h2>
+      <ul>
+        <li>Common variant (&gt;1%) → <strong>not</strong> a severe rare disease cause</li>
+        <li>Rare variant (&lt;0.1%) → <strong>candidate</strong> for rare disease</li>
+        <li>Singleton or absent → <strong>flag for follow-up</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        A variant common in the population<br>cannot cause severe childhood disease.
+      </blockquote>
+      <aside class="notes">
+        The third question is brutal in its simplicity. If a variant is common in the population — say, present in more than one percent of people — it cannot be the cause of a severe childhood disease. The logic is straightforward. If it caused severe disease, natural selection would have removed it. So when you see a candidate variant for a rare disorder, the first sanity check is the allele frequency. Common means benign for rare disease. Rare or absent means candidate. This single principle eliminates ninety-five percent of variants instantly.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Question 4 · Clinical</h2>
+      <ul>
+        <li>Has this exact variant been seen <strong>before</strong>?</li>
+        <li>If yes — was it linked to a disease?</li>
+        <li>If linked — by <strong>how many</strong> labs, on <strong>what</strong> evidence?</li>
+      </ul>
+      <p style="margin-top:0.6em;">Question four is where <strong>ClinVar</strong> lives.</p>
+      <aside class="notes">
+        Finally, the clinical question. Has anyone, anywhere, ever seen this exact variant before? If they have, was it associated with a disease in their patient? And if it was, how many independent labs have reported the same association, and what evidence backed each report? This is the question that ClinVar exists to answer, and we will spend a whole section on it. The other three questions tell you what a variant could do. Question four tells you what it has done.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Tools that answer these questions</h2>
+      <table>
+        <thead><tr><th>Tool</th><th>Strength</th><th>Output example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>VEP</strong> (Ensembl)</td><td>Comprehensive location · regulatory regions</td><td>"CFTR exon 11, stop-gain, p.Gly542*"</td></tr>
+          <tr><td><strong>ANNOVAR</strong></td><td>Multi-database integration · filtering</td><td>Adds gnomAD frequencies, conservation, disease links</td></tr>
+          <tr><td><strong>SnpEff</strong></td><td>Automatic impact tier</td><td>HIGH / MODERATE / LOW / MODIFIER</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.9em;">In practice, researchers run <strong>multiple tools</strong> for cross-validation.</p>
+      <aside class="notes">
+        Three tools dominate the annotation landscape. VEP, the Variant Effect Predictor from Ensembl, is the most comprehensive — it handles coding regions, splice sites, regulatory elements, and miRNA target sites. ANNOVAR is the integration champion — it pulls in dozens of databases and lets you filter on any combination of annotations. And SnpEff is the fast triager — it gives every variant a one-word impact tier — high, moderate, low, or modifier — that you can use for instant prioritization. In practice, large studies run all three and require agreement before flagging a variant.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE THREE-TIER DATABASE SYSTEM
+         ==================================================== -->
+
+    <!-- Slide 14 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The Three-Tier<br>Database System</h1>
+      <aside class="notes">
+        Now we move from the four questions to where the answers actually live. The variant database ecosystem has hundreds of resources, but three sit at the center of every clinical pipeline. They form a hierarchy: catalog, frequency, clinical. Learn these three and you understand ninety percent of variant interpretation.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>The hierarchy</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter7_fig2.png" alt="Three-tier variant database system: dbSNP, gnomAD, ClinVar">
+        <figcaption>
+          <strong>Figure 2.</strong> dbSNP catalogs known variants, gnomAD provides population frequencies, ClinVar offers clinical interpretations. Each tier answers a different question.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the three-tier system in one figure. dbSNP at the bottom — the broadest catalog, asking simply "has this variant been seen before?" gnomAD in the middle — quantifying how often it is seen, and in which populations. ClinVar at the top — connecting variants to diseases when the evidence supports it. Each tier filters the layer below it. dbSNP has over a billion entries. gnomAD has tens of millions. ClinVar has a few million. The funnel narrows toward clinical relevance.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Tier 1 · dbSNP — the catalog</h2>
+      <ul>
+        <li>NCBI · maintained since <strong>1998</strong></li>
+        <li>Over <strong>1.1 billion</strong> variant sites</li>
+        <li>Each variant gets a unique <code>rs</code> number — e.g. <code>rs429358</code></li>
+        <li>Question answered: <em>"Has this variant been documented?"</em></li>
+      </ul>
+      <p style="margin-top:0.6em; font-size:0.9em;">A common variant with an old <code>rs</code> ID is almost always benign.</p>
+      <aside class="notes">
+        Tier one. dbSNP, the Single Nucleotide Polymorphism Database, run by NCBI since nineteen ninety-eight. It is the comprehensive variant catalog — over one point one billion entries. Every variant submitted gets a unique identifier called an rs number — short for reference SNP. You will see these in the literature constantly — rs four two nine three five eight is the famous APOE epsilon four allele. The question dbSNP answers is the most basic possible: has this variant been seen before by anyone? If your variant has an old rs ID and is common, it is almost certainly not what you are looking for.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>Tier 2 · gnomAD — the frequency reference</h2>
+      <ul>
+        <li>Aggregates sequencing data from <strong>140,000+</strong> individuals</li>
+        <li>Allele frequencies <strong>by population</strong> · African, East Asian, European, etc.</li>
+        <li>Question answered: <em>"How common is this variant?"</em></li>
+        <li>Provides <strong>constraint scores</strong> — pLI, LOEUF, missense Z</li>
+      </ul>
+      <aside class="notes">
+        Tier two. gnomAD, the Genome Aggregation Database. Over one hundred forty thousand human exomes and genomes from broad and inclusive populations, all aligned, jointly called, and quality controlled. It does what dbSNP cannot — it tells you how often each variant appears, broken down by population. African, East Asian, South Asian, European, Latino, and Ashkenazi Jewish are the standard groupings. It also computes constraint scores that tell you how tolerant a gene is to loss of function — pLI and LOEUF — which we will see in chapter eight. gnomAD is arguably the most-used resource in clinical genomics today.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>gnomAD logic in practice</h2>
+      <div class="cols">
+        <div>
+          <h3>Allele frequency 1%</h3>
+          <ul>
+            <li>Probably <strong>not</strong> the cause</li>
+            <li>Too common for severe disease</li>
+            <li>De-prioritize</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Absent from 140,000+</h3>
+          <ul>
+            <li><strong>Suspicious</strong> — investigate</li>
+            <li>Either ultra-rare or novel</li>
+            <li>High candidate priority</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the gnomAD logic that you will use every week as a clinical geneticist. A variant with an allele frequency of one percent in the matched population — that is one in fifty people carries it. Far too common to cause a severe childhood disorder. De-prioritize. A variant that is absent from all one hundred forty thousand individuals — that is the suspicious case. Either it is ultra-rare in the population, or it is novel and arose in your patient. High priority for follow-up. The contrast between these two cases is the heart of variant prioritization.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why population diversity matters</h2>
+      <blockquote style="font-size:1.05em;">
+        A variant common in East Asians<br>but absent from European data<br>can be wrongly labeled <strong>pathogenic</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Reference data must <strong>match</strong> patient ancestry</li>
+        <li>Old gnomAD versions were European-skewed</li>
+        <li>Korean Variant Archive (<strong>KOVA</strong>): <strong>22.8%</strong> better filtering for Korean patients</li>
+      </ul>
+      <aside class="notes">
+        Why does it matter that gnomAD spans many populations? Consider a real failure mode. A variant is common — say five percent — among East Asians, but completely absent from European cohorts. If your reference database only contains Europeans, the variant looks ultra-rare and gets flagged as a candidate disease cause. In a Korean patient, that is a clinical error in the making. The Korean Variant Archive, KOVA, was built precisely to fix this — adding five thousand Korean genomes as a local reference. Studies show it improves variant filtering by twenty-two point eight percent for Korean patients compared to using European data alone. Diversity is not a slogan. It is methodology.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Tier 3 · ClinVar — clinical interpretation</h2>
+      <ul>
+        <li>NCBI clinical variant database</li>
+        <li>Links variants → diseases with <strong>evidence-based</strong> classifications</li>
+        <li>Submitted by labs, hospitals, expert panels worldwide</li>
+        <li>Question answered: <em>"Is this variant disease-causing?"</em></li>
+      </ul>
+      <aside class="notes">
+        Tier three. ClinVar, also from NCBI, is the database that connects variants to clinical interpretations. Unlike dbSNP and gnomAD, which are agnostic about disease, ClinVar contains explicit assertions: this variant causes that disease, and here is the evidence. Submissions come from clinical labs, academic medical centers, and expert panels. The most authoritative entries have multiple submitters in concordance. The least authoritative are single submissions with thin evidence. The interpretation rests on the entire chain.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>The five-tier classification</h2>
+      <table>
+        <thead><tr><th>Class</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pathogenic</strong></td><td>Causes disease · strong evidence</td></tr>
+          <tr><td><strong>Likely pathogenic</strong></td><td>Probably causes disease · &gt; 90%</td></tr>
+          <tr><td><strong>VUS</strong></td><td>Variant of Uncertain Significance</td></tr>
+          <tr><td><strong>Likely benign</strong></td><td>Probably harmless · &gt; 90%</td></tr>
+          <tr><td><strong>Benign</strong></td><td>Harmless · strong evidence</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        ClinVar uses a five-tier classification. At the top — pathogenic — strong evidence the variant causes disease. Below that — likely pathogenic — more than ninety percent confidence but not yet definitive. In the middle — VUS, the variant of uncertain significance — the most clinically frustrating category, because there is some evidence but not enough either way. Then likely benign, more than ninety percent confidence the variant is harmless. And finally benign, with strong evidence of harmlessness. The two ends are clinically actionable. The middle three require judgment, and especially the VUS bucket consumes most of clinical genomics' time.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The VUS challenge</h2>
+      <ul>
+        <li>Many variants lack <strong>sufficient evidence</strong></li>
+        <li>Cannot return as pathogenic <em>or</em> benign</li>
+        <li>Patients often <strong>recheck annually</strong> as data accrues</li>
+        <li>VUS reclassification is the slow grind of clinical genomics</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Today's VUS is tomorrow's diagnosis<br>— or tomorrow's reassurance.
+      </blockquote>
+      <aside class="notes">
+        The VUS problem deserves its own slide. Roughly one third of variants reported in clinical testing return as VUS — uncertain. The lab cannot in good conscience call them pathogenic, but cannot rule them out either. Patients are told to come back periodically — every year or two — because as more cases accumulate in ClinVar, today's VUS may resolve into a confident pathogenic or benign call. This reclassification work is the slow grind of clinical genomics. It is also why open data sharing is so vital — every reported case helps the next family.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Three databases · three questions</h2>
+      <table>
+        <thead><tr><th>Tier</th><th>Database</th><th>Asks</th><th>Scale</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>dbSNP</strong></td><td>Has it been seen?</td><td>1.1 billion</td></tr>
+          <tr><td>2</td><td><strong>gnomAD</strong></td><td>How common is it?</td><td>140,000+ samples</td></tr>
+          <tr><td>3</td><td><strong>ClinVar</strong></td><td>Does it cause disease?</td><td>3 million entries</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Putting it all together — the three-tier database system in one table. dbSNP at one point one billion variant sites answers "has anyone documented this?" gnomAD at one hundred forty thousand individuals answers "how common is it, and in which populations?" ClinVar at roughly three million curated entries answers "does it actually cause disease?" Together these three resources are the spine of every clinical variant interpretation pipeline in the world today.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · HGVS AND A WORKED EXAMPLE
+         ==================================================== -->
+
+    <!-- Slide 24 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>HGVS &amp;<br>A Worked Variant</h1>
+      <aside class="notes">
+        We have talked about variants in abstract. Now let's get concrete. Variants need a standard name — that is the HGVS nomenclature. Then we will walk a single real-world variant through the entire interpretation pipeline.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>HGVS · the variant naming standard</h2>
+      <ul>
+        <li><strong>Human Genome Variation Society</strong> nomenclature</li>
+        <li>One unambiguous name for any variant</li>
+        <li>Three coordinate systems: <code>g.</code> genomic · <code>c.</code> coding · <code>p.</code> protein</li>
+      </ul>
+      <div class="formula">
+        NM_007294.3 : c.181T&gt;G  →  p.Cys61Gly
+      </div>
+      <aside class="notes">
+        HGVS — the Human Genome Variation Society — defined the universal naming standard for variants. The goal is simple: any single variant should have one unambiguous name that any clinician anywhere can decode. Three coordinate systems are used. Lowercase g for genomic position on a chromosome. Lowercase c for position on a coding sequence — counted from the start codon. Lowercase p for position on a protein. The example here — NM underscore zero zero seven two nine four point three colon c dot one eight one T greater than G — translates to "in BRCA one transcript NM zero zero seven two nine four version three, position one eighty-one of the coding sequence, T changes to G." That recodes to protein cysteine sixty-one to glycine.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Worked example · BRCA1 c.181T&gt;G</h2>
+      <div class="cols">
+        <div>
+          <h3>Step 1 · Location</h3>
+          <ul>
+            <li>Gene: <strong>BRCA1</strong></li>
+            <li>Exon 5</li>
+            <li>RING domain</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Step 2 · Function</h3>
+          <ul>
+            <li><strong>Missense</strong></li>
+            <li>Cys61 → Gly</li>
+            <li>Loses zinc-binding cysteine</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Now the full walkthrough. BRCA one c dot one eighty-one T to G. Step one — location. The variant lies in BRCA one, exon five, in the RING domain at the protein's amino terminus. The RING domain is essential for the protein's function as a tumor suppressor — it is what gives BRCA one its enzymatic activity. Step two — function. The variant is a missense — single amino acid change from cysteine to glycine. Why does that matter? Because the RING domain coordinates a zinc ion using cysteine residues, and cysteine sixty-one is one of those zinc-binding cysteines. Lose it and the structure collapses.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Worked example · continued</h2>
+      <div class="cols">
+        <div>
+          <h3>Step 3 · Population</h3>
+          <ul>
+            <li>gnomAD: <strong>absent</strong></li>
+            <li>0 / 140,000+ alleles</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Step 4 · Clinical</h3>
+          <ul>
+            <li>ClinVar: <strong>Pathogenic</strong></li>
+            <li>30+ submissions</li>
+            <li>Founder mutation in some populations</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.8em;">
+        <strong>Verdict:</strong> Clinically actionable pathogenic variant — informs cancer screening &amp; family testing.
+      </p>
+      <aside class="notes">
+        Step three — population. We check gnomAD. The variant is absent from all one hundred forty thousand plus individuals. That is consistent with a high-penetrance disease allele. Step four — clinical. We check ClinVar. The variant has thirty-plus submissions, all converging on pathogenic, with multiple expert panel reviews. It is even known as a founder mutation in certain populations. Verdict — this is a clinically actionable pathogenic variant in a hereditary breast and ovarian cancer gene. The patient gets enhanced screening, possible prophylactic options, and the family gets cascade testing offered. That is the four-question framework end to end.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · COMPUTATIONAL PREDICTORS
+         ==================================================== -->
+
+    <!-- Slide 28 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>When ClinVar<br>Says Nothing</h1>
+      <aside class="notes">
+        The previous example was clean — the variant was a known pathogenic. But what about the variants ClinVar has never seen? That is where computational predictors come in. They are not perfect, but for novel variants, they are often all we have.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The novel variant problem</h2>
+      <ul>
+        <li>Most variants found in patients are <strong>not in ClinVar</strong></li>
+        <li>Especially missense — many possible amino acid swaps</li>
+        <li>Need to <strong>predict</strong> functional effect <em>in silico</em></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        For an absent or single-submission variant,<br>computational scores are the next step.
+      </blockquote>
+      <aside class="notes">
+        The novel variant problem. Most missense variants you find in any given patient are not yet in ClinVar — there are simply too many possible amino acid substitutions. Out of the roughly seven million possible missense variants in the human exome, only a few hundred thousand have been reported with disease links. For everything else, we turn to computational predictors that try to estimate from sequence and structure how damaging an amino acid change is likely to be.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Three modern predictors</h2>
+      <table>
+        <thead><tr><th>Tool</th><th>Score</th><th>Threshold</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CADD</strong></td><td>Phred-scaled</td><td>&gt;20 = top 1%<br>&gt;30 = top 0.1%</td><td>General variant impact</td></tr>
+          <tr><td><strong>REVEL</strong></td><td>0 – 1</td><td>&gt;0.5 likely pathogenic</td><td>Missense in Mendelian disease</td></tr>
+          <tr><td><strong>AlphaMissense</strong></td><td>Benign / Ambiguous / Pathogenic</td><td>3-class output</td><td>Structure-based · 71M variants</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Three predictors dominate today. CADD — Combined Annotation Dependent Depletion — uses a Phred-like score where higher is more deleterious. Above twenty puts you in the top one percent most damaging variants; above thirty puts you in the top zero point one percent. REVEL — Rare Exome Variant Ensemble Learner — scores missense variants on a zero to one scale, with above zero point five suggesting likely pathogenic. AlphaMissense, released by DeepMind in twenty twenty-three, uses AlphaFold-derived structural information and produces a three-class label across seventy-one million possible missense variants — benign, ambiguous, or pathogenic.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>An important limitation</h2>
+      <blockquote style="font-size:1.05em;">
+        These are <strong>predictions</strong>, not proof.<br>
+        Functional studies or clinical evidence<br>are required for confirmation.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Even AlphaMissense gets some <strong>known pathogenic</strong> variants wrong</li>
+        <li>Use as one piece of evidence — never alone</li>
+        <li>ACMG framework explicitly down-weights computational evidence</li>
+      </ul>
+      <aside class="notes">
+        Critical caveat. These tools produce predictions, not proof. AlphaMissense is the best predictor we have ever had, but it still misclassifies known pathogenic variants several percent of the time. CADD and REVEL have similar error rates. So the rule is — use them as one line of evidence, never as the sole basis for a clinical call. The ACMG guidelines, which we will see next, explicitly limit how much weight in silico predictions can carry. The predictors get a vote, not a veto.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Integrating evidence</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter7_fig3.png" alt="Integration of multiple evidence sources for variant interpretation">
+        <figcaption>
+          <strong>Figure 3.</strong> Clinical interpretation requires convergence of population data, databases, computational predictions, and patient phenotype.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        The figure makes the point visually. Clinical interpretation is not one piece of evidence — it is convergence. Population data tells you frequency. Databases tell you if anyone has seen it. Computational predictors estimate damage. Patient phenotype tells you whether the gene fits the disease. Only when these converge does a clinical call become defensible. A single line of evidence is never enough. That convergence requirement is formalized by the next framework we will see — the ACMG criteria.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · ACMG/AMP FRAMEWORK
+         ==================================================== -->
+
+    <!-- Slide 33 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>The ACMG/AMP<br>Classification Framework</h1>
+      <aside class="notes">
+        The American College of Medical Genetics and the Association for Molecular Pathology in twenty fifteen jointly published a framework for variant interpretation that has become the global standard. It is the formal rule-set behind every ClinVar pathogenic call. We will not memorize the codes — but we will see how the system works, because it is what every clinical lab uses.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>The ACMG idea</h2>
+      <ul>
+        <li>Define <strong>standardized evidence codes</strong> · ~28 of them</li>
+        <li>Weight each code: <strong>very strong · strong · moderate · supporting</strong></li>
+        <li>Combine codes → final 5-tier classification</li>
+        <li>Two axes: <strong>pathogenic</strong> evidence vs <strong>benign</strong> evidence</li>
+      </ul>
+      <aside class="notes">
+        The ACMG framework defines roughly twenty-eight standardized evidence codes, each tagged with a weight — very strong, strong, moderate, or supporting. Codes are split between evidence that argues for pathogenicity and evidence that argues for benignity. To classify a variant, the lab assigns whichever codes apply, then runs a combinatorial rule set that maps the collection of codes to one of the five final tiers — pathogenic, likely pathogenic, VUS, likely benign, benign. It is essentially a structured scoring system for evidence.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Key pathogenic evidence codes</h2>
+      <table>
+        <thead><tr><th>Code</th><th>Weight</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>PVS1</strong></td><td>Very strong</td><td>Null variant in a LoF-disease gene</td></tr>
+          <tr><td><strong>PS1</strong></td><td>Strong</td><td>Same amino-acid change as known pathogenic</td></tr>
+          <tr><td><strong>PS2</strong></td><td>Strong</td><td>De novo · confirmed parents</td></tr>
+          <tr><td><strong>PM1</strong></td><td>Moderate</td><td>Critical functional domain · hotspot</td></tr>
+          <tr><td><strong>PM2</strong></td><td>Moderate</td><td>Absent / ultra-rare in population data</td></tr>
+          <tr><td><strong>PP3</strong></td><td>Supporting</td><td>Multiple computational lines agree</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are six of the most-used pathogenic codes. PVS one — very strong — applies when the variant is a clear loss-of-function — a stop-gain, frameshift, or canonical splice site — in a gene where loss of function is a known disease mechanism. PS one — same amino acid change as a previously reported pathogenic variant. PS two — de novo, with confirmed parental relationships. PM one — sits in a critical functional domain or known mutational hotspot. PM two — absent or ultra-rare in gnomAD. And PP three — multiple computational predictors agree on damage. Notice how each code maps to one of our four core questions.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Key benign evidence codes</h2>
+      <table>
+        <thead><tr><th>Code</th><th>Weight</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>BA1</strong></td><td>Stand-alone</td><td>Allele frequency ≥ <strong>5%</strong> in any population</td></tr>
+          <tr><td><strong>BS1</strong></td><td>Strong</td><td>Higher frequency than expected for the disease</td></tr>
+          <tr><td><strong>BS3</strong></td><td>Strong</td><td>Functional studies show <strong>no</strong> damaging effect</td></tr>
+          <tr><td><strong>BP4</strong></td><td>Supporting</td><td>Computational lines agree: benign</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        And the matching benign codes. BA one is the clinical kill switch — if a variant is at five percent or higher allele frequency in any general population, it is automatically benign for severe disease. No further analysis needed. BS one — higher frequency than the disease itself would allow. BS three — functional studies in the lab show no damaging effect. And BP four — computational predictors agree the variant is benign. Like the pathogenic codes, these map back to the four core questions.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Combining codes · example</h2>
+      <p>BRCA1 c.181T&gt;G accumulates:</p>
+      <ul>
+        <li><strong>PS1</strong> · same amino acid change as known pathogenic</li>
+        <li><strong>PM1</strong> · RING domain · critical for function</li>
+        <li><strong>PM2</strong> · absent in gnomAD</li>
+        <li><strong>PP3</strong> · CADD, REVEL, AlphaMissense all agree</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        1 strong + 2 moderate + 1 supporting → <strong>Pathogenic</strong>
+      </blockquote>
+      <aside class="notes">
+        Going back to our BRCA one c dot one eighty-one T to G example. Walk the codes. PS one — yes, the same cysteine sixty-one to glycine change has been reported pathogenic before. PM one — yes, the RING domain is a critical functional domain. PM two — yes, absent from gnomAD. PP three — yes, all three computational predictors flag it as damaging. One strong plus two moderate plus one supporting — by ACMG combinatorial rules, this is Pathogenic. The structured framework gives you a defensible audit trail for the call.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · BIOBANKS & ANNOTATION FRAMEWORK
+         ==================================================== -->
+
+    <!-- Slide 38 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Biobanks &amp;<br>Genome Annotation</h1>
+      <aside class="notes">
+        Two more topics before we put it all together. First, the genome annotation that underlies everything — the gene models we map variants to. Second, biobanks — the vast collections of genotype-plus-phenotype data that connect variants to traits at population scale.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>GENCODE vs RefSeq</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>GENCODE</th><th>RefSeq</th></tr></thead>
+        <tbody>
+          <tr><td>Coverage</td><td>~45,000 genes (coding + non-coding)</td><td>~20,000 protein-coding</td></tr>
+          <tr><td>Curation</td><td>Manual + automated</td><td>Primarily manual</td></tr>
+          <tr><td>IDs</td><td><code>ENSG / ENST</code></td><td><code>NM_ / NP_</code></td></tr>
+          <tr><td>Best for</td><td>Research · non-coding RNA</td><td><strong>Clinical</strong> diagnostics</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.9em;">Clinical reports use RefSeq: <code>NM_007294.3:c.5266dup</code></p>
+      <aside class="notes">
+        Before annotating variants, you need a map of the genome — where the genes sit, where the exons start and end, where the regulatory regions are. Two competing annotation sets dominate. GENCODE — comprehensive, includes both coding and non-coding genes, around forty-five thousand entries, identified by ENSG and ENST prefixes. Used heavily in research, especially for non-coding RNA studies. RefSeq — conservative, focused on protein-coding genes, around twenty thousand entries, identified by NM and NP prefixes. RefSeq is the clinical standard. Every diagnostic report you will ever read uses RefSeq coordinates — for example, BRCA one founder mutation reported as NM zero zero seven two nine four point three colon c dot five two six six dup.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>Biobanks · genotype + phenotype at scale</h2>
+      <ul>
+        <li>Large collections of <strong>DNA + health records</strong></li>
+        <li>Question: <em>"Do carriers of variant X have higher disease rates?"</em></li>
+        <li>Power: link <strong>variation</strong> to <strong>outcomes</strong> at population scale</li>
+        <li>The substrate of <strong>GWAS</strong>, drug discovery, drug response</li>
+      </ul>
+      <aside class="notes">
+        Biobanks are the next layer up. They are collections of DNA samples linked to detailed phenotype data — health records, lab values, imaging, sometimes lifestyle questionnaires. The fundamental question they answer is: do people who carry variant X have higher rates of disease Y than people who do not? They power genome-wide association studies, drug target discovery, pharmacogenomics, and disease risk prediction. The scale is what makes them powerful — hundreds of thousands of individuals deeply phenotyped.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <h2>Major biobanks</h2>
+      <table>
+        <thead><tr><th>Biobank</th><th>Scale</th><th>Population</th><th>Strength</th></tr></thead>
+        <tbody>
+          <tr><td><strong>UK Biobank</strong></td><td>500,000</td><td>UK adults</td><td>NHS records + imaging</td></tr>
+          <tr><td><strong>All of Us</strong></td><td>245,000+</td><td>US · diversity focus</td><td>Health disparities</td></tr>
+          <tr><td><strong>KOVA</strong></td><td>5,305</td><td>Korean</td><td>East Asian reference</td></tr>
+          <tr><td><strong>FinnGen</strong></td><td>500,000+</td><td>Finnish</td><td>Founder-effect rare variants</td></tr>
+          <tr><td><strong>ToMMo</strong></td><td>150,000</td><td>Japanese · 3 generations</td><td>Gene × environment longitudinal</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Five biobanks worth knowing by name. UK Biobank — five hundred thousand UK adults, the most-studied resource in genomics, with NHS health records and extensive imaging. All of Us — the US program, two hundred forty-five thousand and counting, with an explicit mandate to address health disparities through diverse recruitment. KOVA — the Korean Variant Archive, five thousand three hundred Korean genomes, our local reference. FinnGen — half a million Finns, leveraging the population's founder-effect history to find rare-variant associations. ToMMo — the Tohoku Medical Megabank, one hundred fifty thousand Japanese individuals tracked across three generations to study gene-environment interactions. Each fills a different gap.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>Why diversity is methodology</h2>
+      <blockquote style="font-size:1.05em;">
+        Population-specific data<br>prevents <strong>misclassification</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Old GWAS literature: <strong>~80%</strong> European participants</li>
+        <li>Polygenic risk scores trained in Europeans <strong>fail</strong> in Africans</li>
+        <li>Korean rare-disease screening needs Korean reference data</li>
+      </ul>
+      <aside class="notes">
+        I keep returning to this point because it is consequential. Population diversity in our reference resources is not optional — it is methodology. The historical genomics literature was about eighty percent European in participants. Polygenic risk scores trained on European data fail to predict accurately for African individuals. Korean rare-disease screening cannot use European reference frequencies without introducing systematic error. The equity argument and the technical argument converge — diverse data produces better science for everyone. KOVA, BBJ, ToMMo, and All of Us exist for this reason.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · A CLINICAL CASE
+         ==================================================== -->
+
+    <!-- Slide 43 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>A Clinical Case<br>from Millions to One</h1>
+      <aside class="notes">
+        Now we put everything together with a real case — a four-year-old patient walked through the entire variant filtering funnel from twenty-five thousand variants down to one diagnosis. This is what the field actually looks like in practice.
+      </aside>
+    </section>
+
+    <!-- Slide 44 -->
+    <section>
+      <h2>The patient</h2>
+      <ul>
+        <li>4-year-old · developmental delay</li>
+        <li>Recurrent <strong>seizures</strong> from infancy</li>
+        <li>Abnormal brain MRI</li>
+        <li>Three years of <strong>diagnostic odyssey</strong> · no answer</li>
+        <li>Whole-exome sequencing ordered</li>
+      </ul>
+      <aside class="notes">
+        A four-year-old girl. Developmental delay since infancy, recurrent seizures starting at six months of age, an abnormal brain M R I but no specific syndrome diagnosed. Her family had been through three years of what clinical geneticists call the diagnostic odyssey — multiple specialists, multiple tests, no answer. The clinical team finally ordered whole-exome sequencing as a last-resort diagnostic step. The pipeline returned about twenty-five thousand variants. Now what?
+      </aside>
+    </section>
+
+    <!-- Slide 45 -->
+    <section>
+      <h2>The filtering funnel</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter7_fig4.png" alt="The variant filtering funnel from millions of variants to one causal variant">
+        <figcaption>
+          <strong>Figure 4.</strong> Sequential filtering through annotation, population frequency, clinical databases, computational prediction, and phenotype matching narrows millions of variants to one causal candidate.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This figure shows the funnel that defines clinical genomics. Start broad — twenty-five thousand variants. Apply annotation — keep only those affecting protein function. Apply population frequency — keep only the rare ones. Apply clinical databases — keep only those in genes linked to the patient's symptoms. Apply computational predictors — keep only the ones flagged as damaging. Apply phenotype matching — keep only the gene whose disease profile fits. The funnel narrows by orders of magnitude at each step. By the bottom, you usually have one to three candidates left. This is the playbook.
+      </aside>
+    </section>
+
+    <!-- Slide 46 -->
+    <section>
+      <h2>The funnel in numbers</h2>
+      <table>
+        <thead><tr><th>Step</th><th>Filter</th><th>Variants left</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>WES total</td><td><strong>25,000</strong></td></tr>
+          <tr><td>1</td><td>Annotation: protein-affecting</td><td>~200</td></tr>
+          <tr><td>2</td><td>gnomAD &lt; 0.5%</td><td>~40</td></tr>
+          <tr><td>3</td><td>Genes matching phenotype</td><td>3</td></tr>
+          <tr><td>4</td><td>CADD/REVEL/AlphaMissense agreement</td><td><strong>1</strong></td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the funnel in literal numbers from this case. Twenty-five thousand variants from the exome. After annotation — keeping only variants that affect protein sequence — about two hundred. After applying gnomAD frequency below zero point five percent — about forty rare variants remain. After narrowing to genes whose known disease phenotypes overlap with seizures plus developmental delay — three candidate variants. After cross-checking computational predictors and confirming all three flag the variant as damaging — one final candidate. From twenty-five thousand to one in five filtering steps.
+      </aside>
+    </section>
+
+    <!-- Slide 47 -->
+    <section>
+      <h2>The diagnosis</h2>
+      <ul>
+        <li>Variant: <code>SCN1A · NM_001165963.4:c.4970G&gt;A · p.Arg1657His</code></li>
+        <li>CADD: <strong>32</strong> (top 0.1%)</li>
+        <li>REVEL: <strong>0.89</strong> · likely pathogenic</li>
+        <li>gnomAD: <strong>absent</strong> in 140,000+</li>
+        <li><strong>De novo</strong> · confirmed parents</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Diagnosis: <strong>Dravet syndrome</strong>
+      </blockquote>
+      <aside class="notes">
+        And here is the answer. A missense variant in S C N one A — a sodium channel gene. CADD score thirty-two — top zero point one percent of damaging variants genome-wide. REVEL zero point eight nine — well above the likely-pathogenic threshold. Absent from all one hundred forty thousand gnomAD individuals. And critically — confirmed de novo, meaning it appeared new in the patient and is not in either parent. The diagnosis — Dravet syndrome, a severe genetic epilepsy specifically caused by S C N one A loss of function. Diagnostic odyssey ended.
+      </aside>
+    </section>
+
+    <!-- Slide 48 -->
+    <section>
+      <h2>What the diagnosis enables</h2>
+      <ul>
+        <li>Treatment <strong>optimized</strong> — specific anti-seizure medications</li>
+        <li>Avoid <strong>contraindicated</strong> drugs (sodium channel blockers worsen Dravet)</li>
+        <li>Low <strong>recurrence risk</strong> for future children (de novo)</li>
+        <li>Family connected to Dravet support resources</li>
+        <li>Potential gene therapy / antisense trial enrollment</li>
+      </ul>
+      <aside class="notes">
+        Why does the diagnosis matter clinically? First, treatment becomes specific. Dravet has known effective medications and known contraindicated ones — sodium channel blockers, the first thing most epilepsy patients receive, actually worsen Dravet seizures. Knowing the gene avoids that error. Second, recurrence risk for future children is low because the variant was de novo, not inherited — that information matters for family planning. Third, the family connects to a community of other families dealing with the same disorder. And fourth, Dravet now has emerging therapies, including antisense oligonucleotides and gene therapy trials. Diagnosis is not the end — it is the beginning of targeted care.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 8 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 49 -->
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull it all together.
+      </aside>
+    </section>
+
+    <!-- Slide 50 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Annotation answers <strong>4 questions</strong>: location · function · frequency · clinical</li>
+        <li>Three-tier database: <strong>dbSNP → gnomAD → ClinVar</strong></li>
+        <li>HGVS gives every variant <strong>one canonical name</strong></li>
+        <li>Predictors (CADD, REVEL, AlphaMissense) — vote, never veto</li>
+        <li><strong>ACMG</strong> framework: structured evidence → 5-tier classification</li>
+        <li>Population <strong>diversity</strong> is methodology, not optics</li>
+      </ul>
+      <aside class="notes">
+        Six things to take away. One — every variant must answer four questions: location, function, population frequency, and clinical relevance. Two — three databases form the spine of variant interpretation: dbSNP for catalog, gnomAD for frequency, ClinVar for clinical interpretation. Three — HGVS provides one universal name per variant, with genomic, coding, and protein coordinates. Four — computational predictors like CADD, REVEL, and AlphaMissense add evidence but never replace it. Five — the ACMG framework formalizes how evidence is combined into one of five classification tiers. And six — population diversity in reference data is not a slogan, it is methodology — Korean patients need Korean reference data.
+      </aside>
+    </section>
+
+    <!-- Slide 51 -->
+    <section>
+      <h2>End of Part I · The Human Genome</h2>
+      <ul>
+        <li>Ch 1 · Human Genome Project — the reference</li>
+        <li>Ch 2 · T2T — closing the gaps</li>
+        <li>Ch 3 · Genome organization</li>
+        <li>Ch 4 · Pangenome</li>
+        <li>Ch 5 · Sequencing technology</li>
+        <li>Ch 6 · NGS applications</li>
+        <li>Ch 7 · <strong>Annotation &amp; databases</strong> — making sense of it</li>
+      </ul>
+      <aside class="notes">
+        With chapter seven, we close Part One — the Human Genome. We started with the reference itself, the Human Genome Project. We added the missing eight percent with T2T. We learned how the genome is organized and how it varies — the pangenome. We learned how to read genomes — short read and long read sequencing. We learned how to apply that reading at scale — whole-exome and whole-genome studies. And today we learned how to make sense of the millions of variants those reads produce. The reference plus the methods plus the interpretation framework — that is the toolkit.
+      </aside>
+    </section>
+
+    <!-- Slide 52 -->
+    <section>
+      <div class="cue">Next · Part II</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        We have the <em>tools</em>.<br>
+        Now let's look at the<br>
+        <span style="color:var(--terracotta-deep);">variants themselves</span>.
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Part II · <strong>Genetic Variation</strong> — types · mechanisms · consequences
+      </p>
+      <aside class="notes">
+        And one question to leave you with. We now have the tools to find variants and the framework to interpret them. But what are variants, mechanistically? Why do some single-letter changes cause devastating disease while others do nothing? Why do some genes tolerate loss of function and others not? Why is one mutation a founder effect in Koreans and another a founder effect in Ashkenazi Jews? That is Part Two — genetic variation itself. Types, mechanisms, consequences. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

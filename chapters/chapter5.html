@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5 · Next-Generation Sequencing Technologies — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Next-Generation<br>Sequencing</h1>
+      <div class="chapter-num">Chapter 5 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome back to BSMS two oh five. Last time we looked at the pangenome — how a single reference genome was never enough to capture human diversity, and how dozens of genomes from around the world give us a fuller picture. But here is the obvious question that chapter four left hanging. To build all those genomes — forty-seven of them, and counting — we needed a sequencing revolution. We needed to sequence cheaply, quickly, and at massive scale. Today's lecture is about that revolution. It is called next-generation sequencing, or NGS, and it is what made every modern genomics project possible.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.6em; line-height:1.05; margin-top:0.2em;">
+        How do you read<br>3 billion letters<br>of <span style="color:var(--terracotta-deep)">DNA</span>?
+      </h1>
+      <aside class="notes">
+        Here is the question I want you to hold for the next sixty minutes. How do you actually read three billion letters of DNA — A, T, G, and C — for one person? And then how do you do it for a thousand people? A million people? Because that is the scale modern genetics works at. The Human Genome Project read three billion letters once and it took thirteen years and three hundred million dollars. Today, we read three billion letters per person, in a single afternoon, for under a thousand dollars. How did that happen? That is what we are going to unpack.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>From Chapter 4 to here</h2>
+      <ul>
+        <li>Pangenome needed <strong>47+ genomes</strong> from diverse populations</li>
+        <li>Each one assembled to <strong>T2T-quality</strong></li>
+        <li>That is <strong>impossible</strong> at $300 million per genome</li>
+        <li>The pangenome <em>presupposes</em> cheap sequencing</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        No NGS · no pangenome · no modern genetics.
+      </blockquote>
+      <aside class="notes">
+        Let's connect this to chapter four for a moment. The pangenome consortium needs forty-seven genomes from diverse populations, each assembled to telomere-to-telomere quality. Even if you could afford one genome at three hundred million dollars, you could not afford forty-seven. The pangenome project, the T2T project, the one thousand genomes project — every modern large-scale genomics effort presupposes that sequencing is cheap. Without next-generation sequencing, all of those projects would still be impossible thought experiments. So in a real sense, NGS is the substrate underneath everything we have discussed so far.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The audacious claim</div>
+      <div class="bignum">500,000×</div>
+      <div class="bignum-label">cost reduction in just over a decade</div>
+      <ul>
+        <li>2003: $300 million per genome</li>
+        <li>2014: $1,000 per genome</li>
+        <li>Today: <strong>under $600</strong> per genome</li>
+      </ul>
+      <aside class="notes">
+        Let me put one number on the slide that should make you stop and think. Five hundred thousand times. That is how much sequencing costs dropped in the two decades after the Human Genome Project. Three hundred million dollars in two thousand three. One thousand dollars by twenty fourteen. Under six hundred dollars today. That kind of cost reduction is unheard of in any technology. It is faster than computers got cheaper. Faster than solar got cheaper. It is the steepest cost curve in the history of biology, and arguably one of the steepest in the history of any technology. Let's understand how it happened.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>The Sanger bottleneck · why we needed something new</li>
+        <li>The NGS idea · massive parallelization</li>
+        <li>Key concepts · reads, coverage, depth, quality</li>
+        <li>Illumina · the short-read workhorse</li>
+        <li>PacBio &amp; Nanopore · long reads</li>
+        <li>The cost crash · economics of sequencing</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is where we are headed. First, the Sanger bottleneck — why the technology that finished the Human Genome Project could not scale up. Second, the core idea of NGS, which is one beautifully simple concept: do millions of things at once. Third, the vocabulary you will need — reads, coverage, depth, quality scores. Fourth, Illumina, the dominant short-read platform that handles most clinical and research sequencing today. Fifth, the long-read technologies — PacBio and Oxford Nanopore — and why long reads matter. Sixth, the economics, the famous cost-per-genome curve. And finally a wrap-up.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · THE SANGER BOTTLENECK
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>The Sanger<br>Bottleneck</h1>
+      <aside class="notes">
+        Let's start with what came before NGS. Sanger sequencing — the method that finished the Human Genome Project. It is accurate, it is reliable, and it is fundamentally serial. That serialness is what makes it a bottleneck. Understanding the bottleneck is the key to understanding why NGS was so transformative.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>Sanger · the gold standard</h2>
+      <ul>
+        <li>Developed in the <strong>1970s</strong> by Frederick Sanger</li>
+        <li>Sanger's <strong>second Nobel Prize</strong></li>
+        <li>Error rate <strong>&lt; 0.1%</strong> · extremely accurate</li>
+        <li>Reads one fragment at a time · serial</li>
+      </ul>
+      <aside class="notes">
+        Sanger sequencing was developed in the nineteen seventies by Frederick Sanger, and it earned him his second Nobel Prize. It is, even today, an extraordinarily accurate method — error rates well under zero point one percent. That is why it is still used in clinical labs to confirm important variants. But it has one feature that turned out to be its undoing for large-scale genomics. It reads one DNA fragment at a time. One fragment. Then the next. Then the next. It is fundamentally a serial process.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>The transcription analogy</h2>
+      <blockquote style="font-size:1.05em;">
+        Imagine transcribing a million books<br>
+        but you can only copy <strong>one sentence at a time</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>That is Sanger sequencing for the genome</li>
+        <li>3 billion letters · one fragment at a time</li>
+        <li>Even hundreds of machines running 24/7 · <strong>years</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the analogy I always come back to. Imagine you have to transcribe a million books, but the rule is — you can only read and copy one sentence at a time before moving on. You cannot have many people working in parallel. Just one sentence, one machine, one at a time. That is what Sanger sequencing does to the genome. Three billion letters, one fragment at a time. Even when the Human Genome Project ran hundreds of sequencing machines simultaneously, twenty-four hours a day, it took years to crawl through three billion bases. The serialness was the bottleneck.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>The bottleneck, visualized</h2>
+      <figure>
+        <img src="../assets/figures/textbook/ch5_fig1.png" alt="Sanger sequencing as a serial bottleneck">
+        <figcaption>
+          <strong>Figure 1.</strong> Sanger sequencing processes DNA fragments sequentially, one at a time. Reading a whole genome means reading billions of fragments in series — extremely slow and expensive at scale.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the bottleneck in one picture. Each fragment goes into the machine, gets read, and then the next one comes in. The fragments move through a single, narrow pipe. For a single gene, that is fine. For a whole genome, you are reading billions of fragments in series, and the time and cost just stack up. The HGP managed to do it once. But the moment you wanted to sequence a second person — let alone thousands of people — the bottleneck became prohibitive. Something had to give.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>What the field needed</h2>
+      <ul>
+        <li>Sequence not just <strong>one</strong> genome but <strong>thousands</strong></li>
+        <li>Compare healthy vs sick · find disease variants</li>
+        <li>Study variation across <strong>populations</strong></li>
+        <li>Diagnose patients in <strong>days</strong>, not decades</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        At $300M per genome · this was a fantasy.
+      </blockquote>
+      <aside class="notes">
+        After the HGP finished, the genomics community looked around and realized that one reference genome was just the beginning. To make sense of human disease, you need to compare genomes from thousands of healthy and sick people. To understand evolution and migration, you need to sequence genomes across populations. To use genetics in the clinic, you need to sequence patients in days, not decades. None of that was possible at three hundred million dollars a genome. It would not even have been possible at three million. The field needed something fundamentally different — faster, cheaper, more parallel. That something turned out to be NGS.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE NGS IDEA
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The NGS Idea<br>Massive Parallelism</h1>
+      <aside class="notes">
+        Now the fun part. The core idea of NGS — what makes it next-generation — is honestly one of the simplest ideas in technology. It is just one word. Parallelism. Instead of reading one fragment at a time, read millions of fragments at the same time. That is it. Let's see what this looks like.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>One simple change</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <h3>Sanger</h3>
+          <ul>
+            <li>One fragment at a time</li>
+            <li>Serial · slow</li>
+            <li>Years per genome</li>
+          </ul>
+        </div>
+        <div>
+          <h3>NGS</h3>
+          <ul>
+            <li><strong>Millions</strong> at a time</li>
+            <li>Parallel · fast</li>
+            <li><strong>Days</strong> per genome</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.8em;">Same chemistry idea — radically different <strong>scale</strong>.</p>
+      <aside class="notes">
+        Here is the contrast in one slide. On the left, Sanger — one fragment at a time, serial, years per genome. On the right, NGS — millions of fragments at a time, parallel, days per genome. The chemistry inside each method is different, but the conceptual leap is just this one thing: do many things at once. The same shift that turned mainframe computing into multi-core processors. The same shift that turned single-lane roads into highways. Take a serial process and make it parallel and the world changes.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>The book analogy returns</h2>
+      <blockquote style="font-size:1.05em;">
+        One person copying sentences sequentially<br>
+        becomes <strong>a million people</strong>, each on a different sentence.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Years collapse into days</li>
+        <li>Same total work · totally different time</li>
+        <li>That is the NGS bet</li>
+      </ul>
+      <aside class="notes">
+        Let me bring back the transcription analogy. Sanger sequencing was one person copying a book one sentence at a time. NGS is a million people each copying a different sentence at the same time. The total amount of work is roughly the same — millions of sentences still need to be copied — but the time it takes collapses from years to days. That is what parallelism buys you. It is not magic, it is throughput. And throughput is what genomics needed.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Massive parallelism, visualized</h2>
+      <figure>
+        <img src="../assets/figures/textbook/ch5_fig3.png" alt="Sanger vs NGS — serial vs massively parallel">
+        <figcaption>
+          <strong>Figure 2.</strong> Sanger sequences one fragment at a time. NGS sequences millions of fragments simultaneously. The same chemistry idea, scaled by parallelism, dropped sequencing time from years to days.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the textbook figure that captures the idea. On the Sanger side, you see fragments queuing up to go through one machine. On the NGS side, you see a flow cell — a flat surface — covered in millions of separate spots, each one running its own little sequencing reaction at the same time. By the time the camera takes a picture, every spot has advanced one base. Multiply that by millions of spots and hundreds of cycles, and you have generated billions of bases of sequence in a single run.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>From idea to industry · 2007 onwards</h2>
+      <ul>
+        <li><strong>2007</strong> · first NGS platforms commercially available</li>
+        <li><strong>2014</strong> · cost falls to ~$1,000 per genome</li>
+        <li><strong>2024</strong> · ~$600 per Illumina genome</li>
+        <li>Cost dropped <em>faster than Moore's Law</em></li>
+      </ul>
+      <aside class="notes">
+        How fast did this idea become reality? The first commercial NGS platforms appeared in two thousand seven. By twenty fourteen, the cost of a human genome had fallen to about one thousand dollars — a five hundred thousand-fold reduction over two decades. Today, six hundred dollars or less for an Illumina genome. And critically, this cost decline outpaced Moore's Law — the famous rule that computers get cheaper exponentially. That is unusual. It tells you that genomics technology was not just riding the computing curve. It was generating its own curve, even steeper.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · KEY CONCEPTS
+         ==================================================== -->
+
+    <!-- Slide 16 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Key Concepts<br>You'll Need</h1>
+      <aside class="notes">
+        Before we dive into the actual platforms, we need a shared vocabulary. There are five terms that come up over and over in any conversation about sequencing — reads, read length, coverage, depth, and quality scores. If you understand these five, you can read any sequencing paper. Let's go through them quickly.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>What is a "read"?</h2>
+      <ul>
+        <li>DNA is broken into <strong>fragments</strong></li>
+        <li>Each fragment is sequenced → produces a <strong>read</strong></li>
+        <li>A read = the letters of one fragment</li>
+        <li>One run = <strong>billions of reads</strong></li>
+      </ul>
+      <aside class="notes">
+        First, the read. When you sequence DNA, you do not read the genome end-to-end as one long string. You break it into millions of small fragments first, sequence each one, and then reassemble. Each fragment, after it goes through the sequencer, gives you a read — literally, a reading of that fragment's sequence in letters. A single Illumina run can produce billions of reads. Each read is short — typically a few hundred letters — but together they cover the genome many times over.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Read length varies by platform</h2>
+      <table>
+        <thead><tr><th>Platform</th><th>Typical read length</th></tr></thead>
+        <tbody>
+          <tr><td>Illumina</td><td><strong>50 – 300 bp</strong></td></tr>
+          <tr><td>PacBio Revio (HiFi)</td><td>~15,000 – 20,000 bp</td></tr>
+          <tr><td>Oxford Nanopore</td><td>up to <strong>&gt; 1,000,000 bp</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Illumina = <em>short read</em>. PacBio &amp; Nanopore = <em>long read</em>.</p>
+      <aside class="notes">
+        Here is where the platforms split into camps. Illumina, the dominant short-read platform, gives you reads that are one hundred fifty to three hundred base pairs long. PacBio's HiFi reads are about fifteen to twenty thousand base pairs — roughly a hundred times longer. And Oxford Nanopore can produce reads exceeding one million base pairs in length. So when people talk about short-read versus long-read sequencing, they are really talking about a five orders of magnitude difference. We will come back to why that matters in section five.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Coverage vs depth</h2>
+      <div class="cols">
+        <div>
+          <h3>Coverage</h3>
+          <ul>
+            <li><strong>What fraction</strong> of the genome was sequenced</li>
+            <li>e.g. 95% coverage = 5% missing</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Depth</h3>
+          <ul>
+            <li><strong>How many times</strong> each base was read</li>
+            <li>e.g. 30× depth = avg. 30 reads per base</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em;">
+        Different questions · often confused.
+      </blockquote>
+      <aside class="notes">
+        Coverage and depth get mixed up constantly, even by experienced people. They are answering two different questions. Coverage asks: what fraction of my target — the genome, an exome, a gene panel — did I actually sequence at all? Ninety-five percent coverage means five percent has no reads, usually because of repetitive regions that are hard to sequence. Depth, on the other hand, asks: how many reads cover each position on average? Thirty-times depth, written three zero with a multiplication sign and pronounced "thirty-times depth," means each base in the genome is, on average, present in thirty different reads.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Why depth matters</h2>
+      <ul>
+        <li>Sequencing is not perfect · errors happen</li>
+        <li>Need <strong>multiple reads</strong> per base to call variants confidently</li>
+        <li>20 of 30 reads agree → <strong>real variant</strong></li>
+        <li>1 of 2 reads disagree → <strong>probably error</strong></li>
+      </ul>
+      <p style="margin-top:0.6em;"><strong>30×</strong> is the minimum for reliable human variant detection.</p>
+      <aside class="notes">
+        Why does depth matter so much? Because every sequencing technology makes occasional errors. When you call a variant — say, a single-letter difference from the reference — you need statistical confidence that what you are seeing is a real biological variant and not a sequencing artifact. If twenty of thirty reads at a position say "G" instead of "A," that is a credible variant call. If one of two reads disagrees with the reference, you cannot tell whether it is a real variant or just an error. For human variant calling in the clinic, thirty-times depth is the widely accepted minimum.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Reads, coverage, depth · in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/ch5_fig4.png" alt="Reads, coverage, and depth explained">
+        <figcaption>
+          <strong>Figure 3.</strong> Coverage = what fraction of the genome was sequenced at all. Depth = how many times each position was read on average. Higher depth → more confidence in distinguishing real variants from sequencing errors.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the textbook visual that ties reads, coverage, and depth together. Each horizontal bar is a read. Stack them up against a reference, and at any vertical column you can count how many reads cover that base — that is the depth at that position. The width of the region with at least one read is the coverage. You can have high coverage but low depth — you read everything once — or you can have variable depth across the genome, which is normal because some regions are easier to sequence than others.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>Quality scores · how confident is the call?</h2>
+      <table>
+        <thead><tr><th>Q score</th><th>Confidence</th><th>Error rate</th></tr></thead>
+        <tbody>
+          <tr><td>Q20</td><td>99%</td><td>1 / 100</td></tr>
+          <tr><td><strong>Q30</strong></td><td><strong>99.9%</strong></td><td>1 / 1,000</td></tr>
+          <tr><td>Q40</td><td>99.99%</td><td>1 / 10,000</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Q30+ bases = the gold standard for variant calling.</p>
+      <aside class="notes">
+        Last vocabulary item — quality scores. Every base call comes with a Q score that tells you how confident the sequencer was. Q twenty means ninety-nine percent confidence, or one error in a hundred. Q thirty means ninety-nine point nine percent, or one error in a thousand. Q forty is even better — one error in ten thousand. Q thirty is the standard threshold for high-quality bases, and most modern Illumina runs produce more than ninety percent of bases at Q thirty or higher. You will see Q scores quoted constantly in QC reports, so it is worth keeping these numbers in your head.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · ILLUMINA
+         ==================================================== -->
+
+    <!-- Slide 23 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Illumina<br>The Workhorse</h1>
+      <aside class="notes">
+        Now to the dominant platform. If you read a paper that mentions sequencing without specifying the platform, it is almost certainly Illumina. It is the workhorse — the routine, reliable, cost-effective short-read sequencer that does the bulk of clinical and research sequencing today. Let's see how it works.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Sequencing by synthesis</h2>
+      <ol>
+        <li>DNA fragments stick to a flat <strong>flow cell</strong></li>
+        <li>Each fragment is amplified into a <strong>cluster</strong></li>
+        <li>Add <strong>fluorescent</strong> A, C, G, T — one base at a time</li>
+        <li>Camera snaps a picture of every cluster</li>
+        <li>Wash · cleave · repeat · for hundreds of cycles</li>
+      </ol>
+      <aside class="notes">
+        Here is the Illumina workflow at a high level. Step one — DNA fragments are attached to a flat surface called a flow cell, which contains millions of tiny binding sites. Step two — each fragment is locally amplified into a cluster of identical copies, like making thousands of photocopies of one page in one place. Step three — the machine flows in fluorescently labeled A, C, G, and T, each base tagged with a different color. Step four — a camera takes a picture, and from the color of each cluster, the software reads the next base. Step five — the dye is cleaved off, and the cycle repeats. Hundreds of cycles, millions of clusters, billions of bases per run.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Why this works at scale</h2>
+      <ul>
+        <li>Millions of clusters · <strong>one camera shot</strong> reads all of them</li>
+        <li>Every cycle = one new base for every cluster</li>
+        <li>Hundreds of cycles → <strong>~200 bp reads</strong></li>
+        <li>Billions of bases per run · routine</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The flow cell is the parallelism made physical.
+      </blockquote>
+      <aside class="notes">
+        The reason Illumina scales so well is that the camera is not photographing one cluster — it is photographing millions of them at once. Every chemistry cycle adds one base to every cluster simultaneously. Hundreds of cycles give you reads of about two hundred base pairs each. Multiply that by the number of clusters and you are generating billions of bases per run. The flow cell, with its millions of independent reaction sites, is the parallelism principle made physical. Once you see this, the rest of NGS chemistry is just engineering details.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Illumina · strengths &amp; limits</h2>
+      <div class="cols">
+        <div>
+          <h3>Strengths</h3>
+          <ul>
+            <li>High throughput</li>
+            <li>Low cost (~<strong>$600</strong>/genome)</li>
+            <li>~<strong>0.1%</strong> error · Q30+</li>
+            <li>Mature tools &amp; pipelines</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Limits</h3>
+          <ul>
+            <li>Short reads (~150 – 300 bp)</li>
+            <li>Trouble in <strong>repeats</strong></li>
+            <li>PCR can add bias</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Illumina is dominant for good reasons. High throughput, low cost — about six hundred dollars for a thirty-times human genome — and accuracy on par with Sanger, around point one percent error. Plus a deep ecosystem of analysis software built up over fifteen years. The trade-offs are real, though. Reads are short — one hundred fifty to three hundred base pairs — which means repeats and large structural variants are hard to resolve. And the PCR amplification step can introduce subtle biases, especially in regions with extreme GC content. For most genetics applications, those trade-offs are worth it. For genome assembly and structural variants, they are not.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>When you reach for Illumina</h2>
+      <ul>
+        <li><strong>Whole-genome sequencing</strong> · most clinical &amp; research projects</li>
+        <li><strong>Whole-exome sequencing</strong> · just the protein-coding regions</li>
+        <li><strong>SNPs &amp; small indels</strong> · routine variant calling</li>
+        <li><strong>RNA-seq</strong> · gene expression measurement</li>
+        <li>Most <strong>clinical diagnostics</strong> today</li>
+      </ul>
+      <aside class="notes">
+        Practically speaking, when do you choose Illumina? Pretty much any time you need to sequence many samples accurately and affordably. Whole-genome sequencing for clinical or research projects. Whole-exome sequencing — that is sequencing only the protein-coding regions, which are about one and a half percent of the genome but contain most of the disease-causing variants. SNP and small-indel detection. RNA sequencing for gene expression. Most clinical diagnostic labs today are Illumina-based. If you encounter a sequencing project in this course or in a paper, assume Illumina until told otherwise.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · LONG READS
+         ==================================================== -->
+
+    <!-- Slide 28 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>The Long-Read<br>Revolution</h1>
+      <aside class="notes">
+        Now the third-generation technologies. PacBio and Oxford Nanopore solve a problem Illumina cannot — reading through long, repetitive regions. They give you reads that are tens of thousands, sometimes millions, of base pairs long. That changes what genomes you can assemble and what variants you can see.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Why read length matters</h2>
+      <figure>
+        <img src="../assets/figures/textbook/ch5_fig5.png" alt="Short reads cannot span long repeats; long reads can">
+        <figcaption>
+          <strong>Figure 4.</strong> Short reads cannot span long repetitive regions — they look identical from inside the repeat, leaving gaps. Long reads span the entire repeat, anchored in unique sequence at both ends.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the textbook figure that explains why read length matters. On the left, short reads. They are useful for unique parts of the genome, but inside a long repetitive region, every short read looks identical, and the assembler has no way to tell where each read belongs. The result is a gap. On the right, long reads. A single long read can stretch across the entire repeat, with unique sequence anchoring it at both ends. Suddenly the repetitive region is resolved. This is why the T2T project relied on long reads to finish the eight percent of the genome the HGP could not.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>PacBio · Single-Molecule Real-Time</h2>
+      <ul>
+        <li>One DNA polymerase at the bottom of a tiny well (<strong>ZMW</strong>)</li>
+        <li>One DNA molecule threads through it</li>
+        <li>Each base added → brief flash of fluorescent light</li>
+        <li>Detector records flashes in real time</li>
+        <li><strong>Revio</strong> chip = 25 million wells running at once</li>
+      </ul>
+      <aside class="notes">
+        PacBio's technology is called SMRT — single-molecule real-time sequencing. The setup is beautiful. A single DNA polymerase enzyme is anchored at the bottom of a tiny well called a zero-mode waveguide, abbreviated ZMW. A single DNA molecule threads through the polymerase. As the polymerase adds each base — A, T, G, or C — that base briefly flashes a characteristic color of fluorescent light, and a detector at the bottom of the well records it in real time. The newest PacBio system, Revio, runs twenty-five million of these wells at the same time. So even though each well is sequencing one molecule, the throughput across millions of wells is enormous.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>HiFi reads · long <em>and</em> accurate</h2>
+      <ul>
+        <li>Circular DNA template (<strong>SMRTbell</strong>) · polymerase loops repeatedly</li>
+        <li>Same molecule sequenced <strong>many times</strong></li>
+        <li>Consensus → <strong>15 – 20 kb</strong> at <strong>Q30+</strong></li>
+        <li>Accuracy comparable to Illumina · with 100× longer reads</li>
+      </ul>
+      <aside class="notes">
+        PacBio has a clever trick called HiFi. The DNA template is formed into a circle — they call it a SMRTbell — so the polymerase keeps going around and around, sequencing the same molecule multiple times. By taking the consensus of those repeated passes, PacBio achieves the long read length you want — fifteen to twenty thousand base pairs — and the high accuracy you need — Q thirty or better, comparable to Illumina. That combination of long and accurate is genuinely new in the field. It is the reason PacBio HiFi has become the standard for high-quality genome assembly.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Oxford Nanopore · current through a pore</h2>
+      <ul>
+        <li>A tiny protein <strong>nanopore</strong> sits in a membrane</li>
+        <li>Electrical current flows through the pore</li>
+        <li>DNA threads through · each base disrupts the current differently</li>
+        <li>Pattern of <strong>current changes</strong> = the sequence</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        No fluorescence · no camera · just <strong>electricity</strong>.
+      </blockquote>
+      <aside class="notes">
+        Oxford Nanopore takes a completely different approach. No fluorescent dyes. No camera. Instead, you have a tiny protein channel — a nanopore — embedded in a membrane, with an electrical current flowing through it. A single strand of DNA is threaded through the pore, and as each base passes through, it disrupts the electrical current in a characteristic way. The pattern of current disruptions is the signal, and machine-learning software decodes that pattern back into the DNA sequence. It is a fundamentally electrical read-out, which is part of why the devices can be so small.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>What Nanopore enables</h2>
+      <ul>
+        <li><strong>Ultra-long reads</strong> · &gt; 1 million bp possible</li>
+        <li><strong>Real-time</strong> · data streams as DNA is read</li>
+        <li><strong>Portable</strong> · MinION = USB-stick size</li>
+        <li>Used in Ebola outbreaks, Antarctica, and on the <strong>ISS</strong></li>
+      </ul>
+      <aside class="notes">
+        Nanopore's superpowers are different from PacBio's. First, ultra-long reads — sometimes more than one million base pairs in a single read, which is the longest of any sequencing technology. Second, real-time data — sequence comes off the machine as the DNA is going through, so you can analyze partial results immediately. Third, portability. The MinION is the size of a USB stick, runs from a laptop, and has been used to monitor Ebola outbreaks in West Africa, sequence in Antarctica, and even on the International Space Station. Imagine asking a Sanger lab in nineteen ninety to sequence in orbit. It would have been ridiculous. Today it is routine.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Three platforms · side by side</h2>
+      <table>
+        <thead>
+          <tr><th>Platform</th><th>Read length</th><th>Accuracy</th><th>Cost / genome</th><th>Best for</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Illumina</strong></td>
+            <td>150 – 300 bp</td>
+            <td>~99.9% (Q30)</td>
+            <td>$600 – $1,000</td>
+            <td>Routine WGS / WES, variants, clinical</td>
+          </tr>
+          <tr>
+            <td><strong>PacBio Revio</strong></td>
+            <td>15 – 20 kb (HiFi)</td>
+            <td>~99.9% (Q30)</td>
+            <td>~$1,500 – $2,000</td>
+            <td>Assembly, structural variants, repeats</td>
+          </tr>
+          <tr>
+            <td><strong>Nanopore</strong></td>
+            <td>up to &gt; 1 Mb</td>
+            <td>~95 – 99%</td>
+            <td>variable</td>
+            <td>Ultra-long, rapid, field sequencing</td>
+          </tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are all three side by side. Illumina — short, very accurate, cheap, best for routine clinical and research sequencing. PacBio Revio — long HiFi reads, high accuracy, mid-range cost, best for genome assembly and structural variants. Nanopore — ultra-long reads, lower but improving accuracy, variable cost depending on device, best for ultra-long needs and field deployments. There is no single winner. Most modern large-scale projects — pangenome, T2T — combine multiple platforms, using each one for what it does best.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>How to choose</h2>
+      <ul>
+        <li>Need <strong>variants in 1,000 patients</strong>? → Illumina</li>
+        <li>Need a <strong>complete assembly</strong>? → PacBio HiFi (+ Nanopore)</li>
+        <li>Need an answer <strong>in the field</strong>, today? → Nanopore</li>
+        <li>Need it all? → <strong>Combine platforms</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        T2T &amp; pangenome both combined PacBio + Nanopore + Illumina.
+      </blockquote>
+      <aside class="notes">
+        Here is the practical decision tree. If you are calling variants in many patients — say, a thousand-patient rare disease cohort — Illumina is the answer. If you are assembling a new genome from scratch, you want PacBio HiFi as your primary, often supplemented with Nanopore for the longest repeats. If you need rapid results in a remote location — outbreak monitoring, environmental sampling — Nanopore. And if you need the highest-quality reference, like the T2T-CHM13 genome, you combine all three platforms. Each technology covers a blind spot of the others. Modern flagship projects almost always use combinations.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · THE COST CRASH
+         ==================================================== -->
+
+    <!-- Slide 36 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>The Cost<br>Crash</h1>
+      <aside class="notes">
+        Now the economics. Of all the changes NGS brought, the cost crash may be the most consequential one. It is what turned genomics from an elite international project into a clinical and research tool that any university lab can use. Let's look at the actual numbers.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Cost per human genome</h2>
+      <table>
+        <thead><tr><th>Year</th><th>Cost</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>2003</td><td><strong>~$300 million</strong></td><td>HGP completion</td></tr>
+          <tr><td>2007</td><td>~$10 million</td><td>First NGS platforms</td></tr>
+          <tr><td>2010</td><td>~$50,000</td><td>NGS scales up</td></tr>
+          <tr><td>2014</td><td><strong>~$1,000</strong></td><td>"$1,000 genome" hit</td></tr>
+          <tr><td>2024</td><td>~$500 – 600</td><td>Illumina · routine</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are the numbers, in one table. Two thousand three — the HGP completion — about three hundred million dollars. Two thousand seven, when the first NGS platforms hit the market — about ten million per genome. Two thousand ten — fifty thousand. Twenty fourteen — the famous one thousand dollar genome milestone. And today — under six hundred dollars on Illumina, with PacBio research-grade about two thousand. Each step down represents a roughly tenfold cost reduction. From three hundred million to six hundred dollars is, again, a five hundred thousand-fold drop. There is no other technology with a curve like this.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>Faster than Moore's Law</h2>
+      <ul>
+        <li>Computers got cheaper exponentially · <strong>Moore's Law</strong></li>
+        <li>NGS got cheaper <em>faster than computers</em></li>
+        <li>Especially after <strong>2008</strong>, when NGS scaled up</li>
+        <li>Genomics had its own curve · steeper than tech</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Sequencing went from elite project to clinical tool.
+      </blockquote>
+      <aside class="notes">
+        The comparison everyone makes is to Moore's Law, the rule of thumb that computer cost-per-performance halves roughly every two years. NGS costs dropped faster than Moore's Law — especially after two thousand eight, when next-gen platforms really scaled up. So even though sequencing involves a lot of computation, the cost reduction was not just a downstream effect of cheaper computers. The chemistry, the physics, the engineering of the sequencers themselves were improving exponentially in parallel. The economic consequence is huge — sequencing went from a one-time international project to something a regional hospital can run in-house for a single patient.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What cheap sequencing enabled</h2>
+      <ul>
+        <li><strong>GWAS</strong> · thousands of cases vs controls</li>
+        <li><strong>WES diagnosis</strong> · 25 – 50% solve rate for rare disease</li>
+        <li><strong>dbSNP</strong> · over 1.1 billion variants cataloged</li>
+        <li><strong>T2T &amp; pangenome</strong> · only possible at NGS prices</li>
+      </ul>
+      <aside class="notes">
+        What did cheap sequencing actually buy us? Four big things. One — genome-wide association studies, where you compare thousands of people with and without a disease across millions of variants. Diabetes, schizophrenia, heart disease, hundreds of others now have known genetic risk factors discovered this way. Two — whole-exome sequencing as a clinical diagnostic, which now solves twenty-five to fifty percent of previously undiagnosed rare disease cases. Three — dbSNP, the public variant database, now contains over one point one billion recorded variants. Four — every flagship genomics project, including the T2T finishing of the genome and the pangenome we discussed last lecture, was only possible because sequencing got cheap. Cheap sequencing is the platform underneath modern genetics.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 40 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull it all together.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Sanger was <strong>serial</strong> · the bottleneck for genome-scale work</li>
+        <li>NGS = <strong>massive parallelism</strong> · millions of reads at once</li>
+        <li>Vocabulary: <strong>read · coverage · depth · Q30</strong></li>
+        <li>Illumina (short, cheap) · PacBio (long, accurate) · Nanopore (ultra-long, portable)</li>
+        <li>Cost: $300M → <strong>&lt;$1,000</strong> · faster than Moore's Law</li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — Sanger sequencing was accurate but serial, and that serialness was the bottleneck for genome-scale work. Two — NGS replaced serial with massive parallelism, doing millions of reactions at once on a single flow cell. Three — the vocabulary you need is read, coverage, depth, and Q score, with Q thirty as the practical accuracy threshold and thirty-times depth as the human variant calling minimum. Four — three platforms dominate today: Illumina for routine short-read work, PacBio for long accurate reads, and Nanopore for ultra-long and portable. Five — sequencing cost dropped from three hundred million dollars per genome to under one thousand, faster than Moore's Law, and that crash is the foundation for everything else in modern genomics.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        Now that sequencing is cheap,<br>
+        what do we <span style="color:var(--terracotta-deep);">use it for</span>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 6 · <strong>Applications of NGS</strong>
+      </p>
+      <aside class="notes">
+        Here is the question for next time. We have spent this whole lecture on how NGS works and why it is cheap. But cheap sequencing is just a tool — what matters is what we do with it. Whole-genome sequencing in clinics. Whole-exome sequencing for rare disease diagnosis. RNA-seq for gene expression. Cancer genomics. Population studies. Single-cell sequencing. All of these are NGS applications, and they are the subject of chapter six. Now that sequencing is cheap, what do we actually use it for? See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 16 · Heritability — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Heritability</h1>
+      <div class="chapter-num">Chapter 16 · Part III · Complex Traits</div>
+      <aside class="notes">
+        Welcome to Chapter sixteen. Last time we built up the polygenic model — the idea that traits like height come from thousands of common variants, each nudging the value up or down by a small amount. Today we ask the natural follow-up question: if traits are polygenic, how much of the variation we see between people is actually due to genetic differences, versus environment? That single question opens the door to one of the most important — and most misunderstood — concepts in all of genetics. Heritability.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        Is height genetic?<br>
+        Yes — but <span style="color:var(--terracotta-deep)">how much</span>?
+      </h1>
+      <aside class="notes">
+        Here is the question that drives the whole chapter. Almost everyone agrees that height "runs in families." Tall parents tend to have tall children. But how much of that is genes, and how much is the food they share, the household they share, the neighborhood they share? Asking "is it genetic" turns out to be the wrong question. The right question is quantitative. How much of the variation in height between people comes from genetic differences? That number is what we call heritability, and it has a precise mathematical definition.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Where we are in the story</h2>
+      <div class="cols">
+        <div>
+          <h3>Last chapter</h3>
+          <ul>
+            <li><strong>Polygenic model</strong> — many small effects</li>
+            <li>~12,000 SNPs for height</li>
+            <li>Almost all <strong>additive</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>This chapter</h3>
+          <ul>
+            <li>How much of the <strong>variance</strong> is genetic?</li>
+            <li>One number: <strong>h²</strong></li>
+            <li>What it does — and does <em>not</em> — mean</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Quick recap of where we are in the story. Last chapter we built the polygenic model — Fisher's nineteen-eighteen insight that continuous traits like height arise from many Mendelian genes acting together. The two thousand twenty-two height GWAS confirmed that picture: about twelve thousand SNPs, almost all with simple additive effects. This chapter takes that genetic architecture and asks the proportion question. Of all the variation in height we see between people, what fraction is genetic? That fraction has a name — h squared — and it is what we will spend today on.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The answer in advance</div>
+      <div class="bignum">h²</div>
+      <div class="bignum-label">heritability · the proportion of variance explained by genes</div>
+      <ul>
+        <li>A number between <strong>0 and 1</strong></li>
+        <li>A property of a <strong>population</strong>, not a person</li>
+        <li>Depends on the <strong>environment</strong> as much as the genes</li>
+      </ul>
+      <aside class="notes">
+        Here is the answer in advance, so you can hold it as we move. Heritability — written h squared — is a number between zero and one that tells you what proportion of trait variation in a population is explained by genetic differences. Three properties to internalize. It is between zero and one. It is a population number, not a personal one. And it is environment-dependent — the same genes can give different heritabilities under different environments. Each of those three properties is a place where the public conversation about genetics goes wrong, so we will return to each of them.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Partitioning the variance · V_P = V_G + V_E</li>
+        <li>Defining h² and H²</li>
+        <li>Estimating it · twins, relatives, SNPs</li>
+        <li>Why h² changes across environments</li>
+        <li>What heritability is <em>not</em></li>
+        <li>Summary &amp; bridge to Chapter 17</li>
+      </ol>
+      <aside class="notes">
+        Here is how we move today. First, we partition phenotypic variance into its components — Fisher's central equation. Second, we define heritability properly, both narrow-sense and broad-sense. Third, we look at how scientists actually estimate it — twin studies, family studies, and modern SNP-based methods. Fourth, we look at why heritability changes across environments and traits. Fifth — and this is the part that matters most for science literacy — we go through what heritability is not. The famous misinterpretations. And finally we wrap up and bridge to chapter seventeen.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · PARTITIONING VARIANCE
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Partitioning<br>the Variance</h1>
+      <aside class="notes">
+        Before we can talk about heritability, we have to talk about variance. Where does the variation in a trait come from? Fisher's nineteen eighteen paper gave us the answer in one equation — and that equation is the foundation of everything we do today.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>Fisher's central equation</h2>
+      <div class="formula" style="font-size:1.6em; text-align:center; margin:0.6em 0;">
+        V<sub>P</sub> = V<sub>G</sub> + V<sub>E</sub>
+      </div>
+      <ul>
+        <li><strong>V<sub>P</sub></strong> · phenotypic variance · what we measure</li>
+        <li><strong>V<sub>G</sub></strong> · genetic variance · differences in DNA</li>
+        <li><strong>V<sub>E</sub></strong> · environmental variance · everything else</li>
+      </ul>
+      <p style="margin-top:0.6em;">Total variation = genes + environment. That's the move.</p>
+      <aside class="notes">
+        Fisher's central equation in its simplest form. The total phenotypic variance — V P, the spread we observe in the trait — equals the genetic variance V G plus the environmental variance V E. That is the move. Take the differences between people, split them into a genetic part and an environmental part. It looks almost too simple to be useful, but it is the basis for everything that follows. Once you commit to this partition, heritability is just the genetic share of the total.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Breaking V<sub>G</sub> down further</h2>
+      <div class="formula" style="font-size:1.4em; text-align:center; margin:0.5em 0;">
+        V<sub>G</sub> = V<sub>A</sub> + V<sub>D</sub> + V<sub>I</sub>
+      </div>
+      <ul>
+        <li><strong>V<sub>A</sub></strong> · <strong>additive</strong> · each allele adds a fixed effect</li>
+        <li><strong>V<sub>D</sub></strong> · <strong>dominance</strong> · heterozygote not the average</li>
+        <li><strong>V<sub>I</sub></strong> · <strong>epistasis</strong> · gene-by-gene interaction</li>
+      </ul>
+      <blockquote style="margin-top:0.5em;">
+        For most human traits, <strong>V<sub>A</sub></strong> dominates.
+      </blockquote>
+      <aside class="notes">
+        We can break the genetic variance further. V G is the sum of three pieces. V A — additive variance — is the part where each allele contributes a fixed independent effect, and copies just add up. V D — dominance variance — captures the extra bump when a heterozygote is not exactly halfway between the two homozygotes. V I — epistatic variance — captures interactions, where the effect of one gene depends on which alleles you have at another gene. Fisher predicted that V A would dominate in most traits, and a hundred years of human genetics has proven him right. Dominance and epistasis exist, but they are small at the population level.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>The full Fisher decomposition</h2>
+      <div class="formula" style="font-size:1.4em; text-align:center; margin:0.5em 0;">
+        V<sub>P</sub> = V<sub>A</sub> + V<sub>D</sub> + V<sub>I</sub> + V<sub>E</sub>
+      </div>
+      <table style="margin-top:0.4em;">
+        <thead><tr><th>Component</th><th>What it is</th><th>Typical share</th></tr></thead>
+        <tbody>
+          <tr><td><strong>V<sub>A</sub></strong></td><td>Additive allele effects</td><td><strong>Most of V<sub>G</sub></strong></td></tr>
+          <tr><td>V<sub>D</sub></td><td>Dominance deviations</td><td>Small (&lt; 1% additive)</td></tr>
+          <tr><td>V<sub>I</sub></td><td>Gene × gene interaction</td><td>Tiny at population level</td></tr>
+          <tr><td>V<sub>E</sub></td><td>Environment, chance, noise</td><td>Trait-dependent</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the full Fisher decomposition with typical shares from human GWAS. V A — additive variance — captures most of the genetic action. V D — dominance — is real but small; the twenty twenty-three U K Biobank study found dominance at one hundred eighty-three loci but they explained less than one percent of additive variance on average. V I — epistasis — exists, but at the population level it is essentially invisible for most traits. V E — environment plus noise — varies by trait. Hold this table in your head: it tells you which variance components matter and which are footnotes.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Additive · the picture</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <h3>Allele B adds 0.5 cm</h3>
+          <table>
+            <thead><tr><th>Genotype</th><th>Height</th></tr></thead>
+            <tbody>
+              <tr><td>AA</td><td>170.0 cm</td></tr>
+              <tr><td>AB</td><td>170.5 cm</td></tr>
+              <tr><td>BB</td><td>171.0 cm</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <ul>
+            <li>Each B copy: <strong>+0.5 cm</strong></li>
+            <li>AB sits exactly <strong>halfway</strong></li>
+            <li>No dominance · linear</li>
+            <li>This is the model that <strong>works</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        What does additive actually look like? Imagine a height-increasing allele B that adds half a centimeter. Genotype A A is your baseline at one hundred seventy. A B adds half a centimeter — one hundred seventy point five. B B adds another half centimeter — one hundred seventy-one. The effect is perfectly linear. The heterozygote sits exactly halfway between the two homozygotes. There is no dominance bonus. This is the no-dominance assumption Fisher built his model on, and a hundred years of data say it is a remarkably good approximation for most polygenic traits.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · DEFINING HERITABILITY
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>What h²<br>Actually Measures</h1>
+      <aside class="notes">
+        Now we are ready to define heritability properly. There are actually two definitions — narrow-sense and broad-sense — and both have their uses. The distinction matters more than people think.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Narrow-sense heritability</h2>
+      <div class="formula" style="font-size:1.8em; text-align:center; margin:0.6em 0;">
+        h² = V<sub>A</sub> / V<sub>P</sub>
+      </div>
+      <ul>
+        <li>Fraction of variance from <strong>additive</strong> effects only</li>
+        <li>Predicts <strong>parent-offspring resemblance</strong></li>
+        <li>The number that matters for <strong>response to selection</strong></li>
+        <li>The default in most modern studies</li>
+      </ul>
+      <aside class="notes">
+        Narrow-sense heritability — h squared, lower-case — is the additive variance over the phenotypic variance. It is the proportion of trait variation explained specifically by additive genetic effects. This is the number that matters for predicting how tall your kids will be from your own height, because additive effects pass on cleanly from parent to offspring. It is also the number that determines how a population responds to selection — Darwin's evolution by natural selection runs on V A. When a paper says "heritability," ninety-five percent of the time, this is what they mean.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Broad-sense heritability</h2>
+      <div class="formula" style="font-size:1.6em; text-align:center; margin:0.6em 0;">
+        H² = (V<sub>A</sub> + V<sub>D</sub> + V<sub>I</sub>) / V<sub>P</sub> = V<sub>G</sub> / V<sub>P</sub>
+      </div>
+      <ul>
+        <li>Includes <strong>all</strong> genetic effects</li>
+        <li>Captures total genetic influence</li>
+        <li>Less useful for prediction · dominance &amp; epistasis <strong>scramble</strong> in offspring</li>
+        <li>Common in <strong>twin studies</strong></li>
+      </ul>
+      <aside class="notes">
+        Broad-sense heritability — H squared, capital H — uses all the genetic variance, including dominance and epistasis. It tells you the total genetic influence on a trait. So why do we care about narrow-sense more? Because dominance and epistatic effects do not pass cleanly from parent to offspring. When you make a baby you reshuffle alleles — the additive effects survive that shuffling, but the dominance effects depend on which two specific alleles end up together, and the epistatic effects depend on combinations across loci. So H squared captures more genetic influence in principle, but h squared is the part that actually predicts inheritance.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>h² vs H² · side by side</h2>
+      <table>
+        <thead><tr><th></th><th>h² (narrow)</th><th>H² (broad)</th></tr></thead>
+        <tbody>
+          <tr><td>Numerator</td><td><strong>V<sub>A</sub></strong></td><td>V<sub>A</sub> + V<sub>D</sub> + V<sub>I</sub></td></tr>
+          <tr><td>Predicts inheritance?</td><td><strong>Yes</strong></td><td>No</td></tr>
+          <tr><td>Predicts evolution?</td><td><strong>Yes</strong></td><td>No</td></tr>
+          <tr><td>Captures all genes?</td><td>No</td><td><strong>Yes</strong></td></tr>
+          <tr><td>Default in human GWAS</td><td><strong>This one</strong></td><td>Twin-study estimates</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Side by side. h squared has only V A on top — narrow but actionable. H squared has all three genetic components — broad but harder to use. h squared predicts how children will resemble their parents and how a population will respond to selection. H squared captures more, but it is mostly relevant when you really need the total genetic share. In modern human genetics, h squared is the workhorse. Twin studies, because they share full genomes, naturally estimate something closer to H squared. Both are useful. Just know which one a paper is reporting.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <div class="cue">A worked example</div>
+      <h2>If V<sub>P</sub> = 100, V<sub>A</sub> = 68, V<sub>E</sub> = 32 …</h2>
+      <div class="formula" style="font-size:1.4em; text-align:center; margin:0.6em 0;">
+        h² = 68 / 100 = <strong>0.68</strong>
+      </div>
+      <ul>
+        <li>That's the <strong>height</strong> answer in modern populations</li>
+        <li><strong>68%</strong> of the variation between people is genetic</li>
+        <li><strong>32%</strong> is environment — nutrition, illness, chance</li>
+      </ul>
+      <aside class="notes">
+        Concrete example using human height. Imagine the phenotypic variance is one hundred — pick any units, just look at the ratio. In well-nourished modern populations, additive genetic variance is about sixty-eight, environmental variance about thirty-two. h squared equals sixty-eight over one hundred, equals zero point six eight. Sixty-eight percent of the variation in height between people is explained by genetic differences. Thirty-two percent comes from environment — childhood nutrition, illness, growth conditions. That is the height answer in modern data, and we will use it as our running example.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · ESTIMATING HERITABILITY
+         ==================================================== -->
+
+    <!-- Slide 16 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>How We<br>Estimate h²</h1>
+      <aside class="notes">
+        How does a scientist actually measure heritability? You cannot just look at a person and read off their h squared. You measure populations, and you use one of three classes of methods: covariance between relatives, twin studies, or SNP-based methods. They all rest on the same idea: closer relatives share more genes, so if a trait is genetic, closer relatives should be more similar.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>The core idea · shared DNA, shared traits</h2>
+      <table>
+        <thead><tr><th>Relationship</th><th>Shared DNA</th><th>Trait similarity</th></tr></thead>
+        <tbody>
+          <tr><td>Identical (MZ) twins</td><td><strong>~100%</strong></td><td>Very high</td></tr>
+          <tr><td>Fraternal (DZ) twins</td><td>~50%</td><td>Moderate</td></tr>
+          <tr><td>Full siblings</td><td>~50%</td><td>Moderate</td></tr>
+          <tr><td>First cousins</td><td>~12.5%</td><td>Low</td></tr>
+          <tr><td>Strangers</td><td>~0%</td><td>None expected</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">More shared DNA → more covariance in the trait.</p>
+      <aside class="notes">
+        Here is the core idea. Closer relatives share more DNA, so they should be more similar in any trait that is genetic. Identical twins share essentially all their DNA. Fraternal twins and full siblings share about half. First cousins share about an eighth. Strangers share none above the population background. If we measure how much the trait covaries between each pair, and how that covariance scales with shared DNA, we can back out the heritability. That logic is the engine behind every method we are about to look at.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Twin studies · the classic design</h2>
+      <div class="cols">
+        <div>
+          <h3>MZ twins</h3>
+          <ul>
+            <li>~100% shared DNA</li>
+            <li>Same household</li>
+            <li>Same age</li>
+          </ul>
+        </div>
+        <div>
+          <h3>DZ twins</h3>
+          <ul>
+            <li>~50% shared DNA</li>
+            <li>Same household</li>
+            <li>Same age</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">If MZ &gt; DZ in similarity → <strong>genetic influence</strong>.</p>
+      <aside class="notes">
+        Twin studies are the classic method. The design is elegant because both kinds of twins share the same household, same age, same prenatal environment — but M Z twins share twice as much D N A as D Z twins. So if a trait is genetic, M Z twins should be more similar than D Z twins. If M Z and D Z twins are equally similar, environment must be doing the work. The math behind the comparison gives you a heritability estimate. For height, M Z twins are dramatically more similar than D Z twins — twin studies put h squared for height around zero point eight.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Twin study · Falconer's formula</h2>
+      <div class="formula" style="font-size:1.4em; text-align:center; margin:0.6em 0;">
+        h² ≈ 2 × (r<sub>MZ</sub> − r<sub>DZ</sub>)
+      </div>
+      <ul>
+        <li><strong>r<sub>MZ</sub></strong> = correlation between MZ twins</li>
+        <li><strong>r<sub>DZ</sub></strong> = correlation between DZ twins</li>
+        <li>Doubling reflects the <strong>2× difference</strong> in shared DNA</li>
+        <li>For height: r<sub>MZ</sub> ≈ 0.9, r<sub>DZ</sub> ≈ 0.5 → h² ≈ <strong>0.8</strong></li>
+      </ul>
+      <aside class="notes">
+        The math behind the twin design is simpler than it looks. Falconer's formula says heritability is approximately twice the difference between the M Z correlation and the D Z correlation. Why double? Because M Z twins share twice as much D N A as D Z twins, so the gap between the two correlations is half of the genetic effect. For height, M Z twins have a trait correlation of about zero point nine, and D Z twins about zero point five. Plug it in: two times zero point four, equals zero point eight. That is the textbook twin estimate for height.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>The shared environment caveat</h2>
+      <ul>
+        <li>MZ twins often <strong>share more environment</strong> than DZ twins</li>
+        <li>Same room · same friends · dressed alike</li>
+        <li>That inflates r<sub>MZ</sub> beyond pure genetics</li>
+        <li>Twin studies probably <strong>overestimate</strong> h² slightly</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Twins reared <strong>apart</strong> = the cleaner test — but rare.
+      </blockquote>
+      <aside class="notes">
+        There is a real caveat with twin studies. M Z twins, especially, often share more than just genes. They share a household, a peer group, sometimes a bedroom — and people may even treat them more alike than they treat D Z twins. That extra shared environment makes M Z twins appear more similar than genetics alone would predict, and inflates the twin-study heritability estimate. The cleanest test is M Z twins reared apart — separated at birth and raised in different families — but those cases are rare. Still, twin studies have been a foundational tool for fifty years, and they get you most of the way there.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Adoption studies · disentangling genes &amp; home</h2>
+      <ul>
+        <li>Compare adopted child vs <strong>biological</strong> parents</li>
+        <li>Compare adopted child vs <strong>adoptive</strong> parents</li>
+        <li>Genes go with biological · environment with adoptive</li>
+        <li>If trait correlates with biological parents → <strong>genetic</strong></li>
+      </ul>
+      <aside class="notes">
+        Another classic approach is adoption studies. The logic is to compare an adopted child with their biological parents, who share the genes but not the environment, and with their adoptive parents, who share the environment but not the genes. If the child resembles the biological parents more than the adoptive ones for some trait, that trait has a genetic component. This is a powerful design because it cleanly separates genes from rearing environment in a way twin studies cannot. The downside is that adoption is rare and often non-random, which complicates inference.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>SNP-based heritability · the modern way</h2>
+      <ul>
+        <li>Take ~50,000 <strong>unrelated</strong> individuals</li>
+        <li>Genotype them at <strong>millions of SNPs</strong></li>
+        <li>Compare genetic similarity to trait similarity</li>
+        <li>Methods: <strong>GREML</strong>, <strong>LDSC</strong></li>
+      </ul>
+      <p style="margin-top:0.6em;">No pedigree needed — the genome <em>is</em> the pedigree.</p>
+      <aside class="notes">
+        Modern genetics gives us a much more direct method. Instead of inferring shared D N A from family trees, we measure it directly at millions of S N Ps. Take a large sample of unrelated people — say, fifty thousand. Genotype them. For every pair of individuals, compute how genetically similar they are at each S N P. Then ask: do pairs that are slightly more genetically similar also have more similar trait values? If yes, the trait is heritable, and the slope of that relationship gives you h squared. The two main methods are G R E M L, and L D S C — linkage disequilibrium score regression. We met L D S C in chapter fifteen.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>SNP-h² for height · 0.68</h2>
+      <div class="bignum">0.68</div>
+      <div class="bignum-label">SNP-based h² for height (common SNPs only)</div>
+      <ul>
+        <li>Twin estimate: ~<strong>0.80</strong></li>
+        <li>SNP estimate: ~<strong>0.68</strong></li>
+        <li>Gap = the <strong>missing heritability</strong> problem</li>
+        <li>Add rare variants → climbs back toward 0.80</li>
+      </ul>
+      <aside class="notes">
+        Here is the headline number for height from S N P-based methods. About zero point six eight. Notice that is lower than the twin estimate of zero point eight. That gap, repeated across many traits, is what people called the missing heritability problem when it first appeared. Where did the rest go? Some of it is hiding in rare variants that common-S N P chips do not capture. A twenty twenty-two whole-genome sequencing study found that rare variants in low linkage disequilibrium contribute about zero point three one of the variance in height. Add them in and you climb back toward the twin-study estimate.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Three methods · three angles</h2>
+      <table>
+        <thead><tr><th>Method</th><th>What it captures</th><th>h² for height</th></tr></thead>
+        <tbody>
+          <tr><td>Twin studies</td><td>All shared genetics (≈ H²)</td><td><strong>~0.80</strong></td></tr>
+          <tr><td>SNP-h² (common)</td><td>Common additive variants</td><td>~0.68</td></tr>
+          <tr><td>WGS + rare variants</td><td>Common + rare additive</td><td>~0.79</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Three methods, three angles on the same trait, three numbers. Twin studies say zero point eight — they capture all genetic effects, including dominance and epistasis. S N P-based methods on common variants say zero point six eight — they miss rare variants. Whole-genome sequencing that includes rare variants says about zero point seven nine — almost all the way back. The three estimates do not contradict each other; they describe different slices of the genetic variance. The lesson: heritability is not a single fact about a trait, it is a number that depends on which slice of variation you can measure.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · WHY h² VARIES
+         ==================================================== -->
+
+    <!-- Slide 25 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Why h²<br>Varies by Trait &amp; Place</h1>
+      <aside class="notes">
+        Heritability is not a fixed property of a trait. The same trait, in the same species, can have a different heritability in a different environment, or a different population, or a different decade. This is one of the most important and most counter-intuitive features of the concept.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>It's a ratio · both sides matter</h2>
+      <div class="formula" style="font-size:1.6em; text-align:center; margin:0.6em 0;">
+        h² = V<sub>A</sub> / V<sub>P</sub> = V<sub>A</sub> / (V<sub>A</sub> + V<sub>E</sub>)
+      </div>
+      <ul>
+        <li>Shrink V<sub>E</sub> → h² goes <strong>up</strong></li>
+        <li>Grow V<sub>E</sub> → h² goes <strong>down</strong></li>
+        <li>Genes haven't changed — the <strong>denominator</strong> changed</li>
+      </ul>
+      <aside class="notes">
+        Heritability is a ratio. V A divided by total V P. Both sides matter. Shrink the environmental variance — say, by feeding everyone equally well — and h squared goes up, even though the genes have not changed at all. Grow the environmental variance — say, by exposing some people to malnutrition — and h squared goes down. The numerator is fixed by genetics, but the denominator depends entirely on how variable the environment is in the population you are looking at. That is why a number like zero point six eight is not a property of human height in the abstract; it is a property of human height in a specific environment.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Heritability across human traits</h2>
+      <table>
+        <thead><tr><th>Trait</th><th>h²</th><th>Comment</th></tr></thead>
+        <tbody>
+          <tr><td>Height</td><td><strong>~0.68</strong></td><td>Strong polygenic, modest V<sub>E</sub></td></tr>
+          <tr><td>Schizophrenia</td><td>~0.65</td><td>Highly heritable disease</td></tr>
+          <tr><td>BMI</td><td>~0.3-0.5</td><td>Diet &amp; lifestyle dominate V<sub>E</sub></td></tr>
+          <tr><td>Blood pressure</td><td>~0.25</td><td>Stress, diet, medication</td></tr>
+          <tr><td>Educational attainment</td><td>~0.20</td><td>Mostly environment</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the trait spectrum. Height — about zero point six eight, strongly polygenic with modest environmental variance once you control for nutrition. Schizophrenia — about zero point six five, surprisingly heritable for a psychiatric disease. B M I — about zero point three, much lower because diet and exercise create large environmental variance. Blood pressure — about zero point two five, similar reason. Educational attainment — about zero point two, mostly environmental. Two takeaways. First, traits differ enormously. Second, low heritability does not mean genes do not matter — it just means environment varies more in those traits.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <div class="cue">The two-fields thought experiment</div>
+      <h2>Same seeds · different fields</h2>
+      <div class="cols">
+        <div>
+          <h3>Field A · rich soil</h3>
+          <ul>
+            <li>Plants 150–180 cm</li>
+            <li>Within-field h² = <strong>0.80</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Field B · poor soil</h3>
+          <ul>
+            <li>Plants 100–130 cm</li>
+            <li>Within-field h² = <strong>0.80</strong></li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.4em;">Difference <em>between</em> fields = <strong>100% environment</strong>.</p>
+      <aside class="notes">
+        Here is the famous thought experiment that should burn into your memory. Take one hundred genetically identical seeds and plant fifty in field A — rich soil, lots of water. Plant the other fifty in field B — poor soil, dry. Within field A, plants vary from one hundred fifty to one hundred eighty centimeters. Within field B, they vary from one hundred to one hundred thirty. In each field, all the variation within that field is genetic, because the environment within the field is uniform. So h squared within each field is high — say zero point eight. But the difference between the two fields — sixty centimeters on average — is one hundred percent environmental. The fields differ, the seeds do not. High within-population heritability tells you nothing about between-population differences.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Why this matters · environment can be invisible</h2>
+      <ul>
+        <li>If everyone has <strong>good</strong> nutrition → V<sub>E</sub> shrinks → h² rises</li>
+        <li>If everyone has <strong>poor</strong> nutrition → similar story</li>
+        <li>The bigger the environmental <strong>contrast</strong>, the bigger V<sub>E</sub></li>
+        <li>Heritability tells you about <strong>within-group</strong> variation only</li>
+      </ul>
+      <aside class="notes">
+        Why this matters in real life. If you measure heritability inside a group where everyone has uniform nutrition, V E is small, and h squared looks high. If you measure inside a different group with similarly uniform but worse nutrition, h squared also looks high — but the average is much lower. The heritability inside each group does not tell you anything about the cause of the difference between groups. That difference can be entirely environmental even when within-group heritability is near one. This is the most often-violated rule in popular conversation about genetics, and we will hammer it again in section five.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · WHAT h² IS NOT
+         ==================================================== -->
+
+    <!-- Slide 30 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>What h²<br>Is <em>Not</em></h1>
+      <aside class="notes">
+        Now the most important part of the whole chapter. The classic misinterpretations of heritability — the ones that show up in newspapers, in policy debates, in everyday conversation. Each of these is a place where intuition leads you astray and the math says something different.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Mistake 1 · "h² = 0.68 means your height is 68% genes"</h2>
+      <blockquote style="font-size:1.1em;">
+        Wrong. Your height is <strong>100% genes</strong> and <strong>100% environment</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>h² describes <strong>variation between people</strong>, not one person</li>
+        <li>You do not have a "68% genetic" phenotype</li>
+        <li>Genes and environment <strong>interact</strong> in every cell, every day</li>
+      </ul>
+      <aside class="notes">
+        Mistake number one — the most common one. People hear that height heritability is zero point six eight and conclude that their own height is sixty-eight percent genetic. That is wrong. Your height is not a percentage of anything. Your height is the product of your genes interacting with your environment, both contributing one hundred percent. Heritability is a statement about variation across people, not about the composition of any single person. If everyone had identical genes, h squared would be zero — not because genes stopped mattering, but because they stopped contributing to the variation we are measuring.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Mistake 2 · "High h² means the trait is fixed"</h2>
+      <blockquote style="font-size:1.1em;">
+        Wrong. High h² is compatible with <strong>large environmental shifts</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>20th century: average height <strong>increased ~10 cm</strong></li>
+        <li>Genes did <em>not</em> change in 100 years</li>
+        <li>Heritability stayed <strong>~0.7</strong> the whole time</li>
+        <li>All of the change = <strong>environment</strong> (nutrition)</li>
+      </ul>
+      <aside class="notes">
+        Mistake number two. People hear "high heritability" and assume the trait is fixed, unchangeable, biologically determined. Wrong. Average human height rose by about ten centimeters across the twentieth century in many countries. Genes did not evolve in a hundred years. The change was entirely environmental — nutrition, healthcare, infectious-disease control. And throughout that decade-by-decade rise, the within-cohort heritability of height stayed at roughly zero point seven. So height was simultaneously highly heritable and dramatically environmentally responsive. Those are not contradictions. High h squared does not mean immovable.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Mistake 3 · "Low h² means genes don't matter"</h2>
+      <blockquote style="font-size:1.1em;">
+        Wrong. Low h² may just mean <strong>V<sub>E</sub> is large</strong>.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>BMI h² ~ <strong>0.3-0.5</strong> — but obesity has clear genetic risk</li>
+        <li>Most people have similar genes for hair count → <strong>h² ≈ 0</strong> for "having hair"</li>
+        <li>Heritability requires <strong>genetic variation</strong> in the population</li>
+      </ul>
+      <aside class="notes">
+        Mistake number three — the mirror image. People hear "low heritability" and assume genes do not matter for that trait. Also wrong. B M I has a heritability of about zero point three, but everyone knows obesity runs in families and we can identify gene variants that strongly affect appetite and metabolism. Low h squared can simply mean the environmental variance is huge — not that genes do nothing. As an extreme example: nearly everyone has hair on their head, so the heritability of "having any hair" is essentially zero, because there is no genetic variation in the trait — but the trait is still entirely genetic in cause. Heritability requires genetic variance in the population to detect.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Mistake 4 · "h² explains group differences"</h2>
+      <blockquote style="font-size:1.1em;">
+        Wrong. <strong>Within-group h²</strong> says nothing about <strong>between-group</strong> differences.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Two-fields experiment makes this concrete</li>
+        <li>Group A taller than Group B → could be 100% environment</li>
+        <li>Even if h² = 0.99 within each group</li>
+      </ul>
+      <aside class="notes">
+        Mistake number four — the most consequential. People take a high within-group heritability and use it to argue that differences between groups must be genetic. This is logically wrong, and the two-fields thought experiment shows exactly why. Even if heritability within each field is zero point ninety-nine, the difference between the two fields can be one hundred percent environmental. This mistake has done real damage in public policy debates throughout the twentieth century. Within-population heritability simply does not address the cause of between-population differences. Different question, different math.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <div class="cue">Five things h² is</div>
+      <h2>Hold these straight</h2>
+      <ul>
+        <li>A <strong>population statistic</strong>, not a personal one</li>
+        <li>A <strong>ratio</strong> · depends on V<sub>E</sub> too</li>
+        <li>A <strong>snapshot</strong> · changes with environment</li>
+        <li>About <strong>variation</strong>, not causation in individuals</li>
+        <li>A useful <strong>summary</strong>, not a destiny</li>
+      </ul>
+      <aside class="notes">
+        The five things to hold straight about heritability. It is a population statistic, not a personal one. It is a ratio, so it depends on the denominator V P, not just the numerator V A. It is a snapshot — change the environment and the number changes. It is about variation in a population, not the causes of any one person's phenotype. And it is a useful summary number — it tells you something real about the genetic architecture — but it is never a destiny. If you internalize these five points, you can read almost any genetics paper without being misled by the heritability headlines.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · MISSING HERITABILITY
+         ==================================================== -->
+
+    <!-- Slide 36 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>The Missing<br>Heritability Problem</h1>
+      <aside class="notes">
+        One last technical concept before we wrap up. The so-called missing heritability problem dominated genetics for about a decade, from roughly two thousand eight to two thousand twenty. It is not really a paradox — but it is a useful diagnostic.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Three numbers · one trait</h2>
+      <table>
+        <thead><tr><th>Source</th><th>h² for height</th></tr></thead>
+        <tbody>
+          <tr><td>Twin studies</td><td><strong>~0.80</strong></td></tr>
+          <tr><td>SNP-h² (common variants, GREML/LDSC)</td><td>~0.68</td></tr>
+          <tr><td>Sum of GWAS-significant SNPs (~12,000)</td><td>~0.40</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.5em;">Where did the difference go?</p>
+      <aside class="notes">
+        Here is the puzzle in one table. Twin studies gave heritability for height around zero point eight. S N P-based methods using all common variants gave about zero point six eight. The sum of effects from the roughly twelve thousand genome-wide significant S N Ps gave only about zero point four. Three numbers, one trait, big gaps. So where did the rest of the heritability go? The hunt for that missing variance dominated the field for a decade, and the answers turned out to be more interesting than the puzzle.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>Where it went</h2>
+      <ul>
+        <li><strong>Sub-threshold SNPs</strong> — too small to reach genome-wide significance, but real</li>
+        <li><strong>Rare variants</strong> — missed by SNP arrays</li>
+        <li><strong>Structural variants</strong> — CNVs, large deletions</li>
+        <li><strong>Imperfect tagging</strong> — common SNPs don't capture all common variation</li>
+        <li>Some twin estimate <strong>inflation</strong> from shared environment</li>
+      </ul>
+      <aside class="notes">
+        Where did the missing heritability go? Five answers, all of them real. First, sub-threshold S N Ps — variants whose individual effects were too small to pass genome-wide significance, but which collectively add up. Second, rare variants that S N P chips do not even genotype. Third, structural variants like copy number changes and large deletions. Fourth, imperfect tagging — even common variants are not all captured by typical S N P panels. And fifth, some of the twin-study estimate is probably inflated by shared environment. Add all those up and the gap mostly closes. The "missing" heritability was hiding in plain sight.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 39 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull it all together.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>V<sub>P</sub> = V<sub>G</sub> + V<sub>E</sub> · Fisher's central decomposition</li>
+        <li><strong>h² = V<sub>A</sub> / V<sub>P</sub></strong> · narrow-sense, the workhorse</li>
+        <li>Estimated by <strong>twins</strong>, <strong>relatives</strong>, <strong>SNPs</strong> · three angles</li>
+        <li>Height ~<strong>0.68</strong> · BMI ~<strong>0.3-0.5</strong> · varies hugely</li>
+        <li>A <strong>population</strong> statistic — not personal, not destiny</li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — Fisher's central decomposition. Total variance equals genetic variance plus environmental variance, with the genetic part further split into additive, dominance, and epistasis. Two — narrow-sense heritability, h squared, is V A over V P. It is the workhorse of modern genetics because it is what predicts inheritance and selection. Three — we estimate it by comparing relatives, especially twins, or directly from S N P data. Three angles, three slightly different numbers. Four — heritability varies by trait, from around zero point seven for height down to around zero point two for educational attainment, and depends on the environment. Five — it is a population statistic, not a personal one, and definitely not a destiny.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        Now let's see this with<br>
+        <span style="color:var(--terracotta-deep);">real data examples</span>.
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 17 · <strong>Partitioned Variance in Practice</strong>
+      </p>
+      <aside class="notes">
+        We have built the conceptual machinery today — variance components, narrow-sense heritability, twin and S N P methods, and the famous misinterpretations. Next chapter we turn the machinery on real data. We will look at how partitioned variance plays out across multiple traits and tissues, what the modern partitioning methods like stratified L D S C tell us, and how partitioned heritability connects to specific biology — cell types, regulatory elements, evolutionary signatures. Heritability is just the first number; the partitioning is where the biology shows up. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

@@ -30,8 +30,10 @@ html, body, .reveal { background: var(--parchment); }
 
 .reveal .slides > section,
 .reveal .slides > section > section {
-  padding: 40px 60px;
+  padding: 36px 100px;
   line-height: 1.4;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* ---- headings ---- */
@@ -177,19 +179,47 @@ html, body, .reveal { background: var(--parchment); }
   color: var(--ink);
 }
 
-/* ---- 2-column layout ---- */
-.reveal .cols { display: flex; gap: 2em; align-items: flex-start; }
-.reveal .cols > div { flex: 1; }
+/* ---- 2-column layout (CSS Grid for robust column widths) ---- */
+.reveal .cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5em;
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.reveal .cols > div {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+.reveal .cols ul,
+.reveal .cols ol {
+  margin-left: 1em;
+  padding-right: 0.2em;
+  min-width: 0;
+}
+.reveal .cols li {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
 
 /* ---- figure / image ---- */
-.reveal figure { text-align: center; margin: 0; }
-.reveal figure img { max-height: 460px; border: 1px solid var(--rule); border-radius: 4px; }
+.reveal figure { text-align: center; margin: 0; max-width: 100%; width: 100%; box-sizing: border-box; }
+.reveal figure img { max-height: 400px; max-width: 100%; border: 1px solid var(--rule); border-radius: 4px; object-fit: contain; }
 .reveal figure figcaption {
-  font-size: 0.6em;
+  font-size: 0.55em;
   color: var(--ink-soft);
-  margin-top: 0.6em;
-  line-height: 1.4;
+  margin-top: 0.5em;
+  line-height: 1.35;
   text-align: left;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
 
 /* ---- question cue ---- */

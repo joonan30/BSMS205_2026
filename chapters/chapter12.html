@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12 · Recessive Alleles in Human Disorders — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Recessive Alleles<br>in Human Disorders</h1>
+      <div class="chapter-num">Chapter 12 · Part II · Variation</div>
+      <aside class="notes">
+        Welcome back. Today is chapter twelve, recessive alleles in human disorders. Last week in chapter eleven we looked at dominant disorders, where one broken copy of a gene is enough to cause disease — that's haploinsufficiency. Today we flip the question. What if one bad copy is fine, but two is a disaster? That is the world of recessive disease, and it has its own logic, its own classic examples like cystic fibrosis and sickle cell, and its own surprises that only recently became visible thanks to next-generation sequencing in specific populations. Let's get started.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.1; margin-top:0.2em;">
+        Two healthy parents.<br>
+        One <span style="color:var(--terracotta-deep)">affected</span> child.<br>
+        How?
+      </h1>
+      <aside class="notes">
+        Here is the puzzle that defined recessive genetics for a hundred years. Two healthy parents have a child with a severe genetic disease. There is no family history. Nobody on either side has it. How is that possible? In a dominant world it would be a fresh mutation, a spontaneous accident. But for many recessive diseases, the answer turns out to be different and more interesting. Both parents are silently carrying one broken copy of the same gene, perfectly healthy themselves, and the child happened to inherit the broken copy from both of them. Today we'll unpack exactly how that works.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Bridge from Chapter 11</h2>
+      <div class="cols">
+        <div>
+          <h3>Chapter 11 · Dominant</h3>
+          <ul>
+            <li><strong>One</strong> bad copy → disease</li>
+            <li>Haploinsufficiency</li>
+            <li>Visible in every generation</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chapter 12 · Recessive</h3>
+          <ul>
+            <li><strong>Two</strong> bad copies → disease</li>
+            <li>One copy = healthy <strong>carrier</strong></li>
+            <li>Often <em>skips</em> generations</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Let's anchor today's lecture against last week's. In chapter eleven, dominant disorders, we said one broken copy of a gene is enough to break the system. That's haploinsufficiency. Today, recessive disorders play by exactly the opposite rule. One broken copy is fine — the cell just leans on the other working copy and produces enough protein. You only get disease when both copies fail. And because of that, recessive disease can hide silently across generations, then suddenly appear when two carriers happen to have a child together.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The diploid setup</div>
+      <div class="bignum">2 copies</div>
+      <div class="bignum-label">every autosomal gene · one from Mom · one from Dad</div>
+      <ul>
+        <li>Both copies make protein → enough function</li>
+        <li>One broken, one working → still enough</li>
+        <li>Both broken → <strong>nothing to fall back on</strong></li>
+      </ul>
+      <aside class="notes">
+        Remember the basic biology. We are diploid organisms. Every autosomal gene comes in two copies — one from Mom, one from Dad. For most genes, one working copy makes enough protein to keep the cell happy. So if you break one allele but the other still works, you typically have no symptoms at all. You are a healthy carrier. The disease only appears when both alleles fail to produce functional protein, because at that point the cell has nothing to fall back on. That single fact — that one good copy is usually enough — is the key to understanding all of recessive genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Classic recessive disorders</h2>
+      <table>
+        <thead><tr><th>Disease</th><th>Gene</th><th>What breaks</th></tr></thead>
+        <tbody>
+          <tr><td>Cystic fibrosis</td><td><em>CFTR</em></td><td>Chloride channel</td></tr>
+          <tr><td>Sickle cell disease</td><td><em>HBB</em></td><td>Hemoglobin β-chain</td></tr>
+          <tr><td>Tay-Sachs</td><td><em>HEXA</em></td><td>Lysosomal enzyme</td></tr>
+          <tr><td>Phenylketonuria</td><td><em>PAH</em></td><td>Phenylalanine hydroxylase</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">All <strong>Mendelian</strong> · single gene · two broken copies</p>
+      <aside class="notes">
+        Here is a quick orientation. These are the textbook recessive disorders, and you've heard of most of them. Cystic fibrosis, broken chloride channel in the lung. Sickle cell disease, broken hemoglobin. Tay-Sachs, a lysosomal enzyme failure that destroys neurons. Phenylketonuria, an inability to break down phenylalanine. All four are classic Mendelian — they follow Mendel's pea plant rules cleanly. Single gene, two broken copies needed, very high penetrance. Almost every textbook example of recessive disease comes from this list.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Alleles, genotypes, and what counts as "broken"</li>
+        <li>Why recessives skip generations · carriers</li>
+        <li>Compound heterozygotes &amp; biallelic variation</li>
+        <li>Consanguinity, autozygosity, runs of homozygosity</li>
+        <li>From Mendelian to common diseases</li>
+        <li>Selection &amp; the genetic load</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how we'll move today. First, the vocabulary — alleles, genotypes, what we mean by a variant. Second, the inheritance pattern itself, why recessives skip generations and what a carrier really is. Third, the two ways to get biallelic disease — homozygous and compound heterozygous. Fourth, consanguinity and autozygosity, where things get statistically interesting. Fifth, an important update from modern genomics — recessive alleles are not just for rare Mendelian disease, they shape common diseases too. Sixth, natural selection and the genetic load each of us carries. Then we wrap up.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · ALLELES & GENOTYPES
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Alleles, Genotypes,<br>Variants</h1>
+      <aside class="notes">
+        Let's get the vocabulary right first. The whole story of recessive disease hinges on what's happening at one locus across two chromosomes, so we need to be precise about it.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Three genotypes at any locus</h2>
+      <ul>
+        <li><strong>Homozygous reference</strong> · X<sub>ref</sub>/X<sub>ref</sub> · both match reference</li>
+        <li><strong>Heterozygous</strong> · X<sub>ref</sub>/X<sub>alt</sub> · one variant copy = <em>carrier</em></li>
+        <li><strong>Homozygous alternative</strong> · X<sub>alt</sub>/X<sub>alt</sub> · both copies altered</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        Recessive disease lives at <strong>X<sub>alt</sub>/X<sub>alt</sub></strong>.
+      </blockquote>
+      <aside class="notes">
+        At any one locus in your genome, you can be in one of three states. Homozygous reference means both copies match the reference genome — what most people have at most positions. Heterozygous means one copy is reference and the other carries some variant — that's the carrier state for recessive disease. Homozygous alternative means both copies carry the variant. If that variant disrupts gene function, this is when disease appears. Recessive disease lives in that third state — both alleles altered, no working copy to fall back on.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>What's a "variant"?</h2>
+      <ul>
+        <li><strong>SNV</strong> · single-nucleotide variant · one base swapped</li>
+        <li><strong>Indel</strong> · small insertion or deletion · a few bases</li>
+        <li>Both can disrupt protein: stop codon, frameshift, splicing</li>
+      </ul>
+      <div class="formula" style="margin-top:0.6em;">
+        ref:  ATG · CGA · TTA<br>
+        alt:  ATG · <span style="color:var(--terracotta-deep)">T</span>GA · TTA  &larr; new stop
+      </div>
+      <aside class="notes">
+        Quick definition. A variant is just a difference from the reference sequence. The two most common kinds we care about for recessive disease are single-nucleotide variants — one base swapped for another — and small insertions or deletions of just a few bases, called indels. Either kind can wreck a gene. A single base change might create a premature stop codon. A small insertion might shift the reading frame and turn the rest of the protein into nonsense. This shows the simplest case — one letter changes, and a stop codon appears in the middle of the gene. Both alleles like this and the gene is dead.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Two routes to biallelic disease</h2>
+      <div class="cols">
+        <div>
+          <h3>Homozygous</h3>
+          <ul>
+            <li><strong>Same</strong> variant on both alleles</li>
+            <li>Same allele from Mom &amp; Dad</li>
+            <li>Common in <strong>consanguineous</strong> families</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Compound het</h3>
+          <ul>
+            <li><strong>Two different</strong> variants, one each allele</li>
+            <li>Variant A from Mom, variant B from Dad</li>
+            <li>Common in <strong>outbred</strong> populations</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        There are two routes to ending up with both copies of a gene broken — and they're worth distinguishing. First, homozygous: the exact same variant on both alleles. You inherited the same broken allele from both parents. This is more likely when your parents share recent ancestry, because they are more likely to both carry the same ancestral mutation. Second, compound heterozygous: two different variants, one on each allele, but both knock out the gene. You got variant A from Mom and variant B from Dad. Either route ends up at the same place — no working protein — but the genetics underneath looks different. Compound heterozygotes are common in outbred populations like Iceland and the ExAC database, where studies have identified one hundred sixty-seven and two hundred ninety-nine such genes respectively.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · WHY RECESSIVES SKIP GENERATIONS
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Why It Skips<br>a Generation</h1>
+      <aside class="notes">
+        Now to one of the hallmark features of recessive disease — the way it seems to vanish for generations and then suddenly reappear. This is what makes recessive disorders genetically tricky and emotionally devastating for the families involved.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>The carrier · silent but loaded</h2>
+      <ul>
+        <li>One broken allele · one working allele</li>
+        <li>Working allele makes <strong>enough protein</strong></li>
+        <li>No symptoms · normal life · normal labs</li>
+        <li>But: <strong>50%</strong> chance of passing the bad allele to each child</li>
+      </ul>
+      <aside class="notes">
+        Here's the carrier. Genotype heterozygous — one broken allele, one working allele. The working allele makes enough protein to keep the cell happy, so the carrier shows no symptoms. Their bloodwork looks normal. They live a normal life. They might never know they carry the variant. But — and this is the key — every time they have a child, they pass on the broken allele with fifty percent probability. The mutation is silently traveling down the generations, untested and unseen, until it meets another copy of itself in someone else's family.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Two carriers · one cross</h2>
+      <table>
+        <thead><tr><th>Mom × Dad</th><th>A (working)</th><th>a (broken)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>AA · healthy</td><td>Aa · carrier</td></tr>
+          <tr><td><strong>a</strong></td><td>Aa · carrier</td><td><strong>aa · affected</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">
+        Two carriers → <strong>1 in 4</strong> children affected · <strong>2 in 4</strong> carriers · <strong>1 in 4</strong> clear
+      </p>
+      <aside class="notes">
+        Here's the Punnett square that every genetics student draws. Both parents are carriers — Aa. Each child gets one allele from each parent. The four equally-likely outcomes — capital A capital A, capital A lowercase a, lowercase a capital A, and lowercase a lowercase a. So twenty-five percent of the children are unaffected and not even carriers. Fifty percent are healthy carriers like their parents. And twenty-five percent — one in four — are homozygous for the broken allele and affected with the disease. That one in four is why families with no history at all can suddenly have an affected child.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Why it looks like it skips</h2>
+      <ul>
+        <li>Carriers are <strong>invisible</strong> in pedigrees · no phenotype</li>
+        <li>Disease only appears when <strong>two carriers</strong> meet</li>
+        <li>For rare recessives, that match-up is rare</li>
+        <li>So affected people cluster · then nothing for generations</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The allele never left.<br>
+        It was just <strong>silent</strong>.
+      </blockquote>
+      <aside class="notes">
+        From a family's perspective, the disease seems to skip generations. Grandparents healthy. Parents healthy. Then a child is affected. What's actually happening? The allele was there the whole time. It traveled silently through the carriers — grandfather, mother, child — and only became visible when it met another copy of itself. For a rare allele, the chance of two carriers having children together is small, so affected individuals cluster in pedigrees and then vanish for generations. The allele didn't leave. It was just hiding in the heterozygous state, waiting for a partner.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · CONSANGUINITY & AUTOZYGOSITY
+         ==================================================== -->
+
+    <!-- Slide 15 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Consanguinity<br>&amp; Autozygosity</h1>
+      <aside class="notes">
+        Now to one of the most genetically informative situations in human biology — what happens when relatives marry and have children. This is not a moral question, it's a statistical one, and it has powered some of the biggest discoveries in recessive disease.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Consanguinity · the same broken tool</h2>
+      <ul>
+        <li><strong>Consanguinity</strong> · marriage between close relatives</li>
+        <li>Shared great-grandparents → shared rare alleles</li>
+        <li>Same mutation flows down <strong>both</strong> family lines</li>
+        <li>Child inherits <strong>two copies</strong> of the same ancestral allele</li>
+      </ul>
+      <aside class="notes">
+        Here's the logic. Imagine your parents are second cousins. They share a pair of great-grandparents. Any rare mutation those great-grandparents carried has a real chance of being passed down both family lines — through one branch to one parent, through the other branch to the other parent — and then both into you. You end up homozygous for the same ancestral broken allele. It's like inheriting the same broken tool from both sides of the family. That's consanguinity, and it dramatically raises the chance of recessive disease for any allele that happens to be carried in the family.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>Autozygosity · IBD on both chromosomes</h2>
+      <ul>
+        <li><strong>Autozygous</strong> region · both chromosomes identical by descent</li>
+        <li>Both copies trace to a <strong>single recent ancestor</strong></li>
+        <li>Long, contiguous stretches — <strong>runs of homozygosity (ROH)</strong></li>
+        <li>Any rare variant in that region is automatically homozygous</li>
+      </ul>
+      <aside class="notes">
+        The technical term is autozygosity. An autozygous region is a stretch of DNA where both of your chromosomes are identical by descent — both copies came from the same recent ancestor. We see these as long contiguous stretches of homozygosity in the genome, called runs of homozygosity, or R O H. The crucial feature: anywhere inside an autozygous segment, every variant is automatically homozygous. So if your great-grandfather happened to carry a rare loss-of-function variant in some gene, and that variant lives inside your autozygous region, you are now homozygous for it — whether or not it causes disease.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>The British Pakistani cohort</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3em;">32%</div>
+          <div class="bignum-label">offspring of 2nd cousins or closer</div>
+        </div>
+        <div>
+          <ul>
+            <li>n = <strong>3,222</strong> Pakistani-heritage adults · UK</li>
+            <li>Avg <strong>5.6%</strong> of coding genome autozygous</li>
+            <li>Orders of magnitude more than Europeans</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.85em; color:var(--ink-soft);">
+        Narasimhan et al. 2016, <em>Science</em>
+      </p>
+      <aside class="notes">
+        Here is where the science gets exciting. In the UK, British Pakistani and Bangladeshi communities have a long tradition of marriage between cousins — about thirty-two percent of individuals in these communities are offspring of second cousins or closer relatives. A landmark study sequenced three thousand two hundred twenty-two Pakistani-heritage adults and found that on average five point six percent of their coding genome was autozygous. That's enormous — orders of magnitude higher than in outbred European populations, where there's almost no autozygosity at all. This makes the cohort uniquely valuable for finding recessive variants.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>ROH distribution · the natural experiment</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Narasimhan2016-Science-Fig1.jpeg" alt="Autozygosity and rare homozygous loss-of-function variants in Pakistani-heritage individuals">
+        <figcaption>
+          <strong>Figure 1.</strong> Pakistani-heritage individuals (blue) carry many long autozygous segments; Europeans (orange) have almost none. As autozygosity rises, the count of rare homozygous loss-of-function (rhLOF) genotypes per person rises with it. Source: Narasimhan et al. 2016, <em>Science</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the data. On the left panel, each dot is a person. The Pakistani-heritage individuals in blue have many long autozygous segments — many people have over thirty segments averaging five to ten megabases. The Europeans in orange have almost none. On the right panel, you see the consequence: as the fraction of the genome that is autozygous goes up on the x-axis, the number of rare homozygous loss-of-function genotypes per person goes up on the y-axis. People with about six percent autozygosity carry around half a rare knockout per person. People with ten percent carry nearly point eight. This is a natural experiment that reveals which genes can tolerate complete knockout in humans.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>The treasure trove</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum">1,111</div>
+          <div class="bignum-label">rare homozygous LOF genotypes</div>
+        </div>
+        <div>
+          <div class="bignum">781</div>
+          <div class="bignum-label">distinct genes knocked out</div>
+        </div>
+      </div>
+      <ul style="margin-top:0.8em;">
+        <li><strong>94.9%</strong> sat inside autozygous segments</li>
+        <li>Most variants are <strong>rare</strong> · none would surface in outbred cohorts</li>
+      </ul>
+      <aside class="notes">
+        And the punchline. Across these three thousand two hundred twenty-two individuals, the team found one thousand one hundred eleven rare homozygous loss-of-function genotypes hitting seven hundred eighty-one distinct genes. Ninety-four point nine percent of these knockouts sat inside autozygous segments — confirming the statistical logic we just walked through. None of these knockouts would have surfaced in an outbred cohort, because the same rare allele almost never lands on both chromosomes by chance. This is a treasure trove for human genetics — it tells us, gene by gene, which ones are dispensable when both copies are gone, and which ones cause disease.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · MENDELIAN & COMPLEX DISEASES
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>From Mendelian<br>to Complex</h1>
+      <aside class="notes">
+        Traditionally we thought of recessive disease as a small box — single-gene disorders, dramatic phenotypes, neat Mendelian inheritance. The new sequencing data is showing us that's only half the story. Recessive alleles also shape common, complex diseases.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The traditional view</h2>
+      <ul>
+        <li>Recessive = <strong>Mendelian</strong> · single-gene · high penetrance</li>
+        <li>Cystic fibrosis · sickle cell · Tay-Sachs · PKU</li>
+        <li>Break both copies → almost always disease</li>
+        <li>Clean pedigrees · clear inheritance</li>
+      </ul>
+      <aside class="notes">
+        For most of the twentieth century, recessive disease meant one thing — Mendelian disorders. Single gene, dramatic phenotype, almost full penetrance. Cystic fibrosis, sickle cell, Tay-Sachs, P K U. If you broke both copies of the gene, you got the disease. The pedigrees were clean. The inheritance was clear. And that gave us the textbook picture of recessive genetics for a hundred years.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Mendelian example · <em>WDR62</em> microcephaly</h2>
+      <ul>
+        <li>Brain malformations: microcephaly, pachygyria, lissencephaly</li>
+        <li><em>WDR62</em> · neural progenitor cell division</li>
+        <li>Multiple consanguineous families · <strong>different mutations</strong></li>
+        <li>Genetic <strong>heterogeneity</strong> · same disease, different broken alleles</li>
+      </ul>
+      <p style="margin-top:0.6em; font-size:0.85em; color:var(--ink-soft);">
+        Bilgüvar et al. 2010, <em>Nature</em>
+      </p>
+      <aside class="notes">
+        Here's a textbook Mendelian example from modern sequencing. Several consanguineous families had children with severe brain malformations — microcephaly, abnormally small heads, pachygyria, unusually thick simplified brain folds, and lissencephaly, smooth brain lacking normal folding. Whole-exome sequencing identified homozygous mutations in W D R sixty-two — a gene critical for neural progenitor cell division. Without this protein, the cells that build the developing brain can't proliferate properly. The interesting twist is that different families had different mutations — frameshifts, nonsense changes, missense variants — but all knocked out the same gene. That's genetic heterogeneity, and it's how recessive disease usually looks in practice.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>The new view · recessive in <em>common</em> disease</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum">44,190</div>
+          <div class="bignum-label">British Pakistani &amp; Bangladeshi</div>
+        </div>
+        <div>
+          <div class="bignum">185</div>
+          <div class="bignum-label">recessive loci · 898 diseases</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.85em; color:var(--ink-soft);">
+        Heng et al. 2025, <em>Am J Hum Genet</em>
+      </p>
+      <aside class="notes">
+        Now the modern surprise. A larger study of forty-four thousand one hundred ninety British Pakistani and Bangladeshi individuals tested for recessive associations across the genome, against eight hundred ninety-eight common diseases pulled from electronic health records. They found one hundred eighty-five recessive loci — many of them completely novel — only detectable because of the high autozygosity in this cohort. These are not rare Mendelian disorders. These are everyday conditions like hypertension and fatty liver disease. Recessive alleles are quietly shaping common disease, and we've been missing them.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Manhattan plot · recessive associations</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Heng2025-AJHG-Fig1.jpg" alt="Manhattan plot of recessive associations in British Pakistanis and Bangladeshis">
+        <figcaption>
+          <strong>Figure 2.</strong> Each point = a variant tested under a recessive model against an EHR-derived disease. Three Bonferroni peaks: NAFLD on chr22, porphyrin / bilirubin metabolism on chr2, thalassemia / hemolytic anemias on chr11. Source: Heng et al. 2025, <em>Am J Hum Genet</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the genome-wide picture. Each point is a variant tested for recessive association with one of the eight hundred ninety-eight diseases. The y-axis is the strength of evidence — minus log ten p-value. Dashed lines mark the genome-wide and Bonferroni significance thresholds. Three big peaks pop out — variants associated with non-alcoholic fatty liver disease on chromosome twenty-two, disorders of porphyrin and bilirubin metabolism on chromosome two, and thalassemia and hereditary hemolytic anemias on chromosome eleven. These are recessive disease architectures hiding in plain sight, and they only became visible because of the high autozygosity in this cohort.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Two example hits</h2>
+      <table>
+        <thead><tr><th>Gene</th><th>Trait</th><th>Effect (homozygous)</th></tr></thead>
+        <tbody>
+          <tr><td><em>SGLT4</em></td><td>Hypertension</td><td>OR = <strong>0.2</strong> · 80% lower risk</td></tr>
+          <tr><td><em>PNPLA3</em></td><td>Fatty liver disease</td><td>OR = <strong>1.3</strong> · increased risk</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">
+        These would be <strong>invisible</strong> in additive-model GWAS.
+      </p>
+      <aside class="notes">
+        Two examples worth knowing. First, S G L T four — a missense variant where homozygotes had an eighty percent lower risk of hypertension. Odds ratio of point two. That is a huge protective effect for a common disease. The variant likely changes how the kidney handles sodium. Second, P N P L A three — a recessive variant strongly associated with non-alcoholic fatty liver disease. Odds ratio one point three, p value two times ten to the minus twelve. Critically, both of these would have been missed by a traditional G W A S that assumes an additive genetic model. They only show up when you specifically test for recessive effects.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · SELECTION & GENETIC LOAD
+         ==================================================== -->
+
+    <!-- Slide 27 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Selection &amp;<br>the Genetic Load</h1>
+      <aside class="notes">
+        Now let's zoom out and ask why deeply harmful recessive alleles don't just accumulate to high frequency. The answer is natural selection — but the way selection works on recessive alleles has its own logic.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Why deleterious recessives stay rare</h2>
+      <ul>
+        <li>Carriers are <strong>healthy</strong> · selection can't see them</li>
+        <li>Selection only acts when both copies meet → <strong>aa</strong></li>
+        <li>aa removed → next generation has fewer a alleles</li>
+        <li>But carriers keep allele <strong>circulating</strong> for centuries</li>
+      </ul>
+      <aside class="notes">
+        Here's the logic. If a recessive allele is deleterious, selection only acts on it when both copies meet up in the same person. Carriers are healthy, so selection can't see them at all — heterozygotes pass the allele on to the next generation just like a reference allele. Only homozygotes get removed. That makes selection against recessive alleles weak and slow, because the allele is mostly hiding in heterozygous form. This is also why deleterious recessive alleles can persist in populations for hundreds or thousands of generations even though they reduce fitness when homozygous.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Selection against rhLOF · the deficit</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Narasimhan2016-Science-Fig2.jpeg" alt="Natural selection against recessive loss-of-function variants">
+        <figcaption>
+          <strong>Figure 3.</strong> A 13.7% deficit of rare homozygous loss-of-function genotypes vs frequency-matched synonymous controls — the missing variants likely caused embryonic / fetal loss. Estimated load: ~1.6 lethal-equivalents per person. Source: Narasimhan et al. 2016, <em>Science</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here's the quantitative side. The Narasimhan team compared sixteen thousand seven hundred eight rare loss-of-function variants to frequency-matched synonymous variants — the synonymous ones don't disrupt protein, so they're a neutral control. They found a thirteen point seven percent deficit of rare homozygous knockouts compared to expectation. What happened to the missing ones? They likely caused embryonic or fetal loss before the individuals could be sampled as adults. By modeling that deficit, they estimated each person carries about one point six recessive lethal-equivalent variants — mutations that would cause death or severe disease if homozygous. This matches independent estimates from infant mortality data and Hutterite pedigrees.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>The number to remember</h2>
+      <div class="bignum">~1.6</div>
+      <div class="bignum-label">recessive lethal-equivalents · per person</div>
+      <ul>
+        <li>Each of us carries hidden lethal alleles</li>
+        <li>Different variants in different people · spread across the genome</li>
+        <li>Manifests as <strong>pregnancy loss</strong> in consanguineous unions</li>
+      </ul>
+      <aside class="notes">
+        Here's the number that should stick with you. About one point six. On average, every human being carries the equivalent of one point six recessive alleles that would be lethal if you got two copies. Different people carry different ones — your hidden lethal alleles are different from mine. They're spread across the whole genome. We get away with it because we're heterozygous at all those positions, and one good copy is enough. But in consanguineous unions, where the chance of two copies meeting goes up sharply, this hidden burden manifests as increased rates of pregnancy loss and infant mortality.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Not every knockout is bad · <em>PRDM9</em></h2>
+      <ul>
+        <li>Healthy mother · <strong>homozygous LOF</strong> in <em>PRDM9</em></li>
+        <li><em>PRDM9</em> · meiotic recombination hotspot specification</li>
+        <li><strong>Essential</strong> in mice · <strong>dispensable</strong> in this human</li>
+        <li>Three healthy children · normal life</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        "Loss of function" ≠ "disease."
+      </blockquote>
+      <aside class="notes">
+        And one more important nuance. Not every knockout causes disease. The Narasimhan study identified a healthy mother who was homozygous for a complete loss-of-function mutation in P R D M nine — a gene that controls where chromosomes recombine during meiosis. P R D M nine is essential in mice. Mice without it are sterile. But this woman was healthy, fertile, and had three healthy children. Some genes that look essential in animal models turn out to be dispensable in humans, or have backup pathways that compensate. This is a reminder to be careful when interpreting predicted loss-of-function variants — context matters, and human biology doesn't always follow mouse biology.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · CLINICAL & POPULATION IMPLICATIONS
+         ==================================================== -->
+
+    <!-- Slide 32 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Clinical &amp;<br>Population Lessons</h1>
+      <aside class="notes">
+        Let's tie this all back to the clinic and to why this work matters for diverse human populations, including, most relevantly for us, Korean populations.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Why diverse populations matter</h2>
+      <ul>
+        <li>European-ancestry cohorts dominate genomics</li>
+        <li>Outbred populations → <strong>almost no autozygosity</strong></li>
+        <li>Recessive associations remain <strong>invisible</strong></li>
+        <li>Consanguineous &amp; founder populations reveal hidden architecture</li>
+      </ul>
+      <aside class="notes">
+        Here's a point worth dwelling on. Most genomics has been done in European-ancestry cohorts that are heavily outbred — meaning almost no autozygosity. In those cohorts, recessive disease architecture is mostly invisible, because the same rare variant almost never ends up on both chromosomes. Studying consanguineous populations like British Pakistanis, or founder populations like Finnish or Ashkenazi Jewish, gives us a fundamentally different genetic lens. It's not just about ancestry — it's about studying populations whose demographic histories make recessive variants visible. Without that diversity, we miss huge swaths of disease biology.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Korean recessive disease landscape</h2>
+      <ul>
+        <li>Korea: low formal consanguinity, but <strong>population isolates</strong> exist</li>
+        <li>Founder effects in some lineages → recurring rare alleles</li>
+        <li>Korean-specific variants poorly represented in <strong>gnomAD</strong></li>
+        <li>Korean biobanks now closing the gap · KoGES, KBA, KCDC</li>
+      </ul>
+      <aside class="notes">
+        Closer to home — Korea. We don't have the same level of formal cousin marriage as the British Pakistani cohort, but Korea has its own genetic structure. Geographic isolates, regional founder effects, recurring rare alleles in particular lineages. And historically, Korean genetic variation has been under-represented in big resources like gnomAD, which means rare Korean recessive variants were invisible to clinicians using global databases. Korean biobanks like KoGES and the Korean Biobank Array are now closing that gap, and we're starting to see Korean-specific recessive associations emerge. This is why population diversity in genomics is not just an ethical concern — it's a scientific necessity for taking care of Korean patients.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Clinical applications</h2>
+      <ul>
+        <li><strong>Carrier screening</strong> · identify at-risk couples before pregnancy</li>
+        <li><strong>Genetic counseling</strong> · explain 1-in-4 risk to families</li>
+        <li><strong>Prenatal &amp; preimplantation</strong> diagnosis</li>
+        <li><strong>Drug targets</strong> · protective LOFs become therapy ideas (cf. PCSK9)</li>
+      </ul>
+      <aside class="notes">
+        And finally, why this matters in the clinic. Four directions. Carrier screening — testing prospective parents for known recessive alleles before pregnancy, especially in populations with elevated carrier frequencies. Genetic counseling — explaining the one-in-four risk to families with one affected child. Prenatal and preimplantation diagnosis — when a couple knows they are both carriers. And, most exciting, drug development. When a natural homozygous knockout protects against disease — like P C S K nine knockouts protecting against high cholesterol, leading to P C S K nine inhibitor drugs — those genes become therapeutic targets. The S G L T four hypertension finding we saw earlier is exactly the same logic. This is human genetics-guided drug development.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 36 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Recessive disease needs <strong>both copies</strong> broken · carriers are healthy</li>
+        <li>Two routes: <strong>homozygous</strong> &amp; <strong>compound heterozygous</strong></li>
+        <li>Consanguinity → autozygosity → <strong>ROH</strong> reveal recessive variants</li>
+        <li>Recessives shape <strong>common</strong> disease too · 185 loci, 898 traits</li>
+        <li>Each person carries ~<strong>1.6</strong> recessive lethal-equivalents</li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One — recessive disease requires both copies of a gene to be broken, and carriers with one broken copy are typically healthy. Two — biallelic disease comes through two routes, homozygous when the same variant lands on both alleles, and compound heterozygous when two different variants knock out the same gene. Three — consanguinity creates long autozygous regions, runs of homozygosity, that act as a natural lens on recessive variation. The British Pakistani cohort revealed eleven hundred eleven rare homozygous knockouts in seven hundred eighty-one genes. Four — recessive alleles aren't just for rare Mendelian disease. They shape common diseases too, with the Heng study finding one hundred eighty-five loci across eight hundred ninety-eight common conditions. Five — selection keeps deleterious recessives rare but not absent, and each of us carries about one point six recessive lethal-equivalents in our genomes.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>The arc · single letters → bigger questions</h2>
+      <ul>
+        <li>Ch 11 · <strong>dominant</strong> · one bad copy</li>
+        <li>Ch 12 · <strong>recessive</strong> · two bad copies</li>
+        <li>Both · <strong>single-nucleotide</strong> &amp; small <strong>indels</strong></li>
+        <li>Next · what about <strong>big rearrangements</strong>?</li>
+      </ul>
+      <aside class="notes">
+        Step back and look at the arc of the last two lectures. Chapter eleven, dominant disease — one bad copy is enough. Chapter twelve, today, recessive disease — you need two bad copies. In both cases, we've been talking about single-nucleotide variants and small indels. Single letters changing. Tiny insertions and deletions of a few bases. But the genome can break in much bigger ways than that. Whole regions can be deleted. Chunks can be duplicated, inverted, or moved to a different chromosome. That's a different category of variation, and it brings its own logic and its own diseases.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        We've covered single letters.<br>
+        What about <span style="color:var(--terracotta-deep)">big rearrangements</span>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 13 · <strong>Structural Variations</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. We've spent two lectures on single-letter changes and small indels. But what happens when a whole megabase of DNA gets deleted? Or duplicated? Or flipped end-to-end? These structural variations don't always behave like simple recessive or dominant disorders, and they require different sequencing technology to detect. That's the story of chapter thirteen, structural variations. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

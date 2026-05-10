@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4 · From Single Reference to Pangenome — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>From Single Reference<br>to Pangenome</h1>
+      <div class="chapter-num">Chapter 4 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome to Chapter four. In Chapter three we celebrated T2T-CHM thirteen — the first truly complete, gapless human genome. That sounds like the end of the story, but it isn't. CHM thirteen comes from one source. One genome cannot represent the genetic diversity of eight billion humans. Today we ask the obvious next question: if one reference is not enough, what should we use instead? The answer the field arrived at in twenty twenty-three is the pangenome. Let's see what that means and why it matters.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        We finally have a complete<br>reference. <span style="color:var(--terracotta-deep)">Is one enough?</span>
+      </h1>
+      <aside class="notes">
+        Hold this question in your head for the rest of the lecture. T2T-CHM thirteen finished the job that the Human Genome Project started — every base, no gaps, end to end. By any measure, it is a triumph. But it represents one genome. One ancestry. One pair of nearly identical chromosomes. The question is not whether CHM thirteen is good. It is whether any single reference, no matter how perfectly sequenced, can describe a species as diverse as humans. Spoiler: it cannot. And that is what this chapter is about.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>How different are two human genomes?</h2>
+      <ul>
+        <li>Millions of single-letter differences — <strong>SNPs</strong></li>
+        <li>Larger chunks inserted, deleted, duplicated, flipped — <strong>SVs</strong></li>
+        <li>Gene <strong>copy numbers</strong> vary between individuals</li>
+        <li>Some sequences exist in <strong>some populations only</strong></li>
+      </ul>
+      <aside class="notes">
+        Let's set the scale. If you compare your genome to your neighbor's, you find millions of single-letter differences — those are S N Ps, single nucleotide polymorphisms. On top of that, there are larger structural changes: chunks of DNA inserted, deleted, duplicated, or flipped backwards. Those are structural variants, S Vs. Even more dramatic, the same gene can exist in different copy numbers in different people, and some DNA sequences are present in some populations and absent in others. A single reference is one specific point in this enormous space of variation.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>Two stories that show the cost</h2>
+      <div class="cols">
+        <div>
+          <h3>Drug response</h3>
+          <ul>
+            <li>East Asian population insertion</li>
+            <li>Changes protein shape</li>
+            <li><strong>Missing</strong> from reference</li>
+            <li>Why does the drug behave differently?</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Diagnosis</h3>
+          <ul>
+            <li>African ancestry patient</li>
+            <li>Large deletion in a gene</li>
+            <li><strong>Disease — or normal variant?</strong></li>
+            <li>Single reference cannot say</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two everyday stories that show the cost of relying on a single reference. First — drug response. Imagine a small insertion that is common in East Asian populations and slightly changes the shape of a protein a drug binds to. If your reference does not include that insertion, you can stare at the data forever and not see why the drug behaves differently in those patients. Second — diagnosis. A patient of African ancestry has a fifty-kilobase deletion in a gene region. Is that a disease-causing mutation or a normal polymorphism in their population? With a single European-derived reference, you cannot tell. With a diverse pangenome, you can.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Why one reference is not enough</li>
+        <li>What a pangenome is — graph vs line</li>
+        <li>The HPRC · 47 individuals · 94 haplotypes</li>
+        <li>What the pangenome revealed</li>
+        <li>Real-world impact &amp; equity</li>
+        <li>Limits and what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is the path for today. First — why a single reference is fundamentally limited, even when it is gapless. Second — what a pangenome actually is, and how a graph representation differs from a single linear sequence. Third — the Human Pangenome Reference Consortium, the H P R C, which in twenty twenty-three released the first draft pangenome from forty-seven individuals. Fourth — what new biology that pangenome revealed. Fifth — why this matters in clinic, in drug development, and in equity. Finally, the limits and what comes next. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · THE PROBLEM
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>One Reference,<br>Many People</h1>
+      <aside class="notes">
+        Let's spend a few minutes on the core problem. Why is using a single reference, no matter how good, a structural limitation? The answer is something called reference bias.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>Reference bias · what is it?</h2>
+      <ul>
+        <li>Every genome is compared to <strong>one</strong> sequence</li>
+        <li>Variants appear as <strong>mismatches or gaps</strong></li>
+        <li>Common-in-population variants flagged as <strong>rare or pathogenic</strong></li>
+        <li>The reference becomes a <strong>norm</strong> — and everyone else looks abnormal</li>
+      </ul>
+      <aside class="notes">
+        Reference bias is a simple idea with serious consequences. When every patient's DNA is aligned to one reference sequence, anything that differs from that reference shows up as a mismatch or a gap. If your reference is mostly European, then variants that are common in African or Asian populations look unusual. They get flagged. They get over-interpreted. The reference subtly becomes a norm — a standard against which every other genome is measured — and that is not what biology wants from a reference. It wants a description of diversity, not a yardstick.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>The library, not the textbook</h2>
+      <blockquote style="font-size:1.1em;">
+        A single reference is one textbook.<br>
+        A pangenome is a <strong>library</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Different books explain the same concept differently</li>
+        <li>Some include chapters others lack</li>
+        <li>Consult <strong>many</strong> → fuller picture</li>
+      </ul>
+      <aside class="notes">
+        Here is the analogy I want you to carry. A single reference genome is one textbook. It is detailed, useful, and authoritative — but it is one author's voice. A pangenome is a library. Different books explain the same concept in different ways, include different examples, and contain chapters that others lack. By consulting multiple books, you get a more complete understanding. The shift from a single reference to a pangenome is the shift from one textbook to a whole library. Same domain. Many voices. Better answers.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Why one reference is not enough</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter4_figure1.jpg" alt="Single reference vs multiple reference alignment">
+        <figcaption>
+          <strong>Figure 1.</strong> Aligning many people to <em>one</em> reference (left) makes diverse variants appear as mismatches. With <em>multiple</em> references (right), each person finds at least one good match.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture in one figure. On the left, every individual is aligned to a single reference, and any variant they carry shows up as a mismatch or a gap. The figure looks busy because the diversity has nowhere to go except onto the reference. On the right, multiple references are available, and each individual aligns well to at least one of them. The diversity is captured, not flagged. That is the core visual intuition for why a pangenome works. Same data, different denominator.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · WHAT IS A PANGENOME
+         ==================================================== -->
+
+    <!-- Slide 10 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>What Is<br>a Pangenome?</h1>
+      <aside class="notes">
+        Now let's nail down the definition. The word pangenome gets thrown around — let's say exactly what it means, and how it is represented in software.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Pangenome · a definition</h2>
+      <blockquote style="font-size:1.05em;">
+        A collection of <strong>multiple</strong> complete, high-quality genomes from <strong>diverse</strong> individuals, designed to capture the full range of variation in a population.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Many references, not one</li>
+        <li>Each is <strong>complete and high quality</strong></li>
+        <li>Chosen to cover <strong>ancestry diversity</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the working definition. A pangenome is a collection of multiple complete, high-quality genome sequences from diverse individuals, designed to capture the full range of genetic variation in a population. Three pieces matter. First — multiple, not one. Second — each genome must be complete and high quality, not a fragmentary draft. Third — the individuals must be selected to span ancestry diversity, not just convenience. With these three pieces, the pangenome stops being a single yardstick and becomes a description of the species.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Linear reference vs graph</h2>
+      <div class="cols">
+        <div>
+          <h3>Linear (old)</h3>
+          <ul>
+            <li>One path through DNA</li>
+            <li>Variants = deviations</li>
+            <li>One sequence is "correct"</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Graph (new)</h3>
+          <ul>
+            <li><strong>Many paths</strong> through same region</li>
+            <li>Branches where sequences diverge</li>
+            <li>Converge where they agree</li>
+            <li>No single "correct" path</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        How is a pangenome actually stored? Two options. The old way is linear — DNA is one path, variants are deviations from it, and one sequence is treated as canonical. The new way is a graph. Imagine the genome as a road network. Where everyone agrees, the roads converge. Where people differ, the road branches. Each individual's genome is a path through the graph. There is no single correct path — only paths that exist in the population. This is a fundamentally different data structure, and it required new alignment tools to actually use it.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Linear vs pangenome graph</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter4_figure2.jpg" alt="Linear reference vs pangenome graph representation">
+        <figcaption>
+          <strong>Figure 2.</strong> Top: a linear reference forces every variant onto one sequence. Bottom: a pangenome graph offers multiple paths — branches diverge where haplotypes differ, converge where they agree.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture. On top, a linear reference — one straight line, every variant pinned to it. On the bottom, a pangenome graph. Where haplotypes differ, the path branches. Where they agree, paths merge back together. This is not just a prettier picture — it is a different mathematical object. Algorithms that align reads to a graph give different, better answers than algorithms that align to a single line, especially in regions where individuals genuinely differ. Hold this image as the mental model for the rest of the lecture.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <div class="cue">A short worked example</div>
+      <h2>Three haplotypes, one region</h2>
+      <ul>
+        <li>Hap A: <code>...ACGTAAA<strong>CCCC</strong>GGTA...</code></li>
+        <li>Hap B: <code>...ACGTAAA<strong>—</strong>GGTA...</code> (deletion)</li>
+        <li>Hap C: <code>...ACGTAAA<strong>CCCCCCCC</strong>GGTA...</code> (expansion)</li>
+      </ul>
+      <p style="margin-top:0.8em;">Linear ref = one of these. Graph = <strong>all three paths</strong>.</p>
+      <aside class="notes">
+        Let's make this concrete with a tiny example. Three haplotypes share the same flanking sequence — A C G T A A A on the left and G G T A on the right. In the middle, haplotype A has a four-base C insert. Haplotype B has nothing — a deletion. Haplotype C has a longer expansion of eight Cs. A linear reference must pick one of these three. The other two then look like variants. In a graph, all three middles exist as alternative paths between the same flanking nodes. No haplotype is privileged. Each one is just a route through the network.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · THE HPRC
+         ==================================================== -->
+
+    <!-- Slide 15 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The HPRC<br>2023 Draft</h1>
+      <aside class="notes">
+        Now to the headline event of this chapter. In twenty twenty-three, the Human Pangenome Reference Consortium published the first draft human pangenome in Nature — Liao and colleagues. Let's look at what was in it.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>HPRC · the 2023 release</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:4em;">47</div>
+          <div class="bignum-label">individuals · diverse ancestry</div>
+        </div>
+        <div>
+          <div class="bignum" style="font-size:4em;">94</div>
+          <div class="bignum-label">phased haplotypes (diploid × 2)</div>
+        </div>
+      </div>
+      <p style="margin-top:0.8em; font-size:0.95em;">Liao et al. <strong>2023</strong> · <em>Nature</em> 617, 312–324</p>
+      <aside class="notes">
+        Here are the headline numbers. Forty-seven individuals, sequenced and assembled to T2T-like quality. Because humans are diploid — one chromosome from each parent — those forty-seven individuals provide ninety-four distinct haplotypes. Ninety-four full-genome paths through the graph. The paper landed in Nature in twenty twenty-three, Liao and colleagues, and it is the foundational reference for everything we are about to discuss. Hold the numbers — forty-seven individuals, ninety-four haplotypes.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>Who is in the pangenome?</h2>
+      <table>
+        <thead><tr><th>Population group</th><th>Share</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><strong>African</strong></td><td>51%</td><td>Yoruba · Gambian · Mende</td></tr>
+          <tr><td><strong>American</strong></td><td>34%</td><td>Puerto Rican · Peruvian · Colombian · Mexican</td></tr>
+          <tr><td><strong>Asian</strong></td><td>13%</td><td>Han Chinese · Japanese · Punjabi · Bengali</td></tr>
+          <tr><td><strong>European</strong></td><td>2%</td><td>British · Finnish · Iberian</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">A deliberate inversion of the GRCh38 ancestry skew.</p>
+      <aside class="notes">
+        Look closely at the ancestry breakdown. Fifty-one percent African, thirty-four percent American, thirteen percent Asian, only two percent European. That is not random. It is a deliberate inversion. GRCh thirty-eight is dominated by European-derived sequence; previous reference panels were almost entirely European. The HPRC chose to over-sample African and admixed American populations precisely because African populations carry the deepest genetic diversity in our species, and because under-representation of these groups was the original problem the pangenome was built to fix. This is one of the most important design choices in modern human genomics.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Genetic diversity captured</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter4_liao2023_fig1.png" alt="HPRC ancestry distribution from Liao 2023 Figure 1">
+        <figcaption>
+          <strong>Figure 3.</strong> Each dot = one individual; closer dots are more genetically similar. The 47 samples span major populations · Liao et al. 2023, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is panel one a from the Liao paper. Each dot is one of the forty-seven individuals, positioned by overall genetic similarity. Dots that cluster together are more genetically similar; dots far apart are more different. You can see the African samples spread out the most — that is genuine biology, not an artifact, because African populations are the most genetically diverse human populations on Earth. The other clusters represent admixed American, Asian, and European samples. Visually, you see the design intent: the panel deliberately samples across the full breadth of human variation.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why diploid means harder</h2>
+      <ul>
+        <li>CHM13 was <strong>uniparental</strong> · two identical haplotypes</li>
+        <li>Real people are <strong>diploid</strong> · two different haplotypes</li>
+        <li>Assembly must <strong>phase</strong>: separate maternal from paternal</li>
+        <li>HPRC delivered <strong>phased assemblies</strong> for all 47</li>
+      </ul>
+      <aside class="notes">
+        A technical note that matters. In Chapter three we used CHM thirteen because its two chromosome copies were essentially identical — a hydatidiform mole genome — which made assembly tractable. Real people are diploid: two different haplotypes per chromosome. To assemble a real person, you must separate maternal from paternal sequence. That process is called phasing. The HPRC team delivered phased assemblies for all forty-seven individuals — every chromosome split correctly into its two parental copies. This is technically harder than CHM thirteen, and the fact that it worked at scale is itself a remarkable achievement.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>How was it built?</h2>
+      <table>
+        <thead><tr><th>Technology</th><th>Read length</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td>PacBio HiFi</td><td>~20 kb</td><td>Long &amp; <strong>accurate</strong></td></tr>
+          <tr><td>Oxford Nanopore</td><td>&gt;100 kb</td><td><strong>Ultra-long</strong> · spans repeats</td></tr>
+          <tr><td>Hi-C</td><td>—</td><td>3D folding · <strong>haplotype phasing</strong></td></tr>
+          <tr><td>Illumina</td><td>~150 bp</td><td>Short · <strong>error correction</strong></td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        How was each genome built? The same technological recipe as T2T-CHM thirteen, but applied forty-seven times. PacBio HiFi reads — about twenty kilobases long, very accurate — for the assembly backbone. Oxford Nanopore — over one hundred kilobases — for spanning the longest repeats. Hi-C — a method that captures three-dimensional DNA folding — for separating maternal and paternal haplotypes. And Illumina short reads for final error correction. None of this is new technology by twenty twenty-three. The achievement is in the integration, the scale, and the quality control across all forty-seven samples.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · WHAT IT REVEALED
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>What the<br>Pangenome Revealed</h1>
+      <aside class="notes">
+        Now the science. With ninety-four haplotypes assembled, what did the team actually find? Three big discoveries — missing DNA, varying gene copy numbers, and dramatically improved variant detection.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>We were missing a lot of DNA</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum">119 Mb</div>
+          <div class="bignum-label">DNA absent from GRCh38</div>
+        </div>
+        <div>
+          <ul>
+            <li>~<strong>4% more</strong> sequence than the single reference</li>
+            <li>Includes <strong>genes</strong> and <strong>regulatory regions</strong></li>
+            <li><strong>90 Mb</strong> of it is structural variation</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        First headline finding. Across the ninety-four haplotypes, the team found about one hundred nineteen million base pairs of DNA that are simply not in GRCh thirty-eight at all. That is roughly four percent more sequence than the single reference contains. And this is not junk. It includes complete gene sequences, regulatory regions, and large structural variants. About ninety million base pairs of those one hundred nineteen come from structural variation — meaning regions where different people genuinely have different chunks of DNA, not just different letters in the same chunk. The single reference was simply blind to most of this.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>What was hiding in those 119 Mb?</h2>
+      <ul>
+        <li><strong>Gene sequences</strong> · complete genes missing from GRCh38</li>
+        <li><strong>Regulatory regions</strong> · controls for expression</li>
+        <li><strong>Structural variants</strong> · large insertions, deletions, inversions</li>
+        <li><strong>Population-specific</strong> sequences</li>
+      </ul>
+      <aside class="notes">
+        Let's break those one hundred nineteen megabases down. Some of them are full gene sequences — actual protein-coding genes that GRCh thirty-eight just did not have. Some are regulatory regions — DNA that controls when and where genes are turned on. Some are structural variants — large insertions, deletions, and inversions. And some are population-specific sequences, present in some populations and not in others. Each category has different biological implications, but the headline is the same: the single reference was incomplete in a way the field had been underestimating.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Genes come in different copy numbers</h2>
+      <ul>
+        <li><strong>1,115</strong> gene duplications vary across individuals</li>
+        <li>Some people have <strong>1–2 copies</strong>, others have <strong>20+</strong></li>
+        <li>The single reference assumed everyone matched <strong>one</strong> count</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The reality is much more complex than a single reference can show.
+      </blockquote>
+      <aside class="notes">
+        Second discovery. The team identified one thousand one hundred fifteen gene duplications that vary between individuals. Read that again. Over a thousand genes where the number of copies differs from person to person. Some people have one or two copies. Others have twenty or more. The single reference, by definition, assigned one number to each gene — and that number was wrong for most of the population at most of these loci. The reality of human gene content turns out to be much more flexible than a fixed list of twenty thousand entries.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Why does copy number matter?</h2>
+      <div class="cols">
+        <div>
+          <h3>AMY1 · starch digestion</h3>
+          <ul>
+            <li>Up to <strong>15+</strong> copies in starch-eating populations</li>
+            <li><strong>2–4</strong> copies in others</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Immune &amp; drug genes</h3>
+          <ul>
+            <li>More copies → <strong>stronger response</strong></li>
+            <li>Fewer copies → may reduce autoimmunity</li>
+            <li>Drug-metabolism genes affect <strong>dose</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Why does copy number matter biologically? Three quick examples. The A M Y one gene encodes salivary amylase, which breaks down starch. Populations whose ancestors ate starch-rich diets carry up to fifteen or more copies of A M Y one — they make more enzyme, they digest starch better. Populations with traditionally low-starch diets carry only two to four copies. A clean evolutionary signal. Second — many immune-system genes vary in copy number. More copies can mean better infection defense; fewer can mean lower autoimmune risk. Third — drug-metabolism genes vary too, which directly affects how fast a drug clears your system, and therefore the right dose. Copy number is not a curiosity. It is medically actionable.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Copy number across populations</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter4_liao2023_fig2.png" alt="Liao 2023 Figure 2 panels b and c, gene copy number variation by population">
+        <figcaption>
+          <strong>Figure 4.</strong> Most genes appear in 1–2 copies, but some reach 20+. Patterns differ by population (AMR · AFR · EAS · SAS · CHM13) · Liao et al. 2023, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is panels two b and c from Liao et al. Panel b on the left shows the distribution: most genes sit at one or two copies, but a tail extends out to twenty or more for some genes in some individuals. Panel c on the right colors each individual by ancestry — A M R for admixed American, A F R for African, E A S for East Asian, S A S for South Asian, and CHM thirteen as a single comparison. The patterns of duplication differ between populations. This visual diversity was completely invisible in single-reference analyses. It only becomes visible when you assemble each haplotype independently and compare.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Better detection of structural variants</h2>
+      <ul>
+        <li><strong>Deletions</strong> — chunk of DNA missing</li>
+        <li><strong>Insertions</strong> — extra DNA added</li>
+        <li><strong>Duplications</strong> — region copied</li>
+        <li><strong>Inversions</strong> — segment flipped backwards</li>
+      </ul>
+      <p style="margin-top:0.6em;">SVs affect <strong>more total DNA</strong> than all SNPs combined.</p>
+      <aside class="notes">
+        Third discovery — and arguably the most clinically important — is dramatic improvement in detecting structural variants. Quick taxonomy. Deletions are missing chunks. Insertions are extra chunks. Duplications are repeats. Inversions are flips. These are not edge cases. Across the genome, structural variants together affect more total base pairs than all S N Ps combined. Many serious diseases are caused by structural variants rather than single-letter changes. And these are exactly the variants that single-reference alignment finds hardest, because mismatches and gaps both look like alignment failures.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Pangenome accuracy gain</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum">−34%</div>
+          <div class="bignum-label">errors in small variants (SNPs &amp; small indels)</div>
+        </div>
+        <div>
+          <div class="bignum" style="color:var(--terracotta);">+104%</div>
+          <div class="bignum-label">improvement in detecting structural variants</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">More than <strong>doubling</strong> SV accuracy.</p>
+      <aside class="notes">
+        Two numbers from the paper. When small variants — S N Ps and small insertions or deletions — are called against the pangenome instead of GRCh thirty-eight, error rates drop by about thirty-four percent. That is already significant. But the bigger win is in structural variants — detection improves by one hundred four percent, more than doubling. Why such a dramatic improvement? Because when you have ninety-four haplotypes to align against, any structural variant that exists in your patient is probably also present in at least one of those haplotypes. The right answer is in the panel. With a single reference, the right answer often was not there.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Why the gain · in one line</h2>
+      <blockquote style="font-size:1.1em;">
+        With <strong>94 haplotypes</strong> in the panel,<br>
+        a population variant probably <strong>matches one of them</strong>.
+      </blockquote>
+      <aside class="notes">
+        Here is the intuition in one sentence. With ninety-four haplotypes in the panel, a structural variant common in your patient's population is probably already represented by at least one of them. The aligner finds a clean match. The variant is correctly identified. With a single reference, that same variant looks like a mess of mismatches and gaps, and the aligner either flags it as low confidence or misses it entirely. More references means more matches means better answers. That is the engine of the improvement.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · IMPACT & EQUITY
+         ==================================================== -->
+
+    <!-- Slide 30 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Real-World Impact<br>&amp; Equity</h1>
+      <aside class="notes">
+        Why does this matter beyond the lab? Three areas — clinical diagnostics, drug development, and equity in medicine.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Clinical case · before vs after</h2>
+      <div class="cols">
+        <div>
+          <h3>Before · single reference</h3>
+          <ul>
+            <li>African-ancestry patient</li>
+            <li>50-kb deletion in a gene</li>
+            <li>Flagged: <strong>"likely pathogenic"</strong></li>
+            <li>Worry · invasive testing</li>
+          </ul>
+        </div>
+        <div>
+          <h3>After · pangenome</h3>
+          <ul>
+            <li>Same deletion seen in <strong>30%</strong> of African haplotypes</li>
+            <li>Reclassified: <strong>"benign · common"</strong></li>
+            <li>Patient spared</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Concrete clinical example. A patient of African ancestry comes in. Sequencing reveals a fifty-kilobase deletion in a gene region. With only GRCh thirty-eight to compare against, the clinical report flags it as likely pathogenic — because it differs from the reference, and most labs treat deviations as suspect. The patient gets called back, worried, possibly subjected to invasive follow-up testing. With the pangenome, the same lab now sees that this deletion appears in roughly thirty percent of the African haplotypes in the panel. It is a normal polymorphism in that population. The variant is reclassified as benign. The patient is spared. Same data, different denominator, different outcome.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>From bias to equity</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter4_figure6.jpg" alt="Reference bias reduction across populations">
+        <figcaption>
+          <strong>Figure 5.</strong> Single reference (left) wrongly flags population variants as pathogenic. Pangenome (right) compares against many ancestries → fewer false positives, more equitable diagnosis.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the same story as a picture. On the left, a single reference forces every patient's variant to be compared against one yardstick — and patients from under-represented populations end up with more uncertain or wrong calls because their normal variants look unusual. On the right, the same variant is checked against many ancestry-matched haplotypes, and a population-common variant lights up as such instead of as a disease candidate. The pangenome is not just more sensitive — it is more fair. Equity in genomics is a technical property of the reference panel.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Drug development</h2>
+      <ul>
+        <li>Trials enroll diverse populations</li>
+        <li>But analyses use a <strong>single reference</strong> → variants missed</li>
+        <li>Pangenome enables:</li>
+        <ul>
+          <li>Better <strong>dose recommendations</strong> per population</li>
+          <li>Understanding population-specific <strong>side effects</strong></li>
+          <li>Identifying who <strong>benefits most</strong></li>
+        </ul>
+      </ul>
+      <aside class="notes">
+        Drug development is the second area. Pharmaceutical trials increasingly enroll diverse populations — that is now standard, partly mandated by regulators. But the analysis pipelines still typically use a single reference. So even when diverse patients are recruited, structural variants common in their populations are invisible to the analysis. The pangenome closes that loop. With population-aware variant calling, drug developers can identify dose differences, predict side effects, and find sub-populations that benefit most. This is precision medicine in the literal sense — medicine that accounts for who you are at the genetic level.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Disease research wins</h2>
+      <ul>
+        <li><strong>Autism spectrum</strong> · often duplications &amp; deletions</li>
+        <li><strong>Schizophrenia</strong> · associated with copy number variants</li>
+        <li><strong>Cardiovascular</strong> · some forms linked to lipid-gene SVs</li>
+      </ul>
+      <p style="margin-top:0.6em;">SV-driven diseases benefit <strong>most</strong> from a pangenome.</p>
+      <aside class="notes">
+        Where does disease research benefit most? In the disorders most strongly linked to structural variants. Autism spectrum conditions are often driven by duplications and deletions of specific gene regions. Schizophrenia has well-known associations with copy number variants. Some forms of cardiovascular disease trace back to structural variants in lipid metabolism genes. These are exactly the categories where single-reference detection has been weakest, and where pangenome-based detection now offers the biggest gains. As the panel expands, expect a wave of new associations in these areas.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · LIMITS & FUTURE
+         ==================================================== -->
+
+    <!-- Slide 35 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Limits &amp;<br>What's Next</h1>
+      <aside class="notes">
+        The 2023 draft is a major step, not the destination. Let's talk about what is still hard and what comes next.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>What is still challenging</h2>
+      <ul>
+        <li>The most repetitive ~<strong>4.4%</strong> of the genome</li>
+        <li><strong>Centromeric</strong> satellite arrays</li>
+        <li><strong>Ribosomal DNA</strong> arrays</li>
+        <li>Some <strong>heterochromatic</strong> regions</li>
+      </ul>
+      <p style="margin-top:0.6em;">Not a failure — it's <strong>genuine biological complexity</strong>.</p>
+      <aside class="notes">
+        About four point four percent of the genome remains hard. The same hard regions we discussed in Chapter three — centromeric satellite arrays, ribosomal DNA arrays, and some heterochromatic regions. These vary so dramatically between individuals that even with multiple complete genomes, aligning and comparing them is non-trivial. This is not a failure of the project. It reflects the real biology — these regions genuinely do differ from person to person at a level that resists simple comparison. Future work will need new methods specifically for these regions.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>The roadmap · 47 → 350</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum">350</div>
+          <div class="bignum-label">target individuals</div>
+        </div>
+        <div>
+          <div class="bignum" style="color:var(--terracotta);">700</div>
+          <div class="bignum-label">target haplotypes</div>
+        </div>
+      </div>
+      <ul style="margin-top:0.6em;">
+        <li>Cover more <strong>rare variants</strong></li>
+        <li>Include more <strong>under-represented populations</strong></li>
+        <li>Enable finer <strong>sub-population</strong> studies</li>
+      </ul>
+      <aside class="notes">
+        The HPRC's stated long-term target is three hundred fifty individuals — seven hundred haplotypes. That is roughly seven times the current panel. With seven hundred haplotypes, more rare variants are captured, more populations are represented, and analyses can resolve patterns at the sub-population level. The pace is roughly one wave per two to three years; expect the expanded reference around twenty twenty-six or twenty twenty-seven. And the ambition does not stop with humans — pangenomes are now being built for crop species like rice, wheat, and maize, for livestock, and for major model organisms.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>The evolution · references compared</h2>
+      <table>
+        <thead><tr><th>Reference</th><th>Year</th><th>Coverage</th><th>Limit</th></tr></thead>
+        <tbody>
+          <tr><td>GRCh38</td><td>2013</td><td>~95%</td><td>~151 Mb gaps · Euro-skewed</td></tr>
+          <tr><td>T2T-CHM13</td><td>2022</td><td>100%</td><td><strong>Single source</strong></td></tr>
+          <tr><td>HPRC draft</td><td><strong>2023</strong></td><td>&gt;99% per hap</td><td>47 individuals · some repeat gaps</td></tr>
+          <tr><td>HPRC future</td><td>~2026–27</td><td>&gt;99% per hap</td><td>700 hap · most repeats still hard</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the evolution of human genome references in one table. GRCh thirty-eight in twenty thirteen — about ninety-five percent coverage, one hundred fifty-one megabases of gaps, and a heavy European bias. T2T-CHM thirteen in twenty twenty-two — one hundred percent coverage, gapless, but a single source. The HPRC draft in twenty twenty-three — over ninety-nine percent per haplotype across forty-seven individuals, but still some hard repeat regions. And the future HPRC, around twenty twenty-six or twenty-seven — seven hundred haplotypes, comprehensive diversity, with most repeats remaining the hardest problem. The trajectory is clear: from one map to many maps.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>Different references · different jobs</h2>
+      <ul>
+        <li><strong>Genome structure</strong> → T2T-CHM13 (gapless)</li>
+        <li><strong>Clinical diagnostics</strong> → pangenome (reduces false positives)</li>
+        <li><strong>Population genetics</strong> → pangenome (captures variation)</li>
+        <li><strong>Evolution vs primates</strong> → human + primate pangenomes</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The future is not <em>one</em> reference — it's the <strong>right reference for your question</strong>.
+      </blockquote>
+      <aside class="notes">
+        The takeaway here is not that the pangenome replaces everything else. It does not. The future of genomics is not about choosing one reference — it is about using the right reference for the question. To study the architecture of a complete human genome, T2T-CHM thirteen is ideal — it shows the complete structure with no gaps. For clinical diagnostics, the pangenome reduces false positives and improves variant interpretation across populations. For population genetics, the pangenome reveals variation patterns that single references hide. For evolutionary studies, you compare human pangenomes to primate pangenomes. Different maps for different questions.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 40 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>One reference → <strong>reference bias</strong> against diverse populations</li>
+        <li>Pangenome = <strong>many</strong> complete genomes · graph representation</li>
+        <li>HPRC 2023 · <strong>47 individuals · 94 haplotypes</strong> · Liao et al., <em>Nature</em></li>
+        <li>Revealed: <strong>119 Mb</strong> missing DNA · <strong>1,115</strong> CNV genes</li>
+        <li>Variant accuracy: <strong>−34%</strong> errors · <strong>+104%</strong> SV detection</li>
+        <li>Equity: a fairer denominator for clinical decisions</li>
+      </ul>
+      <aside class="notes">
+        Six things to take away. One — a single reference, no matter how good, builds in reference bias against diverse populations. Two — a pangenome is a collection of many complete genomes, often represented as a graph rather than a line. Three — the H P R C's twenty twenty-three draft, published by Liao and colleagues in Nature, includes forty-seven individuals and ninety-four haplotypes. Four — that draft revealed about one hundred nineteen megabases of DNA absent from GRCh thirty-eight, and one thousand one hundred fifteen genes that vary in copy number. Five — variant calling against the pangenome cuts small-variant errors by thirty-four percent and more than doubles structural variant detection. Six — and most importantly — this is the technical foundation of equity in genomic medicine. Hold these six.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        To do all of this,<br>
+        we needed <span style="color:var(--terracotta-deep);">cheap sequencing</span>.
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 5 · <strong>Next-Generation Sequencing Technologies</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. None of what we discussed today — not CHM thirteen, not the H P R C, not ninety-four haplotypes — would exist if sequencing still cost three billion dollars per genome. The whole story of modern genomics rests on a thirty-year crash in the cost of reading DNA. So the obvious next question is: how did that happen? What technologies actually replaced the slow, expensive Sanger sequencing of the Human Genome Project era? That is the story of next-generation sequencing, and it is what we cover in Chapter five. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

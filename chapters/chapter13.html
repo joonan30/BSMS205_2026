@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13 · Structural Variations in Human Genomes — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Structural Variations<br>in Human Genomes</h1>
+      <div class="chapter-num">Chapter 13 · Part II · Variation</div>
+      <aside class="notes">
+        Welcome to Chapter thirteen, the final chapter of Part Two. Across this part of the course we have built up our picture of human genetic variation one layer at a time — single-letter changes, indels, dominant alleles, recessive alleles. Today we zoom out and look at the biggest changes the genome can carry: structural variants, or S Vs. These are rearrangements of fifty base pairs or longer, sometimes stretching to millions. We will define them, classify them, see how many each of us carries, learn the molecular mechanisms that produce them, and understand why they matter for disease. This is also our bridge into Part Three, where we move from single-gene disorders to traits influenced by many variants.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        What if a whole<br><span style="color:var(--terracotta-deep)">paragraph</span> moves?
+      </h1>
+      <aside class="notes">
+        Here is the analogy I want you to hold today. Until now, we have been studying single-letter typos in the genome — a C becomes a T, an A becomes a G. That is what an S N V is. But today's chapter is different. Today we are talking about whole paragraphs being cut out, duplicated, flipped upside down, or moved to a different chapter of the book. The genome does this, and it does it surprisingly often. These are structural variants. The scale is completely different from anything we have looked at before.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>From single letters to whole chunks</h2>
+      <div class="cols">
+        <div>
+          <h3>SNVs &amp; indels</h3>
+          <ul>
+            <li><strong>1 base</strong> changed</li>
+            <li>"cat" → "bat"</li>
+            <li>Easy to detect</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Structural variants</h3>
+          <ul>
+            <li><strong>≥ 50 bp</strong> rearranged</li>
+            <li>Whole paragraph moves</li>
+            <li>Hard to detect</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Let's contrast S N Vs with structural variants directly. An S N V changes one letter — c-a-t becomes b-a-t. An indel adds or removes a few letters. Easy to describe, easy to detect with short reads. A structural variant is anything fifty base pairs or larger. That is the formal cutoff. S Vs can be deletions, duplications, inversions, translocations, insertions — and they can stretch from fifty bases to millions. They are much harder to detect because the rearrangement often spans repetitive regions where short reads cannot find a unique landing spot. We will come back to that detection problem.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The number that should surprise you</div>
+      <div class="bignum">~7,439</div>
+      <div class="bignum-label">structural variants per genome (median)</div>
+      <ul>
+        <li>From <strong>gnomAD-SV</strong> · 14,891 genomes</li>
+        <li>More than <strong>twice</strong> the 1000 Genomes estimate</li>
+        <li>Most are silent — but some cause disease</li>
+      </ul>
+      <aside class="notes">
+        Here is the headline number. Each of us carries a median of about seven thousand four hundred S Vs. That is not a typo. Seven thousand large rearrangements per genome. This number comes from the gnomAD-S V reference, built from fourteen thousand eight hundred ninety-one genomes by Collins and colleagues in twenty twenty, published in Nature. The earlier one thousand Genomes estimate was about three thousand four hundred — less than half. Why the gap? Better sequencing depth. Most of these S Vs are silent variation, just part of normal human diversity. But a small fraction disrupts critical genes, and those are the ones that cause disease.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>What is an SV — definition &amp; types</li>
+        <li>The gnomAD-SV catalog · 14,891 genomes</li>
+        <li>How many SVs &amp; what sizes</li>
+        <li>Five mechanisms of SV formation</li>
+        <li>Functional impact &amp; selection</li>
+        <li>Clinical syndromes from SVs</li>
+        <li>Summary &amp; bridge to Part III</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today, in seven sections. First we define structural variants and walk through every type. Second we look at the gnomAD-S V dataset, the most comprehensive S V catalog to date. Third we ask how many each person carries and what sizes they come in. Fourth we look at the five molecular mechanisms that actually create S Vs in our genomes. Fifth we ask what functional impact they have and how natural selection responds. Sixth we look at famous clinical syndromes caused by S Vs. And finally we wrap up and bridge into Part Three, where we leave the world of single-gene disorders for complex traits.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHAT IS AN SV
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>What Is a<br>Structural Variant?</h1>
+      <aside class="notes">
+        Let's start with definition and classification. The key cutoff is fifty base pairs. The key question for classifying any S V is whether it changes the total amount of D N A in the genome — what we call copy number.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>The 50-bp cutoff</h2>
+      <ul>
+        <li>Below 50 bp → <strong>indel</strong></li>
+        <li>50 bp or larger → <strong>structural variant</strong></li>
+        <li>SVs can stretch to <strong>millions</strong> of base pairs</li>
+        <li>Cutoff is operational — reflects detection limits</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        SNV = typo &nbsp;·&nbsp; indel = word edit &nbsp;·&nbsp; SV = paragraph rearrangement
+      </blockquote>
+      <aside class="notes">
+        The cutoff is operational. Anything below fifty base pairs we call an indel. Fifty and above, we call a structural variant. The size range above fifty is enormous — from small fifty-base deletions all the way to multi-megabase rearrangements that span entire genes. The reason for the cutoff is partly technical. Below fifty bases, short-read sequencing handles things well. Above fifty bases, you need different detection approaches. The mental model is: an S N V is a typo in one letter, an indel is a word-level edit, and an S V is a paragraph being rearranged.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Two big categories</h2>
+      <div class="cols">
+        <div>
+          <h3>Copy number altering</h3>
+          <ul>
+            <li><strong>Deletions (DEL)</strong></li>
+            <li><strong>Duplications (DUP)</strong></li>
+            <li><strong>Insertions (INS)</strong></li>
+            <li><strong>MCNVs</strong> · multi-allelic CNVs</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Copy number neutral</h3>
+          <ul>
+            <li><strong>Inversions (INV)</strong></li>
+            <li><strong>Translocations (BND)</strong></li>
+            <li><strong>Complex SVs</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        S Vs split into two big categories based on whether they change the total amount of D N A. Copy number altering S Vs add or remove genomic material — that is deletions, duplications, insertions, and multi-allelic copy number variants where different people have different numbers of copies at the same place. Copy number neutral S Vs rearrange D N A without changing the total amount — that is inversions, where a segment is flipped one hundred eighty degrees, and translocations, where segments swap between chromosomes. Complex S Vs combine multiple types in a single event. The distinction matters because copy number altering S Vs directly change gene dosage, whereas copy number neutral S Vs only matter when they break a gene at the breakpoint.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>The seven SV types · cheat sheet</h2>
+      <table>
+        <thead><tr><th>Code</th><th>Type</th><th>What it does</th><th>CN?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>DEL</strong></td><td>Deletion</td><td>Removes a segment</td><td>Altering</td></tr>
+          <tr><td><strong>DUP</strong></td><td>Duplication</td><td>Extra copy of a segment</td><td>Altering</td></tr>
+          <tr><td><strong>INS</strong></td><td>Insertion</td><td>New DNA added (often Alu/L1/SVA)</td><td>Altering</td></tr>
+          <tr><td><strong>MCNV</strong></td><td>Multi-allelic CNV</td><td>Variable copy count across people</td><td>Altering</td></tr>
+          <tr><td><strong>INV</strong></td><td>Inversion</td><td>Segment flipped 180°</td><td>Neutral</td></tr>
+          <tr><td><strong>BND</strong></td><td>Translocation</td><td>Swap between chromosomes</td><td>Neutral</td></tr>
+          <tr><td><strong>CPX</strong></td><td>Complex</td><td>Multiple rearrangements together</td><td>Either</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the full cheat sheet you should be able to recognize. D E L is deletion — D N A removed, copy number goes down. D U P is duplication — extra copy, copy number goes up. I N S is insertion — new D N A added, often a mobile element. M C N V is multi-allelic copy number variant, where different people carry different numbers of copies. I N V is inversion — same bases, flipped one eighty. B N D is breakend, the formal term for translocation, where segments swap between chromosomes. And C P X is complex — multiple types combined, like an inversion flanked by deletions. Memorize the codes; you will see them in any S V output.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>The Collins 2020 SV catalog</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Collins2020-Nature-Fig1.png" alt="Classification of structural variant types from gnomAD-SV">
+        <figcaption>
+          <strong>Figure 1.</strong> Classification of SV types. Top row: copy number altering (DEL, DUP, INS, MCNV). Bottom row: copy number neutral and complex (INV, BND, CPX). Each type has distinct molecular signatures and functional consequences. Source: Collins et al. 2020, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the canonical figure from Collins and colleagues, twenty twenty, in Nature. It shows every S V type as a schematic. Copy number altering on top — deletion removes a colored block, duplication adds an extra one, insertion brings in a new block from outside, multi-allelic C N V shows variable counts. Copy number neutral on the bottom — inversion flips a block, translocation moves a block between chromosomes, complex S V combines multiple events. The colors track segments through the rearrangement. This is the visual vocabulary you should associate with the seven type codes we just listed.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Mobile elements · the inserted sequences</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Length</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Alu</strong></td><td>~300 bp</td><td>Most abundant mobile element</td></tr>
+          <tr><td><strong>SVA</strong></td><td>~2,100 bp</td><td>SINE-VNTR-Alu composite</td></tr>
+          <tr><td><strong>LINE1</strong></td><td>~6,000 bp</td><td>Long Interspersed Nuclear Element 1</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">These three create <strong>distinctive size peaks</strong> in the SV distribution.</p>
+      <aside class="notes">
+        Most insertions in human genomes come from three classes of mobile elements. Alu elements are the smallest, around three hundred base pairs, and the most abundant — there are over a million Alu copies in our genome. S V A is a composite element about two thousand one hundred bases, combining features of S I N E, V N T R, and Alu sequences. L I N E one is the largest at about six thousand bases. Each of these can copy itself and insert into a new location. The distinctive sizes — three hundred, two thousand one hundred, six thousand — actually show up as visible peaks when you plot the size distribution of all human S Vs. We will see that plot in a moment.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE gnomAD-SV CATALOG
+         ==================================================== -->
+
+    <!-- Slide 12 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The gnomAD-SV<br>Catalog</h1>
+      <aside class="notes">
+        Now let's look at the dataset that gives us most of what we know about S Vs in human populations. The gnomAD-S V reference. Same gnomAD project we have been using throughout the course, extended to structural variants.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Building gnomAD-SV</h2>
+      <ul>
+        <li><strong>14,891</strong> genomes analyzed</li>
+        <li><strong>54%</strong> non-European ancestry</li>
+        <li>African, Latino, East Asian, European groups</li>
+        <li>Diverse cohort → SV patterns differ across populations</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        The most comprehensive SV reference to date.<br>
+        Collins et al. 2020, <em>Nature</em>.
+      </blockquote>
+      <aside class="notes">
+        The dataset is large and deliberately diverse. Fourteen thousand eight hundred ninety-one genomes total. Fifty-four percent non-European — that includes African, Latino, East Asian, and European ancestry groups. Why does that matter? Because S V patterns differ across populations. Bottlenecks, expansions, and migrations all leave fingerprints in the S V landscape. A reference built only from European genomes would miss variants common in other populations. This is the most comprehensive S V reference to date, published by Collins and colleagues in Nature in twenty twenty.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>How many SVs in the catalog?</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.6em;">433,371</div>
+          <div class="bignum-label">distinct SVs across all genomes</div>
+        </div>
+        <div>
+          <div class="bignum" style="font-size:3.6em; color:var(--terracotta);">7,439</div>
+          <div class="bignum-label">median per individual</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">Earlier estimate: <strong>3,441 per genome</strong> (1000 Genomes) — half as many.</p>
+      <aside class="notes">
+        Two numbers to anchor. Across the entire cohort, the catalog identified four hundred thirty-three thousand three hundred seventy-one distinct S Vs — that is the total richness of the human S V landscape they could see. Per individual, the median was seven thousand four hundred thirty-nine. Compare that with the earlier one thousand Genomes Project, which estimated three thousand four hundred forty-one per genome — less than half. Why the doubling? The gnomAD-S V cohort had higher sequencing coverage and better S V calling tools. As technology improves, our estimates of how much variation each of us carries keep going up.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Size matters · three telltale peaks</h2>
+      <ul>
+        <li>Most SVs are <strong>under 10 kb</strong></li>
+        <li>Distinct peaks at <strong>300 · 2,100 · 6,000 bp</strong></li>
+        <li>These are <strong>Alu · SVA · LINE1</strong> insertions</li>
+        <li>Mobile elements still actively reshape the genome</li>
+      </ul>
+      <aside class="notes">
+        When you plot the size distribution of all the S Vs, three peaks pop out at three hundred, two thousand one hundred, and six thousand base pairs. Those peaks are not coincidence. They are the signatures of Alu, S V A, and L I N E one insertions. Mobile elements still actively jump around in human genomes today, and every time they do, they leave behind a new insertion of their characteristic size. The peaks are evidence that these elements are not relics — they are alive in our genome right now.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Half of all SVs are singletons</h2>
+      <div class="bignum">49.8%</div>
+      <div class="bignum-label">of SVs found in only ONE person out of 14,237</div>
+      <ul>
+        <li>Many are <strong>recent mutations</strong></li>
+        <li>Many disrupt important genes → kept rare by <strong>selection</strong></li>
+        <li>Larger SVs → rarer than smaller ones</li>
+      </ul>
+      <aside class="notes">
+        Here is a striking finding. Almost half — forty-nine point eight percent — of all S Vs in gnomAD-S V are singletons. They appear in only one person out of fourteen thousand two hundred thirty-seven analyzed. Why so rare? Two reasons. Some are very recent mutations that have not had time to spread through the population. But many of the rest are kept rare because they break important genes, and natural selection removes them. The pattern is consistent — the larger the S V, the rarer it is on average. A small S V might be tolerable; a large one that spans multiple genes is much more likely to be harmful.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>Population structure · same as SNVs</h2>
+      <ul>
+        <li>PCA on <strong>15,395 common SVs</strong> separates ancestry groups</li>
+        <li>African, European, East Asian, Latino — all distinct clusters</li>
+        <li>SV patterns reflect <strong>demographic history</strong></li>
+        <li>Some SVs are common in one population, absent in another</li>
+      </ul>
+      <aside class="notes">
+        And the population genetics matches what we see with S N Vs. When researchers ran principal component analysis on fifteen thousand three hundred ninety-five common S Vs, people clustered by ancestry — African, European, East Asian, Latino — same as you would see with S N V data. This means S V patterns track demographic history. Bottlenecks, expansions, and migrations shape S V frequencies just like they shape S N V frequencies. Some S Vs are common in one population and absent in another. This matters for clinical genetics — a reference built only from one population will miss variants that matter for everyone else.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · MECHANISMS
+         ==================================================== -->
+
+    <!-- Slide 18 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Five Mechanisms<br>of SV Formation</h1>
+      <aside class="notes">
+        How do S Vs actually form? Five mechanisms cover almost every S V you will encounter — N A H R, N H E J, mobile element insertion, fork stalling and template switching, and chromothripsis. Each leaves a characteristic signature, which is how researchers can tell them apart from sequencing data.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Five mechanisms · one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/cartoon-sv-mechanism.png" alt="Five mechanisms of SV formation">
+        <figcaption>
+          <strong>Figure 2.</strong> Five mechanisms generate SVs. NAHR (homologous misalignment), NHEJ (broken-end gluing), MEI (copy-paste via RNA), FoSTeS (replication template switching), Chromothripsis (catastrophic shattering). Each leaves distinct breakpoint signatures.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here are all five mechanisms in one cartoon. N A H R, where two similar but non-allelic sequences mistakenly pair and recombine. N H E J, where a double-strand break is sealed without a template. M E I, where a mobile element copies itself via R N A and inserts somewhere new. FoSTeS, where a replication fork stalls and switches templates. And chromothripsis, where a chromosome shatters and gets reassembled chaotically. We will go through each one. Each leaves a distinct fingerprint at the breakpoints — the kind of microhomology, the size, the genomic context — and that is how we infer mechanism from sequencing data.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Mechanism 1 · NAHR</h2>
+      <ul>
+        <li><strong>Non-Allelic Homologous Recombination</strong></li>
+        <li>Two similar repeats <strong>misalign</strong> during meiosis</li>
+        <li>Recombination between them → <strong>deletion + duplication</strong></li>
+        <li>Common in <strong>segmental duplications</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Homologous sequences that <em>shouldn't</em> recombine — do.
+      </blockquote>
+      <aside class="notes">
+        Mechanism number one — non-allelic homologous recombination, abbreviated N A H R. During meiosis, chromosomes pair up and exchange segments. Normally the matching sequences line up perfectly. But if two repetitive elements that are at different positions — say, two Alu elements separated by a few thousand bases — mistakenly pair up, recombination between them produces a deletion on one chromosome and a duplication on the other. The cell got fooled by sequence similarity. N A H R happens most often in regions with segmental duplications — large blocks of nearly identical sequence scattered across the genome. The breakpoints fall inside the homologous regions.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Mechanism 2 · NHEJ</h2>
+      <ul>
+        <li><strong>Non-Homologous End Joining</strong></li>
+        <li>Repair of <strong>double-strand breaks</strong></li>
+        <li>Glue ends together <strong>without a template</strong></li>
+        <li>Signature: <strong>microhomology</strong> (1–10 bp) or blunt junctions</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Quick &amp; dirty repair. Often joins the wrong ends.
+      </blockquote>
+      <aside class="notes">
+        Mechanism two — non-homologous end joining, N H E J. Cells suffer double-strand breaks all the time. Some get repaired carefully using a homologous template. But many get repaired by N H E J, which is quick and dirty — the cell just glues the broken ends together without checking sequence. Sometimes that works fine. Sometimes the cell joins the wrong ends, creating translocations or complex rearrangements. The signature in the data is microhomology — just one to ten matching base pairs at the junction — or completely blunt junctions where there is no overlap at all. N H E J does not need similarity to operate, which is exactly why it can produce such a wide variety of S Vs.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>Mechanism 3 · Mobile Element Insertion</h2>
+      <ol>
+        <li>Mobile element <strong>transcribed to RNA</strong></li>
+        <li>RNA <strong>reverse-transcribed back to DNA</strong></li>
+        <li>New copy <strong>inserts</strong> at a new location</li>
+      </ol>
+      <p style="margin-top:0.6em;">Signature: <strong>target-site duplications</strong> (2–20 bp) flanking the insert.</p>
+      <aside class="notes">
+        Mechanism three — mobile element insertion, often called M E I or retrotransposition. The mechanism is copy-and-paste through an R N A intermediate. Step one, the mobile element D N A gets transcribed into R N A. Step two, that R N A is reverse-transcribed back into D N A by the element's own enzyme. Step three, the new D N A copy inserts itself somewhere new in the genome. The signature in the data is target-site duplications — short repeated sequences of two to twenty base pairs that flank the insertion. These are formed when the insertion machinery cuts the target D N A. Each of us carries hundreds of these mobile element insertions, and they are the origin of the size peaks we saw earlier.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Mechanism 4 · FoSTeS</h2>
+      <ul>
+        <li><strong>Fork Stalling and Template Switching</strong></li>
+        <li>Replication fork <strong>stalls</strong> on difficult sequence</li>
+        <li>Machinery switches to a <strong>different template</strong></li>
+        <li>Result: complex SVs with <strong>multiple breakpoints</strong></li>
+      </ul>
+      <p style="margin-top:0.6em;">Common in <strong>fragile sites</strong> — regions prone to replication stress.</p>
+      <aside class="notes">
+        Mechanism four — FoSTeS, which stands for fork stalling and template switching. D N A replication is normally smooth, but sometimes the replication fork stalls. Maybe it hits a difficult-to-replicate sequence, maybe there is damage in the template. When the fork stalls, the replication machinery can switch to a different D N A template — sometimes far away — and finish copying there before switching back. The result is a complex S V with multiple breakpoints, often with microhomology signatures at each junction. FoSTeS happens most often in fragile sites — regions that are prone to replication stress. The S Vs it produces can be copy number neutral or altering depending on what got switched.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Mechanism 5 · Chromothripsis</h2>
+      <blockquote style="font-size:1.05em;">
+        "Chromosome shattering."
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Chromosome <strong>shatters</strong> into many fragments at once</li>
+        <li>Cell tries to reassemble — often <strong>chaotically</strong></li>
+        <li>Result: many breakpoints <strong>clustered</strong> in one region</li>
+        <li>Rare in healthy people · <strong>common in cancer</strong></li>
+      </ul>
+      <aside class="notes">
+        Mechanism five is the most dramatic — chromothripsis, which literally means chromosome shattering in Greek. In a single catastrophic event, a chromosome or chromosomal region breaks into dozens or even hundreds of pieces simultaneously. The cell's repair machinery frantically tries to put it back together, but not always in the right order. The result is a complex S V with many breakpoints clustered in one region, often combining deletions, duplications, and inversions in a chaotic mosaic. Chromothripsis is rare in healthy individuals but much more common in cancer cells, where it can drive tumor evolution by disrupting many genes at once. The signature is unmistakable — clustered breakpoints in a small region, with evidence of patchwork reassembly.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Mechanisms · at a glance</h2>
+      <table>
+        <thead><tr><th>Mechanism</th><th>Trigger</th><th>Typical SV</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NAHR</strong></td><td>Misaligned repeats in meiosis</td><td>DEL · DUP · INV</td></tr>
+          <tr><td><strong>NHEJ</strong></td><td>Double-strand break</td><td>BND · CPX</td></tr>
+          <tr><td><strong>MEI</strong></td><td>Active retrotransposon</td><td>INS (Alu / SVA / L1)</td></tr>
+          <tr><td><strong>FoSTeS</strong></td><td>Stalled replication fork</td><td>CPX with microhomology</td></tr>
+          <tr><td><strong>Chromothripsis</strong></td><td>Catastrophic shattering</td><td>Clustered CPX</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are the five mechanisms in one table. N A H R produces deletions, duplications, and inversions when repetitive elements misalign during meiosis. N H E J produces translocations and complex rearrangements when double-strand breaks are sealed without templates. M E I produces insertions when active retrotransposons jump. FoSTeS produces complex S Vs with microhomology when replication forks stall and switch templates. Chromothripsis produces clustered complex rearrangements when chromosomes shatter catastrophically. Each leaves a different signature, and that is how researchers can read the molecular history of an S V from the sequence at its breakpoints.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · IMPACT & SELECTION
+         ==================================================== -->
+
+    <!-- Slide 26 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Impact &amp;<br>Selection</h1>
+      <aside class="notes">
+        Now the part that connects S Vs back to disease. What do these rearrangements actually do? Two big effects — gene dosage and structural disruption. And we will see how natural selection responds to each.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Gene dosage · the dominant effect</h2>
+      <div class="bignum">25–29%</div>
+      <div class="bignum-label">of rare protein-truncating events come from SVs</div>
+      <ul>
+        <li>Comparable to the impact of <strong>nonsense SNVs</strong></li>
+        <li>Delete an exon → <strong>loss of function</strong>, same as a stop codon</li>
+        <li>Duplicate a gene → <strong>too much</strong> protein product</li>
+      </ul>
+      <aside class="notes">
+        Here is the headline impact number. Twenty-five to twenty-nine percent of rare protein-truncating events in human genomes come from S Vs. That is comparable to the impact of nonsense S N Vs. Take that in. When you delete an entire exon, the result is loss of function from that allele — exactly as devastating as introducing a premature stop codon. Duplications can be harmful too. More is not always better — having three copies of a tightly regulated gene can disrupt normal physiology just as completely as having only one. Both too little and too much gene product can be a problem.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Selection acts hardest on coding SVs</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Collins2020-Nature-Fig4.png" alt="Selection coefficients for SVs by genomic context">
+        <figcaption>
+          <strong>Figure 3.</strong> Selection coefficients for SVs across genomic contexts. CN-altering SVs in protein-coding genes (especially high-pLI genes) face strong negative selection. Noncoding SVs face weaker selection. Inversions sit in between. Source: Collins et al. 2020, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is how natural selection responds, from Collins twenty twenty Figure four. The y-axis is selection strength against the variant. Copy number altering S Vs in protein-coding genes — especially in high-p L I genes, which we know are intolerant to loss of function — face strong negative selection. Their frequencies are pushed down by selection. S Vs in noncoding regions like introns and intergenic sequences face much weaker selection, because disrupting those regions is less likely to break gene function. Inversions sit in between — they can disrupt genes at breakpoints, but the effects are usually subtler than complete loss or gain. Same pattern as S N Vs.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The same selection logic as SNVs</h2>
+      <blockquote style="font-size:1.05em;">
+        Genes intolerant to loss-of-function SNVs<br>
+        are also intolerant to copy number changes.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li><strong>High-pLI</strong> genes resist <em>both</em> nonsense SNVs <em>and</em> deletions</li>
+        <li>Whether by point mutation or by deletion — <strong>loss is loss</strong></li>
+        <li>Selection does not care about the molecular mechanism</li>
+      </ul>
+      <aside class="notes">
+        Here is the unifying insight. The genes that cannot tolerate loss-of-function S N Vs are exactly the genes that cannot tolerate copy number changes from S Vs. High-p L I genes resist both. From selection's perspective, loss is loss. It does not care whether you broke the gene with a single nucleotide change or by deleting it entirely. The functional outcome is what matters, and selection responds the same way. This is one of the cleanest unifications in modern genetics — the framework we built for S N V constraint applies directly to S Vs.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Structural rearrangements without dosage change</h2>
+      <ul>
+        <li>Inversions: gene <strong>broken at breakpoint</strong></li>
+        <li>Translocations: regulatory regions <strong>moved away</strong></li>
+        <li>Position effects: gene next to <strong>wrong enhancer</strong></li>
+        <li>Effects subtler than complete loss — but real</li>
+      </ul>
+      <aside class="notes">
+        Copy number neutral S Vs have a different but still important impact. An inversion does not change dosage, but if the breakpoint falls inside a gene, the gene gets broken. A translocation may not lose any D N A overall, but if it moves a gene away from its enhancer, the gene may stop being expressed correctly. Or it may place a gene next to the wrong regulatory element and turn it on at the wrong time or place. These position effects are subtler than complete loss of function, but they are real and they cause disease. The selection signal is weaker for these than for copy number altering S Vs, but it is still detectable.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · CLINICAL SYNDROMES
+         ==================================================== -->
+
+    <!-- Slide 31 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Clinical<br>Syndromes</h1>
+      <aside class="notes">
+        Let's make this concrete with two famous examples. Both are caused by recurrent deletions at specific genomic locations, and both happen because of N A H R between segmental duplications. They give us a very clear picture of how S Vs translate into disease.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>DiGeorge syndrome · 22q11.2 deletion</h2>
+      <ul>
+        <li>Recurrent deletion at <strong>22q11.2</strong> · ~3 Mb</li>
+        <li>Deletes <strong>~30–40 genes</strong> at once</li>
+        <li>Caused by <strong>NAHR</strong> between flanking segmental duplications</li>
+        <li>Heart defects · immune deficiency · facial features · learning differences</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        One of the most common microdeletion syndromes (~1 in 4,000 births).
+      </blockquote>
+      <aside class="notes">
+        Example one — DiGeorge syndrome, also called twenty-two q eleven point two deletion syndrome. The deletion is at chromosome twenty-two, region q eleven point two, and it spans about three megabases. That single deletion takes out roughly thirty to forty genes at once. The mechanism is N A H R between large segmental duplications that flank the deleted region — they share enough sequence similarity that they misalign during meiosis. The clinical phenotype is striking: heart defects, immune deficiency from thymic hypoplasia, characteristic facial features, and learning differences. It happens in about one in four thousand births, making it one of the most common microdeletion syndromes in humans.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Williams syndrome · 7q11.23 deletion</h2>
+      <ul>
+        <li>Recurrent deletion at <strong>7q11.23</strong> · ~1.5 Mb</li>
+        <li>Removes <strong>~26 genes</strong> including <em>ELN</em> (elastin)</li>
+        <li>Same mechanism: <strong>NAHR</strong> between segmental duplications</li>
+        <li>Cardiovascular defects · cognitive profile · hypersociability</li>
+      </ul>
+      <aside class="notes">
+        Example two — Williams syndrome, caused by deletion at chromosome seven, region q eleven point two three. The deletion spans about one and a half megabases and removes around twenty-six genes, including the elastin gene E L N. Same mechanism as DiGeorge — N A H R between flanking segmental duplications causes recurrent deletions at this locus. The clinical phenotype is again striking: cardiovascular defects from elastin loss, a distinctive cognitive profile with relative strength in language and weakness in spatial reasoning, and the famous hypersociability. Both DiGeorge and Williams illustrate how a single S V — caused by a clean molecular mechanism — can produce a complex multi-organ syndrome.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Why are SVs hard to detect?</h2>
+      <ul>
+        <li>Short reads <strong>can't span</strong> long repeats</li>
+        <li>Breakpoints often fall in <strong>repetitive regions</strong></li>
+        <li>Duplications and inversions can <strong>hide</strong> in copy-rich regions</li>
+        <li><strong>Long-read sequencing</strong> changed the game</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Same problem that left 8% of the HGP unfinished — lifted by long reads.
+      </blockquote>
+      <aside class="notes">
+        One last technical note worth knowing. S Vs are much harder to detect than S N Vs. Why? Short reads — the kind sequenced by Illumina platforms — are typically a few hundred bases long. If an S V breakpoint falls inside a long repetitive region, the short reads cannot find a unique landing spot. Duplications and inversions often hide in copy-rich regions for the same reason. This is exactly the same problem that left eight percent of the genome unfinished after the H G P, until long-read sequencing closed it in twenty twenty-two. Long reads — tens or hundreds of thousands of bases — span repeats easily, and they have transformed S V detection. Catalogs like gnomAD-S V will continue to grow as long reads become routine.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 35 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together for the final chapter of Part Two.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>SV = rearrangement of <strong>≥ 50 bp</strong> · 7 types</li>
+        <li>~<strong>7,439 SVs</strong> per genome · half are singletons</li>
+        <li>Five mechanisms: <strong>NAHR · NHEJ · MEI · FoSTeS · chromothripsis</strong></li>
+        <li>SVs cause <strong>25–29%</strong> of rare protein-truncating events</li>
+        <li>Same selection logic as SNVs — <strong>loss is loss</strong></li>
+      </ul>
+      <aside class="notes">
+        Five things to take away from chapter thirteen. One — a structural variant is any rearrangement of fifty base pairs or more, and there are seven types: deletion, duplication, insertion, multi-allelic C N V, inversion, translocation, and complex. Two — each of us carries about seven thousand four hundred S Vs, and roughly half of all S Vs in the gnomAD-S V catalog are singletons found in only one person. Three — five molecular mechanisms produce the vast majority of S Vs: N A H R, N H E J, mobile element insertion, fork stalling and template switching, and chromothripsis. Four — S Vs are functionally important, accounting for twenty-five to twenty-nine percent of rare protein-truncating events, comparable to nonsense S N Vs. Five — selection acts on S Vs the same way it acts on S N Vs: loss-of-function intolerant genes resist both. Hold those five points; the rest is detail.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Bridge · from single genes to many variants</h2>
+      <div class="cols">
+        <div>
+          <h3>Part II · finishing here</h3>
+          <ul>
+            <li>SNVs · indels · SVs</li>
+            <li>Mendelian disorders</li>
+            <li>One variant → one disease</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Part III · next</h3>
+          <ul>
+            <li><strong>Many</strong> variants per trait</li>
+            <li>Complex traits · GWAS</li>
+            <li>Polygenic risk</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        And here is the bridge to Part Three. We have spent Part Two building up the catalog of human genetic variation — single nucleotide variants, indels, dominant alleles, recessive alleles, and now structural variants. Throughout this part, the framing has been mostly Mendelian — one variant explains one disease, with a clear inheritance pattern. But most human traits are not like that. Height, body mass index, schizophrenia risk, response to medication — these are influenced by hundreds or thousands of variants, each with a tiny effect. Part Three is about that world. Genome-wide association studies, polygenic risk scores, the genetic architecture of complex traits. The toolkit changes when one variant becomes many.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        What if a trait is shaped by<br>
+        <span style="color:var(--terracotta-deep);">thousands</span> of variants?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Part III · <strong>Complex Traits &amp; GWAS</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. Throughout Part Two, we have studied diseases where one variant — an S N V or an S V — explains the phenotype. But what if the trait is shaped by thousands of variants, each with a tiny effect, scattered across the genome? How do you even find them? How do you predict risk for a person? Welcome to the world of complex traits. That is Part Three, starting next lecture. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

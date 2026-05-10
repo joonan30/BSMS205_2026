@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14 · Additive and Dominant Alleles — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Additive and<br>Dominant Alleles</h1>
+      <div class="chapter-num">Chapter 14 · Part III · Complex Traits</div>
+      <aside class="notes">
+        Welcome to Chapter fourteen of BSMS two oh five Genetics. Today we begin Part Three of the course — Complex Traits. Up to this point we have spent our time on individual variants. Single nucleotide changes, indels, structural variants. Each one studied in isolation. But real human traits — height, weight, blood pressure, body mass — are almost never the result of one variant. They are the result of many variants, working together. So today we ask the foundational question of complex traits: when many alleles combine, how do their effects add up? Let's begin.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        One mutation,<br>or <span style="color:var(--terracotta-deep)">thousands</span>?
+      </h1>
+      <aside class="notes">
+        Here is the question I want you to hold throughout this lecture. When you look at a person's height — their actual height, in centimeters — what determined it? Was it one big mutation that flipped a switch? Or was it the cumulative effect of thousands of tiny variants, each nudging the dial up or down? It turns out the answer depends on which person you are looking at. For most people, it is thousands. For a few people with rare genetic disorders, it is one. Today we will understand both extremes and the rule that governs them.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Where we are in the course</h2>
+      <div class="cols">
+        <div>
+          <h3>Part I &amp; II</h3>
+          <ul>
+            <li><strong>Single variants</strong> · how each one works</li>
+            <li>SNVs, indels, structural variants</li>
+            <li>One mutation → one effect</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Part III · today</h3>
+          <ul>
+            <li><strong>Many variants combined</strong></li>
+            <li>How alleles <strong>add up</strong> across loci</li>
+            <li>The path to <strong>polygenic</strong> traits</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Let's locate ourselves. In Parts One and Two, we covered single variants — single nucleotide changes, small indels, and large structural variants. The lens was always one mutation, one effect. Today opens Part Three, where we change lenses entirely. Now we ask what happens when many variants combine. How do their effects stack? Do they add together cleanly, or does one dominate the others? That question is the foundation of every complex trait — height, weight, blood pressure, even disease risk. So today is the bridge from the world of single variants to the world of polygenic traits.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The two ways alleles combine</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.2em;">
+        <span style="color:var(--terracotta-deep)">Dominant</span> &middot; light switch<br>
+        <span style="color:var(--terracotta-deep)">Additive</span> &middot; dimmer switch
+      </h1>
+      <aside class="notes">
+        Here is the headline image of today's lecture. Think of two kinds of switches. A light switch — flip it once, and the room is fully on. That is a dominant allele. One copy of the mutant version is enough to produce the full effect. Then there is a dimmer switch — you turn it a little, you get a little change. Turn it a lot, you get a lot of change. That is an additive allele. Each copy contributes a small effect, and the total effect is the sum. Dominant or additive — these are the two fundamental modes by which alleles combine to shape a trait.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Today's example · human height</h2>
+      <ul>
+        <li>Universally relatable · everyone has a height</li>
+        <li>Easy to <strong>measure</strong> in centimeters</li>
+        <li>Shows <strong>both</strong> modes of inheritance</li>
+        <li>Some people: <strong>one</strong> dominant mutation</li>
+        <li>Most people: <strong>thousands</strong> of additive variants</li>
+      </ul>
+      <aside class="notes">
+        We will use height as our running example for the entire lecture. Why height? Three reasons. First, it is universal — everyone has a height, and you can immediately compare. Second, it is easy to measure — a number in centimeters. Third, and most importantly, height shows both modes of inheritance side by side. A small fraction of people have a single dominant mutation that drastically changes their height — we will look at two such conditions. The vast majority of people have their height determined by thousands of additive variants. So one trait, two genetic architectures. Perfect for our purposes.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Genotypes &amp; how alleles combine</li>
+        <li>Dominant alleles · achondroplasia &amp; FGFR3</li>
+        <li>Dominant alleles · Marfan &amp; FBN1</li>
+        <li>Additive alleles · normal height variation</li>
+        <li>Comparing the two architectures</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how today will go. First, we set up the basic vocabulary — genotypes, the two modes of allele combination, and what each one means mathematically. Second and third, we look at two dramatic dominant disorders that affect height in opposite directions: achondroplasia, which makes people much shorter, and Marfan syndrome, which makes people much taller. Both involve a single dominant mutation. Fourth, we shift gears and look at how height is normally inherited — additively, across thousands of loci. Fifth, we put dominant and additive side by side and contrast them. Then we wrap up. Let's go.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · ALLELES & GENOTYPES
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>How Alleles<br>Combine</h1>
+      <aside class="notes">
+        Before we look at any disease or any data, we need a shared vocabulary. What is an allele? What is a genotype? And what are the two ways those genotypes can produce a phenotype? Five minutes of vocabulary, then we move to the real biology.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Three possible genotypes per locus</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:2.4em;">AA · Aa · aa</div>
+          <div class="bignum-label">two copies · three combinations</div>
+        </div>
+        <div>
+          <ul>
+            <li><strong>A</strong> = one allele variant</li>
+            <li><strong>a</strong> = the other allele variant</li>
+            <li>You inherit <strong>one copy from each parent</strong></li>
+            <li>Three possible pairings at each locus</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Let's start with the basics. At every gene locus on an autosome, you carry two copies — one from your mother, one from your father. If we call the two possible variants of an allele big A and little a, then there are exactly three ways those copies can pair up. You can be big A big A — homozygous for one variant. You can be big A little a — heterozygous, one copy of each. Or you can be little a little a — homozygous for the other variant. Three genotypes per locus. This is the basic unit on which all inheritance models are built.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Mode 1 · additive · dimmer switch</h2>
+      <div class="formula">
+        AA → effect = a + a &nbsp; · &nbsp; Aa → a + 0 &nbsp; · &nbsp; aa → 0 + 0
+      </div>
+      <ul>
+        <li>Each <strong>A</strong> copy adds a fixed effect</li>
+        <li>Heterozygote sits <strong>halfway</strong> between</li>
+        <li>Phenotype scales with <strong>copy number</strong></li>
+      </ul>
+      <aside class="notes">
+        Mode one — additive. Here, each copy of the A allele contributes the same fixed effect, and the total phenotype is just the sum of those contributions. So if A adds zero point two centimeters per copy, then big A big A gets you zero point four centimeters. Big A little a — one copy — gets you zero point two. Little a little a — zero. The heterozygote sits exactly halfway between the two homozygotes. Dose matters. Two copies do twice what one copy does. That is the essence of an additive allele.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Mode 2 · dominant · light switch</h2>
+      <div class="formula">
+        AA → full effect &nbsp; · &nbsp; Aa → full effect &nbsp; · &nbsp; aa → no effect
+      </div>
+      <ul>
+        <li>Presence of <strong>even one A</strong> triggers the full phenotype</li>
+        <li>Heterozygote = homozygote</li>
+        <li>The normal copy <strong>cannot compensate</strong></li>
+      </ul>
+      <aside class="notes">
+        Mode two — dominant. Here, the rules change. One copy of A is enough to produce the full effect. Two copies do not produce more — it is already maxed out. So big A big A and big A little a give you the same phenotype, while only little a little a is unaffected. The key feature is that even when you have a normal copy alongside the dominant allele, that normal copy cannot rescue you. The mutant signal overrides whatever the normal copy is doing. That is why we call it dominant — it dominates over the other allele.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Other modes you'll meet later</h2>
+      <ul>
+        <li><strong>Co-dominance</strong> — both alleles expressed (e.g., AB blood type)</li>
+        <li><strong>Partial dominance</strong> — heterozygote between, but not centered</li>
+        <li><strong>Recessive</strong> — only aa shows the phenotype</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Today we focus on the two dominant cases<br>
+        of complex-trait architecture: <strong>additive vs dominant</strong>.
+      </blockquote>
+      <aside class="notes">
+        For completeness — there are intermediate modes. Co-dominance is when both alleles are expressed simultaneously, which is what gives you AB blood type. Partial or incomplete dominance is when the heterozygote sits between the two homozygotes, but not exactly in the middle. And recessive inheritance is the mirror of dominant — only the homozygous mutant shows the phenotype. We will visit these in later chapters. Today, the focus is the two architectures most relevant for complex traits — additive and dominant — because between them, they explain the vast majority of how human traits are inherited.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · ACHONDROPLASIA
+         ==================================================== -->
+
+    <!-- Slide 12 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Dominant ·<br>Achondroplasia</h1>
+      <aside class="notes">
+        Now to our first concrete example of a dominant allele. Achondroplasia — the most common form of dwarfism. One mutation in one gene, and adult stature is dramatically reduced. We will see why one copy is enough.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Achondroplasia by the numbers</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:2.6em;">1 in 15–25k</div>
+          <div class="bignum-label">live births worldwide</div>
+        </div>
+        <div>
+          <ul>
+            <li>Adult male ≈ <strong>131 cm</strong> (4 ft 4 in)</li>
+            <li>Adult female ≈ <strong>124 cm</strong> (4 ft 1 in)</li>
+            <li>Population avg ≈ 175 / 162 cm</li>
+            <li><strong>~80%</strong> are <em>de novo</em> mutations</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Achondroplasia affects roughly one in fifteen to twenty-five thousand newborns — common enough that you have probably met someone with it. The signature feature is short stature. Adult males with achondroplasia average around one hundred thirty-one centimeters — about four foot four. Adult females average around one hundred twenty-four centimeters — about four foot one. Compare those numbers to typical population averages of around one hundred seventy-five for men and one hundred sixty-two for women. Notably, about eighty percent of cases are de novo — the mutation is brand new in that individual, and the parents have completely normal stature.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>The body proportions</h2>
+      <ul>
+        <li><strong>Average-sized torso</strong> · trunk length is normal</li>
+        <li><strong>Short arms &amp; legs</strong> · upper limbs especially shortened (rhizomelia)</li>
+        <li>Larger head with prominent forehead (macrocephaly)</li>
+        <li>Short fingers · "trident" hand</li>
+        <li>Limited elbow extension</li>
+      </ul>
+      <aside class="notes">
+        It is not just shorter overall — it is a specific pattern. The trunk grows normally, but the arms and legs are short. And within the limbs, the proximal segments — upper arms and thighs — are most affected. Doctors call this rhizomelia, meaning root-limb shortening. The head tends to be larger than average, with a prominent forehead. Fingers are short, and sometimes the middle and ring fingers spread apart, giving the hand a so-called trident appearance. Elbows often cannot fully straighten. So the phenotype is structured — it is not random shortening, it tracks specific bone-development patterns.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>The same mutation in nearly everyone</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:2.4em;">FGFR3</div>
+          <div class="bignum-label">chromosome 4 · short arm</div>
+        </div>
+        <div>
+          <ul>
+            <li>Receptor on cartilage cells (chondrocytes)</li>
+            <li>One amino acid swap: <strong>p.Gly380Arg</strong></li>
+            <li>Same change in <strong>nearly every</strong> patient</li>
+            <li>Worldwide · across all populations</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        The gene responsible is FGFR three — Fibroblast Growth Factor Receptor three — sitting on the short arm of chromosome four. It encodes a receptor protein on cartilage cells in the growth plates of long bones. And here is the remarkable part. Nearly every person with achondroplasia carries the exact same mutation. A single amino acid swap — glycine to arginine at position three eighty. Written as p dot Gly three eighty Arg. The same mutation, the same nucleotide change, found in patients across every continent and every population. It is like finding the same typo in books printed in different languages.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Where the mutation sits on the receptor</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Sobreira2024-HealthMed-Fig1.jpg" alt="FGFR3 receptor structure with mutation locations">
+        <figcaption>
+          <strong>Figure 1.</strong> FGFR3 spans the cell membrane. The G380R mutation sits in the transmembrane (TM) domain, where most achondroplasia mutations cluster. Sobreira et al. 2024.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the receptor itself. FGFR three spans the cell membrane. Outside the cell, you see three immunoglobulin-like domains that bind growth factors. Inside, two tyrosine kinase domains that send signals when the receptor activates. Connecting them is a single transmembrane segment — and that is where G three eighty R lives. Most achondroplasia mutations cluster in this same region. Why this matters: the transmembrane domain is the part of the receptor that determines how two receptor molecules pair up. Change one amino acid here, and you change how the receptor turns on. That is exactly what happens in achondroplasia.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>Why this mutation is destructive</h2>
+      <ul>
+        <li>FGFR3 normally <strong>brakes</strong> bone growth</li>
+        <li>Activates only when growth factor binds</li>
+        <li><strong>G380R</strong>: receptor dimerizes <em>without</em> ligand</li>
+        <li>Stuck in "ON" → constantly suppresses chondrocytes</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Like a car alarm that fires<br>even when no one's nearby.
+      </blockquote>
+      <aside class="notes">
+        Now the mechanism. Normally, FGFR three acts as a brake on bone growth. When growth factor binds, two receptors come together, activate each other, and tell cartilage cells: slow down. This is healthy regulation — you do not want bones growing forever. The G three eighty R mutation breaks this. Glycine is small and flexible; arginine is large and bulky. With the bigger residue stuck in the membrane, the two receptors pair up even when no growth factor is present. The receptor is constitutively active — stuck in the on position. Constantly braking the growth plates. Like a car alarm that goes off even when no one is trying to break in.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>The signal is hyperactive</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Hartl2022-bioRxiv-Fig3.jpg" alt="G380R variant shows ligand-independent FGFR3 signaling">
+        <figcaption>
+          <strong>Figure 2.</strong> Even without added growth factor, the G380R variant activates downstream signaling — the wild-type receptor does not. This ligand-independent activation is why one copy is enough. Hartl et al. 2022, <em>bioRxiv</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the experimental evidence that the receptor is stuck on. The bars show how strongly different FGFR three variants activate downstream signaling — measured through GRB two recruitment, an adaptor protein. Higher bars mean more signal. Look at G three eighty R: even without adding any FGF ligand, it lights up. The wild-type receptor in the same condition stays quiet — it needs ligand to activate. So the mutant receptor is signaling all by itself, all the time. That ligand-independent activity is the molecular reason a single mutant copy is enough to cause the disease.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why one copy is enough</h2>
+      <ul>
+        <li>One mutant FGFR3 is <strong>constantly signaling</strong></li>
+        <li>The normal copy is regulated normally</li>
+        <li>Mutant signal <strong>overrides</strong> the brake-release</li>
+        <li>Net result: chondrocytes always slowed down</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Achondroplasia = <strong>dominant allele</strong>.<br>
+        One copy mutates → full phenotype.
+      </blockquote>
+      <aside class="notes">
+        So why is achondroplasia dominant? You have two FGFR three genes — one mutant, one normal. The normal one is regulated correctly: it activates only when growth factor binds, and then only briefly. The mutant one, by contrast, is constitutively active — it never turns off. That constant signal overrides the carefully timed pulses from the normal copy. The chondrocytes spend their lives being told to slow down, regardless of whether they should. Penetrance is essentially complete — virtually everyone who carries the mutation shows the phenotype. That is the textbook signature of a dominant allele.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · MARFAN
+         ==================================================== -->
+
+    <!-- Slide 20 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Dominant ·<br>Marfan Syndrome</h1>
+      <aside class="notes">
+        Now the mirror image. Another dominant disorder — this time pushing height in the opposite direction. Marfan syndrome makes people much taller, not shorter, and it does so through a completely different molecular logic.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Marfan by the numbers</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:2.2em;">&gt; 190 cm</div>
+          <div class="bignum-label">adult males (≈ 6 ft 3 in)</div>
+        </div>
+        <div>
+          <ul>
+            <li>Adult females ≈ <strong>175–180 cm</strong></li>
+            <li>Long, slender limbs &amp; fingers</li>
+            <li><em>Arachnodactyly</em> · "spider fingers"</li>
+            <li>Lens dislocation in the eye</li>
+            <li>Risk of <strong>aortic aneurysm</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Marfan syndrome is an autosomal dominant disorder of connective tissue. Adult males with Marfan often exceed one hundred ninety centimeters — over six foot three. Females typically reach one hundred seventy-five to one hundred eighty centimeters. But it is not just tallness — it is a whole pattern. Long, slender limbs. Fingers so long that doctors gave them their own term, arachnodactyly, meaning spider fingers. The lens of the eye can slip out of position, called ectopia lentis. And dangerously, the aorta — the body's main artery — is prone to bulging into aneurysms that can rupture. Marfan is more than a height story; it is a whole-tissue scaffolding story.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The genetic culprit · FBN1</h2>
+      <ul>
+        <li><strong>FBN1</strong> on chromosome 15</li>
+        <li>Encodes <strong>fibrillin-1</strong> · structural microfibril protein</li>
+        <li>Microfibrils = scaffolding of connective tissue</li>
+        <li>Strength &amp; elasticity of aorta, ligaments, bone</li>
+      </ul>
+      <aside class="notes">
+        The gene is FBN one — fibrillin one — sitting on chromosome fifteen. It encodes a structural protein called fibrillin-1, which assembles into long, rope-like microfibrils. Think of these microfibrils as the scaffolding inside connective tissue. They give strength and elasticity to the aortic wall, to the ligaments holding the eye lens in place, to the connective tissue of bones. Wherever your body needs flexible reinforcement, fibrillin-1 microfibrils show up. So mutations in FBN one weaken that scaffolding — and that affects every tissue that depends on it.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>One gene · over 1,000 different mutations</h2>
+      <div class="cols">
+        <div>
+          <h3>Achondroplasia</h3>
+          <ul>
+            <li><strong>Same mutation</strong></li>
+            <li>p.Gly380Arg in everyone</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Marfan syndrome</h3>
+          <ul>
+            <li><strong>&gt; 1,000 different</strong> mutations</li>
+            <li>Missense, nonsense, splice, indel</li>
+            <li>Often hit EGF-like or 8-cysteine domains</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is a striking contrast. Achondroplasia is overwhelmingly caused by one specific mutation in nearly every patient. Marfan is the opposite — over one thousand different mutations have been catalogued in FBN one, and they cause the same syndrome. Missense changes, nonsense premature stops, splice errors, small insertions and deletions. Many of them hit the calcium-binding EGF-like domains, or the eight-cysteine domains that give fibrillin-1 its structural integrity. Different mutations, same outcome. That tells you something important: in Marfan, the issue is loss of microfibril function — and many different mutations can damage function.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Why FBN1 mutations make people taller</h2>
+      <ul>
+        <li>Fibrillin-1 has a <strong>second job</strong>: regulating <strong>TGF-β</strong></li>
+        <li>Microfibrils <strong>capture &amp; sequester</strong> TGF-β</li>
+        <li>Defective microfibrils → TGF-β <strong>escapes</strong></li>
+        <li>Excess TGF-β drives <strong>bone elongation</strong></li>
+      </ul>
+      <aside class="notes">
+        So how does damaged scaffolding cause tall stature? The answer is that fibrillin-1 has a second job. Beyond providing structure, the microfibrils capture and hold a powerful signaling molecule called TGF-beta — transforming growth factor beta. Normally, TGF-beta is sequestered by microfibrils, kept in check, released only when needed. When fibrillin-1 is defective, TGF-beta escapes. Free TGF-beta over-activates its signaling pathway. And one of the things excess TGF-beta does is drive abnormal growth in connective tissue — including bone elongation. That is why people with Marfan grow long bones beyond normal limits.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>TGF-β escapes its leash</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Coelho2020-CellSignal-Fig4.jpg" alt="TGF-beta dysregulation in Marfan syndrome">
+        <figcaption>
+          <strong>Figure 3.</strong> Left: healthy microfibrils sequester TGF-β. Right: defective microfibrils release TGF-β, triggering excess Smad signaling and abnormal tissue growth. Coelho et al. 2020, <em>Cell Signal</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the mechanism in one picture. On the left, healthy connective tissue. Fibrillin-1 microfibrils form a tight scaffolding, and TGF-beta sits trapped inside that scaffolding, bound through latency-associated peptide and latent TGF-beta binding protein. The signal is held quiet. On the right, Marfan tissue. The microfibrils are sparse or malformed. TGF-beta is released, binds its receptors, and triggers excessive Smad signaling. That signaling drives the abnormal tissue growth — long bones, weakened aortic wall, drifting eye lens. One protein with two jobs. When the structural job fails, the regulatory job fails too.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Why one bad copy is enough</h2>
+      <ul>
+        <li>Half the fibrillin-1 protein is defective</li>
+        <li>Microfibril scaffolding becomes weak / sparse</li>
+        <li>Even partial damage <strong>releases TGF-β</strong></li>
+        <li>The normal copy <strong>cannot rescue</strong> the structure</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Marfan = <strong>dominant allele</strong>.<br>
+        One bad copy → full phenotype.
+      </blockquote>
+      <aside class="notes">
+        Why is Marfan dominant? Because fibrillin-1 is a structural protein assembled into multi-protein microfibrils. If half the protein you make is defective, the resulting microfibrils are weak — they incorporate the defective protein and fall apart. Even partial damage to the scaffolding is enough to leak TGF-beta. The normal copy makes good fibrillin, but it cannot prevent the bad copy from destabilizing the structure. So one mutant copy is sufficient. Penetrance is essentially complete. That is the textbook definition of a dominant allele — and notice how different the molecular logic is from achondroplasia, even though both end up dominant.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · ADDITIVE ALLELES
+         ==================================================== -->
+
+    <!-- Slide 27 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Additive ·<br>Normal Height</h1>
+      <aside class="notes">
+        Now we shift gears. The vast majority of people do not have achondroplasia or Marfan. For them, height is not determined by one mutation. It is determined by thousands of small contributors, each adding a tiny effect. This is the additive model — and it is the genetic architecture of essentially all common human traits.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>The bell curve of human height</h2>
+      <ul>
+        <li>Most people cluster around <strong>average</strong></li>
+        <li>Few at the extremes (very short, very tall)</li>
+        <li>Smooth <strong>continuous distribution</strong></li>
+        <li>Hallmark of an <strong>additive trait</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Many small dials adjusting up or down →<br>
+        bell-shaped <strong>normal distribution</strong>.
+      </blockquote>
+      <aside class="notes">
+        If you measure the height of a thousand random adults and plot a histogram, you do not get a flat line. You do not get two peaks. You get a bell curve — most people clustered near average, fewer people at the very tall and very short ends, smooth on either side. That smooth, continuous, bell-shaped distribution is the signature of an additive trait. Imagine thousands of little dials, each adjusting your height a tiny amount up or down. The cumulative sum across all those dials lands you somewhere on the curve. Most people get a roughly balanced mix of dials — they end up near the middle. A few get more up-dials, some get more down-dials. That is how the bell appears.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The 2022 GWAS of height</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:2.4em;">5.4 M</div>
+          <div class="bignum-label">people analyzed</div>
+        </div>
+        <div>
+          <ul>
+            <li><strong>12,111</strong> independent SNPs found</li>
+            <li>Spread across <strong>7,209</strong> regions</li>
+            <li>Cover ~<strong>21%</strong> of the genome</li>
+            <li>Almost all are <strong>common variants</strong> (MAF &gt; 1%)</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.4em; font-size:0.85em; color:var(--ink-soft);">Yengo et al. 2022, <em>Nature</em></p>
+      <aside class="notes">
+        In twenty twenty-two, a genome-wide association study analyzed five point four million people from many ancestries — the largest GWAS ever done on a single trait. The headline result: twelve thousand one hundred eleven independent single-nucleotide polymorphisms, or SNPs, are associated with height. Those SNPs sit in seven thousand two hundred nine different genomic regions. Together, those regions cover about twenty-one percent of the entire genome. Almost all of them are common variants — meaning they appear in more than one percent of the population. So height is influenced not by one gene, not by ten, not by a hundred, but by thousands of variants spread across about a fifth of your genome.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Same genes · different mutations</h2>
+      <ul>
+        <li>FGFR3 and FBN1 <strong>show up</strong> in the GWAS list</li>
+        <li>But as <strong>common variants</strong> with subtle effects</li>
+        <li>Not the severe rare mutations of achondroplasia / Marfan</li>
+        <li>Same biology · <strong>different magnitude</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is something elegant. The GWAS list of twelve thousand SNPs includes — guess which genes — FGFR three and FBN one. The very same genes that, when mutated severely, cause achondroplasia and Marfan. But in the general population, common variants in those genes have small effects. They might shift your height by half a centimeter, not by thirty centimeters. Same biology — growth-plate signaling, microfibril structure — but a completely different magnitude. So the genes that produce dramatic dominant disorders also harbor mild common variants that contribute, additively, to normal height variation. The biology is continuous; the genetics is just operating at a different intensity.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Rare variants matter too</h2>
+      <table>
+        <thead><tr><th>Variant class</th><th>Variance explained</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Total SNP-based heritability</td><td><strong>0.68</strong></td><td>~68% of height variance</td></tr>
+          <tr><td>Low-LD rare variants</td><td><strong>0.31</strong></td><td>New, independent info</td></tr>
+          <tr><td>High-LD rare variants</td><td>0.03</td><td>Tag along with common SNPs</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.5em; font-size:0.85em; color:var(--ink-soft);">Wainschtein et al. 2022, <em>Nat Genet</em> · 25,465 Europeans, whole-genome sequencing</p>
+      <aside class="notes">
+        Common variants are not the whole story. A complementary study used whole-genome sequencing on about twenty-five thousand people to estimate the contribution of rare variants — those with frequency below zero point one percent. Total SNP-based heritability of height was estimated at zero point six eight, meaning sixty-eight percent of height variation is genetic. Within that, low-LD rare variants — variants not correlated with nearby common SNPs — explained about thirty-one percent. High-LD rare variants — those tagging along with common SNPs already captured by GWAS — added only three percent. The lesson: low-LD rare variants carry independent information that GWAS cannot easily see. They are often protein-altering and slightly deleterious, but they still contribute additively, not dominantly.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>How the additive math works</h2>
+      <div class="formula">
+        Height = Σ (per-SNP effect) + environment + noise
+      </div>
+      <ul>
+        <li>One SNP adds <strong>+0.2 cm</strong></li>
+        <li>Another adds <strong>−0.15 cm</strong></li>
+        <li>Another <strong>+0.1 cm</strong> · another <strong>−0.05 cm</strong></li>
+        <li>Sum across <strong>thousands</strong> of SNPs → your height</li>
+      </ul>
+      <aside class="notes">
+        Let's make the math concrete. Imagine you inherit a SNP that pushes height up by zero point two centimeters. You also inherit one that pulls down by zero point one five. Another adds zero point one. Another subtracts zero point zero five. And so on, thousands of times. Your final genetic contribution to height is the algebraic sum of all those tiny pushes and pulls, plus environmental factors like nutrition during childhood, plus some unexplained noise. Each individual SNP barely registers. But add up ten thousand of them, and you have a very real signal. That is the additive model — small effects, summed across many loci.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Why the curve looks Gaussian</h2>
+      <ul>
+        <li>Sum of many small independent effects → <strong>Central Limit Theorem</strong></li>
+        <li>Most people: roughly balanced mix of up &amp; down variants</li>
+        <li>Few people: stacked up-variants → tall tail</li>
+        <li>Few people: stacked down-variants → short tail</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Bell curve = mathematical fingerprint<br>of an <strong>additive trait</strong>.
+      </blockquote>
+      <aside class="notes">
+        The bell curve is not a coincidence. It is a mathematical consequence of summing many small independent effects — a result called the Central Limit Theorem. When you sum many independent random nudges, the distribution of the sum tends toward a Gaussian, regardless of what each nudge looks like individually. Most people inherit a roughly balanced mix of up-variants and down-variants — so they cluster near the average. A few inherit unusually many up-variants and end up tall. A few end up short. The bell shape is the mathematical fingerprint of an additive trait, and we will see it again and again in this part of the course.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · COMPARING THE TWO
+         ==================================================== -->
+
+    <!-- Slide 34 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Dominant vs<br>Additive · Side by Side</h1>
+      <aside class="notes">
+        Time to put everything together. We have looked at three scenarios — achondroplasia, Marfan, and normal height variation. Two are dominant, one is additive. Let's compare them directly and see what the contrast teaches us about complex traits.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>The three scenarios</h2>
+      <table>
+        <thead><tr><th>Scenario</th><th>Mode</th><th>Loci</th><th>Effect size</th></tr></thead>
+        <tbody>
+          <tr><td>Achondroplasia</td><td><strong>Dominant</strong></td><td>1 (FGFR3)</td><td>~ −44 cm vs avg</td></tr>
+          <tr><td>Marfan syndrome</td><td><strong>Dominant</strong></td><td>1 (FBN1)</td><td>~ +15 cm vs avg</td></tr>
+          <tr><td>Normal variation</td><td><strong>Additive</strong></td><td>~12,000 SNPs</td><td>fractions of cm each</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here are our three scenarios in one table. Achondroplasia — dominant, one gene, FGFR three, with an effect of roughly minus forty-four centimeters relative to average male height. Marfan — also dominant, one gene, FBN one, with an effect of plus fifteen or more centimeters. Normal variation — additive, twelve thousand SNPs across the genome, each contributing a fraction of a centimeter. Notice the trade-off. Dominant alleles are individually huge but rare. Additive alleles are individually tiny but everywhere. Different architectures, both shaping the same trait.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Master switches vs committee votes</h2>
+      <div class="cols">
+        <div>
+          <h3>Dominant</h3>
+          <ul>
+            <li><strong>Master switch</strong></li>
+            <li>One copy = full effect</li>
+            <li>Predictable phenotype</li>
+            <li>Complete penetrance</li>
+            <li>Rare in population</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Additive</h3>
+          <ul>
+            <li><strong>Committee vote</strong></li>
+            <li>Each copy = small contribution</li>
+            <li>Continuous distribution</li>
+            <li>Variable penetrance</li>
+            <li>Common, polygenic</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the analogy I want you to leave with. Dominant alleles are master switches. One copy flips, the whole circuit changes. The phenotype is predictable. Penetrance is essentially complete. But these alleles are rare in the population — they cause Mendelian disorders. Additive alleles, by contrast, are committee votes. No single member can change the outcome alone. Each gets a tiny say. The final phenotype depends on the majority across thousands of voters. The distribution is continuous. Penetrance is variable — depends on how many copies you have. And these alleles are common — they are everywhere in everyone's genome. The whole field of complex trait genetics lives in the additive world.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Why most quantitative traits are additive</h2>
+      <ul>
+        <li>Strong-effect dominant mutations are <strong>selected against</strong></li>
+        <li>Tiny additive effects evade purifying selection</li>
+        <li>Continuous traits = sum of many small biological inputs</li>
+        <li>Evolution favors <strong>distributed</strong> control</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Big-effect alleles are rare<br>because biology can't afford them.
+      </blockquote>
+      <aside class="notes">
+        Why is the additive model the rule for most quantitative traits — height, weight, blood pressure, lipid levels? Two reasons. First, big-effect dominant alleles tend to disrupt biology in ways that reduce fitness, so natural selection keeps them rare. They show up as Mendelian disorders precisely because they have not spread. Second, tiny additive effects fly under the radar of selection — too small to be removed individually — so they accumulate. The result is that for most continuous traits, the genetic architecture is highly polygenic, with thousands of small additive contributors. Evolution favors distributed control because distributed control is robust. We will return to this idea throughout Part Three.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 38 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Genotypes <strong>AA · Aa · aa</strong> · combine in two main modes</li>
+        <li><strong>Dominant</strong> = one copy is enough · achondroplasia (FGFR3), Marfan (FBN1)</li>
+        <li><strong>Additive</strong> = each copy adds a small effect · sum across loci</li>
+        <li>Height GWAS: <strong>~12,000 SNPs</strong> · ~68% heritability</li>
+        <li>Bell curve = mathematical fingerprint of an <strong>additive trait</strong></li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One — at every locus there are three possible genotypes, big A big A, big A little a, and little a little a, and they combine through two main modes. Two — dominant alleles produce the full phenotype with one copy; achondroplasia from FGFR three and Marfan from FBN one are textbook examples. Three — additive alleles each contribute a small effect, and the phenotype is the sum across many loci. Four — the twenty twenty-two height GWAS identified about twelve thousand SNPs influencing height, and total heritability is around sixty-eight percent. Five — the bell-shaped distribution of human height is a mathematical signature of additive inheritance, predicted by the Central Limit Theorem. Hold those five ideas; everything in Part Three builds on them.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2em; line-height:1.1; margin-top:0.3em;">
+        If alleles add up,<br>
+        what happens with<br>
+        <span style="color:var(--terracotta-deep);">thousands</span> of them?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 15 · <strong>The Polygenic Model</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. Today we said that most quantitative traits are additive — small effects summed across many loci. We saw that twelve thousand SNPs influence human height. So here is the question for next time. If thousands of alleles each add a small contribution, can we use them to make predictions about a person's trait? Can we compute someone's expected height — or their disease risk — by summing up their genetic dosage across all those loci? That is the polygenic score, and it is the topic of Chapter fifteen. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3 · The CHM13 Cell Line — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>The CHM13<br>Cell Line</h1>
+      <div class="chapter-num">Chapter 3 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome back to BSMS two oh five Genetics. Last time we walked through the Telomere-to-Telomere project and how it finally closed the eight percent of the genome that the original Human Genome Project could not. Today we zoom in on the strangest part of that story — the cell line that made it possible. Its name is CHM thirteen. It came from a failed pregnancy. It has only one parent's DNA, duplicated. And without it, the first complete human genome would still be a dream. By the end of this hour you will understand why such an unusual biological accident turned out to be the perfect starting material for sequencing biology's most ambitious target.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A puzzle to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        Why couldn't they just<br>sequence <span style="color:var(--terracotta-deep)">a normal person</span>?
+      </h1>
+      <aside class="notes">
+        Here is the puzzle I want you to sit with. The T2T project's goal was to produce the first complete reference of a human genome. So the obvious choice would be to take blood from a volunteer, extract D N A, sequence it, and assemble. That is what GRCh thirty-eight tried to do. But the T2T team did not pick a normal person. They picked a cell line derived from a very rare and very specific kind of pregnancy loss. Why on earth would you choose that over a healthy donor? The answer is one word — heterozygosity — and we will spend the next hour unpacking why that one word changes everything.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>The two-puzzle problem</h2>
+      <div class="cols">
+        <div>
+          <h3>Normal diploid</h3>
+          <ul>
+            <li>Two <strong>different</strong> chromosome copies</li>
+            <li>~<strong>4–5 million</strong> heterozygous variants</li>
+            <li>Repeats: which copy did the read come from?</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What an assembler wants</h3>
+          <ul>
+            <li>Both copies <strong>identical</strong></li>
+            <li>No ambiguity in repeats</li>
+            <li>One puzzle, not two interleaved ones</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Genome assembly is essentially a giant jigsaw puzzle. You shred the DNA into millions of fragments, sequence each one, and then a computer pieces them back together by finding overlaps. In a normal person, you have two slightly different versions of every chromosome — one from mom, one from dad — and they differ at millions of positions. For most of the genome this is fine. But in repetitive regions, the same sequence appears hundreds of times, and now the assembler cannot tell which fragments came from mom's copy and which came from dad's. It is like trying to assemble two nearly identical jigsaw puzzles whose pieces have been mixed into the same box. CHM thirteen solves this by having only one puzzle.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">Where the gaps lived</div>
+      <div class="bignum">151,000,000</div>
+      <div class="bignum-label">base pairs of unknown sequence in GRCh38</div>
+      <ul>
+        <li>Mostly in <strong>repetitive regions</strong></li>
+        <li>Centromeres · rDNA arrays · segmental duplications</li>
+        <li>Heterozygosity made them <strong>impossible</strong> to assemble</li>
+      </ul>
+      <aside class="notes">
+        Just to make this concrete: GRCh thirty-eight, the reference genome we used for two decades, contained roughly one hundred fifty-one million base pairs that were simply listed as unknown — strings of N's where letters should have been. Those were not random scattered gaps. They were concentrated in the most repetitive parts of the genome. Centromeres. Ribosomal DNA arrays. Big segmental duplications. The technology of the early two thousands could not solve repeats, and heterozygosity made it worse. To finish those regions, the T2T consortium needed a fundamentally different starting material.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Why heterozygosity breaks assembly</li>
+        <li>What is a complete hydatidiform mole</li>
+        <li>"Functionally haploid" · the magic property</li>
+        <li>The hTERT trick · making cells immortal</li>
+        <li>Quality control · ancestry · ethics</li>
+        <li>Why CHM13 specifically · and its limits</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, the assembly problem — why heterozygosity is the central enemy. Second, the biology behind CHM thirteen — what a complete hydatidiform mole actually is. Third, the key concept of functionally haploid, which sounds like an oxymoron but is the whole point. Fourth, the h T E R T immortalization trick. Fifth, the quality control, the ancestry analysis, and the ethical considerations of using a mole-derived line. Sixth, why CHM thirteen specifically out of all the available cell lines, and what its limits are. Then we wrap up and bridge to chapter four on the pangenome. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHY HETEROZYGOSITY BREAKS ASSEMBLY
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Why Heterozygosity<br>Breaks Assembly</h1>
+      <aside class="notes">
+        Let's spend a few minutes on the core technical problem. If you understand this, the rest of the chapter is just consequences.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>One difference per thousand bases</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.2em;">1 / 1,000</div>
+          <div class="bignum-label">bases differ between maternal and paternal copies</div>
+        </div>
+        <div>
+          <ul>
+            <li>= about <strong>0.1%</strong> of the genome</li>
+            <li>= ~<strong>4–5 million</strong> heterozygous variants</li>
+            <li>= the normal, healthy human state</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Some numbers to anchor your intuition. Between any two human chromosome copies — your mom's and your dad's — about one base pair in every thousand differs. That is zero point one percent of the genome. Across three billion base pairs, that adds up to roughly four to five million heterozygous positions per individual. This is normal. This is healthy. This is why siblings look similar but not identical. It is also exactly the level of difference that makes assembly of repetitive regions extremely hard.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Where the read came from · matters</h2>
+      <ul>
+        <li>Sequencing breaks DNA into <strong>millions of fragments</strong></li>
+        <li>Computer reassembles by finding <strong>overlaps</strong></li>
+        <li>In repeats: many fragments look <strong>nearly identical</strong></li>
+        <li>Maternal? Paternal? <strong>Cannot tell</strong> → gaps or errors</li>
+      </ul>
+      <aside class="notes">
+        Step through the assembly mechanically. You shred the DNA into millions of small fragments and read each one. The computer then walks through fragments looking for overlaps, like a giant overlap-puzzle solver. In unique regions of the genome this works beautifully. In a repetitive region — say, a centromere with a two kilobase sequence repeated fourteen hundred times — fragments from many different copies all look nearly identical. The assembler cannot tell which copy a fragment belongs to. Worse, it cannot tell whether it came from the maternal or the paternal version of that centromere. The result is either gaps or, even worse, a wrongly collapsed assembly that hides real biological structure.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>The puzzle problem · in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter3_figure1.png" alt="Heterozygosity makes assembly of repetitive regions ambiguous">
+        <figcaption>
+          <strong>Figure 1.</strong> Why heterozygosity breaks genome assembly. Reads from two similar-but-not-identical chromosome copies cannot be confidently assigned in repeats — leaving gaps or errors.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture from the textbook. Two chromosome copies on top, fragments below, and an assembler trying to figure out which fragment goes where. In unique regions there are enough distinctive variants to anchor each fragment to the correct copy. In repetitive regions everything looks the same — so the assembler either gives up and writes a gap, or it merges the two copies into a single wrong consensus. This single picture is why the centromeres in GRCh thirty-eight were essentially blank.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>The GRCh38 compromise</h2>
+      <ul>
+        <li>Built from <strong>BAC clones</strong> · 100–200 kb pieces in bacteria</li>
+        <li>Pieces came from <strong>multiple individuals</strong></li>
+        <li>Result: a <strong>mosaic of haplotypes</strong></li>
+        <li>~151 Mb of <strong>N's</strong> in repetitive regions</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Mosaic + heterozygosity + short reads = unfinishable.
+      </blockquote>
+      <aside class="notes">
+        How did the original Human Genome Project deal with this? Imperfectly. They built GRCh thirty-eight from bacterial artificial chromosomes — large pieces of DNA, about one hundred to two hundred kilobases each, cloned into bacteria and then sequenced. Those B A C s came opportunistically from multiple donors, so the resulting reference is actually a mosaic of haplotypes from different people stitched together. That helped reduce some heterozygosity locally, but it introduced its own structural inconsistencies. And in the worst regions — centromeres, ribosomal arrays, segmental duplications — the technology of the day simply gave up and recorded N's. The T2T team realized: to finish those regions, you cannot patch the strategy. You need a fundamentally different starting material.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · WHAT IS A HYDATIDIFORM MOLE
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>What Is a<br>Hydatidiform Mole?</h1>
+      <aside class="notes">
+        Now let's step away from sequencing for a moment and into reproductive biology. To understand CHM thirteen, you need to understand the very rare event that produced its DNA. This is biology that does not get taught in most genetics classes, but it is essential here.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Normal fertilization · 23 + 23</h2>
+      <ul>
+        <li>Egg contributes <strong>23 chromosomes</strong> from mom</li>
+        <li>Sperm contributes <strong>23 chromosomes</strong> from dad</li>
+        <li>Zygote: <strong>diploid</strong>, 46 chromosomes</li>
+        <li>Two <strong>different</strong> versions of every chromosome</li>
+      </ul>
+      <aside class="notes">
+        Quick refresher on normal fertilization. The egg carries twenty-three chromosomes from the mother. The sperm carries twenty-three from the father. They fuse, and the resulting zygote is diploid — forty-six chromosomes, paired up. Crucially, mom's chromosome one and dad's chromosome one are similar but not identical. They differ at millions of positions. This is the heterozygosity we have been talking about, and it is genetically healthy. It is also the reason the assembler struggles.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>What goes wrong in a CHM</h2>
+      <ul>
+        <li>Egg <strong>loses its nucleus</strong> — no maternal DNA</li>
+        <li>Sperm fertilizes the <strong>empty</strong> egg</li>
+        <li>Sperm DNA <strong>duplicates itself</strong> (endoreduplication)</li>
+        <li>Result: 46 chromosomes — but <strong>all from dad</strong></li>
+      </ul>
+      <aside class="notes">
+        Now the rare accident. In a complete hydatidiform mole, something goes wrong before fertilization. The egg loses its nucleus — so no maternal DNA is present at all. A sperm enters this essentially empty egg, but a single set of paternal chromosomes is not enough to support development. To compensate, the sperm's DNA duplicates itself through a process called endoreduplication. The single set of twenty-three paternal chromosomes replicates, producing forty-six chromosomes. The cell now has a normal chromosome number, but every single chromosome is a copy of a paternal chromosome. There is no maternal DNA anywhere.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Normal vs CHM · in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter3_figure2.png" alt="Normal fertilization vs complete hydatidiform mole formation">
+        <figcaption>
+          <strong>Figure 2.</strong> Normal fertilization (top) creates a diploid heterozygous genome. A complete hydatidiform mole (bottom) is diploid but homozygous — two identical paternal chromosome sets.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here are both processes side by side. On the top, normal fertilization — twenty-three from mom, twenty-three from dad, paired into a heterozygous diploid. On the bottom, the CHM pathway — empty egg, single sperm, duplicated paternal DNA, resulting in two identical paternal chromosome sets. Both end up with forty-six chromosomes, but the genetic content is profoundly different. One has two distinct copies of each chromosome. The other has two identical copies.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Why 46,XX · not 46,YY</h2>
+      <ul>
+        <li>Most CHMs have <strong>46,XX karyotype</strong></li>
+        <li>Sperm carrying X duplicates → XX</li>
+        <li>Or two X-bearing sperm fertilize one empty egg</li>
+        <li>YY is <strong>not viable</strong> — humans need at least one X</li>
+        <li>CHM13 is <strong>46,XX</strong> · all from one father</li>
+      </ul>
+      <aside class="notes">
+        A small but important detail. Most complete hydatidiform moles have a forty-six X X karyotype. This happens either because a single X-bearing sperm enters the empty egg and its DNA duplicates, or because two X-bearing sperm both enter the empty egg and fuse. Y Y combinations almost never persist because human cells need at least one X chromosome to survive. CHM thirteen specifically is forty-six X X, with all chromosomes derived from a single father's genome. That is also why, in the T2T project, the Y chromosome had to be added later from a different donor — there is no Y in CHM thirteen at all.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <div class="cue">A serious moment</div>
+      <h2 style="margin-top:0.2em;">The biological source matters</h2>
+      <ul>
+        <li>A CHM is a <strong>failed pregnancy</strong></li>
+        <li>Tissue donated from a <strong>real patient</strong> in 1993</li>
+        <li>Used with <strong>consent and ethical review</strong></li>
+        <li>The data set has a <strong>human story behind it</strong></li>
+      </ul>
+      <aside class="notes">
+        Before we move on, I want to slow down for a moment. The biological source of CHM thirteen is a complete hydatidiform mole — a non-viable pregnancy that had to be removed from a patient. That is not an abstraction. It is a real medical event for a real person. The original CHM thirteen line was established in nineteen ninety-three from such a sample, donated under appropriate consent and ethical review. When we talk about CHM thirteen as a research tool, it is worth remembering that every cell line has a human origin story, and this one in particular came from a difficult clinical event. The scientific community treats this seriously, and so should we as we use the resulting data.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · FUNCTIONALLY HAPLOID
+         ==================================================== -->
+
+    <!-- Slide 17 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>"Functionally<br>Haploid"</h1>
+      <aside class="notes">
+        Now we get to the central magic word of this chapter. Functionally haploid. It sounds like an oxymoron — diploid in chromosome number but haploid in behavior. But once you understand it, you understand exactly why CHM thirteen was the perfect choice.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Three states · clearly distinguished</h2>
+      <table>
+        <thead><tr><th>Term</th><th>Chromosomes</th><th>Het variants</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>True haploid</strong></td><td>23</td><td>0 (no pair)</td><td>Sperm, Egg</td></tr>
+          <tr><td><strong>Diploid (normal)</strong></td><td>46</td><td>~4–5 million</td><td>You, me</td></tr>
+          <tr><td><strong>Functionally haploid</strong></td><td>46</td><td>~few thousand</td><td><strong>CHM13</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Diploid in <strong>number</strong>. Haploid in <strong>information</strong>.</p>
+      <aside class="notes">
+        Here are the three states laid out as a table. True haploid — twenty-three chromosomes, one of each. That is what your eggs and sperm are. Normal diploid — forty-six chromosomes, with two different versions of each, and roughly four to five million heterozygous variants. That is you and me. Functionally haploid — forty-six chromosomes like a normal diploid, but the two copies are nearly identical, with only a few thousand heterozygous variants left. That is CHM thirteen. So it is diploid in chromosome number, haploid in informational content. For an assembler, those two copies behave like a single haploid sequence — exactly what you want.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>The "functionally haploid" picture</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter3_figure3.png" alt="Functionally haploid explained: diploid in number, homozygous in sequence">
+        <figcaption>
+          <strong>Figure 3.</strong> CHM13 has 46 chromosomes (diploid number) but both copies are nearly identical (homozygous) — behaving like a haploid genome for assembly purposes.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the same idea visually. On the left, a true haploid cell — twenty-three chromosomes. In the middle, a normal diploid — forty-six chromosomes with mom and dad versions clearly different. On the right, CHM thirteen — forty-six chromosomes, but the two copies are essentially photocopies of each other. The assembler sees no ambiguity in repeats because there is no second haplotype to confuse it with. This single property is why CHM thirteen could finish what GRCh thirty-eight could not.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Reduction in heterozygosity</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <h3>Normal diploid</h3>
+          <div class="bignum" style="font-size:3em;">~4,500,000</div>
+          <div class="bignum-label">het variants</div>
+        </div>
+        <div>
+          <h3>CHM13</h3>
+          <div class="bignum" style="font-size:3em; color:var(--terracotta);">~few thousand</div>
+          <div class="bignum-label">het variants</div>
+        </div>
+      </div>
+      <p style="margin-top:0.8em;">Reduction: <strong>&gt; 99.99%</strong>. Below 0.01% of the genome.</p>
+      <aside class="notes">
+        Let's put numbers on it. A normal diploid genome has roughly four and a half million heterozygous variants. CHM thirteen has only a few thousand. That is a reduction of more than ninety-nine point nine nine percent. CHM thirteen is not perfectly homozygous — no biological system is — but the small residual heterozygosity, from rare errors during endoreduplication or somatic mutations during decades of culture, accounts for less than zero point zero one percent of the genome. For assembly purposes, that residual is negligible. The repetitive regions that were impossible to finish in a normal diploid are tractable here.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Not perfect · but close enough</h2>
+      <ul>
+        <li>A few thousand <strong>residual heterozygous variants</strong></li>
+        <li>One <strong>megabase-scale deletion</strong> in chr15 rDNA array</li>
+        <li>From rare endoreduplication errors + culture mutations</li>
+        <li>&lt; <strong>0.01%</strong> of the genome — assembly stays simple</li>
+      </ul>
+      <aside class="notes">
+        It is worth saying out loud that CHM thirteen is not perfectly homozygous. When the T2T team sequenced it carefully, they found a few thousand scattered heterozygous variants and one notable structural difference — a megabase-scale heterozygous deletion within the ribosomal D N A array on chromosome fifteen. These likely arose from rare errors during the original endoreduplication, plus somatic mutations accumulated during decades of cell culture. But these residuals are tiny on the scale of the genome. They do not break assembly. The simplification is essentially complete.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>Two puzzles vs one</h2>
+      <blockquote style="font-size:1.05em;">
+        Normal diploid: two similar puzzles<br>
+        with pieces <strong>mixed in one box</strong>.<br>
+        CHM13: <strong>one puzzle</strong>, twice over.
+      </blockquote>
+      <ul style="margin-top:0.6em;">
+        <li>Centromere: 2 kb repeat × <strong>1,400 copies</strong></li>
+        <li>Diploid: mom 1,387 vs dad 1,421, all slightly different</li>
+        <li>CHM13: same count, same sequence — solvable</li>
+      </ul>
+      <aside class="notes">
+        Hold the puzzle analogy in your head. In a normal diploid, you have two similar but distinct jigsaw puzzles whose pieces have been mixed into one box. Some pieces fit only puzzle A, some fit only puzzle B, and in the repetitive regions — the solid blue sky — many pieces seem to fit either. The assembler has an impossible task. In CHM thirteen, both puzzles are essentially identical photocopies, so it does not matter which piece goes where. Concretely: if a centromere has a two kilobase repeat copied fourteen hundred times, in a normal diploid mom might have thirteen hundred eighty-seven copies, dad might have fourteen hundred twenty-one, and they differ slightly in sequence. The assembler cannot reconstruct that. In CHM thirteen, both copies have the same number, the same sequence, and the problem becomes solvable.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · hTERT IMMORTALIZATION
+         ==================================================== -->
+
+    <!-- Slide 23 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>The hTERT Trick<br>Making Cells Immortal</h1>
+      <aside class="notes">
+        Functionally haploid is one half of why CHM thirteen worked. The other half is that the cells can be grown forever without falling apart genetically. That required a small but important genetic modification, and that is what the lower-case h T E R T in the cell line's full name refers to.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>The Hayflick limit</h2>
+      <ul>
+        <li>Normal somatic cells divide <strong>40–60 times</strong></li>
+        <li>Then they <strong>stop</strong> · senescence</li>
+        <li>Limit set by <strong>telomeres</strong> · TTAGGG caps</li>
+        <li>Each division: telomere shortens by <strong>50–200 bp</strong></li>
+      </ul>
+      <aside class="notes">
+        Normal human cells cannot divide forever. They have a built-in limit called the Hayflick limit — typically forty to sixty divisions, after which the cell stops dividing and enters a state called senescence. The cause is at the ends of the chromosomes. Each chromosome end is capped by a repetitive sequence called a telomere — the six-base unit T T A G G G repeated thousands of times. Every time a cell divides, the DNA replication machinery cannot fully copy the very ends of the chromosomes, so the telomere shortens by about fifty to two hundred base pairs per division. Eventually the telomere becomes critically short and the cell shuts down.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Why a limit even exists</h2>
+      <blockquote style="font-size:1.05em;">
+        Senescence is a <strong>tumor-suppressor</strong>:<br>
+        damaged cells cannot divide forever.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Healthy in the body · <strong>protects</strong> against cancer</li>
+        <li>Bad for research · cells run out <strong>mid-project</strong></li>
+        <li>T2T needed <strong>billions</strong> of identical cells over years</li>
+      </ul>
+      <aside class="notes">
+        The Hayflick limit exists for a reason. It is essentially a built-in tumor suppressor. If telomeres did not shorten with each division, damaged cells could divide forever — and that would be a recipe for cancer. So senescence is genetically protective. But for research purposes, it is a serious problem. The T2T project needed to grow billions of CHM thirteen cells across multiple years for many rounds of sequencing on multiple platforms. If the cells stopped dividing halfway through the project, the experiment would be ruined. Worse, you would not be able to compare data taken before and after the freeze, because by then the cells would be different.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Telomerase to the rescue</h2>
+      <ul>
+        <li><strong>Telomerase</strong> = enzyme that adds TTAGGG back</li>
+        <li>Two parts:<br>
+            <strong>TERT</strong> (catalytic protein)<br>
+            <strong>TERC</strong> (RNA template)</li>
+        <li>Naturally on in <strong>germ cells</strong>, <strong>stem cells</strong></li>
+        <li>Off in most adult tissues — that's why we age</li>
+      </ul>
+      <aside class="notes">
+        Nature already has a solution for this. An enzyme called telomerase can add T T A G G G repeats back onto chromosome ends, compensating for the loss during replication. Telomerase has two key parts — T E R T, the catalytic protein, and T E R C, an RNA template that specifies the T T A G G G sequence to add. Telomerase is naturally active in germ cells, where you absolutely need to pass long telomeres to the next generation. It is also active in some stem cells and highly proliferative tissues. But in most adult somatic cells, telomerase is switched off. That is one reason we age, and it is also a barrier against runaway cell division.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Cancer's shortcut</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.2em;">85–95%</div>
+          <div class="bignum-label">of cancers reactivate telomerase</div>
+        </div>
+        <div>
+          <ul>
+            <li>The other 5–15% use <strong>ALT</strong></li>
+            <li>Both bypass the Hayflick limit</li>
+            <li>Cancer = <strong>immortalized + dysregulated</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        About eighty-five to ninety-five percent of cancers reactivate telomerase, which is one major reason tumor cells can divide indefinitely. The remaining five to fifteen percent of cancers use a different mechanism called A L T — alternative lengthening of telomeres. Either way, cancer cells have found a way around the Hayflick limit. This is biologically important context: telomerase reactivation by itself does not make a cell cancerous, but cancers almost always have it. Now we will take that same trick — reactivating telomerase — and use it deliberately in a non-cancerous cell line.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Adding hTERT · the engineered fix</h2>
+      <ul>
+        <li>Introduce <strong>human TERT gene</strong> via viral vector</li>
+        <li>Cells make telomerase <strong>continuously</strong></li>
+        <li>Telomeres stay <strong>long and stable</strong></li>
+        <li>Cells can divide <strong>indefinitely</strong></li>
+        <li>Crucially: chromosomes <strong>don't change sequence</strong></li>
+      </ul>
+      <aside class="notes">
+        Researchers introduced the human T E R T gene into CHM thirteen cells using a viral vector. The cells now produce telomerase continuously, telomeres stay long and stable across divisions, and the cells can divide indefinitely. The line became known as CHM thirteen h T E R T. Critically, the h T E R T modification only fixes telomere maintenance. It does not change the sequence of the twenty-four chromosomes that the T2T project was trying to sequence. So the genome being read is still the original CHM thirteen genome, just with a stable supply of cells. This is exactly what a multi-year, multi-platform sequencing project needs.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>What hTERT bought T2T</h2>
+      <ul>
+        <li><strong>Unlimited DNA</strong> across the whole project</li>
+        <li><strong>Genetic stability</strong> through many passages</li>
+        <li>DNA from year 1 = DNA from year 5</li>
+        <li>Multiple sequencing platforms · same source material</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Same cells. Same DNA. <strong>For years.</strong>
+      </blockquote>
+      <aside class="notes">
+        Concretely, the h T E R T modification gave T2T four things. Unlimited DNA — they could grow as many cells as they needed, year after year. Genetic stability — the cells did not accumulate worrying numbers of mutations across passages. Consistency across time — DNA pulled from year one matches DNA pulled from year five. And consistency across platforms — the same source material could be split across PacBio HiFi sequencing, Oxford Nanopore ultra-long reads, Illumina short reads, Hi-C, Bionano optical maps, and Strand-seq. Without immortalization, none of that integration would have been possible.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · QC, ANCESTRY, ETHICS
+         ==================================================== -->
+
+    <!-- Slide 30 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Quality Control<br>Ancestry · Ethics</h1>
+      <aside class="notes">
+        Now let's check the cell line itself. Before you use any line as a reference for billions of base pairs, you have to make sure it is genetically stable, you understand its ancestry, and you respect its origin. Three concerns, one section.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Karyotyping · two methods</h2>
+      <div class="cols">
+        <div>
+          <h3>G-banding</h3>
+          <ul>
+            <li>Stain → light/dark band patterns</li>
+            <li>Reveals <strong>chromosome structure</strong></li>
+            <li>Detects translocations, deletions</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Spectral karyotyping (SKY)</h3>
+          <ul>
+            <li>Each chromosome → unique <strong>color</strong></li>
+            <li>Detects <strong>chromosome swaps</strong> at a glance</li>
+            <li>Confirms 46,XX with no abnormalities</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two classical cytogenetic techniques were used to verify the CHM thirteen karyotype. G-banding stains chromosomes with a Giemsa stain that produces characteristic light and dark bands, allowing identification of structural abnormalities like translocations, deletions, or duplications. Spectral karyotyping, or S K Y, paints each chromosome a different fluorescent color, so any chromosome swap immediately shows up as a multi-colored chromosome instead of a single-colored one. Both methods agree: CHM thirteen has a normal forty-six X X karyotype with no detectable structural abnormalities.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>The actual karyotype</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter3_miga2020_extfig1.png" alt="CHM13 karyotype confirmed by SKY and G-banding">
+        <figcaption>
+          <strong>Figure 4.</strong> CHM13 karyotyping. (a) Spectral karyotyping (SKY) — each chromosome a different color. (b) G-banding — staining patterns confirm normal 46,XX. · Miga et al., <em>Nature</em> 2020, Ext. Data Fig. 1 (CC-BY 4.0).
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the actual figure from the Miga twenty-twenty paper that established CHM thirteen as the T2T workhorse. Panel a is the spectral karyotype — every chromosome cleanly its own color, no rainbows where a chromosome should be one color, meaning no translocations. Panel b is G-banding — banding patterns match the expected human karyotype with no abnormalities. Together they confirm a stable, normal forty-six X X karyotype despite decades of culture. This is unusual for a long-passaged cell line and is one reason CHM thirteen became the choice for T2T.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Sequence-level QC</h2>
+      <ul>
+        <li><strong>Uniform read coverage</strong> · no big deletions or duplications</li>
+        <li><strong>Low heterozygosity</strong> confirmed everywhere</li>
+        <li>Same DNA sequence across <strong>multiple years</strong></li>
+        <li>Stable across <strong>many passages</strong></li>
+      </ul>
+      <aside class="notes">
+        Beyond cytogenetics, the assembly itself provided a powerful sanity check. Read coverage was uniform across all chromosomes, meaning no large deletions or duplications hiding in the cell line. The expected very low heterozygosity was confirmed throughout the genome. And sequence quality was consistent across multiple sequencing runs over several years. So the line is stable both structurally and at the base level. This stability is a necessary condition for using it as a reference genome. If the cells were drifting, the reference would drift, and everyone downstream would be working with a moving target.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Ancestry · what's in the genome</h2>
+      <ul>
+        <li>Analyzed via <strong>maximum likelihood admixture</strong></li>
+        <li>~<strong>70–80%</strong> European ancestry</li>
+        <li>Small admixture: South Asian, East Asian, Native American</li>
+        <li>~<strong>1–2%</strong> Neanderthal DNA · like most non-Africans</li>
+      </ul>
+      <aside class="notes">
+        Genetic ancestry analysis was performed using maximum likelihood admixture methods on CHM thirteen's DNA. Roughly seventy to eighty percent of the genome is of European ancestry, with small amounts of admixture suggesting some South Asian, East Asian, or Native American contributions. Like most non-African modern humans, CHM thirteen also carries about one to two percent Neanderthal D N A inherited from interbreeding events that happened roughly fifty to sixty thousand years ago. This kind of admixture is normal — most modern humans are mixtures — but it is important to be transparent about it when CHM thirteen is used as a reference.
+      </aside>
+    </section>
+
+    <!-- Slide 34b · Miga 2020 Ext. Data Fig. 2 (admixture) -->
+    <section>
+      <h2>The admixture plot</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Miga2020-Nature-ExtFig2.png" alt="Maximum likelihood admixture analysis of CHM13 ancestry">
+        <figcaption>
+          <strong>Figure 5.</strong> Maximum-likelihood admixture analysis. CHM13 (highlighted bar) is predominantly European, with smaller contributions from other reference populations. Reading the figure: each vertical bar = one individual; each color = one ancestral population component · Miga et al. 2020, <em>Nature</em>, Ext. Data Fig. 2 (CC-BY 4.0).
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the admixture analysis figure from Miga twenty-twenty itself. Every vertical bar in the plot is one individual. Every color in the bar is the estimated fraction of that person's genome from a different ancestral population — for example, European, African, East Asian, South Asian. CHM thirteen sits among the predominantly European bars but with visible streaks of other colors, consistent with a small admixed component. The point of showing this is transparency. When you use a single genome as a reference, you should know whose genome it is and where in the global ancestry landscape it sits. CHM thirteen is one specific point on this plot — and the rest of human diversity lives in the bars around it. That is why we need pangenomes, which is the topic of chapter four.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Does ancestry matter for T2T?</h2>
+      <div class="cols">
+        <div>
+          <h3>What CHM13 gives</h3>
+          <ul>
+            <li><strong>Complete structural template</strong></li>
+            <li>No heterozygosity confusion</li>
+            <li>Gap-free assembly</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What it doesn't give</h3>
+          <ul>
+            <li>Population-specific variants</li>
+            <li>Diversity across humans</li>
+            <li>Heterozygous structure</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        For the goal of building a complete structural map of a human genome, the specific ancestry of CHM thirteen does not matter very much. What matters is that you can finally see the centromeres, the satellite arrays, the segmental duplications. Once you have that complete map, you can ask how variants differ across populations on top of it. So CHM thirteen gives you the structural template. It does not give you population diversity. The fix for that is the pangenome — which is exactly chapter four — and we will get there next time.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <div class="cue">A point worth making explicit</div>
+      <h2 style="margin-top:0.2em;">No single genome is "humanity"</h2>
+      <ul>
+        <li>The limit isn't CHM13's <em>European</em> ancestry per se</li>
+        <li>It's that <strong>any single genome</strong> is partial</li>
+        <li>An African or East Asian CHM would have the same issue</li>
+        <li>Solution: <strong>pangenome</strong> · many genomes together</li>
+      </ul>
+      <aside class="notes">
+        I want to make a point that comes straight from the textbook and that I think is important. The limitation of CHM thirteen as a reference is not specifically that it has European ancestry. It is that any single genome — from any population — is necessarily a partial picture of human diversity. If we had picked an African CHM line, or a South American one, the structural map would be just as complete, but the population-specific variant question would still be open. That is why the field is now building pangenomes — collections of many high-quality genomes. We will dive into that next chapter. For now, just hold the framing: CHM thirteen is the structural template. Pangenome is the diversity layer.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · WHY CHM13 SPECIFICALLY · LIMITS
+         ==================================================== -->
+
+    <!-- Slide 37 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Why CHM13?<br>And Its Limits</h1>
+      <aside class="notes">
+        Lots of complete hydatidiform mole cell lines exist. Why this one specifically? And once we have agreed on its strengths, what cannot it do? Let's close out with the practical answer.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>Six reasons CHM13 won</h2>
+      <ol>
+        <li>Already <strong>well-characterized</strong> since the 1990s</li>
+        <li><strong>Stable 46,XX</strong> karyotype across passages</li>
+        <li>X-bearing → could finish <strong>X chromosome first</strong></li>
+        <li>hTERT immortalization <strong>worked cleanly</strong></li>
+        <li>High-molecular-weight DNA → <strong>ultra-long reads</strong></li>
+        <li><strong>Community-supported</strong>: Genome in a Bottle, shared protocols</li>
+      </ol>
+      <aside class="notes">
+        Six reasons CHM thirteen specifically. One — it had been used in genomics studies since the nineteen nineties, so it was already well-characterized. Two — it maintained a stable forty-six X X karyotype through many passages, which is unusual for long-cultured lines. Three — having two X chromosomes meant the project could attack the X chromosome first, which had been extensively studied and was finished in twenty twenty as a proof of concept. Four — the h T E R T immortalization worked without introducing chromosomal abnormalities. Five — CHM thirteen cells produce high-molecular-weight DNA, which is required for ultra-long-read Nanopore sequencing where some reads are over a megabase. And six — by twenty seventeen the line was already part of the Genome in a Bottle reference materials, so multiple labs had shared protocols and validation data. The combination is what mattered.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What T2T actually used CHM13 for</h2>
+      <ul>
+        <li>30× <strong>PacBio HiFi</strong> · ~20 kb high-accuracy reads</li>
+        <li>50× <strong>Oxford Nanopore</strong> ultra-long · &gt; 100 kb</li>
+        <li>100× <strong>Illumina</strong> short reads · for polishing</li>
+        <li>Plus <strong>Hi-C</strong>, <strong>Bionano</strong>, <strong>Strand-seq</strong></li>
+      </ul>
+      <aside class="notes">
+        Concretely, the T2T project layered multiple sequencing technologies onto the same CHM thirteen DNA. Thirty-fold coverage of PacBio HiFi reads — about twenty kilobases each, very high accuracy. Fifty-fold Oxford Nanopore ultra-long reads — over one hundred kilobases each, sometimes over a megabase. One hundred-fold Illumina short reads for polishing. And then orthogonal data types for structure validation: Hi-C for three-D chromatin contacts, Bionano for an optical physical map, and Strand-seq for detecting inversions. None of that integration would be possible if the source DNA were drifting between experiments. CHM thirteen plus h T E R T solved both problems at once.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>CHM13 vs GRCh38 · the contrast</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>CHM13</th><th>GRCh38</th></tr></thead>
+        <tbody>
+          <tr><td>Source</td><td>One CHM, duplicated paternal</td><td>Mosaic, multiple donors</td></tr>
+          <tr><td>Het variants</td><td>~few thousand</td><td>~4–5 M per individual</td></tr>
+          <tr><td>Gaps</td><td><strong>Zero</strong> (3.055 Bbp)</td><td>~151 Mb</td></tr>
+          <tr><td>Centromeres</td><td>All 24 complete</td><td>Mostly absent</td></tr>
+          <tr><td>Acrocentric arms</td><td>66.1 Mb resolved</td><td>Almost entirely missing</td></tr>
+          <tr><td>Y chromosome</td><td>From HG002 in v2.0</td><td>&gt; 50% missing</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Side by side. CHM thirteen comes from one complete hydatidiform mole with duplicated paternal DNA. GRCh thirty-eight is a mosaic of multiple donors stitched together via B A C clones. CHM thirteen has only a few thousand heterozygous variants. GRCh thirty-eight effectively carries millions, plus structural inconsistencies between donor segments. CHM thirteen has zero gaps across three billion fifty-five million base pairs. GRCh thirty-eight has one hundred fifty-one million base pairs of N's. CHM thirteen resolves all twenty-four centromeres completely. GRCh thirty-eight had them as placeholders. CHM thirteen resolves the acrocentric short arms — sixty-six point one megabases — that GRCh thirty-eight had largely as gaps. And the Y chromosome, which CHM thirteen lacks because it is X X, is added in version two from a different male genome called H G zero zero two. This is the chimeric reference, and it is the cost of using a forty-six X X line.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <h2>What CHM13 cannot tell you</h2>
+      <ul>
+        <li><strong>Population diversity</strong> · only one source genome</li>
+        <li><strong>Phasing</strong> · which variants travel together on a chromosome</li>
+        <li><strong>Compound heterozygotes</strong> · two different alleles per gene</li>
+        <li><strong>Allele-specific expression</strong> · maternal vs paternal output</li>
+        <li><strong>Heterozygous structural variants</strong> · common in real people</li>
+      </ul>
+      <aside class="notes">
+        CHM thirteen has clear, important limitations. It represents only one source genome, so it cannot represent diversity across populations. It cannot phase variants — you cannot ask which variants travel together on the same chromosome — because both copies are the same. It cannot model compound heterozygotes, where a person carries two different damaging alleles in the same gene. It cannot tell you about allele-specific expression — whether the maternal or paternal copy of a gene is preferentially expressed. And it cannot inform you about heterozygous structural variants, which are common in real human populations. These are not bugs of CHM thirteen specifically. They are the price of using any single homozygous source as your reference.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>The chimeric reference problem</h2>
+      <ul>
+        <li>CHM13 is <strong>46,XX</strong> · no Y</li>
+        <li>T2T-CHM13 v2.0 stitches in <strong>HG002 Y</strong></li>
+        <li>The reference is now <strong>chimeric</strong></li>
+        <li>Two different genetic backgrounds in one file</li>
+      </ul>
+      <aside class="notes">
+        One specific limitation worth flagging. Because CHM thirteen is forty-six X X, the resulting reference does not contain a Y chromosome. To complete the reference for both sexes, the T2T consortium added the Y chromosome from a different individual called H G zero zero two — a male genome commonly used in benchmarking. So the version two T2T reference is technically chimeric. Most of the genome reflects the CHM thirteen genetic background, but the Y is from a different person. For most analyses this is fine, but it is a real caveat that researchers working on Y-chromosome biology need to keep in mind.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 43 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the pieces together one more time.
+      </aside>
+    </section>
+
+    <!-- Slide 44 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li><strong>Heterozygosity</strong> in repeats prevented complete assembly</li>
+        <li><strong>Complete hydatidiform mole</strong> = empty egg + duplicated sperm DNA</li>
+        <li>CHM13 is <strong>functionally haploid</strong>: 46 chromosomes, &lt; 0.01% het</li>
+        <li><strong>hTERT</strong> = unlimited, stable cells across years and platforms</li>
+        <li>One source genome → <strong>structural template</strong>, not full diversity</li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — heterozygosity in repetitive regions is what prevented complete assembly of the human genome for two decades. Two — complete hydatidiform moles arise when an empty egg is fertilized by a sperm whose DNA then duplicates, producing forty-six chromosomes all from one father. Three — CHM thirteen is functionally haploid: forty-six chromosomes, but with less than zero point zero one percent heterozygosity. Four — the h T E R T modification gave the T2T project unlimited, stable cells across years and across multiple sequencing platforms. Five — CHM thirteen provides a complete structural template of a human genome, but represents only one source, so we still need pangenomes to capture diversity. Hold these five points and you have the chapter.
+      </aside>
+    </section>
+
+    <!-- Slide 45 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2em; line-height:1.1; margin-top:0.3em;">
+        One genome is the map.<br>
+        How do we capture <span style="color:var(--terracotta-deep);">everyone</span>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 4 · <strong>The Human Pangenome</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. CHM thirteen gave us the first complete structural map of a human genome — every centromere, every ribosomal array, every segmental duplication. But it is one map, from one source. Real human populations differ in thousands of structural variants and millions of single-letter changes. How do we extend the T2T achievement to capture that diversity? That is the story of chapter four — the Human Pangenome. We will look at how the Human Pangenome Reference Consortium is assembling many high-quality genomes, what a graph genome actually is, and how it changes the way variants are called. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6 · NGS Applications for Genomics — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>NGS Applications<br>for Genomics</h1>
+      <div class="chapter-num">Chapter 6 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome to Chapter six of BSMS two oh five Genetics. Last week we looked at next-generation sequencing as a technology — flow cells, clusters, sequencing by synthesis, the whole hardware story. Today we ask the practical follow-up question. We have cheap sequencing. Now what do we actually do with it? Which parts of the genome do we read, how do we turn raw reads into a list of variants, and how do clinicians decide whether a patient gets exome or whole-genome sequencing? That is the agenda for today.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        If sequencing is cheap,<br>
+        why not always read<br>
+        <span style="color:var(--terracotta-deep)">everything</span>?
+      </h1>
+      <aside class="notes">
+        Here is the puzzle for today. If sequencing technology can read every base in the human genome, why would we ever choose to read only part of it? It is a bit like asking why you would only search the kitchen when you have lost your keys somewhere in the house. The answer turns on cost, complexity, and where the answers actually live. Most disease-causing mutations sit in a tiny one to two percent of the genome. That single fact created a whole experimental design — exome sequencing — that has dominated clinical genetics for over a decade.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Two ways to use NGS</h2>
+      <div class="cols">
+        <div>
+          <h3>WES</h3>
+          <ul>
+            <li><strong>Whole-Exome</strong> Sequencing</li>
+            <li>Read only the <strong>coding 1–2%</strong></li>
+            <li>~30–50 Mb captured</li>
+          </ul>
+        </div>
+        <div>
+          <h3>WGS</h3>
+          <ul>
+            <li><strong>Whole-Genome</strong> Sequencing</li>
+            <li>Read <strong>everything</strong></li>
+            <li>~3.2 Gb · 100% coverage</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two flavors of next-gen genome analysis. Whole-exome sequencing reads only the coding portion of the genome — about thirty to fifty million bases, roughly one to two percent of the total. Whole-genome sequencing reads everything — all three point two billion bases, including introns, regulatory regions, and intergenic DNA. They are different experimental designs, not just different scales. The choice between them shapes what variants you can find, how much storage you need, and how long interpretation takes.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>Why focus on the exome?</h2>
+      <div class="bignum">85%</div>
+      <div class="bignum-label">of known disease mutations sit in exons</div>
+      <ul>
+        <li>Exons are <strong>1–2%</strong> of the genome</li>
+        <li>But carry the <strong>vast majority</strong> of pathogenic variants</li>
+        <li>Why? Exons code for <strong>proteins</strong> directly</li>
+      </ul>
+      <aside class="notes">
+        Here is the fact that justifies the entire idea of exome sequencing. About eighty-five percent of known disease-causing mutations occur in exons — the protein-coding portion of the genome. And yet exons are only one to two percent of the genome by length. Why this concentration? Because exons code for proteins directly. A single base change in an exon can swap one amino acid for another, create a premature stop codon, or shift the reading frame. Any of those can break the protein. Changes in introns or intergenic DNA can matter too, but the effect is usually weaker and harder to predict.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>What is the exome — and why it matters</li>
+        <li>WES vs WGS · head to head</li>
+        <li>How target capture actually works</li>
+        <li>From reads to variants · the pipeline</li>
+        <li>Clinical decision tree · which to order</li>
+        <li>Cost, scale, and the future</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, we ground ourselves in what the exome actually is. Second, we put exome and genome sequencing side by side. Third, we open up the target capture step that defines exome sequencing. Fourth, we walk through the computational pipeline that turns millions of short reads into a list of variants. Fifth, we look at how a clinician decides which test to order. Sixth, we look at cost, storage, and where the field is heading. And finally, we wrap up. Buckle in.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · THE EXOME
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Where Disease<br>Variants Hide</h1>
+      <aside class="notes">
+        Let's start with anatomy. The exome is not a thing you can point to on a chromosome — it is a collection. Specifically, it is the union of all exonic sequences in all twenty thousand human genes. To understand why that union is so important, we need to remember how a gene is built.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>Exons, introns, and proteins</h2>
+      <ul>
+        <li>Each gene = <strong>exons</strong> + <strong>introns</strong></li>
+        <li>Exons: 50–200 bp each · code for protein</li>
+        <li>Introns: often <strong>thousands</strong> of bp · spliced out</li>
+        <li>Final mRNA = exons only → translated to protein</li>
+      </ul>
+      <aside class="notes">
+        Each of your roughly twenty thousand protein-coding genes is built from two kinds of sequence. Exons — the parts that actually encode protein — are short, typically fifty to two hundred bases each. Introns — the parts that get cut out — are often thousands of bases long. When the cell makes a protein, it transcribes the entire gene into RNA, then splices out the introns and joins the exons. Only the exonic sequence ends up in the mature messenger RNA, and only the exonic sequence gets translated into protein. So if a mutation is going to break the protein directly, the most likely place for it is in the exon.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>The exome by the numbers</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.6em;">~30–50<br>Mb</div>
+          <div class="bignum-label">total exonic sequence</div>
+        </div>
+        <div>
+          <ul>
+            <li>~<strong>20,000</strong> protein-coding genes</li>
+            <li>~<strong>180,000</strong> exons total</li>
+            <li><strong>1–2%</strong> of the 3.2 Gb genome</li>
+            <li>~85% of disease mutations sit here</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Let's put numbers on it. The full set of human exons — the exome — is roughly thirty to fifty million bases. That is across about twenty thousand genes and roughly one hundred eighty thousand individual exons. As a fraction of the full three point two gigabase genome, that is one to two percent. And as I just said, this tiny slice carries about eighty-five percent of known pathogenic variants. The opportunity is obvious: if most of the answers live in one to two percent of the territory, focus your sequencing there. That is the entire pitch for exome sequencing.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · WES vs WGS
+         ==================================================== -->
+
+    <!-- Slide 09 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>WES vs WGS<br>Head to Head</h1>
+      <aside class="notes">
+        Now let's compare the two approaches directly. Coverage, cost, and most importantly — what each one can and cannot see. This is the slide you should remember if you remember nothing else from today.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>What can each one see?</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter6_fig1_wes_vs_wgs.png" alt="WES vs WGS coverage diagram">
+        <figcaption>
+          <strong>Figure 1.</strong> WES targets only coding exons (~1–2% of the genome) where most disease variants reside. WGS reads everything — exons, introns, regulatory regions — at higher cost and complexity.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture. WES, on one side, focuses on the coding exons — those small islands of protein-coding sequence scattered across each chromosome. WGS, on the other side, reads the whole landscape — exons, introns, promoters, enhancers, intergenic DNA, even repetitive regions. WGS gives you everything. WES gives you the high-yield neighborhoods. Both have their place — the question is when to use which one.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Side by side</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>WES</th><th>WGS</th></tr></thead>
+        <tbody>
+          <tr><td>Coverage</td><td>1–2% of genome</td><td>100% of genome</td></tr>
+          <tr><td>Target size</td><td>30–50 Mb</td><td>3.2 Gb</td></tr>
+          <tr><td>Data per sample</td><td>~6 GB</td><td>~90–100 GB</td></tr>
+          <tr><td>Typical depth</td><td><strong>100–150×</strong></td><td>30–40×</td></tr>
+          <tr><td>Cost (2024)</td><td>~$400–500</td><td>~$600–1,000</td></tr>
+          <tr><td>Diagnostic yield</td><td>25–50%</td><td>30–55%</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the same comparison as a table. Notice that WES gives you deeper coverage — one hundred to one hundred fifty times depth on the regions it captures, compared to thirty to forty times for WGS. That is because all of the sequencing effort is concentrated on a smaller target. WES generates about six gigabytes of data per sample. WGS generates ninety to one hundred gigabytes — fifteen times more. Cost is now within striking distance — about four hundred to five hundred dollars for WES, six hundred to one thousand for WGS. The diagnostic yield, the headline clinical number, is roughly comparable, with WGS slightly higher in most studies.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>What each one misses</h2>
+      <div class="cols">
+        <div>
+          <h3>WES misses</h3>
+          <ul>
+            <li><strong>Structural variants</strong></li>
+            <li>Deep intronic variants</li>
+            <li>Regulatory regions</li>
+            <li>Repeat expansions</li>
+          </ul>
+        </div>
+        <div>
+          <h3>WGS catches all of these</h3>
+          <ul>
+            <li>Deletions, duplications, inversions</li>
+            <li>Cryptic splice sites</li>
+            <li>Promoter / enhancer mutations</li>
+            <li>Triplet repeats (with long reads)</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Where WES falls short is the more interesting half of this comparison. WES misses structural variants — large deletions, duplications, inversions — because of how target capture works, which we will get to in the next section. It misses deep intronic variants that can create cryptic splice sites. It misses regulatory variants in promoters and enhancers. And it misses repeat expansions, especially without long-read sequencing. WGS, by definition, has a chance at all of these. That is the trade-off. WES gets you depth in the obvious places. WGS gets you everything else.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · TARGET CAPTURE
+         ==================================================== -->
+
+    <!-- Slide 13 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Target Capture<br>How WES Works</h1>
+      <aside class="notes">
+        Here is the trick that defines exome sequencing. WES does not actually sequence only exons in some clever direct way — that would be technically impossible. Instead, it uses a clever wet-lab trick to physically separate exons from the rest of the genome before sequencing. The trick is called target capture, and understanding it is essential for understanding what WES can and cannot see.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>The capture trick · 7 steps</h2>
+      <ol>
+        <li>Fragment genomic DNA</li>
+        <li>Add <strong>biotinylated baits</strong> · complementary to exons</li>
+        <li>Baits hybridize with exonic fragments</li>
+        <li>Add <strong>streptavidin magnetic beads</strong></li>
+        <li>Pull beads with a magnet → captured exons</li>
+        <li>Wash away introns &amp; intergenic DNA</li>
+        <li>Sequence the captured fragments</li>
+      </ol>
+      <aside class="notes">
+        Here is target capture in seven steps. Step one — fragment genomic DNA, just like you would for any sequencing prep. Step two — add biotinylated baits, which are short DNA probes complementary to the exonic sequences you want to capture, each tagged with biotin. Step three — let the baits hybridize to your exonic fragments through complementary base pairing. Step four — add streptavidin-coated magnetic beads, which bind biotin tightly. Step five — apply a magnet, pull down the beads, and with them, the captured exons. Step six — wash away everything else: introns, intergenic DNA, all of it goes down the drain. Step seven — release and sequence the captured exonic fragments. That is how you get an exome.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>The bait-and-bead analogy</h2>
+      <blockquote style="font-size:1.05em;">
+        Like using a magnet<br>
+        to pull metal pieces<br>
+        out of a mixed pile.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>The "metal" = exons (tagged with biotin via baits)</li>
+        <li>The "magnet" = streptavidin beads</li>
+        <li>Everything non-magnetic gets washed away</li>
+      </ul>
+      <aside class="notes">
+        If the seven-step description is too dense, here is the analogy. Imagine a pile of mixed materials, some metal and some not. You want only the metal pieces. You stick a magnet in. Metal sticks. Non-metal falls away. Target capture is the molecular version of that — biotin-tagged baits make exons "magnetic," streptavidin beads are the magnet, and the wash step is letting gravity pull away everything else. The elegance is that you do not need to know the position of each exon — you just need probes that match exonic sequence.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Why capture works · and where it fails</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter6_fig3_target_capture.png" alt="Target capture: success vs structural variant failure">
+        <figcaption>
+          <strong>Figure 2.</strong> Top: intact exons → baits bind, sequence captured. Bottom: a deletion removes the exon → nothing for the bait to grab → variant invisible to WES. This is why WES misses 5–10% of pathogenic variants.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture. Top panel — when the exon is intact, baits bind, beads capture, the fragment ends up in your sequencing data. You get high coverage, you call your variants, life is good. Bottom panel — but suppose the patient has a large deletion that removes that whole exon. Now there is nothing for the bait to bind to. The fragment is simply absent from the captured pool. WES does not just call it as deleted — it cannot see that anything is missing at all. This is the fundamental blind spot of WES, and it accounts for roughly five to ten percent of pathogenic variants that WGS catches and WES doesn't.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>The historic case · Miller syndrome</h2>
+      <ul>
+        <li><strong>2010</strong> · four affected siblings · rare facial disorder</li>
+        <li>Strategy: WES on all four · find shared rare variants</li>
+        <li>Result: novel variants in <strong>DHODH</strong></li>
+        <li>Took <strong>months</strong>, not years · cost <strong>thousands</strong>, not millions</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The paper that launched the WES era.
+      </blockquote>
+      <aside class="notes">
+        WES proved itself to the world in twenty ten with a now-famous paper on Miller syndrome — a rare developmental disorder. Researchers had four affected siblings. Traditional gene-hunting had failed. The WES strategy was almost embarrassingly simple — sequence all the exons in the four affected siblings, look for rare variants they shared but their healthy parents did not, and see what jumps out. The answer was a gene called D H O D H that had never been linked to human disease before. The whole project took months instead of years and cost thousands of dollars instead of millions. That paper was the moment the WES era began. Within a year, every clinical genetics lab was setting up exome capture.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · THE PIPELINE
+         ==================================================== -->
+
+    <!-- Slide 18 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>From Reads<br>to Variants</h1>
+      <aside class="notes">
+        Whether you do exome or whole-genome, after sequencing you have hundreds of millions or billions of short reads sitting on a hard drive. Now comes the computational half of the experiment, which is at least as important as the wet lab. We need to turn raw reads into a clean list of variants. Five steps.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>The pipeline in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter6_fig5_pipeline.png" alt="Bioinformatics pipeline: reads to variants">
+        <figcaption>
+          <strong>Figure 3.</strong> QC removes bad bases, alignment maps reads to the reference, variant calling identifies differences, filtering removes artifacts, annotation adds biological context. FASTQ → BAM → VCF.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the whole pipeline in one diagram. Quality control trims low-quality bases. Alignment maps each read to a position on the reference genome. Variant calling stacks up the aligned reads at every position and asks "does this look different from the reference?" Filtering removes artifacts. Annotation adds biological context — is the variant in a gene, what does it do to the protein, is it common in the population. The file formats track this — you start with FASTQ, you align to BAM, you call variants into VCF. Memorize that flow. FASTQ to BAM to VCF.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Step 1 · Quality scores</h2>
+      <table>
+        <thead><tr><th>Q score</th><th>Accuracy</th><th>Error rate</th></tr></thead>
+        <tbody>
+          <tr><td>Q20</td><td>99%</td><td>1 / 100</td></tr>
+          <tr><td>Q30</td><td>99.9%</td><td>1 / 1,000</td></tr>
+          <tr><td><strong>Q40</strong></td><td><strong>99.99%</strong></td><td>1 / 10,000</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Tool: <strong>FastQC</strong> · trim low-quality ends, remove adapters.</p>
+      <aside class="notes">
+        Step one is quality control. Each base call comes with a Q score that tells you how confident the sequencer is in that call. Q twenty means ninety-nine percent accuracy, or one error in a hundred bases. Q thirty is ninety-nine point nine percent, one error in a thousand. Q forty is ninety-nine point nine nine percent. The standard tool is FastQC, which checks per-base quality, adapter contamination, GC content, and duplication levels. Low-quality bases — typically at the ends of reads — and adapter sequences get trimmed before alignment. Garbage in, garbage out. Quality control is not optional.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Step 2 · Alignment to reference</h2>
+      <ul>
+        <li>Each read finds its <strong>best matching position</strong> on the genome</li>
+        <li><strong>BWA</strong> · gold standard for Illumina short reads</li>
+        <li><strong>Minimap2</strong> · designed for long reads</li>
+        <li>Output: <strong>BAM</strong> file (Binary Alignment Map)</li>
+      </ul>
+      <blockquote style="margin-top:0.6em; font-size:0.95em;">
+        Repetitive regions create ambiguity for short reads.
+      </blockquote>
+      <aside class="notes">
+        Step two — alignment. The aligner takes each read and asks "where on the reference genome does this match best?" For Illumina short reads, the standard tool is B W A — the Burrows-Wheeler Aligner. For long reads from PacBio or Nanopore, it is Minimap2. The output is a BAM file, which is just a binary, indexed format that lists every read and its mapped position. The tricky part is repetitive regions. If a read could plausibly have come from any of fifty places, the aligner has to make a choice or flag it as ambiguous. This is one of the reasons short reads struggle with structural variants and centromeres.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>Step 3 · Variant calling</h2>
+      <ul>
+        <li>Stack reads at each position · count bases</li>
+        <li>Compare to reference · compute likelihood of real variant vs error</li>
+        <li>Need <strong>≥20–30 reads</strong> for confidence</li>
+      </ul>
+      <div class="formula" style="margin-top:0.6em;">
+        chr1:12345 ref=G · 28 reads = A (Q30+) · 2 reads = G<br>
+        → likely <strong>homozygous A/A</strong>
+      </div>
+      <aside class="notes">
+        Step three — variant calling. At every position in the genome, the caller stacks up all the reads that aligned there and counts bases. If almost all the reads agree with the reference, no variant is called. If most reads disagree, that is probably a real variant. Here is a worked example. At position twelve thousand three forty-five on chromosome one, the reference base is G. In your patient, twenty-eight reads show A — all with high quality scores — and two reads show G with marginal quality. The variant caller weighs these probabilities and concludes this is most likely a homozygous variant — both copies of the chromosome have an A. You need at least twenty to thirty reads to make this call confidently.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>The variant-calling toolbox</h2>
+      <ul>
+        <li><strong>GATK</strong> · gold standard from the Broad Institute</li>
+        <li><strong>FreeBayes</strong> · Bayesian variant caller</li>
+        <li><strong>DeepVariant</strong> · deep learning approach (Google)</li>
+      </ul>
+      <p style="margin-top:0.6em;">Output: a <strong>VCF</strong> file (Variant Call Format).</p>
+      <aside class="notes">
+        Three tools dominate the variant-calling space. GATK — the Genome Analysis Toolkit from the Broad Institute — is the long-standing gold standard. FreeBayes is a Bayesian alternative. DeepVariant is the new kid on the block, from Google, which uses deep learning to do variant calling and tends to win benchmark competitions. Whichever tool you use, the output is the same — a VCF file, which is a tab-separated text file listing every detected variant with its position, reference and alternate alleles, quality score, genotype, and read depth. VCF is the lingua franca of clinical genomics.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Step 4 · Filter the artifacts</h2>
+      <ul>
+        <li>Minimum depth · <strong>≥10–20 reads</strong></li>
+        <li>Quality threshold · <strong>≥20 or ≥30</strong></li>
+        <li>Strand bias · reads from one strand only = artifact</li>
+        <li>Allele balance · het should be ~50/50</li>
+      </ul>
+      <aside class="notes">
+        Initial variant calls always contain false positives. Step four is filtering. Four common filters. Minimum depth — if fewer than ten or twenty reads cover a position, you cannot trust the call. Quality threshold — variants below Q twenty or Q thirty get removed. Strand bias — every fragment should produce reads from both DNA strands roughly equally; if a variant is supported only by reads from one strand, that is usually a sequencing artifact, not biology. Allele balance — for a heterozygous variant, you expect roughly fifty percent of reads to show each allele; large deviations are suspicious. These filters cut the false positive rate dramatically.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Step 5 · Annotate</h2>
+      <ul>
+        <li><strong>Location</strong> · gene? exon, intron, intergenic?</li>
+        <li><strong>Effect</strong> · synonymous, missense, nonsense, frameshift, splice</li>
+        <li><strong>Frequency</strong> · how common in <strong>gnomAD</strong>?</li>
+        <li><strong>Clinical</strong> · is it in <strong>ClinVar</strong>? Pathogenic? VUS?</li>
+        <li>Tools: <strong>VEP</strong>, ANNOVAR, SnpEff</li>
+      </ul>
+      <aside class="notes">
+        Step five — annotation. A bare VCF file is just positions and base changes. Annotation tools — VEP, ANNOVAR, SnpEff — add biological context. Where does the variant sit? In a gene, in an exon, in a splice site, in an intergenic region. What does it do to the protein? Is it synonymous, missense, nonsense, frameshift, or splice site? How common is the variant in population databases like gnomAD? If it is found in five percent of healthy people, it is unlikely to cause severe rare disease. Is it already in ClinVar with a clinical interpretation — pathogenic, benign, or variant of uncertain significance? Annotation is what turns a list of positions into a clinically actionable report. We will spend all of chapter seven on this.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>The complete workflow · 10 days</h2>
+      <table>
+        <thead><tr><th>Days</th><th>Step</th></tr></thead>
+        <tbody>
+          <tr><td>1–3</td><td>DNA extraction · library prep · capture (WES)</td></tr>
+          <tr><td>4–5</td><td>Sequencing on NovaSeq 6000</td></tr>
+          <tr><td>6–7</td><td>QC, alignment, dedup, variant calling</td></tr>
+          <tr><td>8–10</td><td>Filter · annotate · interpret · validate</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">From sample to <strong>genetic diagnosis</strong> in about <strong>10 days</strong>.</p>
+      <aside class="notes">
+        Here is the whole workflow on a calendar. Days one through three — extract DNA, prepare the library, do the capture for exome. Days four and five — sequencing, typically on a NovaSeq six thousand, generating tens to hundreds of millions of read pairs. Days six and seven — bioinformatics: alignment, deduplication, variant calling, initial filtering. Days eight through ten — interpretation: filter for rare variants, focus on genes related to the patient's symptoms, prioritize high-impact effects, check ClinVar, validate any candidates with Sanger sequencing. From a tube of blood to a genetic diagnosis in about ten days. Compare that to the months or years of older approaches. That is the speedup.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · CLINICAL DECISIONS
+         ==================================================== -->
+
+    <!-- Slide 27 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Which Test<br>to Order?</h1>
+      <aside class="notes">
+        Now the clinical question. A doctor sees a patient with a suspected genetic disease. Should they order whole-exome sequencing or whole-genome sequencing? The answer is not "always the more expensive one." There is a real decision tree, and it depends on what you suspect.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>The decision tree</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter6_fig6_decision_tree.png" alt="Clinical decision tree for WES vs WGS">
+        <figcaption>
+          <strong>Figure 4.</strong> Start with WES for suspected Mendelian disorders with known coding variants. Move to WGS when WES is negative, structural variants are suspected, or the phenotype is complex.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the standard decision tree, simplified. Start with exome sequencing if the patient looks like a known Mendelian disorder caused by coding variants — most cases fall here. Move to whole-genome sequencing when WES comes back negative, when you suspect a structural variant, or when the phenotype is unusual or complex enough that you want a comprehensive screen. The order matters because exome is cheaper and easier to interpret. Use the simpler test first, escalate if needed.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Start with WES if...</h2>
+      <ul>
+        <li>Patient features fit a known <strong>Mendelian disorder</strong></li>
+        <li>Need to screen <strong>many genes</strong> at once (e.g., hearing loss → 100+ genes)</li>
+        <li><strong>Cost matters</strong> · large studies, resource-limited setting</li>
+        <li>Phenotype suggests a <strong>coding variant</strong> · loss of protein function</li>
+      </ul>
+      <aside class="notes">
+        Four scenarios where you start with exome. First — the patient has features of a known Mendelian disorder where most causative variants are in coding regions. Second — you need to screen many candidate genes at once. Hearing loss, for example, can involve more than a hundred genes; testing them one by one is prohibitive. Third — cost matters, either for a large study or a resource-limited setting. Fourth — the phenotype suggests loss of a specific protein function, which usually points to a coding variant. In all four cases, exome is the right first move.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Move to WGS if...</h2>
+      <ul>
+        <li>WES <strong>negative</strong> · still suspect genetic cause</li>
+        <li>Suspect a <strong>structural variant</strong> · multiple anomalies, dysmorphic features</li>
+        <li>Phenotype is <strong>complex or atypical</strong> · regulatory variant possible</li>
+        <li>Want <strong>future-proof</strong> data for reanalysis</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        WGS solves <strong>10–30%</strong> of WES-negative cases.
+      </blockquote>
+      <aside class="notes">
+        And four scenarios where you move up to whole genome. First — exome came back negative but you still strongly suspect a genetic cause. WGS finds answers in roughly ten to thirty percent of WES-negative cases, often by detecting structural or non-coding variants. Second — you suspect a structural variant from the start; for example, a child with multiple congenital anomalies and dysmorphic features. Third — the phenotype is complex or atypical and a regulatory variant is plausible. Fourth — you want future-proof data, because as we learn more about non-coding variants, you can re-analyze the same WGS data in five or ten years and possibly find new answers.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>A real case · the boy who needed WGS</h2>
+      <ul>
+        <li><strong>Patient</strong> · 8-year-old boy · ID, autism, dysmorphic features</li>
+        <li><strong>Microarray</strong> → normal</li>
+        <li><strong>WES</strong> → variants of uncertain significance, nothing diagnostic</li>
+        <li><strong>WGS</strong> → <strong>150 kb deletion</strong> removing 5 exons of a neurodev gene</li>
+      </ul>
+      <p style="margin-top:0.6em;">Too small for microarray · invisible to WES · resolved by WGS.</p>
+      <aside class="notes">
+        Here is a real case that illustrates the decision tree. An eight-year-old boy with intellectual disability, autism, and dysmorphic facial features. They started with a chromosomal microarray, the cheap quick test — normal. They did exome sequencing — found several variants of uncertain significance but nothing diagnostic. Finally they did whole-genome sequencing, and it turned up a one hundred fifty kilobase deletion that removed the first five exons of a neurodevelopmental gene. The deletion was too small for the microarray to detect at clinical resolution, and it was completely invisible to WES because there was nothing for the capture probes to grab. WGS provided the answer after the other methods failed. This is the canonical pattern.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · COST AND THE FUTURE
+         ==================================================== -->
+
+    <!-- Slide 32 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Cost, Scale,<br>and the Future</h1>
+      <aside class="notes">
+        Last big section. The economics of WES versus WGS are changing fast, and that is shifting the field. Let's look at where the costs are heading and what that means for which test wins.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>The cost gap is closing</h2>
+      <table>
+        <thead><tr><th>Year</th><th>WES</th><th>WGS</th><th>Ratio</th></tr></thead>
+        <tbody>
+          <tr><td>2010</td><td>~$5,000</td><td>~$50,000</td><td>10×</td></tr>
+          <tr><td>2015</td><td>~$1,000</td><td>~$5,000</td><td>5×</td></tr>
+          <tr><td>2020</td><td>~$500</td><td>~$1,000</td><td>2×</td></tr>
+          <tr><td><strong>2024</strong></td><td>~$400–500</td><td>~$600–1,000</td><td><strong>1.5×</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">As the gap closes, the case for WES <strong>weakens</strong>.</p>
+      <aside class="notes">
+        Here is the cost trajectory. In twenty ten, exome was about five thousand dollars and whole genome was fifty thousand — a ten-fold difference. In twenty fifteen, the ratio shrunk to five-fold. In twenty twenty, two-fold. By twenty twenty-four, exome is around four hundred to five hundred dollars and whole genome is six hundred to a thousand. The ratio is now one and a half to two. As the gap closes, the economic argument for exome weakens. Soon the question becomes "why settle for less data for almost the same price?"
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Storage matters at scale</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <h3>Per sample</h3>
+          <ul>
+            <li>WES · <strong>~6 GB</strong></li>
+            <li>WGS · <strong>~90 GB</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>1,000 samples</h3>
+          <ul>
+            <li>WES · 6 TB</li>
+            <li>WGS · <strong>90 TB</strong></li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.95em;">
+        UK Biobank · <strong>500,000</strong> genomes × 90 GB = <strong>45 PB</strong>
+      </p>
+      <aside class="notes">
+        Cost per sample is not the whole story. Storage matters at scale. Exome is six gigabytes per sample. Whole genome is ninety gigabytes — fifteen times more. For a thousand samples, that is six terabytes versus ninety terabytes. For a major biobank like UK Biobank, which has sequenced five hundred thousand whole genomes, you are looking at forty-five petabytes of data. That requires serious infrastructure — cold storage, transfer pipelines, computing clusters. For large population studies, the storage and analysis bottleneck can outweigh the per-sample sequencing cost.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>The interpretation bottleneck</h2>
+      <div class="cols">
+        <div>
+          <h3>WES</h3>
+          <ul>
+            <li>~<strong>20,000</strong> variants / person</li>
+            <li>Mostly coding · known effects</li>
+            <li>Analyzed in <strong>days</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>WGS</h3>
+          <ul>
+            <li><strong>4–5 million</strong> variants / person</li>
+            <li>Most non-coding · uncertain</li>
+            <li>Takes <strong>weeks</strong></li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.5em; font-size:0.95em;">
+        "We went from being starved for data to drowning in it."
+      </blockquote>
+      <aside class="notes">
+        And here is the other bottleneck — interpretation. An exome gives you about twenty thousand variants per person. Most are in coding regions with known functional effects. A clinical lab can work through them in a few days. Whole-genome sequencing gives you four to five million variants per person. Most are in non-coding regions where we genuinely do not know what they do. Working through them takes weeks. As one geneticist put it — and I think this is the quote of the chapter — "we went from being starved for data to drowning in it." Sequencing is fast. Interpretation is slow. That gap is the new frontier.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>What's pushing toward universal WGS</h2>
+      <ul>
+        <li><strong>Cost convergence</strong> · WES and WGS nearly equal</li>
+        <li><strong>Long reads</strong> · PacBio &amp; Nanopore handle SVs and repeats</li>
+        <li><strong>AI interpretation</strong> · machine learning for non-coding variants</li>
+        <li><strong>Yield</strong> · WGS consistently <strong>5–10%</strong> higher than WES</li>
+      </ul>
+      <aside class="notes">
+        Four forces are pushing the field toward universal whole-genome sequencing. Cost convergence — already discussed. Long-read sequencing — PacBio HiFi and Oxford Nanopore handle structural variants, repeat expansions, and phasing far better than short reads, and long reads only make sense at whole-genome scale. AI-driven interpretation — machine learning tools are starting to make sense of non-coding variants, which is where WGS has its unique value. And clinical evidence — across multiple studies, WGS consistently yields five to ten percent more diagnoses than WES. Add those four together and the trend is clear. We are heading toward WGS as the default.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>But WES isn't dead yet</h2>
+      <ul>
+        <li>Large population studies · storage / cost dominates</li>
+        <li>Focused disease studies · known coding genes only</li>
+        <li>Lower-income settings · every dollar counts</li>
+        <li>High-coverage needs · WES gets <strong>100×+</strong> for the same money</li>
+      </ul>
+      <aside class="notes">
+        That said, WES is not dead. Four scenarios where it still wins. Large population studies where storage and cost dominate the equation — when you are sequencing five hundred thousand people, the fifteen-fold storage difference matters. Focused disease studies that involve only known coding genes — there is no upside to sequencing introns you will ignore. Lower-income clinical settings where every dollar counts. And high-coverage needs — for a fixed budget, WES gives you one hundred to one hundred fifty times depth on exons, where WGS gives you only thirty to forty times. For some applications, that depth advantage matters. WES will be with us for a while.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>The "WGS now, exome first" strategy</h2>
+      <blockquote style="font-size:1.05em;">
+        Sequence the whole genome.<br>
+        Analyze just the exons first.<br>
+        Keep the rest for later.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Immediate <strong>WES-equivalent</strong> diagnosis</li>
+        <li>Expand to non-coding if needed</li>
+        <li><strong>Reanalyze</strong> as databases improve</li>
+      </ul>
+      <aside class="notes">
+        Here is the hybrid strategy that is becoming popular. Do whole-genome sequencing — pay the slightly higher cost — but initially analyze only the exonic regions. You get a WES-equivalent answer right away. If the exome analysis is negative, you already have the data to expand into non-coding regions without re-sequencing. And as databases and interpretation tools improve over the next decade, you can come back and re-analyze the same data and possibly find answers you missed the first time. This is increasingly how forward-looking clinics are operating. WGS gives you the data; exome-first analysis gives you the speed.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 39 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li><strong>WES</strong> · 1–2% of genome · 85% of disease variants · cheap &amp; fast</li>
+        <li><strong>Target capture</strong> · biotin baits + magnetic beads · misses SVs</li>
+        <li><strong>Pipeline</strong> · FASTQ → BAM → VCF · QC, align, call, filter, annotate</li>
+        <li><strong>Decision tree</strong> · WES first, WGS for negative or complex cases</li>
+        <li>Cost gap is closing · field is shifting toward <strong>universal WGS</strong></li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — exome sequencing reads only one to two percent of the genome but captures about eighty-five percent of known disease variants. It is cheap and fast and remains the workhorse of clinical genetics. Two — the trick that defines exome sequencing is target capture using biotinylated baits and streptavidin magnetic beads, and that trick fundamentally cannot detect structural variants because there is nothing for the bait to grab. Three — the bioinformatics pipeline goes FASTQ to BAM to VCF, with quality control, alignment, variant calling, filtering, and annotation as the five steps. Memorize that flow. Four — clinically, you start with exome and escalate to whole genome when exome is negative or when you suspect a structural variant. Five — the cost gap between WES and WGS is shrinking, and the field is moving toward universal whole-genome sequencing as the default.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1; margin-top:0.3em;">
+        We get <span style="color:var(--terracotta-deep)">millions</span> of variants.<br>
+        How do we decide<br>which one <em>matters</em>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 7 · <strong>Variant Annotation &amp; Genomic Databases</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. Today you saw that an exome gives you about twenty thousand variants per person and a whole genome gives you four to five million. Almost all of them are benign. The clinical question is — which one is causing your patient's disease? Answering that requires layering on biological knowledge — what gene the variant is in, what it does to the protein, how common it is in healthy people, whether anyone has seen it before in a patient with the same disease. That is variant annotation, and it depends on a constellation of public databases — gnomAD, ClinVar, the Ensembl variant predictor, and others. That is the entire story of chapter seven. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

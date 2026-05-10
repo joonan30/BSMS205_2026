@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2 · The Telomere-to-Telomere Genome Project — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>The Telomere-to-<br>Telomere Project</h1>
+      <div class="chapter-num">Chapter 2 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome to chapter two of BSMS two oh five Genetics. Last time we ended on a question — if the Human Genome Project finished ninety-nine percent of the gene-containing regions back in two thousand three, why would anyone bother going back to finish the last eight percent? Today we answer that question. The story is about a project called Telomere-to-Telomere, abbreviated T two T, which in twenty twenty-two produced the first truly complete human genome sequence. We will look at why those gaps existed, what new technologies finally closed them, why a strange cell line called CHM thirteen was the secret weapon, and what we found hiding inside the dark regions of our chromosomes.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        Was the genome<br>really <span style="color:var(--terracotta-deep)">complete</span>?
+      </h1>
+      <aside class="notes">
+        Here is the question I want you to hold in your head for the rest of the lecture. In two thousand three, news outlets around the world declared that the human genome had been sequenced. Champagne corks popped. Press releases went out. Textbooks were updated. But behind closed doors, the geneticists themselves knew something the headlines glossed over. The genome was not actually complete. Roughly eight percent of it was still missing — and not because anyone had forgotten about it. The missing pieces were specifically the parts that the technology of the time simply could not read. So today we ask: what was missing, why, and how did we eventually finish it?
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>The "complete" genome wasn't</h2>
+      <ul>
+        <li>HGP declared complete in <strong>2003</strong></li>
+        <li>About <strong>8%</strong> still unsequenced</li>
+        <li>Not random gaps — the <strong>hardest regions</strong></li>
+        <li>Centromeres · telomeres · ribosomal DNA</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        Functionally critical, technically impossible.
+      </blockquote>
+      <aside class="notes">
+        Let's be specific about what was missing. About eight percent of the genome remained unsequenced after two thousand three. That is not a rounding error — that is roughly two hundred and forty million base pairs of human DNA. And these were not random scattered gaps. They were concentrated in very specific regions. Centromeres — the central pinch of each chromosome that helps separate them during cell division. Telomeres — the protective caps at chromosome ends. Ribosomal DNA arrays — the genes that build the ribosomes that make every protein in your body. These are not optional regions. Without them, cells cannot divide, cannot make proteins, cannot function. They were missing not because they did not matter, but because they were technically impossible to sequence.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The audacious goal</div>
+      <div class="bignum">3,055,000,000</div>
+      <div class="bignum-label">base pairs · every single one · telomere to telomere</div>
+      <ul>
+        <li>The first <strong>truly complete</strong> human genome</li>
+        <li>Released in <strong>2022</strong> as T2T-CHM13</li>
+        <li>Added ~<strong>200 million bp</strong> of new sequence</li>
+      </ul>
+      <aside class="notes">
+        Here is the goal that the T two T consortium set itself. Three billion fifty-five million base pairs — every single one, from one end of every chromosome to the other end. The name "telomere-to-telomere" comes from this — the assembly is continuous from the telomere on one end, through the centromere, all the way to the telomere on the other end, with no gaps anywhere. They released this in twenty twenty-two as T two T dash C H M thirteen, named after the cell line they used. Compared to the old reference, they added about two hundred million base pairs of completely new sequence — sequence that no human had ever read before.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Why the HGP couldn't finish</li>
+        <li>The technologies that changed everything</li>
+        <li>CHM13 · the special cell line</li>
+        <li>The X chromosome · 2020 · proof of concept</li>
+        <li>What's new in T2T-CHM13 · 2022</li>
+        <li>Finishing the Y chromosome · 2023</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, why short-read sequencing — the workhorse of the H G P — physically could not finish the repetitive regions. Second, the new long-read technologies that made finishing possible. Third, the unusual cell line C H M thirteen, which simplified the assembly problem in a clever way. Fourth, the twenty twenty proof-of-concept where the team finished a single chromosome — the X — and worked out the methods. Fifth, the twenty twenty-two release of the full T two T dash C H M thirteen genome. Sixth, the twenty twenty-three completion of the Y chromosome, which C H M thirteen lacked. And finally a summary that bridges into chapter three, where we go deeper into C H M thirteen itself.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHY THE HGP COULDN'T FINISH
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Why couldn't<br>the HGP finish?</h1>
+      <aside class="notes">
+        Let's start at the technical bottom. To understand why eight percent remained, we need to understand exactly how short-read sequencing works, and why repetitive DNA breaks it.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>Short reads · 100–200 base pairs</h2>
+      <ul>
+        <li>HGP-era sequencing read <strong>tiny fragments</strong></li>
+        <li>Worked great for <strong>unique</strong> DNA sequence</li>
+        <li>Reassembled like overlapping puzzle pieces</li>
+        <li>One method, used on the whole genome</li>
+      </ul>
+      <aside class="notes">
+        The H G P era used what we call short-read sequencing. Each read — each individual piece of DNA the machine actually reads — was only about one hundred to two hundred base pairs long. Now, for most of the genome, that is fine. If the underlying DNA is unique sequence — meaning each region has its own distinct fingerprint — then you can chop it into millions of short pieces, sequence each piece, and reassemble them by finding overlaps. It is exactly like a jigsaw puzzle where every piece has a unique shape. The HGP did this beautifully across roughly ninety-two percent of the genome.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Where short reads fail</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter2_figure1.png" alt="Short-read sequencing fails in repetitive regions while long reads succeed">
+        <figcaption>
+          <strong>Figure 1.</strong> Short reads (100–200 bp) cannot place themselves in long repetitive regions — every repeat looks the same. Long reads (20 kb to 100+ kb) span multiple repeats in one read, anchoring the sequence uniquely.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the problem in one picture. On the top row you see a stretch of repetitive DNA — the same short sequence repeated many times, like centromeric satellite DNA. When you cut it into short reads and try to reassemble it, every read looks identical. There is no overlap that tells you which copy goes where. The reads pile up in one ambiguous heap. On the bottom row you see what happens with a long read — a single read tens of thousands of base pairs long. It covers many repeats at once, but it also extends into the unique flanking sequence on either side. Now there is something to anchor it to. That difference — anchoring versus floating — is what separates the H G P era from the T two T era.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>The book analogy</h2>
+      <blockquote style="font-size:1.05em;">
+        Imagine a book where dozens of pages<br>
+        all read: <em>"and then they walked"</em>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>You can read each <strong>page</strong></li>
+        <li>You cannot tell <strong>which page goes where</strong></li>
+        <li>The story falls apart in the middle</li>
+        <li>That's the centromere problem</li>
+      </ul>
+      <aside class="notes">
+        Here is the analogy I find most helpful. Imagine you have a book where, in the middle, dozens of pages all read exactly the same sentence — "and then they walked." If someone tears the pages out and asks you to put them back in order, you can read each page perfectly. But you cannot tell page seventy-three from page seventy-four. They are identical. The story falls apart right in the middle. That is exactly the centromere problem. The DNA letters are readable. But because the same sequence appears thousands of times in a row, no individual short read knows where its copy belongs. The HGP did not fail to read centromere DNA — it failed to place it.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>The four hard regions</h2>
+      <ul>
+        <li><strong>Centromeres</strong> · alpha satellite arrays · 100s of kb to Mb</li>
+        <li><strong>Telomeres</strong> · TTAGGG repeats at chromosome ends</li>
+        <li><strong>Ribosomal DNA</strong> · 45 kb units repeated 100s of times</li>
+        <li><strong>Segmental duplications</strong> · large blocks · 90–99% identical</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Together: ~<strong>240 million</strong> base pairs of "dark matter".
+      </blockquote>
+      <aside class="notes">
+        Let's name the four kinds of regions that broke short reads. Centromeres — the alpha satellite arrays at chromosome centers, ranging from hundreds of kilobases to several megabases of repeats. Telomeres — the T-T-A-G-G-G repeat caps at chromosome ends. Ribosomal DNA arrays — the genes that build ribosomes, with each unit forty-five kilobases long, repeated dozens to hundreds of times in tandem. And segmental duplications — large blocks of DNA, ten thousand to millions of base pairs long, copied across the genome at ninety to ninety-nine percent sequence identity. Together these regions are about two hundred and forty million base pairs. People used to call this "dark matter" — visible in microscopy, invisible to sequencing. The T two T project finally turned the lights on.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE TECHNOLOGIES
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>The technologies<br>that changed it</h1>
+      <aside class="notes">
+        Now let's look at the new technologies that finally allowed those regions to be assembled. This is where T two T differs fundamentally from the HGP. Different molecule, different machine, different math.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Two long-read platforms</h2>
+      <div class="cols">
+        <div>
+          <h3>PacBio HiFi</h3>
+          <ul>
+            <li>~<strong>20,000 bp</strong> per read</li>
+            <li>Very <strong>high accuracy</strong></li>
+            <li>Resolves most repeats</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Oxford Nanopore</h3>
+          <ul>
+            <li>&gt;<strong>100,000 bp</strong> per read</li>
+            <li>"Ultra-long" reads</li>
+            <li>Spans even mega-repeats</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two long-read technologies powered T two T. On the left, PacBio HiFi — reads about twenty thousand base pairs long, with very high per-base accuracy. PacBio HiFi alone resolves most of the repeats in the genome. On the right, Oxford Nanopore — reads that can exceed one hundred thousand base pairs, sometimes called "ultra-long" reads. These were essential for the longest repeat arrays, the centromeres and ribosomal DNA blocks, where even twenty kilobase reads were not enough to span the whole array. The combination — accurate medium-long reads from PacBio plus extremely long reads from Nanopore — is what made T two T mathematically possible.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Plus four supporting methods</h2>
+      <ul>
+        <li><strong>Illumina short reads</strong> · for error correction</li>
+        <li><strong>Hi-C</strong> · maps how DNA folds in 3D</li>
+        <li><strong>Bionano optical mapping</strong> · long-range physical map</li>
+        <li><strong>Strand-seq</strong> · which strand came from which parent</li>
+      </ul>
+      <aside class="notes">
+        Long reads were the headline, but four supporting methods provided independent checks on the assembly. Illumina short reads were used to correct errors in the long-read sequence — short reads have higher per-base accuracy than nanopore reads, so they polish the final letters. Hi-C measures how DNA folds in three dimensions, which gives a long-range scaffolding signal — pieces that fold together must be near each other on the chromosome. Bionano optical mapping creates a physical fingerprint of the genome at the megabase scale, providing yet another long-range backbone. And Strand-seq tracks which DNA strand came from which parent, which is helpful for separating maternal from paternal copies. Each of these is a different kind of evidence. T two T used all of them.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>String graphs · not a line</h2>
+      <ul>
+        <li>Old assemblies = a single <strong>linear sequence</strong></li>
+        <li>T2T uses a <strong>graph</strong>: nodes = sequences, edges = overlaps</li>
+        <li>Like a subway map · multiple possible routes</li>
+        <li>Long reads pick the <strong>correct path</strong> through repeats</li>
+      </ul>
+      <aside class="notes">
+        Now a brief computational note — and here is the part that often gets confused. Old assemblies represent the genome as a single linear sequence, like a long line of letters. T two T used something called a string graph instead. In a string graph, nodes are pieces of DNA and edges show where they overlap. Picture a subway map — multiple possible routes between stations. In repetitive regions, the graph branches and tangles in many places, because there are many possible ways those repeats could connect. The job of the assembly is to pick the one correct path. And that is where long reads come in — a single ultra-long read that spans through a tangled region effectively tells the algorithm "this is the path." The graph plus long reads is the magic combination.
+      </aside>
+    </section>
+
+    <!-- Slide 14b · Nurk 2022 Figure 2 (string graph) -->
+    <section>
+      <h2>The string graph · seeing the tangle</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Nurk2022-biorxiv-Figure2.jpg" alt="T2T-CHM13 string graph showing tangled repetitive regions">
+        <figcaption>
+          <strong>Figure 2.</strong> The CHM13 string graph. Each line is a sequence; intersections show overlaps. Tangled regions = highly repetitive zones (centromeric satellites, ribosomal DNA arrays). Long reads pick the correct path through each tangle · Nurk et al. 2022, <em>Science</em> (preprint <em>bioRxiv</em>). CC-BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is what a string graph actually looks like, taken straight from the Nurk twenty twenty-two paper. Every line you see represents a piece of D N A sequence, and every place where lines cross is a place where two sequences overlap. Notice the long, clean stretches — those are the easy parts of the genome where the path is unambiguous. Then look at the dense, tangled regions. Those are the hard parts. The biggest tangles correspond to centromeric satellite arrays and the ribosomal D N A repeats on the acrocentric chromosome short arms — exactly the regions the H G P could not finish. Inside one of those tangles there are dozens or hundreds of possible routes that connect the same start to the same end. Without long reads, you cannot tell which route is correct. With long reads spanning right through the tangle, you can. That is the entire trick of T two T assembly, distilled into one picture.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>What it looks like</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter2_nurk2022_fig1.jpg" alt="T2T-CHM13 assembly ideogram showing newly added regions in red">
+        <figcaption>
+          <strong>Figure 2.</strong> T2T-CHM13 assembly ideogram. Red regions = new sequence not in GRCh38, including all centromeres and the short arms of acrocentric chromosomes 13, 14, 15, 21, 22 · Nurk et al. 2022, <em>Science</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is what T two T dash C H M thirteen actually looks like, plotted as a chromosome ideogram. Each row is a chromosome, and the red areas highlight what is newly added — what is in T two T but was missing or wrong in the old GRCh thirty-eight reference. Notice where most of the red lives. It is concentrated at every centromere, and there is enormous red on the short arms of chromosomes thirteen, fourteen, fifteen, twenty-one, and twenty-two — those are the acrocentric chromosomes that contain the ribosomal DNA arrays. That is the eight percent of the genome that the H G P could not finish, finally filled in.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Final accuracy</h2>
+      <div class="bignum">1 / 10,000,000</div>
+      <div class="bignum-label">error rate · one mistake per ten million bases</div>
+      <ul>
+        <li>Better than the original HGP standard</li>
+        <li>Verified across many independent methods</li>
+        <li>The most accurate human genome ever assembled</li>
+      </ul>
+      <aside class="notes">
+        And here is what the combined approach delivered. The final T two T dash C H M thirteen assembly has an error rate of about one mistake per ten million bases. Hold that number in your head — one in ten million. The H G P benchmark for "finished" was one in ten thousand. T two T is a thousand times more accurate. And this is verified — they used the long reads to check the long reads, the Illumina reads to check both, the Bionano optical maps to check the long-range structure. Everything cross-checks. This is the most accurate human genome assembly ever produced.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · CHM13
+         ==================================================== -->
+
+    <!-- Slide 17 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>What is so special<br>about CHM13?</h1>
+      <aside class="notes">
+        Now let's talk about the cell line. C H M thirteen is unusual in a way that turns out to be a major asset. We will spend an entire chapter on this in chapter three, but here is the essential idea.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>A complete hydatidiform mole</h2>
+      <ul>
+        <li>Origin: an egg with <strong>no genetic material</strong></li>
+        <li>Fertilized by sperm that <strong>duplicates its own genome</strong></li>
+        <li>Result: <strong>two identical copies</strong> of every chromosome</li>
+        <li>All from the father · none from the mother</li>
+      </ul>
+      <aside class="notes">
+        C H M thirteen is derived from a complete hydatidiform mole. That is a rare kind of tissue that forms when an egg without any maternal DNA is fertilized by a sperm — and then that sperm duplicates its own genome. The result is a cell with two complete copies of every chromosome, but both copies are identical and both are from the father. The mother contributed nothing genetically. This is not a viable embryo and clinical hydatidiform moles are abnormal pregnancy outcomes, but as a cell line for sequencing it has a remarkable property — its two chromosome copies are indistinguishable.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why this simplifies assembly</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter2_figure3.png" alt="CHM13 has two identical copies of each chromosome, simplifying assembly">
+        <figcaption>
+          <strong>Figure 3.</strong> Typical diploid: maternal + paternal copies differ slightly, must be distinguished. CHM13: two identical paternal copies — effectively haploid for assembly.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is why that matters for sequencing. In a typical human genome, you have one copy of each chromosome from your mother and one from your father, and the two copies differ at millions of positions. When you assemble such a genome, the algorithm has to constantly decide — is this read different because it is from the other copy, or because it is a sequencing error? In repetitive regions, that decision is very hard. C H M thirteen sidesteps the problem entirely. Its two copies are identical, so any difference between reads must be sequencing error. The assembly problem becomes effectively haploid — one genome, not two — and the repetitive regions become tractable.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>The catch</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:4em;">46,XX</div>
+          <div class="bignum-label">CHM13 karyotype</div>
+        </div>
+        <div>
+          <ul>
+            <li>Two X chromosomes · no Y</li>
+            <li>So T2T-CHM13 has <strong>no Y</strong></li>
+            <li>Y was finished separately in <strong>2023</strong></li>
+            <li>Using a different cell line · HG002</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        There is one catch. C H M thirteen is forty-six X X — meaning two X chromosomes and no Y. So when the T two T consortium released their twenty twenty-two assembly, it was complete for chromosomes one through twenty-two and X — but it had no Y chromosome. The Y was finished separately in twenty twenty-three using a different cell line called H G zero zero two, which we will get to later in the lecture. For now, just remember — the twenty twenty-two T two T assembly is forty-six X X, and you needed a separate sample to finish the Y.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · THE X CHROMOSOME
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>2020 · the first<br>complete chromosome</h1>
+      <aside class="notes">
+        Before they finished the whole genome, the T two T team did something smaller as a proof of concept. In twenty twenty, they completed a single chromosome — the X — and worked out the methods that would later be applied to all the others. That paper is one of the most cited papers in genomics this decade. Let's go through it.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>Why start with X?</h2>
+      <ul>
+        <li>Initial assembly was broken in only <strong>three places</strong></li>
+        <li>X centromere (DXZ1) was <strong>well-studied</strong></li>
+        <li>X is medically important · many disease loci</li>
+        <li>CHM13 has <strong>two X copies</strong> · no Y interference</li>
+      </ul>
+      <aside class="notes">
+        Why pick the X chromosome first? Four reasons. First, in their preliminary assembly the X was already mostly intact — it was broken in only three places, the centromere and two large segmental duplications. Second, the X centromere — called D X Z one — had been studied by molecular biologists for decades, so there were external benchmarks to compare against. Third, the X is medically important — disproportionately many genetic diseases map to it. And fourth, C H M thirteen has two X copies and no Y, so they could focus on X without Y-X cross-mapping issues. It was the chromosome most likely to succeed.
+      </aside>
+    </section>
+
+    <!-- Slide 22b · Miga 2020 Figure 1 (initial X assembly) -->
+    <section>
+      <h2>Three places where X was still broken</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Miga2020-Nature-Figure1.png" alt="Initial CHM13 X chromosome assembly showing three break locations">
+        <figcaption>
+          <strong>Figure 3.</strong> Initial CHM13 X assembly. Breaks at the <strong>centromere</strong> (artificially collapsed), a 120-kb segmental duplication (<em>DMRTC1B</em>), and a 134-kb segmental duplication with a paralogue on chromosome 2. Black bars = GRCh38 gaps; red bars = known segmental duplications · Miga et al. 2020, <em>Nature</em>. CC-BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the figure from Miga twenty twenty Nature that shows exactly where the X chromosome was still broken. Three locations. The centromere — D X Z one — which had been artificially collapsed in the assembly because the methods could not handle it. A one hundred twenty kilobase segmental duplication near a gene called D M R T C one B. And a one hundred thirty-four kilobase segmental duplication that has a near-identical paralogue on chromosome two. The black bars on the figure mark gaps that were also present in the GRCh thirty-eight reference — these were inherited from the H G P era. The red bars show segmental duplications. Notice how the breaks cluster at exactly the kinds of regions we discussed earlier — repeats and segmental duplications. The figure makes the abstract idea concrete. Three specific places, each requiring its own solution. The rest of the chapter is about how they solved each one.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>The centromere · 3.1 megabases</h2>
+      <ul>
+        <li><strong>3.1 Mb</strong> of alpha satellite DNA</li>
+        <li>~<strong>1,408 copies</strong> of a 2,057-bp repeat unit</li>
+        <li>Standard polishing methods <strong>made it worse</strong></li>
+        <li>Reads kept landing in the wrong place</li>
+      </ul>
+      <aside class="notes">
+        The X centromere is three point one megabases of alpha satellite D N A. To put that in perspective — that is bigger than many entire bacterial genomes, and it is just the centromere of one chromosome. It consists of about one thousand four hundred and eight copies of a roughly two thousand base pair repeat unit, lined up head to tail. When the team first tried to clean up the assembly using standard polishing methods, the quality actually got worse. Why? Because the polishing tools kept placing reads in the wrong centromere copy. The reads were all so similar that the algorithm had no way to know which of the fourteen hundred copies any given read came from. Standard methods were broken.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Marker-assisted polishing</h2>
+      <ul>
+        <li>Find <strong>21-bp sequences</strong> that appear only once in the genome</li>
+        <li>Even inside DXZ1: a marker every <strong>2.3 kb</strong> on average</li>
+        <li>Anchor reads using these unique markers</li>
+        <li>Iterate: Nanopore → PacBio → Illumina</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Find what is unique even inside repeats.
+      </blockquote>
+      <aside class="notes">
+        Their solution was a beautiful idea called marker-assisted polishing. Even inside a highly repetitive array like the X centromere, the repeats are not perfectly identical — there are tiny variations. The team scanned the genome for short twenty-one base pair sequences that appear only once in the whole genome, and they used these as unique markers. Inside the D X Z one centromeric array, they found a unique marker every two point three kilobases on average. So even though most of the array looked the same, they had little anchor points scattered through it. They then used these markers to correctly place reads, polishing the assembly iteratively — first with Nanopore reads, then PacBio, then Illumina. Each round improved accuracy. The headline insight: even inside repeats, find what is unique.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Validating the centromere structure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter2_miga2020_fig2.png" alt="Validation of the 3.1 Mb DXZ1 centromeric array structure">
+        <figcaption>
+          <strong>Figure 4.</strong> Multiple independent methods confirm the DXZ1 array structure: PFGE Southern blots, ddPCR copy counting, optical mapping, and 33 catalogued structural variants · Miga et al. 2020, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        The team validated the centromere assembly using several independent methods, shown in this figure from the Miga twenty twenty Nature paper. They used pulsed-field gel electrophoresis — a way of sizing very large D N A molecules — and confirmed the array was about two point eight seven megabases. They used droplet digital P C R to count repeat copies and got fourteen hundred and eight, matching the assembly. They used optical mapping to check the restriction enzyme pattern. And they catalogued thirty-three different structural variants within the array — places where the basic twelve-mer repeat unit had been altered into eleven-mers, eighteen-mers, twenty-two-mers, and so on. This level of detail had never been seen before. The X centromere went from a black box to a fully described biological object.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>What the complete X delivered</h2>
+      <ul>
+        <li>Closed <strong>29 gaps</strong> · 1.15 million bases of new sequence</li>
+        <li>Met the original <strong>Bermuda standard</strong> for finished genomes</li>
+        <li>Complete <strong>GAGE</strong>, <strong>CT45</strong>, <strong>CT47</strong> gene families</li>
+        <li>First complete <strong>pseudoautosomal regions</strong> (PAR1 + PAR2)</li>
+      </ul>
+      <aside class="notes">
+        What did finishing the X actually deliver? Twenty-nine gaps in GRCh thirty-eight were closed, adding about one point one five million bases of brand new sequence to the X chromosome. The accuracy met the original Bermuda standard for "finished" genomic sequence. Several medically important gene families that had been incomplete were now complete — the GAGE family with nineteen full copies, the CT forty-five family, the CT forty-seven family, all of which are cancer-testis antigens with relevance to cancer biology. And for the first time we had complete sequences of the pseudoautosomal regions — PAR one and PAR two — the small parts of the X that recombine with the Y during meiosis. These had been mostly missing or fragmented before.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Bonus · methylation across the centromere</h2>
+      <ul>
+        <li>Nanopore reads also detect <strong>DNA methylation</strong></li>
+        <li>Found a <strong>93 kb hypomethylated dip</strong> inside DXZ1</li>
+        <li>Probably where <strong>kinetochore proteins</strong> bind</li>
+        <li>Same dip seen later on chromosome 8</li>
+      </ul>
+      <aside class="notes">
+        And one bonus finding from the X paper. Nanopore sequencing has the unusual property that it can detect D N A methylation directly from the same reads used for sequencing. So once the centromere was assembled, the team could also map methylation across it at single-base resolution. They found something striking — a ninety-three kilobase region inside D X Z one that is consistently unmethylated, surrounded by heavily methylated DNA. That hypomethylated region is most likely where kinetochore proteins bind during cell division — the actual functional core of the centromere. They later assembled the centromere of chromosome eight and saw the same pattern. So this hypomethylated dip may be a general signature of where centromeres do their actual job. None of this would have been visible without finishing the assembly.
+      </aside>
+    </section>
+
+    <!-- Slide 27b · Miga 2020 Figure 3 (methylation patterns) -->
+    <section>
+      <h2>Methylation across the complete X</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Miga2020-Nature-Figure3.png" alt="Methylation patterns across the complete X chromosome">
+        <figcaption>
+          <strong>Figure 5.</strong> Methylation patterns from Nanopore reads. <strong>(a)</strong> Hypomethylated PAR1; blue = unmethylated, red = methylated. <strong>(b)</strong> A 93-kb hypomethylated region inside the DXZ1 centromere — the likely kinetochore-binding core. <strong>(c)</strong> The DXZ4 macrosatellite array showing a sharp methylated→unmethylated transition · Miga et al. 2020, <em>Nature</em>. CC-BY 4.0.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the methylation map from the same Miga twenty twenty paper. Three panels. Panel a — the pseudoautosomal region one, P A R one, at the very tip of the short arm of X. It is consistently unmethylated, shown in blue, with methylated bases in red. Panel b is the most famous one — that ninety-three kilobase hypomethylated dip sitting inside the D X Z one centromere. The surrounding centromeric repeats are heavily methylated, but this one block is open. That is almost certainly where the kinetochore actually binds during cell division — the functional center of the centromere, identified for the first time. Panel c shows the D X Z four macrosatellite array, which marks the boundary between two large topological superdomains of the X chromosome — and you can see a sharp methylation transition right at that boundary. None of these patterns were visible before the X was finished. Methylation, kinetochore biology, and chromosome topology — all readable from the same set of long reads.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · WHAT'S NEW IN T2T-CHM13
+         ==================================================== -->
+
+    <!-- Slide 28 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>What's new<br>in T2T-CHM13?</h1>
+      <aside class="notes">
+        With the X chromosome methods proven, the T two T consortium scaled up to the rest of the genome. Twenty twenty-two — the full T two T dash C H M thirteen assembly is published. Let's look at the four major categories of new content.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Region 1 · centromeric satellite arrays</h2>
+      <ul>
+        <li>All <strong>22 autosomes + X</strong> centromeres complete</li>
+        <li>Sizes: <strong>366 kb</strong> (Y) to several megabases</li>
+        <li>Different chromosomes use different alpha satellite variants</li>
+        <li>Some centromeres (chr 1, 5, 19) <strong>share sequence</strong></li>
+      </ul>
+      <aside class="notes">
+        Region one — centromeric satellite arrays. Every centromere in the C H M thirteen genome is now fully sequenced. They range in size from about three hundred sixty-six kilobases on chromosome Y up to several megabases. Different chromosomes use different variants of alpha satellite — different higher-order repeat structures. And interestingly, some chromosomes — one, five, and nineteen — share very similar centromere sequences, which suggests recent exchange of D N A between those centromeres in evolutionary time. None of this was visible before because none of the centromeres were assembled before.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Why centromeres matter</h2>
+      <blockquote style="font-size:1.05em;">
+        Centromere errors → chromosome missegregation<br>
+        → <strong>aneuploidy</strong> → cancer, Down syndrome.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Kinetochores attach <strong>here</strong> during cell division</li>
+        <li>Most aneuploid embryos are non-viable</li>
+        <li>Aneuploidy in adult cells associated with cancer</li>
+      </ul>
+      <aside class="notes">
+        Why do centromeres matter clinically? Centromeres are where kinetochores assemble — the protein machines that grab onto spindle microtubules and pull chromosomes apart during mitosis and meiosis. If a centromere malfunctions, chromosomes get distributed unequally to daughter cells. That is aneuploidy — cells with the wrong chromosome number. Most aneuploid embryos do not survive — that is one of the major causes of early miscarriage. Aneuploidy in adult cells is a hallmark of nearly every cancer. So having complete centromere sequences is not just a technical curiosity — it lets us study the architecture of an essential biological machine, in detail, for the first time.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Region 2 · segmental duplications</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <h3>GRCh38</h3>
+          <div class="bignum" style="font-size:3em;">5.00%</div>
+        </div>
+        <div>
+          <h3>T2T-CHM13</h3>
+          <div class="bignum" style="font-size:3em; color:var(--terracotta);">6.61%</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;"><strong>201.93 Mb</strong> of segmental duplications · driver of structural variation.</p>
+      <aside class="notes">
+        Region two — segmental duplications. These are large blocks of DNA, typically thousands to millions of base pairs, that appear in multiple places in the genome with ninety to ninety-nine percent sequence identity. In the old GRCh thirty-eight reference, only about five percent of the genome was confidently called as segmental duplication. In T two T dash C H M thirteen, it is six point six one percent — about two hundred and two megabases. That extra one and a half percent is real biology that was previously hidden. Segmental duplications matter because their high sequence similarity drives non-allelic homologous recombination — the wrong copies pair up during meiosis, and that creates large structural variants that can cause disease.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Segmental duplications · trait + disease</h2>
+      <div class="cols">
+        <div>
+          <h3>Adaptive</h3>
+          <ul>
+            <li><strong>AMY1</strong> · salivary amylase</li>
+            <li>Copy number ↔ dietary starch</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Disease</h3>
+          <ul>
+            <li>Many genomic disorders</li>
+            <li><strong>FSHD</strong> · muscular dystrophy</li>
+            <li>Charcot-Marie-Tooth, etc.</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Segmental duplications can be adaptive or disease-causing. On the adaptive side, the salivary amylase gene AMY one — copy number variation in this region correlates with how much starch a population has historically eaten. Populations with starch-heavy diets carry more copies. On the disease side, segmental duplications are responsible for many genomic disorders, including facioscapulohumeral muscular dystrophy and Charcot-Marie-Tooth disease. The pattern is the same — when nearly identical sequence blocks are nearby, recombination can pair up the wrong ones and create deletions, duplications, or inversions. Now that T two T has them all assembled correctly, we can finally study these regions properly.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Region 3 · acrocentric short arms</h2>
+      <ul>
+        <li>Chromosomes <strong>13, 14, 15, 21, 22</strong></li>
+        <li>Short arm carries <strong>ribosomal DNA</strong> arrays</li>
+        <li>Each rDNA unit = <strong>45 kb</strong>, repeated 100s of times</li>
+        <li>CHM13 has ~<strong>400 rDNA copies</strong> total</li>
+      </ul>
+      <aside class="notes">
+        Region three — the short arms of the acrocentric chromosomes. There are five chromosomes where the centromere sits very close to one end, leaving a short p arm and a long q arm. These are chromosomes thirteen, fourteen, fifteen, twenty-one, and twenty-two. The short arms carry tandem arrays of ribosomal DNA — the genes that encode ribosomal RNA. Each ribosomal D N A unit is about forty-five kilobases, and it is repeated dozens to hundreds of times. C H M thirteen carries about four hundred copies in total, distributed across the five acrocentric short arms. These are essential — they make the ribosomal RNA that builds your ribosomes that build all your proteins. And they were entirely missing from earlier reference genomes.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>The nucleolus connection</h2>
+      <ul>
+        <li>The five acrocentric short arms <strong>cluster together</strong> in the cell</li>
+        <li>That cluster forms the <strong>nucleolus</strong></li>
+        <li>Where ribosome biogenesis happens</li>
+        <li>Short arms share ~<strong>98.7%</strong> sequence identity</li>
+      </ul>
+      <aside class="notes">
+        Here is something that fits beautifully into cell biology. In the nucleus of every cell, the five acrocentric short arms cluster together physically — the proteins and RNA that need to find ribosomal D N A all gather there, and that gathering point is what we call the nucleolus. The nucleolus is the factory where ribosomes are assembled. And here is the kicker — the short arms across these five different chromosomes share about ninety-eight point seven percent sequence identity. They are essentially clones of each other. Why so similar? Probably because they are physically close in the nucleolus and exchange DNA frequently. So the genome architecture and the nuclear architecture reinforce each other. Cool result, only visible because T two T finally assembled these regions.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Quick reference · the four hard regions</h2>
+      <table>
+        <thead><tr><th>Region</th><th>Size in T2T</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Centromeric satellites</td><td>366 kb – several Mb</td><td>Cell division</td></tr>
+          <tr><td>Segmental duplications</td><td>201.93 Mb (6.61%)</td><td>Structural variation</td></tr>
+          <tr><td>Acrocentric short arms</td><td>66.1 Mb total</td><td>Ribosome biogenesis</td></tr>
+          <tr><td>Yq12 heterochromatin</td><td>&gt;30 Mb</td><td>Unknown · evolving fast</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is a quick summary table of the four kinds of regions T two T finally assembled. Centromeric satellites — anywhere from three hundred sixty-six kilobases to several megabases per chromosome, essential for cell division. Segmental duplications — about two hundred two megabases, six point six one percent of the genome, drivers of structural variation. Acrocentric short arms — sixty-six point one megabases across the five chromosomes, home of ribosomal DNA and the nucleolus. And the Y q twelve heterochromatic region — over thirty megabases, function still unclear, which we will look at in just a moment. Together this is roughly the eight percent that the H G P could not finish.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · THE Y CHROMOSOME
+         ==================================================== -->
+
+    <!-- Slide 36 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>2023 · finishing<br>the Y</h1>
+      <aside class="notes">
+        Now the final piece. Remember C H M thirteen is forty-six X X — no Y chromosome. So in twenty twenty-three the consortium finished the Y separately, using a different cell line. This was not an afterthought. The Y was famously the hardest chromosome of all. Let's look at why, and what they found.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Why the Y was so hard</h2>
+      <ul>
+        <li>Long <strong>palindromes</strong> · sequences that read both directions</li>
+        <li>Many <strong>tandem repeats</strong> · larger than other chromosomes</li>
+        <li>Massive <strong>heterochromatic block</strong> on Yq12</li>
+        <li>More than <strong>half</strong> of Y was missing in GRCh38</li>
+      </ul>
+      <aside class="notes">
+        Why was the Y so hard? Three architectural reasons. First, the Y is full of long palindromes — sequences that read the same forwards and backwards on the chromosome, often spanning hundreds of kilobases each. Palindromes confuse short-read assemblers because the reverse complement of one arm matches the other arm. Second, the Y has many tandem repeat regions that are even larger than the centromere, especially in the long arm. Third, there is a massive heterochromatic block called Y q twelve at the end of the long arm — entirely repetitive, almost entirely missing from the old reference. In fact, more than half of the Y chromosome's bases were missing from GRCh thirty-eight. T two T-Y finally completed it.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>T2T-Y · 62.4 megabases · zero gaps</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter2_rhie2022_fig1.jpg" alt="Complete structure of the human Y chromosome from T2T-Y">
+        <figcaption>
+          <strong>Figure 5.</strong> T2T-Y assembly: 62.46 Mb, no gaps · ampliconic gene clusters, palindromes, centromere, and the previously hidden Yq12 satellite blocks revealed for the first time · Rhie et al. 2023, <em>Nature</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is what T two T-Y looks like. Sixty-two point four six megabases long, no gaps. The figure shows the full structure — genes along the top, palindromes and inverted repeats in the middle, the centromere, and the satellite-DNA structure of the heterochromatic Y q twelve at the bottom. The dot plot at the bottom of the figure visually shows how repetitive the Y is — every diagonal line represents a self-similar block. Compared to the old GRCh thirty-eight Y, this assembly added more than thirty million base pairs of sequence that had simply never been read. This is the most complete view of any human Y chromosome ever produced.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What the Y carries</h2>
+      <ul>
+        <li><strong>SRY</strong> · the master male-sex-determining gene</li>
+        <li><strong>TSPY</strong> · 45 protein-coding copies (vs 7 in GRCh38)</li>
+        <li><strong>DAZ, RBMY</strong> · spermatogenesis</li>
+        <li><strong>AZF regions</strong> · deletions cause male infertility</li>
+      </ul>
+      <aside class="notes">
+        And what genes does the Y actually carry? S R Y, the master gene that flips an embryo onto the male developmental path. Several ampliconic gene families that exist in many copies — TSPY, the largest gene family on the Y, with forty-five protein-coding copies in this individual versus only seven in the old reference. DAZ and RBMY, which are critical for sperm production. And the AZF regions — Azoospermia Factor regions A, B, and C — where deletions are a known cause of male infertility. T two T-Y gives us the first complete picture of all of these. Many were previously underestimated in copy number because the assemblies were broken.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>The mysterious Yq12</h2>
+      <ul>
+        <li>Was a <strong>single 30+ Mb gap</strong> in GRCh38</li>
+        <li>Now: alternating blocks of <strong>DYZ1</strong> + <strong>DYZ2</strong></li>
+        <li>Some blocks recently <strong>duplicated up to 5 Mb</strong></li>
+        <li>HSat1B (DYZ2) is <strong>almost unique</strong> to Y + acrocentrics</li>
+      </ul>
+      <aside class="notes">
+        And finally — Y q twelve. In GRCh thirty-eight, this was literally a single thirty-megabase-long gap. A black box. T two T-Y finally opened it. Inside are alternating blocks of two satellite DNA families — D Y Z one and D Y Z two — adding up to over thirty megabases of sequence. Some blocks show evidence of very recent duplication, with single duplication events spanning up to five megabases. And one of these satellite families, called H Sat one B or D Y Z two, is almost unique to the Y chromosome and the acrocentric short arms — found almost nowhere else in the genome. That is a fascinating evolutionary clue. We do not yet know what these regions do, but we can finally see them, which means we can start asking.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 41 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>HGP left ~<strong>8%</strong> unsequenced · centromeres, telomeres, rDNA, segdups</li>
+        <li>Long reads (PacBio HiFi + Oxford Nanopore) finally <strong>span repeats</strong></li>
+        <li><strong>CHM13</strong> · two identical paternal copies · simplifies assembly</li>
+        <li><strong>2020</strong> X chromosome · <strong>2022</strong> T2T-CHM13 · <strong>2023</strong> T2T-Y</li>
+        <li>Combined: <strong>T2T-CHM13v2.0</strong> · the first truly complete human genome</li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — the HGP left about eight percent of the genome unsequenced, concentrated in centromeres, telomeres, ribosomal DNA arrays, and segmental duplications. Two — long-read sequencing, specifically PacBio HiFi for accuracy and Oxford Nanopore for ultra-long reads, finally allowed the assembly to span those repetitive regions. Three — the cell line C H M thirteen, with its two identical paternal chromosome copies, simplified the assembly problem from diploid to effectively haploid. Four — the project ran in three milestones: the X chromosome in twenty twenty as proof of concept, the full forty-six X X assembly as T two T dash C H M thirteen in twenty twenty-two, and the Y from a different cell line in twenty twenty-three. Five — combined, these become T two T dash C H M thirteen version two point zero, the first truly complete human genome — every base, every chromosome, telomere to telomere.
+      </aside>
+    </section>
+
+    <!-- Slide 43 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        Where did<br>
+        <span style="color:var(--terracotta-deep);">CHM13</span> come from?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 3 · <strong>The CHM13 Cell Line</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. We have used C H M thirteen as a key tool in this lecture, but we have not really talked about where it came from. What exactly is a complete hydatidiform mole? How does the biology of a sperm-only conception lead to two identical chromosome copies? Why is C H M thirteen specifically used and not some other mole? And what are the ethical considerations of using a cell line derived from an abnormal pregnancy? That is the story of chapter three. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 10 · Dominant Alleles in Human Disorders — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Dominant Alleles<br>in Human Disorders</h1>
+      <div class="chapter-num">Chapter 10 · Part II · Variation</div>
+      <aside class="notes">
+        Welcome to Chapter ten. Last time, in Chapter nine, we walked through how variants are transmitted from parent to child — recombination, segregation, the rules of inheritance. Today we ask the next question: what happens when one bad copy is enough to break things? That is what dominant inheritance means in medical genetics. We will spend this lecture on the molecular mechanisms — haploinsufficiency, dominant-negative, gain of function — and we will use one gene, S C N two A, as the through-line example, because it is one of the cleanest demonstrations in all of human genetics that the same gene can cause opposite diseases depending on how it is broken.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">Bridge from Chapter 9</div>
+      <h1 style="font-size:2.4em; line-height:1.1; margin-top:0.2em;">
+        We know how variants <span style="color:var(--terracotta-deep)">spread</span>.<br>
+        Now: when does <span style="color:var(--terracotta-deep)">one</span> bad copy<br>break things?
+      </h1>
+      <aside class="notes">
+        Here is the pivot from last lecture to this one. Chapter nine covered transmission — how a variant moves from a parent to a child through meiosis, segregation, and the recombination of chromosomes. That tells us how variants spread through families and populations. But it does not tell us when a variant actually causes disease. Today's question is sharper: under what conditions is a single mutant copy of a gene enough to make someone sick? That is the definition of a dominant disorder, and the answer is far more interesting than Mendel's purple-versus-white peas.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Mendel's dominance vs medical dominance</h2>
+      <div class="cols">
+        <div>
+          <h3>Mendel</h3>
+          <ul>
+            <li>One allele <strong>masks</strong> the other</li>
+            <li>About <strong>visible traits</strong></li>
+            <li>Purple over white</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Medical genetics</h3>
+          <ul>
+            <li>One mutant copy → <strong>disease</strong></li>
+            <li>Other copy is <strong>normal</strong></li>
+            <li>Disease in a <strong>heterozygote</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        When you hear "dominant" in genetics class, you probably think of Mendel's peas — one allele masking another in a visible trait. In medical genetics the word means something more specific. A dominant disease allele is one where a single mutant copy is sufficient to cause the disease, even when the other copy of the gene is perfectly normal. The patient is a heterozygote — one mutant, one normal — and the mutant copy wins. That is the regime we live in for today's lecture.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The central question</div>
+      <h1 style="font-size:2.4em; line-height:1.1; margin-top:0.2em;">
+        Why does one bad copy<br>break things?
+      </h1>
+      <aside class="notes">
+        Here is the question the rest of the lecture answers. Why is one mutant copy enough? After all, you still have a normal copy. Why does the cell not just compensate? The answer turns out to depend on the specific molecular mechanism — and there are at least three distinct ones, each with a very different cellular logic. We will go through them in order, and then we will see them in action across four real disorders.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Two variant types · PTVs and missense</li>
+        <li>Three molecular mechanisms</li>
+        <li>Kabuki syndrome · haploinsufficiency</li>
+        <li><em>SCN2A</em> · same gene, opposite phenotypes</li>
+        <li>Congenital heart disease · 60 dominant genes</li>
+        <li>ReNU syndrome · non-coding dominance</li>
+        <li>Variant → phenotype · the central dogma path</li>
+      </ol>
+      <aside class="notes">
+        Here is how we move today. First, two flavors of mutation that dominate the literature — protein-truncating variants and missense variants. Second, the three molecular mechanisms that make a single mutant copy sufficient. Third through sixth, four worked examples, each illustrating a different mechanism. And finally we will trace the path from variant to phenotype through the central dogma. The S C N two A case in section four is the highlight — the same gene causing autism when broken one way and seizures when broken another way. It is one of the cleanest stories in human genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <div class="cue">A motivating fact</div>
+      <div class="bignum">~20%</div>
+      <div class="bignum-label">of severe pediatric disease · de novo dominant</div>
+      <ul>
+        <li>New mutation · not in either parent</li>
+        <li>One copy is <strong>enough</strong> to cause disease</li>
+        <li>Why so many of them are caught only in <strong>WES</strong></li>
+      </ul>
+      <aside class="notes">
+        One number to anchor today's lecture. Roughly twenty percent of severe pediatric disease cases are caused by de novo dominant mutations — brand new mutations that arose in the affected child and were absent in both parents. That fraction is the reason whole exome sequencing has been so transformative in pediatric medicine. You cannot inherit something neither parent has, so you only catch these by sequencing the child directly. We will see de novo mutations again and again in the four examples that follow.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · TWO VARIANT TYPES
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Two Variant Types<br>That Dominate</h1>
+      <aside class="notes">
+        Before we get to mechanism, we need to know what kinds of mutations cause dominant disease. Two categories cover the vast majority. Protein-truncating variants — which chop a protein short. And missense variants — which swap one amino acid for another. Each has its own logic, and they tend to cause disease through different mechanisms.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Protein-truncating variants · PTVs</h2>
+      <ul>
+        <li><strong>Nonsense</strong> · a codon → premature stop</li>
+        <li><strong>Frameshift</strong> · indel shifts the reading frame</li>
+        <li>Result: <strong>truncated, useless</strong> protein</li>
+        <li>Usually causes <strong>haploinsufficiency</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        One copy makes nothing useful.<br>The other copy alone is <strong>not enough</strong>.
+      </blockquote>
+      <aside class="notes">
+        Protein-truncating variants — P T Vs — chop a protein short. Two flavors. A nonsense mutation changes a codon for an amino acid into a premature stop codon, like turning a green light into a red light halfway through translation. A frameshift mutation is an insertion or deletion that is not a multiple of three, which scrambles the reading frame and produces gibberish downstream, almost always landing on a premature stop. Either way, you get a truncated, usually nonfunctional protein. The cell is left with output from one good copy. For dose-sensitive genes, that is not enough. We call this haploinsufficiency.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Missense variants</h2>
+      <ul>
+        <li>One <strong>codon</strong> → different amino acid</li>
+        <li>Effect depends on <strong>where</strong> and <strong>which</strong></li>
+        <li>Some are harmless · others are devastating</li>
+        <li>Can cause <strong>gain-of-function</strong> or <strong>dominant-negative</strong></li>
+      </ul>
+      <aside class="notes">
+        Missense variants are subtler. A single codon changes — say, G A A becomes G C A — swapping glutamic acid for alanine. Sometimes that is harmless. Sometimes it is devastating. The effect depends on where the change sits in the protein and which amino acids are involved. Conserved residues in active sites are bad places to change. The crucial point for today is that missense variants are flexible — they can produce a protein that does too little, too much, or the wrong thing entirely. That gives them three possible mechanisms of dominance, which we are about to walk through.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>How we find them · WES + filtering</h2>
+      <ul>
+        <li><strong>WES</strong> covers protein-coding regions · ~1-2% of genome</li>
+        <li>Filter: keep only <strong>rare</strong> variants (frequency &lt; 10⁻⁵)</li>
+        <li>For missense: <strong>SIFT</strong>, <strong>PolyPhen</strong> predict damage</li>
+        <li><strong>de novo</strong> filter: present in child, absent in both parents</li>
+      </ul>
+      <aside class="notes">
+        How do we actually find these dominant variants in a patient? The standard pipeline today is whole exome sequencing — W E S — which covers the protein-coding regions, about one to two percent of the genome but the part where most disease-causing mutations sit. Then we filter. We throw out anything common, because if a variant causes serious disease, it should not be common in healthy people. We typically use a frequency cutoff around ten to the minus five — one in one hundred thousand, or rarer. For missense variants, we use prediction tools like S I F T and PolyPhen that score how damaging the amino acid change is likely to be. And for de novo mutations specifically, we sequence the child and both parents — if the variant is in the child but absent from both parents, it is brand new.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THREE MECHANISMS
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Three Molecular<br>Mechanisms</h1>
+      <aside class="notes">
+        Now to the heart of today's lecture. There are three fundamental mechanisms by which one mutant copy can cause disease, and you should be able to name and distinguish all three. Haploinsufficiency. Gain of function. Dominant negative. Each makes a different cellular bet, and each tends to come from a different kind of mutation. Let's go.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Mechanism 1 · Haploinsufficiency</h2>
+      <ul>
+        <li>One copy is <strong>broken</strong> · the other is fine</li>
+        <li>Half the protein is <strong>not enough</strong></li>
+        <li>Typical cause: <strong>PTVs</strong> (nonsense, frameshift)</li>
+        <li>Hits <strong>dose-sensitive</strong> genes</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Half a dose, half a function — but the cell needs <strong>full</strong>.
+      </blockquote>
+      <aside class="notes">
+        Mechanism one — haploinsufficiency. One copy is broken and produces no useful protein. The other copy is fine, but on its own it cannot make enough product to keep things running. Think of a developmental gene where the cell needs full protein levels at a critical window — half a dose just is not enough. Most of the gene is not even expressed from the broken allele, or what is expressed is degraded. The hallmark mutation type is a P T V — nonsense or frameshift — because P T Vs reliably eliminate the broken copy's contribution. We are going to see this in Kabuki syndrome in a few slides.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Mechanism 2 · Gain of function</h2>
+      <ul>
+        <li>Mutant protein gains a <strong>new, harmful</strong> activity</li>
+        <li>Or: it is <strong>hyperactive</strong> — too much of the right thing</li>
+        <li>Typical cause: <strong>missense</strong> variant in regulatory region</li>
+        <li>Normal copy <strong>cannot rescue</strong> — mutant adds, not subtracts</li>
+      </ul>
+      <aside class="notes">
+        Mechanism two — gain of function. Here the mutant protein does not just lose function. It gains a new function, or it does the right thing too vigorously. Imagine an ion channel whose mutant version stays open too long, or opens too easily. The cell does not have a problem of too little — it has a problem of too much. The normal copy cannot rescue this, because the mutant is adding pathological activity rather than subtracting normal activity. Gain-of-function mutations are usually missense variants that hit a regulatory region of the protein. We will see this in S C N two A causing seizures.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Mechanism 3 · Dominant-negative</h2>
+      <ul>
+        <li>Mutant protein <strong>interferes</strong> with the normal one</li>
+        <li>Defective subunit poisons the <strong>complex</strong></li>
+        <li>Typical cause: <strong>missense</strong> in protein-protein interface</li>
+        <li>Common in <strong>multimeric</strong> proteins (collagen, NOTCH)</li>
+      </ul>
+      <aside class="notes">
+        Mechanism three — dominant negative. The mutant protein is itself defective, but worse, it interferes with the normal protein from the good allele. The classic case is a multimeric protein — like collagen, where three chains wrap around each other, or N O T C H one, which signals through complexes. If the mutant subunit gets incorporated into the complex along with normal subunits, the whole complex misfolds or fails to signal. One bad apple spoils the bunch. So even though you still have plenty of normal protein, the cellular output is wrecked. This is why dominant-negative is often more severe than simple haploinsufficiency.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Three mechanisms compared</h2>
+      <table>
+        <thead><tr><th>Mechanism</th><th>What changes</th><th>Typical mutation</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Haploinsufficiency</strong></td><td>Half the protein</td><td>PTV</td><td>Kabuki · <em>KMT2D</em></td></tr>
+          <tr><td><strong>Loss of function</strong></td><td>Normal protein, broken</td><td>Missense or PTV</td><td>ASD · <em>SCN2A</em></td></tr>
+          <tr><td><strong>Gain of function</strong></td><td>New / extra activity</td><td>Missense</td><td>Seizures · <em>SCN2A</em></td></tr>
+          <tr><td><strong>Dominant-negative</strong></td><td>Mutant blocks normal</td><td>Missense</td><td>CHD · <em>NOTCH1</em></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.95em;">
+        Same word — <strong>dominant</strong> — four different cellular stories.
+      </p>
+      <aside class="notes">
+        Here is the comparison table. Memorize this. Haploinsufficiency comes from P T Vs and means half the protein is not enough — Kabuki is the textbook case. Loss of function from missense looks similar but starts from a missense mutation that wrecks the protein's activity. Gain of function adds new or extra activity, almost always from a missense mutation in a regulatory region. And dominant-negative comes from a missense mutation in a protein-protein interface, where the mutant poisons the complex. Same word — dominant — four different cellular stories. Know the difference.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · KABUKI SYNDROME
+         ==================================================== -->
+
+    <!-- Slide 16 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Kabuki Syndrome<br>Haploinsufficiency in Action</h1>
+      <aside class="notes">
+        First worked example. Kabuki syndrome is a developmental disorder named for the distinctive facial features that resemble the makeup of Kabuki theater actors. It is the textbook case of haploinsufficiency caused by P T Vs, and it is also a landmark in the W E S era — one of the first disorders solved entirely by exome sequencing.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>How <em>KMT2D</em> was found</h2>
+      <ul>
+        <li><strong>10 unrelated</strong> people with Kabuki · WES on each</li>
+        <li>Filter out anything <strong>common</strong> · keep rare variants</li>
+        <li><em>KMT2D</em> mutations in <strong>9 of 10</strong></li>
+        <li>Replicated: <strong>26 of 43</strong> in follow-up cohort</li>
+      </ul>
+      <p style="margin-top:0.4em; font-size:0.85em; color:var(--ink-soft);">
+        Ng et al. 2010, <em>Nature Genetics</em>
+      </p>
+      <aside class="notes">
+        Here is how the gene was found. Ten unrelated people with Kabuki syndrome were sequenced — whole exome on each. Then the team filtered out anything common in the population databases of the time, dbSNP and the one thousand Genomes Project. The logic is simple: if a variant causes a serious developmental disorder, it cannot be common in healthy people. After filtering, the signal converged on one gene — K M T two D — with novel mutations in nine of the ten patients. To be sure, they sequenced K M T two D in another forty-three Kabuki patients and found mutations in twenty-six. That replication is what makes a finding stick.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>What kind of mutations?</h2>
+      <div class="cols">
+        <div>
+          <h3>Nonsense</h3>
+          <ul>
+            <li>Premature stop</li>
+            <li><strong>20 of 32</strong> mutations</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Frameshift</h3>
+          <ul>
+            <li>Reading-frame shift</li>
+            <li><strong>7 of 32</strong> mutations</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em;">
+        Almost all <strong>PTVs</strong> · clustered <strong>before</strong> the SET domain.
+      </blockquote>
+      <aside class="notes">
+        Look at what kind of mutations these are. Twenty out of thirty-two are nonsense — premature stops. Seven are frameshifts. Both are P T Vs. Both produce truncated, useless protein. And critically, they cluster in the gene before the S E T domain at the carboxy terminus, which is the catalytic part — the methyltransferase activity itself. So even if the truncated protein is somehow translated, it lacks the part that does the actual chemistry. The pattern screams haploinsufficiency.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Why one bad copy is enough</h2>
+      <ul>
+        <li><em>KMT2D</em> = histone methyltransferase</li>
+        <li>Adds methyl marks · <strong>regulates gene expression</strong></li>
+        <li>Development is <strong>dose-sensitive</strong> for chromatin enzymes</li>
+        <li>Half the enzyme → wrong gene expression in <strong>face, heart, brain</strong></li>
+      </ul>
+      <aside class="notes">
+        Why is half a dose insufficient? K M T two D encodes a histone methyltransferase — an enzyme that adds methyl groups to histones, the proteins DNA wraps around. Those methyl marks act like a dimmer switch on gene expression during development. The catch is that chromatin enzymes are exquisitely dose-sensitive. Cut the enzyme in half and gene expression patterns drift just enough that the developing face, heart, and brain take wrong turns. The result is the constellation of features we call Kabuki syndrome — distinctive facial features, skeletal differences, congenital heart defects, intellectual disability.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>De novo dominance</h2>
+      <ul>
+        <li><strong>7 of 9</strong> initial mutations were <strong>de novo</strong></li>
+        <li>Brand new in the child · neither parent affected</li>
+        <li>The other 2 inherited from an <strong>affected parent</strong></li>
+        <li>Both patterns: classic <strong>autosomal dominant</strong></li>
+      </ul>
+      <aside class="notes">
+        And here is the inheritance pattern. Seven of the nine initial mutations were de novo — brand new mutations in the affected child, absent in both parents. The other two were inherited from an affected parent. Both scenarios fit autosomal dominant. De novo cases look sporadic — the family has no history. Inherited cases follow a textbook dominant pedigree, with affected parent passing to roughly half of children. The takeaway is that for severe dominant disorders that limit reproduction, most cases are de novo. Selection removes the inherited ones quickly.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · SCN2A
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>SCN2A<br>Same Gene · Opposite Phenotypes</h1>
+      <aside class="notes">
+        Now to the centerpiece of today's lecture. S C N two A. This gene encodes a sodium channel called Na V one point two, which neurons use to fire action potentials. Mutations in S C N two A can cause autism, infantile seizures, or severe epileptic encephalopathy — and which disease you get depends on whether the channel ends up doing too little or too much. It is one of the cleanest demonstrations in human genetics that the same gene can cause opposite diseases through opposite mechanisms.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <div class="cue">The puzzle</div>
+      <h1 style="font-size:2.1em; line-height:1.1; margin-top:0.2em;">
+        Loss of function → <span style="color:var(--terracotta-deep)">autism</span>.<br>
+        Gain of function → <span style="color:var(--terracotta-deep)">epilepsy</span>.<br>
+        <span style="font-size:0.7em; color:var(--ink-soft);">Same gene. Opposite outcomes.</span>
+      </h1>
+      <aside class="notes">
+        Here is the puzzle in one slide. If you break a sodium channel — loss of function — neurons fire less, and the patient develops autism spectrum disorder. If you make the same sodium channel hyperactive — gain of function — neurons fire too much, and the patient develops infantile seizures or epileptic encephalopathy. Same gene. Opposite cellular outcomes. Opposite clinical phenotypes. The reason this is so important pedagogically is that it tells you the disease comes not from the gene being touched, but from how it is touched. Genetics is mechanism, not just gene name.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>Three diseases · one channel</h2>
+      <table>
+        <thead><tr><th>Disease</th><th>Mutation type</th><th>Channel function</th><th>De novo?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ASD</strong> · autism</td><td>52% PTV · 48% missense</td><td><strong>Loss</strong> of function</td><td>Mostly de novo</td></tr>
+          <tr><td><strong>BIFS</strong> · benign seizures</td><td>~96% missense</td><td><strong>Gain</strong> of function</td><td>Often inherited</td></tr>
+          <tr><td><strong>EE</strong> · severe epilepsy</td><td>~95% missense</td><td><strong>Strong gain</strong></td><td>Mostly de novo</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.85em; color:var(--ink-soft);">
+        Ben-Shalom et al. 2017, <em>Biological Psychiatry</em>
+      </p>
+      <aside class="notes">
+        Here is the breakdown across three S C N two A diseases. In autism, about half the mutations are P T Vs and half missense, and almost all are de novo. In benign infantile familial seizures — B I F S — almost all are missense, and they are often inherited from a parent who also had seizures as an infant and outgrew them. In epileptic encephalopathy — E E — also almost all missense, and mostly de novo because the disease is so severe that affected individuals rarely reproduce. So the genetics already differs by disease. The functional consequence differs even more.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Where the variants sit on NaV1.2</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter10_benshalom_fig1.jpg" alt="SCN2A variants mapped onto NaV1.2 channel structure">
+        <figcaption>
+          <strong>Figure 1.</strong> ASD variants (PTVs in blue, missense in red) cluster in the <strong>pore loop</strong> · BIFS (yellow) and EE (green) cluster in the <strong>voltage sensor</strong>. Same gene, different anatomy, different disease. Source: Ben-Shalom et al. 2017, <em>Biological Psychiatry</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Look at where the variants sit on the channel. Na V one point two has four repeated domains, each with six transmembrane segments. The autism variants — P T Vs in blue, missense in red — cluster around the pore loop, the part that selects which ions pass through. The seizure variants — yellow for B I F S, green for E E — cluster in the voltage-sensing segments, the parts that control whether the channel opens. So the mutations target structurally different machinery within the same protein. Pore loop hits reduce conduction. Voltage sensor hits change the gating. Different anatomy gives you different diseases.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Functional consequence · two arrows</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter10_benshalom_fig2.jpg" alt="Schematic of opposite NaV1.2 functional changes in ASD vs seizures">
+        <figcaption>
+          <strong>Figure 2.</strong> Top — ASD: PTVs and loss-of-function missense <strong>reduce</strong> sodium current. Bottom — BIFS/EE: gain-of-function missense <strong>increase</strong> current. Opposite directions, opposite phenotypes. Source: Ben-Shalom et al. 2017, <em>Biological Psychiatry</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the functional consequence in cartoon form. Top panel — autism variants. P T Vs eliminate one allele's contribution. Loss-of-function missense variants in the pore loop produce a channel that does not conduct sodium properly or never reaches the membrane. Either way, sodium current is reduced. Neurons fire less readily during development. The result is autism. Bottom panel — seizure variants. Gain-of-function missense in the voltage sensor produces a channel that opens too easily or stays open too long. Sodium current increases. Neurons fire too much. The result is seizures. Two arrows, two diseases.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Why both are still <em>dominant</em></h2>
+      <ul>
+        <li>ASD: P T Vs cause <strong>haploinsufficiency</strong></li>
+        <li>ASD missense: <strong>loss of function</strong> · channel is broken</li>
+        <li>Seizures: <strong>gain of function</strong> · mutant channel hyperactive</li>
+        <li>In every case · <strong>one allele determines</strong> the phenotype</li>
+      </ul>
+      <aside class="notes">
+        Why are all of these dominant — why is one mutant copy enough? In autism caused by P T Vs, you lose half your sodium channels. The remaining half cannot keep neurons firing at the right level during a critical developmental window. In autism caused by loss-of-function missense, the mutant protein is at the membrane but does not work. In seizures, the mutant channel is hyperactive — it adds pathological current that the normal channels cannot mute, because they cannot subtract from the mutant's contribution. Three different mechanisms, but all dominant — one allele determines the clinical picture in every case.
+      </aside>
+    </section>
+
+    <!-- Slide 26b · SCN2A developmental timing flip -->
+    <section>
+      <h2>Why the timing flips</h2>
+      <div class="cols">
+        <div>
+          <h3>Early life · seizure window</h3>
+          <ul>
+            <li><strong>Na<sub>V</sub>1.2</strong> dominant in axon initial segment (AIS)</li>
+            <li>Gain-of-function → hyperexcitability</li>
+            <li>Infantile-onset seizures (BIFS, EE)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Mature brain · ASD window</h3>
+          <ul>
+            <li><strong>Na<sub>V</sub>1.6</strong> takes over the AIS</li>
+            <li>Na<sub>V</sub>1.2 retreats to <strong>dendrites</strong></li>
+            <li>Loss-of-function → reduced dendritic excitability → ASD</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.7em; color:var(--ink-soft);">
+        Same channel · different developmental window · opposite phenotypes · Ben-Shalom et al. 2017, <em>Biological Psychiatry</em>.
+      </p>
+      <aside class="notes">
+        Now the deepest insight from the S C N two A story, and the question every careful student asks: why does one mutation hit the brain in infancy and the other manifest later as autism? The answer is developmental. In early life, Na sub V one point two is the dominant sodium channel at the axon initial segment — the spot where neurons fire action potentials. So early-life gain-of-function in S C N two A directly cranks up firing, and you get infantile seizures. As the brain matures, a different channel called Na sub V one point six takes over the axon initial segment, and Na sub V one point two retreats to the dendrites, where its job is to support dendritic excitability. Now a loss-of-function variant matters in a different way — it weakens dendritic computation, which contributes to autism phenotypes that emerge later in development. Same gene, same patient could carry either variant — but because Na sub V one point two does different jobs at different times, gain causes seizures early and loss causes A S D later. This is the Ben-Shalom twenty seventeen developmental model, and it is one of the most elegant examples in human genetics of why developmental timing has to be in your causal model.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <div class="cue">The lesson</div>
+      <h1 style="font-size:2em; line-height:1.1; margin-top:0.2em;">
+        Genetics is <span style="color:var(--terracotta-deep)">mechanism</span>,<br>
+        not just <span style="color:var(--terracotta-deep)">gene name</span>.
+      </h1>
+      <aside class="notes">
+        Here is the takeaway from the S C N two A story, and it is one of the most important ideas in this entire course. When a clinician hears that a patient has an S C N two A mutation, that information by itself is not enough to predict the disease. You need to know what kind of mutation, where it sits, and what it does to the channel. Genetics is mechanism, not just gene name. The same gene can cause autism or epilepsy depending on the molecular consequence of the variant. As sequencing becomes routine, this kind of mechanism-aware interpretation is what separates genuine clinical genetics from gene-list medicine.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · CONGENITAL HEART DISEASE
+         ==================================================== -->
+
+    <!-- Slide 28 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Congenital Heart Disease<br>60 Dominant Genes</h1>
+      <aside class="notes">
+        Third worked example. Congenital heart disease — structural heart defects present at birth — is one of the most common birth defects, affecting about one percent of newborns. It is also genetically diverse. A recent study of more than eleven thousand patients identified sixty different genes where rare dominant variants significantly increase risk. Three of those genes nicely illustrate three different mechanisms.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>The scale of the study</h2>
+      <ul>
+        <li><strong>11,555</strong> people with congenital heart disease</li>
+        <li>WES + targeted sequencing on <strong>248</strong> candidate genes</li>
+        <li>Allele frequency filter: <strong>&lt; 10⁻⁵</strong></li>
+        <li>Result: <strong>60</strong> genes with significant burden</li>
+      </ul>
+      <p style="margin-top:0.4em; font-size:0.85em; color:var(--ink-soft);">
+        Sierant et al. 2025, <em>PNAS</em>
+      </p>
+      <aside class="notes">
+        Look at the scale. Eleven thousand five hundred and fifty-five patients with congenital heart disease, sequenced through W E S and targeted panels covering two hundred forty-eight candidate genes. After filtering for rare damaging variants, the team identified sixty genes with statistically significant excess of rare variants in cases versus controls. About ten percent of all CHD cases were explained by mutations in this gene set — a major step forward for diagnosis. About half the variants were de novo, half inherited.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Three mechanisms · three genes</h2>
+      <table>
+        <thead><tr><th>Gene</th><th>Mutation type</th><th>Mechanism</th><th>Beyond heart?</th></tr></thead>
+        <tbody>
+          <tr><td><em>KMT2D</em></td><td>PTV</td><td><strong>Haploinsufficiency</strong></td><td>Often NDD</td></tr>
+          <tr><td><em>NOTCH1</em></td><td>Missense (Cys)</td><td><strong>Dominant-negative</strong></td><td>Sometimes</td></tr>
+          <tr><td><em>MYH6</em></td><td>Missense</td><td><strong>Altered function</strong></td><td>Rarely (~4%)</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.95em;">
+        Three genes, three mechanisms — all <strong>dominant</strong>.
+      </p>
+      <aside class="notes">
+        Three of the sixty genes nicely illustrate three different mechanisms. K M T two D — yes, the same Kabuki gene — causes CHD through haploinsufficiency, the same mechanism we just saw. N O T C H one is hit by missense mutations that change cysteine residues in the EGF-like extracellular domains. Those cysteines form disulfide bridges, so changing them produces a misfolded protein that gums up the N O T C H signaling complex — dominant-negative. M Y H six encodes cardiac myosin and is hit by missense mutations that alter the motor protein's contractile function. The mechanism is mixed — could be gain of function, could be dominant-negative — but the result is altered cardiac muscle.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>Heart only · or heart plus brain?</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter10_sierant_fig3.jpg" alt="CHD genes and risk of neurodevelopmental disorder">
+        <figcaption>
+          <strong>Figure 3.</strong> NDD risk varies wildly by gene. <em>MYH6</em> ~4% (heart-only). <em>CHD7</em> ~95% (syndromic). <em>NOTCH1</em>, <em>KMT2D</em> in between. Same dominance, different organ scope. Source: Sierant et al. 2025, <em>PNAS</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is something the figure shows beautifully. Even though all sixty genes act dominantly, they differ in what other organs they hit. M Y H six is essentially heart-only — about four percent of patients have neurodevelopmental disorder. C H D seven is at the other extreme — about ninety-five percent of patients have neurodevelopmental disorder along with the heart defect. N O T C H one and K M T two D fall in between. The reason is simple: which tissues need a particular gene during development. Cardiac myosin is heart-specific. C H D seven encodes a chromatin remodeler used everywhere. K M T two D similarly hits the brain because chromatin regulation is universally needed. Same dominance, different organ scope.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · NON-CODING DOMINANCE
+         ==================================================== -->
+
+    <!-- Slide 32 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Non-Coding Dominance<br>RNU4-2 and the Spliceosome</h1>
+      <aside class="notes">
+        Fourth and final worked example, and a striking one. Everything we have seen so far has involved protein-coding genes. But what about variants that sit outside of protein-coding regions? A landmark twenty-twenty-five paper showed that rare variants in small nuclear RNA genes — non-coding RNAs that build the spliceosome — cause a previously unrecognized neurodevelopmental syndrome called ReNU. This is dominance at the RNA level, with no protein involved.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Why WES would have missed it</h2>
+      <ul>
+        <li><em>RNU4-2</em> = <strong>non-coding</strong> RNA gene</li>
+        <li>Builds the <strong>spliceosome</strong> · cuts and pastes pre-mRNA</li>
+        <li>WES skips it · need <strong>genome sequencing</strong></li>
+        <li>23,649 people · <strong>145</strong> with pathogenic variants</li>
+      </ul>
+      <p style="margin-top:0.4em; font-size:0.85em; color:var(--ink-soft);">
+        Nava et al. 2025, <em>Nature Genetics</em>
+      </p>
+      <aside class="notes">
+        Here is why this story took until twenty twenty-five to break. R N U four dash two is a non-coding gene — it does not encode a protein. Instead, it produces a small nuclear RNA, a U four snRNA, which is part of the spliceosome — the molecular machine that cuts introns out of pre-messenger RNA. Whole exome sequencing only covers the protein-coding regions, so it skips this gene entirely. The team had to use full genome sequencing across twenty-three thousand six hundred and forty-nine people with rare disorders, and they found one hundred forty-five cases with pathogenic R N U four dash two variants. A hidden major cause of neurodevelopmental disease, sitting outside of where W E S looks.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Variants concentrate in functional regions</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter10_nava_extfig1.png" alt="RNU4-2 variants mapped on U4 snRNA secondary structure">
+        <figcaption>
+          <strong>Extended Data Figure 1.</strong> Pathogenic variants cluster in <strong>stem III</strong> and the <strong>T-loop / quasi-pseudoknot</strong> — regions that contact U6 in the spliceosome. The recurrent insertion <code>n.64_65insT</code> hits 78% of cases. Source: Nava et al. 2025, <em>Nature Genetics</em>.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Look at where the variants sit on the U four snRNA secondary structure. They are not random. They cluster in stem three and in the T-loop slash quasi-pseudoknot region — exactly the parts of U four that contact U six in the assembled spliceosome. One specific insertion — n dot sixty-four underscore sixty-five ins T — accounts for about seventy-eight percent of all cases. That is a hot spot. So the pattern is the same as we saw with S C N two A: pathogenic variants concentrate in functionally critical regions. The chemistry is just RNA folding instead of protein folding.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>How does it dominate?</h2>
+      <ul>
+        <li>Mutant snRNA is <strong>incorporated</strong> into spliceosomes</li>
+        <li>Defective spliceosome <strong>misreads splice sites</strong></li>
+        <li>Global <strong>mis-splicing</strong> across the transcriptome</li>
+        <li>Dominant-negative · at the <strong>RNA level</strong></li>
+      </ul>
+      <aside class="notes">
+        How does one mutant copy cause disease in this case? The cell still makes plenty of normal U four snRNA from the good allele. But the mutant snRNA is also incorporated into spliceosomes, and once incorporated, it disrupts the U four-U six interaction needed to recognize splice sites correctly. The result is mis-splicing across the transcriptome — thousands of genes producing wrong messenger RNAs. R N A sequencing in patient cells confirms widespread splicing errors, particularly at five-prime splice sites. This is dominant-negative at the RNA level. The mutant disrupts the complex even in the presence of normal partner.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Dominance · not always at proteins</h2>
+      <blockquote style="font-size:1.05em;">
+        Variants outside protein-coding regions<br>
+        can still dominate.<br>
+        WES alone is <strong>not enough</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>~5% of severe NDD cases come from <em>RNU4-2</em> alone</li>
+        <li>Genome sequencing reveals what WES <strong>misses</strong></li>
+      </ul>
+      <aside class="notes">
+        The bigger lesson from R N U four dash two — dominance is not always at the protein level. Variants in non-coding RNA genes, regulatory elements, and splice sites can all act dominantly. R N U four dash two alone explains roughly five percent of severe neurodevelopmental disorders that were previously unsolved. That is enormous for a single gene. And it is a strong reason why the field is shifting from W E S to whole genome sequencing for diagnostic workup. W E S finds what is in the protein-coding part. Genome sequencing finds what is everywhere else.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · CENTRAL DOGMA PATH
+         ==================================================== -->
+
+    <!-- Slide 37 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>From Variant to<br>Phenotype</h1>
+      <aside class="notes">
+        Let's connect everything back to a single thread. Each of these dominant disorders works by a single mutant allele propagating through the central dogma — DNA to RNA to protein to cellular function to tissue function to organism phenotype. The mechanism — haploinsufficiency, gain of function, or dominant-negative — determines where in this chain the disruption lands.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>Four cascades · one logic</h2>
+      <div class="formula" style="font-size:0.85em; line-height:1.5;">
+        <strong>Kabuki:</strong> <em>KMT2D</em> PTV → truncated enzyme → low histone methylation → wrong gene expression → developmental defects<br><br>
+        <strong>SCN2A-ASD:</strong> PTV → fewer Na<sup>+</sup> channels → low neuronal firing → ASD<br><br>
+        <strong>SCN2A-EE:</strong> missense → hyperactive channel → high firing → seizures<br><br>
+        <strong>ReNU:</strong> <em>RNU4-2</em> indel → defective snRNA → mis-splicing → brain dysfunction
+      </div>
+      <aside class="notes">
+        Here are the four cascades laid out side by side. Each one starts at DNA, runs through the central dogma, and ends in a phenotype. In Kabuki, a P T V in K M T two D produces truncated histone methyltransferase, low histone methylation, wrong gene expression, developmental defects. In S C N two A autism, a P T V means fewer sodium channels, less neuronal firing, autism. In S C N two A epilepsy, a missense produces a hyperactive channel, too much firing, seizures. In ReNU, an insertion in R N U four dash two produces defective snRNA, mis-spliced messenger RNAs, brain dysfunction. Same skeleton — variant to phenotype — different mechanism at each level.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>Why dominance persists despite selection</h2>
+      <ul>
+        <li><strong>De novo</strong> mutation rate replenishes the pool</li>
+        <li><strong>Late-onset</strong> diseases evade reproductive selection</li>
+        <li><strong>Variable penetrance</strong> — not everyone is affected</li>
+        <li>Variable <strong>expressivity</strong> — same variant, different severity</li>
+      </ul>
+      <aside class="notes">
+        One last conceptual question. If dominant disease alleles cause severe disease and reduce reproduction, why have they not been selected out of the population? Three answers. First, de novo mutations constantly replenish the pool — every generation, new mutations appear. Second, some dominant disorders are late onset — Huntington's disease, for example, typically appears after reproductive age, so selection cannot easily remove the allele. Third, variable penetrance and expressivity — not everyone with the variant is affected, and those who are can range from mild to severe. So mutation-selection balance lets dominant disease alleles persist at low but stable frequencies.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 8 · CLASSIC DOMINANT DISORDERS
+         ==================================================== -->
+
+    <!-- Slide 40 -->
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Classic Dominant<br>Disorders</h1>
+      <aside class="notes">
+        Before we wrap up, three classic teaching examples that you will encounter in every textbook. They are the canonical demonstrations of the three mechanisms we covered earlier — gain of function, dominant-negative, and haploinsufficiency — applied to disorders that have been studied for decades. Then a fourth example that ties together late-onset dominance and selection.
+      </aside>
+    </section>
+
+    <!-- Slide 41 · Huntington's disease -->
+    <section>
+      <h2>Huntington's disease · the late-onset paradigm</h2>
+      <div class="cols">
+        <div>
+          <h3>Genetics</h3>
+          <ul>
+            <li>Gene: <strong><em>HTT</em></strong> · chromosome 4p</li>
+            <li><strong>CAG</strong> trinucleotide repeat expansion</li>
+            <li>Normal: &lt; 26 · Pathogenic: <strong>&gt; 36</strong></li>
+            <li>Anticipation — repeats grow across generations</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Mechanism</h3>
+          <ul>
+            <li><strong>Toxic gain of function</strong></li>
+            <li>Mutant huntingtin protein <strong>aggregates</strong></li>
+            <li>Striatal neuron death</li>
+            <li>Progressive movement + cognitive decline</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em; font-size:0.95em;">
+        Onset typically <strong>after age 40</strong> · past reproduction · selection cannot easily purge.
+      </blockquote>
+      <aside class="notes">
+        Huntington's disease is the canonical late-onset autosomal dominant disorder. The gene is huntingtin, H T T, on chromosome four. The mutation is unusual — not a single-letter change, but an expansion of a C A G trinucleotide repeat in the first exon. Normal alleles have fewer than twenty-six repeats. Pathogenic alleles have more than thirty-six. Once the repeat is over the threshold, every additional repeat moves onset earlier — that is the phenomenon called anticipation, and it happens because trinucleotide repeats are unstable during meiosis and tend to expand further across generations. The mechanism is toxic gain of function. The mutant huntingtin protein, once translated, misfolds and aggregates into toxic inclusions that selectively kill striatal neurons. Patients develop the characteristic chorea, cognitive decline, and psychiatric symptoms. Crucially for this lecture: typical onset is after age forty, well after most people have had children. So natural selection cannot efficiently remove the allele — the mutation passes on before its effects show up. Mutation-selection balance permits H T T expansions to persist at meaningful frequencies in human populations.
+      </aside>
+    </section>
+
+    <!-- Slide 42 · Achondroplasia, Marfan, NF1 -->
+    <section>
+      <h2>Three classic disorders · three mechanisms</h2>
+      <table>
+        <thead>
+          <tr><th>Disorder</th><th>Gene</th><th>Variant</th><th>Mechanism</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Achondroplasia</strong><br><em>(short-limbed dwarfism)</em></td>
+            <td><em>FGFR3</em></td>
+            <td><strong>p.Gly380Arg</strong> · activating</td>
+            <td><strong>Gain of function</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Marfan syndrome</strong><br><em>(connective tissue)</em></td>
+            <td><em>FBN1</em></td>
+            <td>Missense in fibrillin-1</td>
+            <td><strong>Dominant-negative</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Neurofibromatosis 1</strong><br><em>(tumor predisposition)</em></td>
+            <td><em>NF1</em></td>
+            <td>PTVs / loss-of-function</td>
+            <td><strong>Haploinsufficiency</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.95em;">
+        Same dominance pattern · <strong>three different molecular logics</strong>.
+      </p>
+      <aside class="notes">
+        Three classic dominant disorders that you have probably encountered in lectures or textbooks, lined up to show that all three of our mechanisms are represented. Achondroplasia is the most common form of short-limbed dwarfism. The gene is F G F R three, fibroblast growth factor receptor three. Almost every patient carries the same activating mutation — glycine three hundred eighty arginine — that constitutively switches the receptor on, suppressing the bone growth plate. That is gain of function. Marfan syndrome causes long limbs, aortic aneurysm, lens dislocation. The gene is F B N one, fibrillin-1, a major structural protein in connective tissue. Marfan mutations are mostly missense changes in fibrillin-1 that produce a defective protein, which then poisons the assembly of normal fibrillin-1 into microfibrils. That is the textbook example of a dominant-negative mechanism — the mutant subunit ruins the polymer. The downstream consequence is dysregulated T G F-beta signaling, which gives Marfan its tissue phenotypes. Neurofibromatosis type one features cafe-au-lait spots, neurofibromas, and a tumor predisposition. The gene is N F one, encoding neurofibromin, a Ras-G T P-ase activating protein. Loss-of-function variants are dominant because one functional copy is not enough to keep Ras signaling under control — that is haploinsufficiency, in a tumor-suppressor context. So three disorders, all dominant, but with three completely different molecular logics underneath. Memorize this triad — it is the cleanest single-slide demonstration of why "dominant" by itself does not tell you mechanism.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 9 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 43 -->
+    <section class="section-divider">
+      <div class="section-num">§ 9</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Pulling the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Dominant = <strong>one mutant copy is enough</strong> in a heterozygote</li>
+        <li>Three mechanisms: <strong>haploinsufficiency · gain · dominant-negative</strong></li>
+        <li>Mutation type predicts mechanism: <strong>PTV vs missense</strong></li>
+        <li><em>SCN2A</em>: same gene · loss → ASD · gain → seizures</li>
+        <li>Dominance is not always at proteins · <em>RNU4-2</em> dominates at <strong>RNA</strong></li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One — dominant in medical genetics means a single mutant copy in a heterozygote is sufficient to cause disease. Two — there are three principal mechanisms: haploinsufficiency, gain of function, and dominant-negative. Memorize them and know how to distinguish them. Three — mutation type tends to predict mechanism. P T Vs cause haploinsufficiency. Missense variants can cause any of the three depending on where they hit. Four — S C N two A is the canonical example that the same gene can cause opposite diseases through opposite mechanisms. Loss of function gives autism. Gain of function gives seizures. Five — dominance is not always at the protein level. R N U four dash two shows that non-coding RNA genes can act dominantly through mis-splicing. Hold those five points and you have the chapter.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        When one functional copy<br>
+        isn't <span style="color:var(--terracotta-deep);">enough</span>.
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 11 · <strong>Haploinsufficiency in Detail</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. We have seen that haploinsufficiency is one of three mechanisms, and probably the most common one for severe pediatric disease. But why are some genes haploinsufficient and not others? Why does losing half the dose of K M T two D cause Kabuki, while losing half the dose of most genes causes nothing detectable? What is special about the dose-sensitive subset of the genome? That is Chapter eleven. We will zoom in on haploinsufficiency, look at how to predict which genes are dose-sensitive from sequence alone, and meet the metric called L O E U F that has reshaped clinical variant interpretation. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

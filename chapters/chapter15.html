@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 15 · Polygenic Model in Traits — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Polygenic Model<br>in Traits</h1>
+      <div class="chapter-num">Chapter 15 · Part III · Complex Traits</div>
+      <aside class="notes">
+        Welcome to Chapter fifteen of BSMS two oh five Genetics. Last chapter we saw how individual alleles can add up — each one nudging a trait by a tiny amount. Today we zoom out and ask the big question: what happens when thousands of those tiny nudges combine? The answer turns Mendel's discrete categories into the smooth bell curves we actually measure for height, weight, blood pressure, and disease risk. We will use the largest study of human traits ever done — the U K Biobank with three hundred sixty thousand people — to see why most traits are polygenic, why dominance is rare, and how we measure each kind of effect.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        If alleles <span style="color:var(--terracotta-deep)">add up</span>,<br>
+        what does adding<br>thousands look like?
+      </h1>
+      <aside class="notes">
+        Hold this question in your head for the rest of the lecture. Last chapter we treated additive alleles one at a time — the B allele adds half a centimeter, simple. But your height is not the result of one variant. It is the result of thousands. So what shape does a sum of thousands of tiny independent nudges actually take? The answer, which we will derive today, is a bell curve. And once you see why, you understand why almost every human trait we measure looks Gaussian.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Mendel's peas vs your height</h2>
+      <figure>
+        <img src="../assets/figures/textbook/pea_vs_height.png" alt="Mendel's discrete pea trait vs continuous human height">
+        <figcaption>
+          <strong>Figure.</strong> Mendel's peas: <em>two</em> discrete categories (tall / short). Human height: a smooth continuum from short to tall. Same biology — but very different number of contributing genes.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Look at the contrast. On the left, Mendel's pea plants — tall or short, two discrete bins, no in-between. On the right, human height in a real population — a smooth continuum where almost no two adults are exactly the same. Both are inherited. Both follow the same molecular rules. So why do they look so different? The difference is the number of genes involved. Mendel happened to study traits controlled by a single gene with two alleles. Human height is controlled by thousands. Once you understand that one fact, the bell curve falls out automatically.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>The reconciliation</h2>
+      <div class="cols">
+        <div>
+          <h3>Mendel · 1866</h3>
+          <ul>
+            <li>Discrete · 3:1 ratios</li>
+            <li><strong>One gene</strong>, two alleles</li>
+            <li>Peas, flowers, mice</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Galton · 1889</h3>
+          <ul>
+            <li>Continuous · bell curves</li>
+            <li>Height, intelligence</li>
+            <li>Looked <em>non</em>-Mendelian</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em;">
+        Fisher 1918 · Mendel + many genes = Galton.
+      </blockquote>
+      <aside class="notes">
+        For decades after eighteen sixty-six, Mendel's peas and Galton's bell curves looked like two incompatible kinds of inheritance. Mendelians fought biometricians. Then in nineteen eighteen Ronald Fisher wrote a paper showing they were the same thing. If you take Mendel's law of segregation and apply it to many genes simultaneously, the discrete categories blur into a smooth continuum. The bell curve is what Mendelian inheritance looks like when you stop tracking one gene and start summing thousands. That insight is the foundation of modern quantitative genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <div class="cue">The scale of the question</div>
+      <div class="bignum">361,194</div>
+      <div class="bignum-label">people · 1,060 traits · 13.7 M variants</div>
+      <ul>
+        <li>The <strong>UK Biobank</strong> · largest genetic resource on earth</li>
+        <li>Physical · biomarkers · diseases · behaviors</li>
+        <li>Tested both <strong>additive</strong> and <strong>dominance</strong> effects</li>
+      </ul>
+      <aside class="notes">
+        How do we actually know most traits are polygenic? Not by reasoning, but by measurement at unprecedented scale. The U K Biobank holds genetic and health data for over half a million British adults. The Palmer twenty twenty-one study analyzed three hundred sixty-one thousand of them across more than a thousand traits — height, B M I, cholesterol, disease risk, behavioral measures. They tested almost fourteen million genetic variants. That is enough statistical power to detect the architecture of trait variation directly. We will spend most of today walking through what they found.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Why Mendel's ratios disappear in real traits</li>
+        <li>The polygenic intuition · summing many small effects</li>
+        <li>Simulation · 1, 5, 50, 1000 loci</li>
+        <li>Measuring additive effects · the 0-1-2 code</li>
+        <li>Measuring dominance · the orthogonal trick</li>
+        <li>UK Biobank results · what is real, what is rare</li>
+        <li>Polygenic scores &amp; the omnigenic preview</li>
+      </ol>
+      <aside class="notes">
+        Here is the path for the next sixty minutes. First we revisit why simple Mendelian ratios vanish for traits like height. Second we build the polygenic intuition — what does adding many small effects actually do mathematically. Third we run a simulation in our heads, one locus, five loci, fifty, a thousand — and watch the bell curve emerge. Fourth we walk through how additive effects are measured. Fifth, the harder part — how to separate dominance from additivity using orthogonal encoding. Sixth, we look at the U K Biobank's actual numbers. And seventh, we preview polygenic scores and the omnigenic model that connects to chapter sixteen.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHY TRAITS DON'T LOOK MENDELIAN
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Why Most Traits<br>Don't Follow Mendel</h1>
+      <aside class="notes">
+        Let's start with a puzzle. Mendel's laws are unbreakable — they apply to every gene in your body. So why don't we see clean three-to-one ratios when we measure things like height or blood pressure? The answer is not that Mendel was wrong. The answer is that real traits are sums of many Mendelian genes acting at once.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>One gene, three genotypes, three values</h2>
+      <ul>
+        <li><strong>AA</strong> → 170 cm · baseline</li>
+        <li><strong>AB</strong> → 170.5 cm · one B allele</li>
+        <li><strong>BB</strong> → 171 cm · two B alleles</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Each B allele adds <strong>0.5 cm</strong>.<br>
+        Stacking blocks · same height per block.
+      </blockquote>
+      <aside class="notes">
+        Recall how additive alleles work from last chapter. Take a single variant with alleles A and B. You inherit one copy from each parent — so you can be A A, A B, or B B. With purely additive effects, each B allele adds the same amount. A A is your baseline at one seventy. A B is one seventy and a half. B B is one seventy-one. The pattern is zero, one-half, one — perfectly linear in the count of B alleles. The mental image is stacking blocks of equal height.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>One gene · the histogram</h2>
+      <ul>
+        <li>If allele B has frequency <strong>p = 0.5</strong>, genotypes follow <strong>1 : 2 : 1</strong></li>
+        <li>The trait histogram has <strong>3 bars</strong></li>
+        <li>That is what Mendel saw in peas</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        With <strong>one gene</strong>, the trait distribution looks discrete.
+      </blockquote>
+      <aside class="notes">
+        Now imagine sampling a thousand people for a trait controlled by just this one gene. If the B allele has frequency one half, Hardy-Weinberg tells you twenty-five percent will be A A, fifty percent A B, twenty-five percent B B. So your histogram has just three bars at three trait values. That is exactly what Mendel saw with pea plants — a small number of discrete categories. If real human height were controlled by one gene, we would see three or four height bars and we would all be one of a few sizes. Clearly that is not the world we live in.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <div class="cue">The leap</div>
+      <h1 style="font-size:2.2em; line-height:1.1;">
+        What if the trait depends on<br>
+        <span style="color:var(--terracotta-deep);">two</span> genes? <span style="color:var(--ink-soft);">Five?</span> <span style="color:var(--terracotta-deep);">Fifty?</span>
+      </h1>
+      <aside class="notes">
+        Here is the leap. Real traits are not controlled by one gene. So let's ask the obvious question — what happens to that three-bar histogram when we add a second gene? Then a fifth? A fiftieth? A thousandth? The shape of the answer is what makes quantitative genetics work. And it is the cleanest example of an emergent statistical property in all of biology.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE POLYGENIC INTUITION
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>From Many Small Effects<br>to a Bell Curve</h1>
+      <aside class="notes">
+        We are now going to build, step by step, the intuition for why summing many independent Mendelian genes produces a Gaussian distribution. This is the heart of the polygenic model. Once you see why, every quantitative-trait result you read in the rest of your career will make immediate sense.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Two loci · 9 genotype combinations</h2>
+      <ul>
+        <li>Locus 1: AA, AB, BB · adds 0, 0.5, 1 cm</li>
+        <li>Locus 2: CC, CD, DD · adds 0, 0.5, 1 cm</li>
+        <li><strong>3 × 3 = 9</strong> joint genotypes</li>
+        <li>Trait values cluster into <strong>5 bins</strong>: 0, 0.5, 1, 1.5, 2 cm</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Already a <em>peak in the middle</em>.
+      </blockquote>
+      <aside class="notes">
+        Add just one more gene. Now we have nine joint genotype combinations — but several of them give the same trait value. A A C D and A B C C both give half a centimeter of extra height. So nine combinations collapse into five distinct trait bins. And crucially, the middle bins have more genotype combinations supporting them than the extreme bins. Already with two loci you see a peak in the middle and tails on the sides. The bell curve is starting to emerge from pure combinatorics.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Five loci · the shape begins</h2>
+      <ul>
+        <li>5 loci, each with 0/1/2 effect alleles</li>
+        <li>Possible totals: <strong>0 to 10</strong> effect alleles</li>
+        <li>Number of ways to make each total → <strong>binomial</strong></li>
+        <li>Histogram already <strong>peaks in the middle</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Most people are <em>average-ish</em>.<br>
+        Few are extreme.
+      </blockquote>
+      <aside class="notes">
+        Push it to five loci. Now your effect-allele count can be anywhere from zero to ten. The number of ways to land on a total of five is the binomial coefficient ten-choose-five — much bigger than the number of ways to land on zero or ten. Most people end up near the middle of the count distribution because that is where most of the combinatorial mass lives. The histogram is starting to look like a bell. The biology is unchanged — every gene still follows Mendel — but the distribution we observe at the population level is now smooth.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Why the bell curve · central limit</h2>
+      <div class="formula">
+        Trait = effect&#8321; + effect&#8322; + effect&#8323; + ... + effect<sub>N</sub>
+      </div>
+      <ul style="margin-top:0.6em;">
+        <li>Each term is a small <strong>random</strong> contribution</li>
+        <li><strong>Central limit theorem</strong>: sum of many independent variables → <strong>Gaussian</strong></li>
+        <li>The shape is <em>independent</em> of what each gene does individually</li>
+      </ul>
+      <aside class="notes">
+        Here is the math behind the intuition. The trait is the sum of many small genetic contributions plus environmental noise. Each contribution is essentially a random variable — random because of which alleles you happened to inherit. The central limit theorem, one of the most important results in all of statistics, says that whenever you add up many independent random contributions of similar size, the total distribution converges to a Gaussian — a bell curve. The shape is universal. It does not matter what each gene specifically does. As long as the effects are many, small, and independent, the sum is Gaussian.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>1 → 5 → 50 → ∞ loci</h2>
+      <table>
+        <thead><tr><th>Loci</th><th>Distinct trait values</th><th>Shape</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>3</td><td>Three bars</td></tr>
+          <tr><td>2</td><td>5</td><td>Slight peak</td></tr>
+          <tr><td>5</td><td>11</td><td>Visible bell</td></tr>
+          <tr><td>50</td><td>101</td><td>Smooth Gaussian</td></tr>
+          <tr><td><strong>~10,000</strong></td><td>Continuous</td><td><strong>Real height</strong></td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Watch the table. With one locus, three bars. With two, five bins and a hint of a peak. Five loci, eleven bins and a clear bell. Fifty loci, one hundred and one bins and what looks like a smooth Gaussian. And once you reach the thousands of loci that actually contribute to human height, the distribution is continuous for all practical purposes. That is the polygenic model in one slide. Mendel never disappeared — he was just multiplied by ten thousand.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <div class="cue">A worked example</div>
+      <h1 style="font-size:2em; line-height:1.1;">
+        Height is the sum of<br>
+        ~<span style="color:var(--terracotta-deep);">10,000</span> tiny pushes.
+      </h1>
+      <aside class="notes">
+        To make this concrete: the latest GWAS for human height — Yengo and colleagues twenty twenty-two, using over five million people — identified roughly twelve thousand independent genetic variants associated with height. Each one nudges height by less than a millimeter. None of them is dominant or remarkable on its own. Your adult height is essentially a giant sum of ten thousand small genetic dice rolls plus environmental nutrition and health. The bell curve we see in the population is the inevitable shape of that sum.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · MEASURING ADDITIVITY
+         ==================================================== -->
+
+    <!-- Slide 17 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Measuring<br>Additive Effects</h1>
+      <aside class="notes">
+        We have built the conceptual model. Now let's get practical. How do we actually measure, for a given variant, whether its effect is additive? The procedure is surprisingly simple — and once you see it, you will recognize it in every G W A S paper you read.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>The 0-1-2 code</h2>
+      <div class="formula">
+        AA = 0 &nbsp;·&nbsp; AB = 1 &nbsp;·&nbsp; BB = 2
+      </div>
+      <ul style="margin-top:0.6em;">
+        <li>Just <strong>count B alleles</strong></li>
+        <li>Regress the trait on this count</li>
+        <li>Slope = <strong>additive effect</strong> per allele</li>
+      </ul>
+      <aside class="notes">
+        Here is the trick. Take a variant. For every person, encode their genotype as the number of B alleles they carry — zero, one, or two. Now plot trait value against this count and fit a straight line. The slope of that line is the additive effect of one B allele. If the slope is half a centimeter, then each B allele adds half a centimeter on average. That is the additive coefficient — exactly what we mean by "additive effect size." This procedure is run for every one of the millions of variants tested in a G W A S.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>What additive looks like</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Palmer2021-bioRxiv-Fig1.jpg" alt="Three modes of allelic effects: additive, dominance, overdominance">
+        <figcaption>
+          <strong>Figure.</strong> Three modes of allelic effects. <strong>Panel A · additive</strong>: trait increases linearly with allele count (0 → 1 → 2). <strong>Panel B · dominance</strong>: heterozygote (AB) deviates from the line. <strong>Panel C · overdominance</strong>: heterozygote is more extreme than either homozygote. Blue = additive variance, red = dominance variance — most loci are mostly blue. <em>Source: Palmer et al. 2021, bioRxiv.</em>
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here are the three possible shapes for any single variant. Panel A is pure additivity — the trait increases in a perfectly straight line as you go from zero to one to two B alleles. Panel B is dominance — the heterozygote is shifted off the line, closer to one of the homozygotes. Panel C is overdominance — the heterozygote is actually more extreme than either homozygote. The blue and red bars indicate how much variance comes from the additive component versus the dominance component. The empirical headline from Palmer's paper is that for almost every locus, the bars are mostly blue. Reality is overwhelmingly additive.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>Why the slope is the answer</h2>
+      <ul>
+        <li>If trait <em>really is</em> linear in allele count → slope captures all of it</li>
+        <li>If <em>not</em>, the residuals tell us about dominance</li>
+        <li>For ~700 of 1,060 UK Biobank traits → <strong>linear fits well</strong></li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        For most traits, the slope is the whole story.
+      </blockquote>
+      <aside class="notes">
+        Why does this work? Because if the underlying biology is truly additive, then a straight line through the three genotype means captures everything. The slope is the answer. Anything left over — the way the heterozygote sits relative to that line — is a hint of dominance. And the empirical result is that for most traits, the line fits beautifully and there is almost nothing left over. About seven hundred of the ten sixty traits show clean additive heritability. The polygenic model is not just a nice story — it is what the data actually look like.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · MEASURING DOMINANCE
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Measuring<br>Dominance — the Tricky Part</h1>
+      <aside class="notes">
+        Dominance is harder. Not because it is rare — though it is — but because it is statistically tangled up with additivity. We need a clever encoding to pull them apart. Once we do, the data tell a clear story.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>What dominance means</h2>
+      <ul>
+        <li><strong>Complete dominance</strong>: AB looks like BB</li>
+        <li>Pattern: AA = 0, AB = 1, BB = 1</li>
+        <li>One copy of B is <em>enough</em></li>
+        <li>Examples: <strong>FGFR3</strong> (achondroplasia) · <strong>FBN1</strong> (Marfan)</li>
+      </ul>
+      <aside class="notes">
+        Recall what dominance means. With complete dominance, having one B allele is enough — the heterozygote A B looks just like the B B homozygote. The pattern of trait values is zero, one, one rather than the additive zero, one, two. Classic disease examples are F G F R three causing achondroplasia and F B N one causing Marfan syndrome. One mutated copy is sufficient to produce the phenotype. This is exactly the pattern Mendel saw with the dominant pea allele for purple flowers — but in human populations it turns out to be the exception, not the rule.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>The confounding problem</h2>
+      <div class="cols">
+        <div>
+          <h3>Additive</h3>
+          <ul>
+            <li>0 — 1 — 2</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Dominant</h3>
+          <ul>
+            <li>0 — 1 — 1</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em;">
+        At <strong>AB</strong> alone they look the same.<br>
+        We need a way to <em>separate</em> them.
+      </blockquote>
+      <aside class="notes">
+        Here is the problem. The additive pattern is zero, one, two. The complete-dominance pattern is zero, one, one. At the heterozygote — A B — both patterns predict a trait value of one. So if you only knew one A B individual, you could not tell whether the variant was additive or dominant. The patterns disagree only at B B. To formally separate the additive and dominance components in a regression, the encoding has to be smarter than the naive approach. That is where orthogonalization enters.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>The orthogonal encoding</h2>
+      <table>
+        <thead><tr><th>Genotype</th><th>Additive code</th><th>Dominance code</th></tr></thead>
+        <tbody>
+          <tr><td>AA</td><td>0</td><td>0</td></tr>
+          <tr><td>AB</td><td>1</td><td><strong>1</strong></td></tr>
+          <tr><td>BB</td><td>2</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Dominance code <strong>0–1–0</strong> = "is heterozygote special?"</p>
+      <aside class="notes">
+        Here is the trick. Use two separate codes. The additive code is the familiar zero-one-two. The dominance code is zero-one-zero — it equals one only for heterozygotes. Now fit both as predictors at once. The additive coefficient absorbs the linear trend. The dominance coefficient asks whether being a heterozygote gives you something extra that the linear trend cannot explain. Because zero-one-zero is mathematically orthogonal — independent — of zero-one-two after centering, the two coefficients estimate non-overlapping pieces of the variance. This is the d-L D S C method.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Orthogonal · the equalizer analogy</h2>
+      <div class="cols">
+        <div>
+          <h3>Volume slider</h3>
+          <ul>
+            <li>= <strong>additive</strong> effect</li>
+            <li>Smooth, predictable</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Bass boost</h3>
+          <ul>
+            <li>= <strong>dominance</strong> effect</li>
+            <li>Heterozygote bonus</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em;">
+        Set <em>independent</em> sliders → measure each cleanly.
+      </blockquote>
+      <aside class="notes">
+        If the math feels abstract, here is the analogy from the textbook. Imagine an equalizer with two controls. The volume slider is the additive effect — turn it up and everything gets louder, smoothly and predictably. The bass boost is the dominance effect — it adds something special that volume alone cannot reproduce. If both knobs moved together you could not tell them apart. By engineering the controls so they are orthogonal — they affect non-overlapping aspects of the sound — you can turn each one independently and measure its effect cleanly. That is exactly what the dominance L D S C encoding does for genetics.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · WHAT THE DATA SAY
+         ==================================================== -->
+
+    <!-- Slide 26 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>What the<br>UK Biobank Showed</h1>
+      <aside class="notes">
+        With the methods in hand, let's look at the actual numbers. The Palmer twenty twenty-one study ran the additive plus dominance regression across all thirteen point seven million variants and all one thousand sixty traits. The result is the cleanest statement we have yet of the genetic architecture of human traits.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>The headline result</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.4em;">700</div>
+          <div class="bignum-label">of 1,060 traits<br>show additive heritability</div>
+        </div>
+        <div>
+          <div class="bignum" style="font-size:3.4em; color:var(--ink-soft);">183</div>
+          <div class="bignum-label">loci<br>with detectable dominance</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">Dominance explains only ~<strong>0.5%</strong> of additive variance.</p>
+      <aside class="notes">
+        Here are the headline numbers. Roughly seven hundred out of ten sixty traits — about two-thirds — show measurable additive heritability. Only one hundred and eighty-three genomic loci across the entire genome and all traits combined show statistically detectable dominance. And even where dominance is real, it accounts for only about half of one percent of the additive variance. Dominance exists. Dominance matters in specific cases. But dominance is not what shapes most human variation. Additive effects do almost all the work.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>The Manhattan picture</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Palmer2021-bioRxiv-Fig2.jpg" alt="Genome-wide additive vs dominance hits across chromosomes">
+        <figcaption>
+          <strong>Figure.</strong> Genome-wide associations. <strong>Bottom (pink):</strong> additive effects — densely packed across all chromosomes. <strong>Top (green):</strong> dominance effects — sparse, only 183 loci. Notable dominance hits labelled (<strong>MC1R</strong>, <strong>APOE</strong>, etc). <em>Source: Palmer et al. 2021, bioRxiv.</em>
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        This is the picture that captures the result. It is a Manhattan-style plot. The bottom panel, in pink, shows additive associations across all chromosomes. It is densely populated — thousands of significant signals everywhere. The top panel, in green, shows dominance associations. It is sparse — you can almost count the dots. M C one R, the gene affecting hair color, is one of the most prominent. A P O E, affecting Alzheimer's risk, is another. But compare the two panels and the contrast is unmistakable. The genome is paved with additive signals. Dominance is the rare exception.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>A few real dominance hits</h2>
+      <table>
+        <thead><tr><th>Gene</th><th>Trait</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MC1R</strong></td><td>Red hair · skin pigment</td><td>One copy shifts hair colour</td></tr>
+          <tr><td><strong>APOE</strong></td><td>Alzheimer's risk · LDL</td><td>ε4 allele · partial dominance</td></tr>
+          <tr><td><strong>FGFR3</strong></td><td>Achondroplasia (height)</td><td>Single mutation → dwarfism</td></tr>
+          <tr><td><strong>FBN1</strong></td><td>Marfan syndrome</td><td>Single mutation → tall, thin</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        A few real examples to make this tangible. M C one R variants — one copy is enough to give noticeable red hair tones. A P O E epsilon four — one copy substantially raises Alzheimer's risk and L D L cholesterol, two copies more so but not in a strictly additive way. F G F R three — a single dominant mutation causes achondroplasia, the most common form of dwarfism. F B N one — one bad copy causes Marfan syndrome. These examples are real and clinically important. But notice the pattern — they are mostly disease loci of large effect, not the typical machinery driving normal variation in normal traits.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Why dominance is rare</h2>
+      <ul>
+        <li><strong>Additive effects accumulate</strong> — small × thousands = large</li>
+        <li>Dominance needs a <strong>specific architecture</strong> at one locus</li>
+        <li><strong>Selection</strong> removes harmful dominant alleles fast</li>
+        <li>The exceptions: <strong>new mutations</strong> · <strong>late onset</strong></li>
+      </ul>
+      <aside class="notes">
+        Why is dominance so rare? Three reasons. First, additive effects compound — even tiny effects, multiplied across thousands of loci, can shape an entire trait. You do not need any single locus to be special. Second, dominance requires the heterozygote to deviate from the additive line, which is a specific and unusual genetic architecture. Third, evolution. Strongly dominant deleterious alleles are visible to selection in heterozygotes, so they get purged quickly. The dominant disease alleles that survive are usually new mutations that arise fresh each generation, like F G F R three, or late-onset alleles that act after reproduction, like the Huntington's disease allele.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · POLYGENIC SCORES
+         ==================================================== -->
+
+    <!-- Slide 31 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Polygenic Scores<br>· Adding It All Up</h1>
+      <aside class="notes">
+        If a trait is the sum of thousands of small additive effects, then in principle we can predict an individual's trait from their genotype by adding up those effects. That is the polygenic score, or P G S — the most direct application of the polygenic model in modern genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>Building a polygenic score</h2>
+      <div class="formula">
+        PGS = &Sigma;<sub>i</sub> ( &beta;<sub>i</sub> &times; dosage<sub>i</sub> )
+      </div>
+      <ul style="margin-top:0.6em;">
+        <li>For each variant <em>i</em>: <strong>effect size</strong> &beta;<sub>i</sub> from GWAS</li>
+        <li>Times the person's <strong>dosage</strong> (0, 1, or 2)</li>
+        <li>Sum across <strong>millions</strong> of variants</li>
+      </ul>
+      <aside class="notes">
+        The formula is exactly what the polygenic model predicts. For each variant in the genome, take the additive effect size beta from a G W A S — the slope we just discussed. Multiply by that person's dosage, zero one or two. Sum across all variants. The total is the polygenic score. It is literally the predicted contribution of common genetic variation to the trait. Modern P G S sums over millions of variants, even ones that did not individually reach genome-wide significance, because at the polygenic limit even tiny effects collectively contribute.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>What a PGS can and cannot do</h2>
+      <div class="cols">
+        <div>
+          <h3>Can</h3>
+          <ul>
+            <li>Rank <strong>relative</strong> risk</li>
+            <li>Identify high-risk tails</li>
+            <li>Improve disease screening</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Cannot</h3>
+          <ul>
+            <li>Determine an individual's <strong>fate</strong></li>
+            <li>Transfer cleanly across <strong>ancestries</strong></li>
+            <li>Capture <strong>environment</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two things to keep clear. P G S can rank people in relative risk — identify, for instance, the top one percent for cardiovascular risk. That is genuinely useful for screening. What P G S cannot do is determine an individual's fate, because most variance in most traits still comes from non-genetic sources. Two big caveats. P G S transfer poorly across ancestries — most G W A S have used European cohorts, so scores work less well in other populations. And P G S captures only common-variant additive effects — environment, rare variants, gene-environment interactions, and dominance are missing.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Where polygenicity is extreme</h2>
+      <table>
+        <thead><tr><th>Trait</th><th>~Variants</th><th>Per-variant effect</th></tr></thead>
+        <tbody>
+          <tr><td>Height</td><td><strong>~12,000</strong></td><td>&lt; 1 mm each</td></tr>
+          <tr><td>BMI</td><td>~3,000</td><td>Tiny</td></tr>
+          <tr><td>Schizophrenia</td><td>~270 loci · thousands of variants</td><td>OR ~1.05</td></tr>
+          <tr><td>Educational attainment</td><td>~3,900</td><td>Days of schooling</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Effects are <strong>tiny</strong>. Counts are <strong>huge</strong>.</p>
+      <aside class="notes">
+        Some examples to anchor the scale. Height — about twelve thousand variants, each contributing under a millimeter. B M I — three thousand variants. Schizophrenia — two hundred seventy genome-wide significant loci and thousands of additional sub-threshold contributors, with odds ratios near one point oh five for typical variants. Educational attainment — about three thousand nine hundred variants. The pattern is universal. Effects per variant are tiny. Counts of contributing variants are huge. That is the polygenic architecture, observed across very different traits.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Effect-size distribution</h2>
+      <ul>
+        <li><strong>Many</strong> variants with very small effects</li>
+        <li>A handful with moderate effects</li>
+        <li>Almost <em>none</em> with large effects (for common traits)</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        It is a <strong>long-tailed</strong> distribution.<br>
+        Mostly tail.
+      </blockquote>
+      <aside class="notes">
+        Look at the distribution of effect sizes across the genome. There is a long tail of variants with very small effects, a small number with moderate effects, and almost none with large effects for ordinary traits. The exceptions are the rare Mendelian disease alleles like F G F R three, but those are not what drives normal variation. For traits like height, B M I, or psychiatric risk, even the largest single effects explain at most a fraction of one percent of variance. The work is being done by the cumulative tail.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>The omnigenic preview</h2>
+      <blockquote style="font-size:1.05em;">
+        If thousands of variants matter,<br>
+        <strong>most genes</strong> may matter.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Boyle, Li &amp; Pritchard <strong>2017</strong> · "An Expanded View of Complex Traits"</li>
+        <li>Core genes + <strong>peripheral</strong> regulatory network</li>
+        <li>Almost any expressed gene → tiny push on most traits</li>
+      </ul>
+      <aside class="notes">
+        Here is where the polygenic story gets even more radical. In twenty seventeen, Boyle, Li, and Pritchard pointed out that if thousands of variants spread across the genome contribute to a trait, then most genes — not a special set of "trait genes" — are probably involved through dense regulatory networks. They called this the omnigenic model. There may be a small number of core genes whose biology is directly relevant, plus a vast peripheral network of expressed genes that each give a tiny nudge by way of regulation. We will revisit this idea next semester. For now, just hold the picture.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 37 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Most traits are <strong>polygenic</strong> — sum of thousands of small effects</li>
+        <li>Many small additive effects → <strong>Gaussian</strong> (central limit)</li>
+        <li>UK Biobank: ~<strong>700</strong> traits show additive heritability</li>
+        <li>Dominance is <strong>real but rare</strong> · ~0.5% of variance · 183 loci</li>
+        <li><strong>PGS</strong> = sum of GWAS effect sizes × dosages</li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One — most human traits are polygenic, shaped by thousands of additive variants, not a few large-effect genes. Two — the central limit theorem turns sums of many small effects into the bell curves we observe. Three — the U K Biobank confirms additive heritability for about seven hundred of one thousand sixty traits. Four — dominance exists but contributes only about half a percent of additive variance and is concentrated at fewer than two hundred loci. Five — polygenic scores are the direct application of the additive model — sum effect sizes weighted by dosages, get a predictor of relative risk.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        If traits are polygenic —<br>
+        how much is <span style="color:var(--terracotta-deep);">genes</span><br>
+        vs <span style="color:var(--terracotta-deep);">environment</span>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 16 · <strong>Heritability</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. We have established that traits are sums of many small genetic effects. But your final height, your B M I, your blood pressure — none of them are purely genetic. Nutrition, infections, stress, sleep, exercise — all matter too. So how do we partition the variance? How much of the bell curve is genes, how much is environment, and how do we measure it without controlled crosses? That is heritability — the topic of chapter sixteen. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

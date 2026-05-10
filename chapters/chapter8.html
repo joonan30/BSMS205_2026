@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 8 · Genetic Variants — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Genetic<br>Variants</h1>
+      <div class="chapter-num">Chapter 8 · Part II · Variation</div>
+      <aside class="notes">
+        Welcome to Chapter eight, and to Part Two of this course. Part One was about the human genome — the reference, how we built it, how we annotate it. Part Two is about variation — the differences. Today we ask the foundational question: what is a genetic variant? In Chapter seven we learned how to annotate millions of variants using databases like gnomAD and ClinVar. But what kinds of variants are there? How do they differ from each other? And why do some matter and most do not? That is the road map for the next sixty minutes.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        How is your DNA<br>different from <span style="color:var(--terracotta-deep)">mine</span>?
+      </h1>
+      <aside class="notes">
+        Here is the question I want you to hold today. You and I share roughly ninety-nine point nine percent of our DNA. But we are not identical. Where exactly are the differences? How big are they? What do they do? When Mendel crossed purple and white pea plants, he saw a difference but had no molecular handle on it. We do. The difference is a change in DNA sequence — a genetic variant. The whole field of human genetics now rotates around understanding what those variants are and what they mean.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>Where we left off · where we go now</h2>
+      <div class="cols">
+        <div>
+          <h3>Chapter 7</h3>
+          <ul>
+            <li>How we <strong>annotate</strong> variants</li>
+            <li>gnomAD · ClinVar · pLI</li>
+            <li>Frequency &amp; pathogenicity tags</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chapter 8</h3>
+          <ul>
+            <li>What <strong>kinds</strong> of variants exist</li>
+            <li>Size · location · effect · frequency</li>
+            <li>From <strong>millions to one</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Quick bridge from last week. Chapter seven was about annotation — given a variant, how do we look it up, score it, classify it using public databases like gnomAD and ClinVar. We learned tools, not types. Today we step back and ask: what are the actual categories of variant we are annotating? A single nucleotide change is very different from a one-megabase deletion. A synonymous variant in an exon is very different from a stop-gain. Chapter eight is the taxonomy chapter. By the end you will be able to look at any variant and place it on a four-axis grid: size, location, effect, frequency.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The reality of one human genome</div>
+      <div class="bignum">4–5,000,000</div>
+      <div class="bignum-label">variants per person · vs the reference</div>
+      <ul>
+        <li>One change every <strong>600–800 bases</strong></li>
+        <li>~<strong>500,000</strong> indels</li>
+        <li>~<strong>1,000–2,000</strong> structural variants</li>
+      </ul>
+      <aside class="notes">
+        Here is the headline number. When we sequence your genome, we don't get one neat string of letters — we get four to five million differences from the reference genome. That is one variant roughly every six to eight hundred bases. On top of those single-base changes, you carry about five hundred thousand small insertions and deletions, and one to two thousand large structural variants. This is not pathology. This is normal. Every healthy human carries millions of variants. The job of clinical genetics is to find the one or two — out of those millions — that actually cause a problem.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>What is a variant? · terminology</li>
+        <li>The classification framework · four axes</li>
+        <li>Variants by <strong>size</strong> · SNV · indel · SV</li>
+        <li>Variants by <strong>effect</strong> · the coding five</li>
+        <li>Non-coding variants · the harder 98%</li>
+        <li>From millions to one · the filtering funnel</li>
+        <li>Summary · what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how today will move. First, we nail down terminology — variant, mutation, polymorphism, S N P. People mix these up; you should not. Second, the classification framework — the four axes by which any variant can be described. Third, we walk through size, from single-base changes up to megabase rearrangements. Fourth, the coding consequences — the five flavors of protein change. Fifth, non-coding variants, which are harder and less understood. Sixth, we walk the filtering funnel that takes you from four million variants to one or two causal ones. Then we wrap up. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHAT IS A VARIANT
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>What Is<br>a Variant?</h1>
+      <aside class="notes">
+        Section one. The definition. Sounds trivial, but the words we use here matter — and they are used inconsistently across textbooks, papers, and clinics. Let's get it right.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>The definition</h2>
+      <blockquote style="font-size:1.05em;">
+        A <strong>genetic variant</strong> is a difference in DNA sequence<br>
+        between an individual's genome and the <strong>reference</strong>.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>Reference = an agreed-upon standard sequence</li>
+        <li>Variant = <strong>any</strong> deviation from it</li>
+        <li>Could be <strong>1 base</strong> · could be <strong>1 megabase</strong></li>
+      </ul>
+      <aside class="notes">
+        The textbook definition. A genetic variant is a difference in DNA sequence between an individual's genome and the reference genome. Two parts to that definition. First, you need a reference — an agreed standard sequence, currently G R C h thirty-eight or T two T C H M thirteen. Second, anything that deviates from that reference, in any way, at any size, is a variant. One base change is a variant. A million-base deletion is also a variant. The word does not commit to size, location, or effect. It is the most neutral term we have.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>One base, one variant — visualized</h2>
+      <figure>
+        <img src="../assets/figures/textbook/figure-8-1-genetic-variant.png" alt="Reference genome compared to individual genome with a single G to T change">
+        <figcaption>
+          <strong>Figure 1.</strong> Reference vs individual genome. A single G→T change at one position is one variant. Every human carries 4–5 million such differences.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture. Top row, the reference genome — the standard. Bottom row, your DNA. At one position, the reference has a G, your DNA has a T. That single-letter difference is one variant. Now multiply that picture by four to five million, and you have one human genome. Most of those variants are inherited from your parents. A handful are new — what we call de novo variants — and they arose during sperm or egg formation. We will return to where variants come from in chapter nine. For today, just hold the image: variant equals deviation from reference.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>Variant · mutation · polymorphism · SNP</h2>
+      <table>
+        <thead><tr><th>Term</th><th>Meaning</th><th>Connotation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Variant</strong></td><td>Any DNA difference</td><td>Neutral — default</td></tr>
+          <tr><td><strong>Mutation</strong></td><td>DNA change, often rare</td><td>Implies disease</td></tr>
+          <tr><td><strong>Polymorphism</strong></td><td>Common variant (&gt;1%)</td><td>Usually benign</td></tr>
+          <tr><td><strong>SNP</strong></td><td>Single Nucleotide Polymorphism</td><td>"snip" · common, single base</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Now the terminology table. These four words get used interchangeably in the literature, which is a mess. Here is the practical guide. Variant — the neutral default. Always safe. Mutation — DNA change, with an implicit hint that it is rare or disease-causing. Polymorphism — a common variant, by convention more than one percent allele frequency in the population, usually benign. S N P, pronounced "snip" — a single nucleotide polymorphism, which is just a common single-base variant. In modern genetics we mostly say variant and let the frequency tag tell us if it is rare or common.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>Examples — same word, different meaning</h2>
+      <ul>
+        <li><strong>"CFTR mutation"</strong> · rare disease change · cystic fibrosis</li>
+        <li><strong>"ABO polymorphism"</strong> · common blood-type variation</li>
+        <li><strong>"Novel variant"</strong> · newly seen · significance unknown</li>
+        <li><strong>"SNP rs334"</strong> · the sickle-cell variant in HBB</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        In this course we say <strong>variant</strong> by default.
+      </blockquote>
+      <aside class="notes">
+        Four worked examples. When you read "C F T R mutation" in a paper, the writer means a rare, disease-causing change in the cystic fibrosis gene. When you read "A B O polymorphism," the writer means common variation underlying blood types — totally benign. "Novel variant" — newly observed, no one knows yet what it does. And "S N P r s three three four" — that is the actual database identifier for the sickle-cell variant in the H B B gene, a single-base change that is also disease-causing despite being called a polymorphism. The terms are slippery. In this course we default to variant.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE CLASSIFICATION FRAMEWORK
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Four Axes<br>of Classification</h1>
+      <aside class="notes">
+        Section two. Now that we have the definition, how do we organize the four million variants in your genome into something tractable? The answer is a four-axis classification framework. Every variant can be described by all four axes simultaneously.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Four perspectives on one variant</h2>
+      <figure>
+        <img src="../assets/figures/textbook/figure-8-2-classification-framework.png" alt="Four-axis classification framework: size, location, effect, frequency">
+        <figcaption>
+          <strong>Figure 2.</strong> Every variant lives on four axes: by <strong>size</strong>, by <strong>location</strong>, by <strong>effect</strong>, by <strong>frequency</strong>. The same variant can be described by all four at once.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the framework picture. Four axes. Size — is it one base, ten bases, ten thousand bases? Location — is it in a coding region, a regulatory region, deep in an intron? Effect — does it change a protein, break splicing, alter expression? Frequency — is it common in the population or rare? The same variant can be described from all four perspectives at once. A single variant might be: small in size, coding in location, missense in effect, and rare in frequency. That four-tuple is its full classification.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>The four axes — at a glance</h2>
+      <table>
+        <thead><tr><th>Axis</th><th>Categories</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Size</strong></td><td>SNV · indel · SV</td><td>Drives detection method</td></tr>
+          <tr><td><strong>Location</strong></td><td>Coding · regulatory · intronic</td><td>Drives interpretability</td></tr>
+          <tr><td><strong>Effect</strong></td><td>LoF · missense · synonymous</td><td>Drives pathogenicity</td></tr>
+          <tr><td><strong>Frequency</strong></td><td>Common · rare</td><td>Drives clinical filtering</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the same framework as a table. Size determines which sequencing technology can even see the variant — short reads are great for single bases, terrible for large rearrangements. Location determines whether we can interpret the variant at all — coding variants are easier than non-coding by a wide margin. Effect predicts pathogenicity — a stop-gain in a critical gene is much more likely to cause disease than a synonymous change. Frequency is the first filter in clinical practice — anything common is unlikely to cause severe disease, because natural selection would have removed it. Four axes, four jobs.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <div class="cue">Worked example</div>
+      <h2>One variant · four labels</h2>
+      <ul>
+        <li><strong>Size:</strong> 1 base — SNV</li>
+        <li><strong>Location:</strong> coding exon of HBB</li>
+        <li><strong>Effect:</strong> missense (Glu→Val)</li>
+        <li><strong>Frequency:</strong> common in West Africa, rare globally</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        That is the <strong>sickle-cell variant</strong> · rs334.
+      </blockquote>
+      <aside class="notes">
+        Worked example to make this concrete. Take the most famous variant in human genetics — the sickle-cell variant. By size, it is a single nucleotide variant, an S N V — one base. By location, it sits in a coding exon of the H B B gene, the beta-globin gene. By effect, it is a missense — it changes glutamate to valine at amino acid position six. By frequency, it is common in West African populations because of malaria resistance, but rare globally. One variant, four descriptors. This is how variant interpretation works in practice — you tag every axis, then synthesize.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · BY SIZE
+         ==================================================== -->
+
+    <!-- Slide 15 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>Variants<br>by Size</h1>
+      <aside class="notes">
+        Section three. We start with size — the most concrete axis. Variants come in three size classes that differ by orders of magnitude, and each class needs different technology to detect.
+      </aside>
+    </section>
+
+    <!-- Slide 16 -->
+    <section>
+      <h2>Three size classes</h2>
+      <figure>
+        <img src="../assets/figures/textbook/variant-type.png" alt="Variant types by size: SNV, indel, structural variant">
+        <figcaption>
+          <strong>Figure 3.</strong> SNVs (1 bp), indels (1–50 bp), structural variants (&gt;50 bp). Three size classes spanning six orders of magnitude.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the size axis in one picture. At the smallest scale, S N Vs — single nucleotide variants, exactly one base. In the middle, indels — small insertions or deletions, typically one to fifty bases. At the largest scale, structural variants — fifty bases up to whole-chromosome events. The same biological process — DNA damage and repair — produces all three, but the consequences and the detection methods differ enormously. We will walk through each class.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>SNVs · single base changes</h2>
+      <pre><code class="hljs">Reference: ...ATGCGATCG...
+Your DNA:  ...ATGC<span style="color:var(--terracotta-deep);font-weight:bold;">T</span>ATCG...
+                  ↑
+                G→T</code></pre>
+      <ul>
+        <li>~<strong>4–5 million</strong> per genome</li>
+        <li>One every <strong>600–800 bases</strong></li>
+        <li>The "bread and butter" of variant calling</li>
+        <li>Easiest to detect with WGS or WES</li>
+      </ul>
+      <aside class="notes">
+        S N Vs. Single nucleotide variants. One base differs from the reference. In the example, the reference has a G, your D N A has a T. That is it — a one-character change. There are about four to five million of these in every healthy human genome, roughly one every six to eight hundred bases. They are the easiest variants to detect — both whole-genome and whole-exome sequencing handle them well. Most of what gets called when you run a variant caller is S N Vs. They are the bread and butter of genomics.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Indels · insertions and deletions</h2>
+      <pre><code class="hljs">Reference:  ...ATGCGATCG...
+Deletion:   ...ATG---TCG...    (CGA deleted, 3 bp)
+Insertion:  ...ATGCAAAGATCG... (AAA inserted, 3 bp)</code></pre>
+      <ul>
+        <li>Typically <strong>1–50 bp</strong></li>
+        <li>~<strong>400,000–500,000</strong> per genome</li>
+        <li>Slightly harder to call than SNVs</li>
+        <li>Especially tricky in <strong>repetitive regions</strong></li>
+      </ul>
+      <aside class="notes">
+        Indels. Short for insertions and deletions. A deletion removes some bases — in the example, three bases C G A are gone. An insertion adds bases — three A's are stuck in. The size range is one to about fifty bases, and you have around four hundred to five hundred thousand indels in your genome. They are slightly harder to call than S N Vs, especially in repetitive regions where the variant caller cannot tell exactly where the indel starts and ends. We will see in a moment that the most important property of an indel — for protein consequences — is whether its length is divisible by three.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>Structural variants · the big stuff</h2>
+      <ul>
+        <li><strong>&gt;50 bp</strong> · often <strong>&gt;1 kb</strong></li>
+        <li><strong>Deletions</strong> — can remove whole genes</li>
+        <li><strong>Duplications</strong> — extra copies</li>
+        <li><strong>Inversions</strong> — segment flipped</li>
+        <li><strong>Translocations</strong> — moved between chromosomes</li>
+        <li><strong>CNVs</strong> — copy number variation</li>
+      </ul>
+      <aside class="notes">
+        Structural variants. Anything larger than fifty bases, often larger than a kilobase, sometimes spanning entire chromosomes. Five flavors. Deletions remove a chunk — and if that chunk includes a gene, you have effectively knocked out that gene. Duplications add an extra copy of a region. Inversions flip a segment around. Translocations move a segment to a different chromosome — these are famously involved in cancers like C M L. And copy number variants, C N Vs, are deletions or duplications of medium-to-large size. Each type has its own clinical signature.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>SVs are rare in count, huge in impact</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3em;">~1,500</div>
+          <div class="bignum-label">SVs per person</div>
+        </div>
+        <div>
+          <ul>
+            <li>Only ~1,500 events</li>
+            <li>But affect <strong>more total bases</strong> than all SNVs combined</li>
+            <li>One large deletion = millions of changed bases</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is the surprising statistic. A typical human genome has only about one thousand to two thousand structural variants — much fewer than the four to five million S N Vs. But because each S V can span thousands or millions of bases, the total amount of D N A affected by S Vs is actually larger than the total affected by all S N Vs combined. So in terms of raw genomic real estate, S Vs dominate. They are also disproportionately important in disease — a single S V can knock out an entire gene at once.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>Detection — different sizes need different tech</h2>
+      <table>
+        <thead><tr><th>Technology</th><th>SNV</th><th>Indel</th><th>SV</th></tr></thead>
+        <tbody>
+          <tr><td>Short-read WGS (Illumina)</td><td>Excellent</td><td>Good</td><td><strong>Limited</strong></td></tr>
+          <tr><td>Short-read WES</td><td>Excellent (in exons)</td><td>Good (in exons)</td><td><strong>Very poor</strong></td></tr>
+          <tr><td>Long-read WGS (PacBio/Nanopore)</td><td>Good</td><td>Excellent</td><td><strong>Excellent</strong></td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Detection summary. Short-read sequencing — Illumina, the workhorse — is excellent for S N Vs, good for small indels, and surprisingly poor for structural variants because short reads cannot span large rearrangements. Whole-exome sequencing is even worse for S Vs because the capture process requires intact D N A across the targeted region. Long-read sequencing — PacBio or Nanopore — is the new champion for structural variants, because a single read can be tens of thousands of bases long and span the breakpoints. If you suspect a structural cause and short-read sequencing is negative, long-read is your next move.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · CODING CONSEQUENCES
+         ==================================================== -->
+
+    <!-- Slide 22 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Coding<br>Consequences</h1>
+      <aside class="notes">
+        Section four. Now we turn to effect — specifically, what happens when a variant lands in the protein-coding portion of a gene. There are five main types of coding variant, and the differences between them drive most of clinical genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>The 98 / 2 rule</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:3.5em;">2%</div>
+          <div class="bignum-label">coding · interpretable</div>
+        </div>
+        <div>
+          <div class="bignum" style="font-size:3.5em; color:var(--terracotta);">98%</div>
+          <div class="bignum-label">non-coding · harder</div>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">Most known disease variants live in the <strong>2%</strong>.</p>
+      <aside class="notes">
+        Before we walk the five coding types, one orientation slide. Only about two percent of the human genome is protein-coding. The other ninety-eight percent is non-coding — regulatory, repetitive, intronic. But here is the asymmetry: the vast majority of known disease-causing variants sit in that two percent. Why? Because coding variants change a protein in a way we can predict — change amino acid X to amino acid Y. Non-coding variants change gene regulation in ways that are subtle, tissue-specific, and much harder to read. So we focus on coding first because we understand it best.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>The genetic code reads in 3-base codons</h2>
+      <pre><code class="hljs">DNA:     ATG  CAT  GCA  TTG  AAA
+              ↓    ↓    ↓    ↓    ↓
+Protein: Met  His  Ala  Leu  Lys</code></pre>
+      <ul>
+        <li>Each codon = <strong>3 bases</strong> = <strong>1 amino acid</strong></li>
+        <li>The code is <strong>redundant</strong> — many codons per amino acid</li>
+        <li>Reading frame matters · shift it and everything changes</li>
+      </ul>
+      <aside class="notes">
+        Quick refresher on the genetic code, because every coding variant type depends on it. D N A is read in three-base units called codons. Each codon specifies one amino acid. The first codon, A T G, is methionine — the start codon. C A T is histidine, G C A is alanine, and so on. The code is redundant — there are sixty-four possible codons but only twenty amino acids, so multiple codons code for the same amino acid. That redundancy is why some variants change a base but not the protein. And because the code is read in three-base units, anything that disrupts the reading frame scrambles everything downstream. Hold those two facts.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>The five coding variant types</h2>
+      <table>
+        <thead><tr><th>Type</th><th>DNA change</th><th>Protein effect</th><th>Pathogenicity</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Synonymous</strong></td><td>GAA→GA<strong>G</strong></td><td>Glu→Glu (same)</td><td>Usually benign</td></tr>
+          <tr><td><strong>Missense</strong></td><td>GAA→G<strong>C</strong>A</td><td>Glu→Ala</td><td>Variable</td></tr>
+          <tr><td><strong>Nonsense</strong></td><td>CAG→<strong>T</strong>AG</td><td>Gln→<strong>STOP</strong></td><td>Almost always harmful</td></tr>
+          <tr><td><strong>Frameshift</strong></td><td>1 or 2 bp indel</td><td>Scrambled downstream</td><td>Almost always harmful</td></tr>
+          <tr><td><strong>In-frame indel</strong></td><td>3, 6, 9 bp</td><td>±1 amino acid</td><td>Variable</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        The five coding types in one table. Synonymous — the D N A changes but the amino acid does not, thanks to codon redundancy. Usually benign. Missense — the D N A changes and the amino acid changes too. Effect depends on which amino acid replaces which. Nonsense — the change introduces a premature stop codon, truncating the protein. Almost always harmful. Frameshift — a one or two base indel shifts the reading frame and scrambles every codon downstream. Almost always harmful. In-frame indel — three, six, or nine bases inserted or deleted, adding or removing whole amino acids while preserving the frame. Variable. Memorize this table — we walk through each type next.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>Synonymous · the silent ones</h2>
+      <pre><code class="hljs">Reference: GAA  →  Glu (glutamate)
+Variant:   GA<span style="color:var(--terracotta-deep);font-weight:bold;">G</span>  →  Glu (glutamate) — same amino acid</code></pre>
+      <ul>
+        <li>~<strong>25%</strong> of coding changes</li>
+        <li>Codon redundancy makes them silent at the protein level</li>
+        <li>Usually <strong>benign</strong></li>
+        <li>But — can affect <strong>splicing</strong> or <strong>translation efficiency</strong></li>
+      </ul>
+      <aside class="notes">
+        Synonymous variants. The D N A changes — G A A becomes G A G — but both codons code for the same amino acid, glutamate. So the protein is identical. About a quarter of all coding changes are synonymous, thanks to the redundancy of the genetic code. The default assumption is that these are benign. But — and this is a recent discovery — synonymous variants can still matter. They can disrupt splicing if they sit near an exon boundary. They can change translation efficiency by altering codon usage. So while ninety-five percent of synonymous variants are benign, a small minority do cause disease. Modern variant interpretation does not give them a free pass anymore.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Missense · the gray zone</h2>
+      <pre><code class="hljs">Reference: GAA  →  Glu (glutamate, charged)
+Variant:   G<span style="color:var(--terracotta-deep);font-weight:bold;">C</span>A  →  Ala (alanine, hydrophobic)</code></pre>
+      <ul>
+        <li>One amino acid → a different one</li>
+        <li>Effect depends on <strong>which</strong> AA, <strong>where</strong> in protein</li>
+        <li><strong>Conservative</strong> (similar AAs) → often benign</li>
+        <li><strong>Radical</strong> (charged ↔ hydrophobic) → often harmful</li>
+        <li>Most <strong>VUS</strong> are missense</li>
+      </ul>
+      <aside class="notes">
+        Missense variants. The D N A changes and the amino acid changes too. In the example, glutamate — a negatively charged amino acid — becomes alanine, which is small and hydrophobic. That is a radical change in chemistry, and it might break the protein. But missense effects are notoriously hard to predict. A conservative substitution — say, leucine for isoleucine, both small and hydrophobic — usually does nothing. A radical substitution at a critical site can be devastating. Location in the protein matters too — a change in the active site is much more serious than in a loop. This is why most variants of uncertain significance, the dreaded V U S, are missense variants.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Nonsense · the truncators</h2>
+      <pre><code class="hljs">Reference: CAG  →  Gln (glutamine)
+Variant:   <span style="color:var(--terracotta-deep);font-weight:bold;">T</span>AG  →  <span style="color:var(--terracotta-deep);font-weight:bold;">STOP</span></code></pre>
+      <ul>
+        <li>Premature stop codon → <strong>truncated protein</strong></li>
+        <li>Often degraded by <strong>nonsense-mediated decay</strong> (NMD)</li>
+        <li>Effectively a <strong>knockout</strong> of one allele</li>
+        <li>Almost always pathogenic</li>
+      </ul>
+      <aside class="notes">
+        Nonsense variants. Sometimes called stop-gain. The D N A change converts a normal codon into a stop codon. C A G, glutamine, becomes T A G, stop. The ribosome stops translating early, and you get a truncated protein. Usually that truncated m R N A is recognized as defective and destroyed by a quality control system called nonsense-mediated decay, or N M D. So in practice, a nonsense variant in the early part of a gene functions as a knockout — that allele produces no protein. Nonsense variants are almost always pathogenic when they occur in essential genes. They are the cleanest signal in clinical genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Frameshift vs in-frame · the divisible-by-3 rule</h2>
+      <figure>
+        <img src="../assets/figures/textbook/figure-8-4-frameshift-vs-inframe.png" alt="Frameshift vs in-frame indel comparison showing reading frame consequences">
+        <figcaption>
+          <strong>Figure 4.</strong> Left: 1-bp deletion shifts the reading frame — wrong amino acids and an early stop. Right: 3-bp deletion preserves the frame — one amino acid removed, the rest intact.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the most important figure in the chapter. The difference between frameshift and in-frame indels comes down to one question: is the indel length divisible by three? On the left, a one-base deletion. The reading frame shifts. From the deletion onward, every codon is misread, you get random wrong amino acids, and usually within a hundred or so bases you hit a premature stop. Result: truncated, non-functional protein. On the right, a three-base deletion. The reading frame is preserved. You lose exactly one amino acid, and every other codon downstream reads correctly. Result: a slightly shorter but mostly functional protein. The single property — divisible by three or not — determines whether the variant is catastrophic or mild.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Frameshift example · 1 bp deletion</h2>
+      <pre><code class="hljs">Normal:      ATG | CAT | GCA | TTG | AAA
+             Met - His - Ala - Leu - Lys
+
+Frameshift:  ATG | CA_ | GCA | TTG | AAA   ← 1 bp deleted
+re-read as:  ATG | CAG | CAT | TGA | AA...
+             Met - Gln - His - <span style="color:var(--terracotta-deep);font-weight:bold;">STOP</span></code></pre>
+      <ul>
+        <li>Wrong amino acids from the deletion onward</li>
+        <li>Usually a <strong>premature stop</strong> within ~100 bp</li>
+        <li>Functionally a <strong>knockout</strong></li>
+      </ul>
+      <aside class="notes">
+        Walking through the frameshift example slowly. The normal D N A is read as A T G, C A T, G C A, T T G, A A A — methionine, histidine, alanine, leucine, lysine. Now delete one base from the second codon. The reading frame slides over. The same letters are now grouped differently — A T G, C A G, C A T, T G A — and T G A is a stop codon. So instead of histidine-alanine-leucine-lysine, you get glutamine-histidine-stop. Wrong amino acids, and an early stop. The protein is truncated, often subjected to nonsense-mediated decay, and that allele is functionally a knockout. Almost always pathogenic.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>In-frame example · 3 bp deletion</h2>
+      <pre><code class="hljs">Normal:      ATG | CAT | GCA | TTG | AAA
+             Met - His - Ala - Leu - Lys
+
+In-frame:    ATG | CAT | ___ | TTG | AAA   ← 3 bp deleted
+             ATG | CAT | TTG | AAA
+             Met - His - Leu - Lys ← one AA missing</code></pre>
+      <ul>
+        <li>Frame preserved · downstream reads correctly</li>
+        <li>Just <strong>one amino acid removed</strong></li>
+        <li>Often <strong>partially functional</strong></li>
+        <li>Example: <strong>EGFR</strong> in-frame del → hyperactive in lung cancer</li>
+      </ul>
+      <aside class="notes">
+        And here is the in-frame case. Same starting sequence, but now we delete three bases — the entire alanine codon G C A. The reading frame is preserved. You get methionine, histidine, leucine, lysine — the alanine is just gone, but everything else is intact. The protein is one amino acid shorter, but all the other amino acids are still there in the right places. Usually this is partially functional, sometimes fully functional, sometimes harmful — depends on which amino acid was removed and where. A famous clinical example: in-frame deletions in the E G F R gene make the receptor constitutively active, driving certain lung cancers. So in-frame is not always benign — but it is mechanistically different from frameshift.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>LoF · the disease-aligned shorthand</h2>
+      <blockquote style="font-size:1.05em;">
+        <strong>Loss of Function (LoF) =<br>nonsense + frameshift + canonical splice + large deletion</strong>
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>All produce <strong>no functional protein</strong> from that allele</li>
+        <li>Subject to <strong>nonsense-mediated decay</strong></li>
+        <li>The <strong>strongest single signal</strong> for pathogenicity</li>
+        <li>Combined with high <strong>pLI</strong> → very strong evidence</li>
+      </ul>
+      <aside class="notes">
+        One umbrella term to know. Loss of function, abbreviated L O F. This is the clinical shorthand for any variant that effectively knocks out a gene copy. It includes nonsense variants, frameshift indels, canonical splice site disruptions — which we will cover in a moment — and large deletions that remove the gene. All of these produce no functional protein from that allele. Many are subject to nonsense-mediated decay. L O F is the single strongest predictor of pathogenicity we have. When you combine an L O F variant with a high p L I score from gnomAD — meaning the gene is intolerant to L O F — you have very strong evidence that this variant is causing disease.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · NON-CODING VARIANTS
+         ==================================================== -->
+
+    <!-- Slide 33 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>The Other<br>98%</h1>
+      <aside class="notes">
+        Section five. We have covered the protein-coding two percent. Now the hard part — the other ninety-eight percent. Non-coding variants are more numerous, more diverse, and harder to interpret. This is the active research frontier of human genetics.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>Splice site variants · breaking the cut</h2>
+      <ul>
+        <li>Genes contain <strong>introns</strong> (cut out) and <strong>exons</strong> (kept)</li>
+        <li>Splice donor: <code>GT</code> · acceptor: <code>AG</code></li>
+        <li><strong>Canonical splice variants</strong> (GT→AT, AG→AA) → splicing fails</li>
+        <li>Result: exon skipped or intron retained</li>
+        <li>Counted as <strong>LoF</strong> · example: BRCA2 splice → breast cancer</li>
+      </ul>
+      <aside class="notes">
+        Splice site variants. Genes are not continuous — they are interrupted by introns that get cut out by the spliceosome. The boundaries are marked by very specific sequences: G T at the donor end, A G at the acceptor end. These are called the canonical splice sites. If a variant changes the G T to A T, or the A G to A A, splicing usually fails catastrophically. The exon gets skipped, or the intron gets retained, or the spliceosome uses a wrong cryptic site. The result is a broken protein. We count canonical splice variants as loss of function. A famous clinical example: B R C A two splice site mutations cause hereditary breast cancer.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Regulatory variants · changing expression</h2>
+      <table>
+        <thead><tr><th>Element</th><th>Where</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Promoter</strong></td><td>Near gene start</td><td>Transcription initiation</td></tr>
+          <tr><td><strong>Enhancer</strong></td><td>Up to 100+ kb away</td><td>Boosts expression</td></tr>
+          <tr><td><strong>5' UTR</strong></td><td>Before start codon</td><td>Translation efficiency</td></tr>
+          <tr><td><strong>3' UTR</strong></td><td>After stop codon</td><td>mRNA stability, miRNA</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Regulatory variants. These do not change protein sequence — they change when, where, and how much a gene is expressed. Four main flavors. Promoter variants — near the start of the gene, affecting transcription initiation. Enhancer variants — sometimes hundreds of kilobases away, looping back to the gene to boost expression. Five-prime U T R variants — before the start codon, affecting how efficiently ribosomes translate. Three-prime U T R variants — after the stop codon, affecting m R N A stability and microRNA binding. All four can cause disease, but the effects are usually subtle and tissue-specific.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Why non-coding is harder</h2>
+      <ul>
+        <li><strong>Indirect</strong> · effect on expression, not protein</li>
+        <li><strong>Tissue-specific</strong> · matters in liver, not brain</li>
+        <li><strong>Context-dependent</strong> · only in certain conditions</li>
+        <li><strong>Distance</strong> · enhancers can be 100 kb from target</li>
+        <li><strong>Sparse databases</strong> · most untested clinically</li>
+      </ul>
+      <aside class="notes">
+        Why is non-coding so much harder than coding? Five reasons stacked. First, indirect — instead of a direct amino acid change, you get a change in expression level, which is harder to quantify. Second, tissue-specific — a regulatory variant might matter only in liver and do nothing in brain. Third, context-dependent — it might matter only during stress, or development, or a specific cell state. Fourth, distance — an enhancer might be a hundred kilobases from the gene it regulates, so just locating the affected gene is non-trivial. Fifth, databases like ClinVar are dominated by coding variants, so non-coding ones often have no prior reports to compare against. This is why most clinical pipelines still focus on coding variants first.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · FROM MILLIONS TO ONE
+         ==================================================== -->
+
+    <!-- Slide 37 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>From Millions<br>to One</h1>
+      <aside class="notes">
+        Section six. The clinical question. You have just sequenced a patient. Four to five million variants come back. The patient has a disease. Which one of those four million variants is causing it? You need a systematic filter. Here is the funnel.
+      </aside>
+    </section>
+
+    <!-- Slide 38 -->
+    <section>
+      <h2>The clinical filtering funnel</h2>
+      <figure>
+        <img src="../assets/figures/textbook/figure-8-5-filtering-funnel.png" alt="Variant filtering funnel from 4-5 million variants down to 1-3 causal candidates">
+        <figcaption>
+          <strong>Figure 5.</strong> Sequential filters take you from ~4–5 million variants to 1–3 likely causal variants. Each filter removes orders of magnitude.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        The filtering funnel. Start at the top with four to five million detected variants. Apply five sequential filters. Each one removes one or two orders of magnitude. By the bottom you have one to three candidate variants that plausibly explain the patient's disease. This funnel is the core workflow of clinical genomics — and every step uses concepts we have already covered. Frequency from chapter seven, location and effect from today, inheritance from chapter nine. Let's walk the steps.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>Five filters · five orders of magnitude</h2>
+      <table>
+        <thead><tr><th>Step</th><th>Filter</th><th>Surviving</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>All detected variants</td><td>~4–5 M</td></tr>
+          <tr><td>1</td><td>Frequency &lt; 1% (rare)</td><td>~50–100 k</td></tr>
+          <tr><td>2</td><td>Coding + canonical splice</td><td>~5–10 k</td></tr>
+          <tr><td>3</td><td>Phenotype-relevant gene</td><td>~100–500</td></tr>
+          <tr><td>4</td><td>LoF or pathogenic missense</td><td>~5–20</td></tr>
+          <tr><td><strong>5</strong></td><td>Inheritance + family data</td><td><strong>1–3</strong></td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Five filters in numbers. Start, four to five million. Filter one — remove anything common, defined as more than one percent allele frequency in gnomAD. That alone takes you down to fifty to one hundred thousand rare variants. Filter two — keep only coding variants and canonical splice variants. Down to five to ten thousand. Filter three — keep only variants in genes that match the patient's phenotype. Down to a few hundred. Filter four — keep only loss-of-function variants and pathogenic-looking missense. Down to twenty or fewer. Filter five — apply inheritance pattern and family data. Down to one to three causal candidates. That is the workflow.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>Worked case · the KMT2D variant</h2>
+      <ul>
+        <li><strong>Patient:</strong> child with developmental delay</li>
+        <li><strong>Filter 1 (freq):</strong> absent in gnomAD ✓</li>
+        <li><strong>Filter 2 (effect):</strong> nonsense in KMT2D ✓ (LoF)</li>
+        <li><strong>Filter 3 (gene):</strong> KMT2D = Kabuki syndrome, pLI = 1.0 ✓</li>
+        <li><strong>Filter 4 (inheritance):</strong> de novo, AD pattern ✓</li>
+        <li><strong>Conclusion:</strong> <strong>pathogenic</strong> · explains phenotype</li>
+      </ul>
+      <aside class="notes">
+        A real case to make the funnel concrete. Child presents with developmental delay. Whole-exome sequencing finds a novel variant in K M T two D. Apply the filters. Filter one — frequency. Absent from gnomAD's one hundred forty thousand individuals. Rare, check. Filter two — effect. It is a nonsense variant, creating a premature stop. Loss of function, check. Filter three — gene. K M T two D is the Kabuki syndrome gene, and its p L I score is one point zero, meaning it is extremely intolerant to loss of function. Phenotype matches, gene constraint matches, check. Filter four — inheritance. Variant is de novo, not present in either parent, and Kabuki is autosomal dominant. Check. Conclusion: pathogenic. This variant explains the patient's phenotype. Five filters, definitive answer.
+      </aside>
+    </section>
+
+    <!-- Slide 41 -->
+    <section>
+      <h2>Pathogenic · uncertain · benign</h2>
+      <table>
+        <thead><tr><th>Class</th><th>Hallmarks</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pathogenic</strong></td><td>LoF in disease gene · rare · high pLI · segregates · de novo</td></tr>
+          <tr><td><strong>VUS</strong></td><td>Missense · moderate freq · conflicting predictions · novel</td></tr>
+          <tr><td><strong>Benign</strong></td><td>Common (&gt;1%) · synonymous · seen in healthy</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        How variant interpretation reports are written, in three buckets. Pathogenic — strong evidence the variant causes disease. Loss of function in a disease gene, rare in population, high p L I, segregates in the family, often de novo. Variant of uncertain significance, V U S — the gray zone. Usually missense, moderate frequency, computational predictions disagree, no prior reports. The V U S class is huge in modern reports and frustrating for clinicians. Benign — strong evidence against pathogenicity. Common in the population, synonymous in non-splice region, seen in healthy individuals. The A C M G has formal guidelines for assigning these labels, but at its core it follows what we have just walked through.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>WES vs WGS · what can you see?</h2>
+      <table>
+        <thead><tr><th>Variant type</th><th>WES</th><th>WGS</th></tr></thead>
+        <tbody>
+          <tr><td>Coding SNVs / indels</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Canonical splice</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Deep intronic</td><td><strong>No</strong></td><td>Yes</td></tr>
+          <tr><td>Promoter / enhancer</td><td><strong>No</strong></td><td>Yes</td></tr>
+          <tr><td>Structural variants</td><td>Poor</td><td>Limited (better with long reads)</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em; font-size:0.95em;">Start with <strong>WES</strong> for Mendelian. Escalate to <strong>WGS</strong> if negative.</p>
+      <aside class="notes">
+        Connecting variant type to sequencing strategy. Whole-exome sequencing — W E S — sees coding S N Vs and indels and canonical splice variants. It misses deep intronic variants, regulatory variants, and most structural variants. Whole-genome sequencing — W G S — sees all of those, plus the regulatory regions. It still struggles with structural variants unless you use long reads. Clinical decision rule. For a suspected Mendelian disease, start with W E S — it is cheaper and ninety percent of known disease variants are coding. If W E S comes back negative, escalate to W G S, possibly long-read, to look for non-coding or structural causes. That escalation pathway is becoming standard in academic medical centers.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 43 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads of chapter eight together.
+      </aside>
+    </section>
+
+    <!-- Slide 44 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>Variant = any difference from the reference · ~<strong>4–5 M</strong> per genome</li>
+        <li>Four axes: <strong>size · location · effect · frequency</strong></li>
+        <li>Sizes: <strong>SNV · indel · SV</strong> — different tech for each</li>
+        <li>Coding 5: synonymous · missense · nonsense · frameshift · in-frame</li>
+        <li>The <strong>÷ 3 rule</strong>: frameshift vs in-frame</li>
+        <li>From <strong>millions to one</strong>: frequency → location → gene → effect → inheritance</li>
+      </ul>
+      <aside class="notes">
+        Six things to take away. One — a variant is any deviation from the reference, and you carry roughly four to five million of them. Two — every variant lives on four axes: size, location, effect, frequency. Three — by size, S N V, indel, and structural variant, with different detection technologies for each. Four — five coding consequences: synonymous, missense, nonsense, frameshift, in-frame. Five — the divisible-by-three rule: a one-base indel scrambles everything, a three-base indel is mild. Six — clinical interpretation is a five-stage funnel from millions to one or two causal candidates. Hold those six points; they organize everything else in the chapter.
+      </aside>
+    </section>
+
+    <!-- Slide 45 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        Where do these variants<br>
+        <span style="color:var(--terracotta-deep);">come from</span>?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 9 · <strong>Transmission of Genetic Variants</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. We now know what variants are and how to classify them. But where do they come from? Some you inherit from your mother, some from your father, and a small handful arose new in you — de novo. How does that work mechanistically? How do variants get passed on across generations? And what makes some genes accumulate more variants than others? That is chapter nine — transmission of genetic variants. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

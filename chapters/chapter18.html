@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 18 · Introduction to GWAS — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>Introduction to<br>GWAS</h1>
+      <div class="chapter-num">Chapter 18 · Part III · Complex Traits</div>
+      <aside class="notes">
+        Welcome to Chapter eighteen of BSMS two oh five Genetics. Today we tackle the workhorse method of modern complex-trait genetics — the Genome-Wide Association Study, or GWAS. In the last chapter we learned that height and most diseases are polygenic, with genes contributing roughly sixty to eighty percent of the variance. Today we ask the practical question that follows. Which genes? Which variants? How do we actually find them among three billion base pairs? This lecture is about the method — how it works, what its results look like, and why a tiny p-value of five times ten to the minus eight matters so much.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.4em; line-height:1.05; margin-top:0.2em;">
+        We know genes shape height.<br>
+        But <span style="color:var(--terracotta-deep)">which</span> genes?
+      </h1>
+      <aside class="notes">
+        Here is the question I want you to hold in your head for the next sixty minutes. From Chapter seventeen we know heritability of height is about eighty percent — genes do most of the work. But twin studies and variance partition do not name a single gene. They tell you the size of the contribution. They do not point at the molecules. So how do you go from "genes matter a lot" to "variant rs seven five six three nine on chromosome six is associated with height by zero point three centimeters"? That jump is the job of GWAS.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>The needle-in-a-haystack problem</h2>
+      <ul>
+        <li>The genome has <strong>~3 billion</strong> base pairs</li>
+        <li><strong>~10 million</strong> common variants segregate in humans</li>
+        <li>Most have <strong>tiny</strong> effect on any one trait</li>
+        <li>Pre-GWAS methods could only chase <strong>large</strong>-effect Mendelian genes</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Need: a way to scan the <strong>whole genome</strong>, unbiased, at once.
+      </blockquote>
+      <aside class="notes">
+        Here is the scale of the haystack. Three billion base pairs. About ten million common variants — single-letter differences — that segregate in human populations. Most of these have tiny individual effects on any given trait. So small that you would never spot them by candidate-gene methods. Pre-GWAS, geneticists could only catch large-effect mutations — cystic fibrosis, sickle cell, Huntington's. Common variants with effect sizes of zero point one or zero point two of a standard deviation simply could not be found. We needed an unbiased, genome-wide scan. That is what GWAS gives us.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <div class="cue">The core idea</div>
+      <h1 style="font-size:2.0em; line-height:1.1; margin-top:0.2em;">
+        Compare allele frequencies<br>
+        in <span style="color:var(--terracotta-deep)">cases</span> vs <span style="color:var(--terracotta-deep)">controls</span> —<br>
+        for <em>millions</em> of SNPs at once.
+      </h1>
+      <aside class="notes">
+        At its heart, GWAS is shockingly simple. Take two groups — people with the disease, people without. Genotype them at millions of single-letter positions across the genome. For each position, compare allele frequencies between the two groups. If a particular allele is more common in cases than controls, that variant is associated with the trait. The genius is not the statistics — the statistics are routine. The genius is doing it for one million positions simultaneously, in tens of thousands of people, with rigorous correction for the fact that you are testing one million hypotheses at once.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <h2>What we cover today</h2>
+      <ol>
+        <li>What GWAS is — and what it tests</li>
+        <li>Why the threshold is <strong>5 × 10⁻⁸</strong></li>
+        <li>How to read a <strong>Manhattan plot</strong></li>
+        <li>How to read a <strong>QQ plot</strong></li>
+        <li>Linkage disequilibrium · lead SNP ≠ causal SNP</li>
+        <li>Biobanks · ancestry · the DCM case study</li>
+        <li>What it gives us — and what it doesn't</li>
+      </ol>
+      <aside class="notes">
+        Here is our roadmap. First, what GWAS is and what hypothesis it tests. Second, why the field uses an absurdly tiny p-value threshold of five times ten to the minus eight, and how that comes from the Bonferroni correction. Third, the Manhattan plot — the iconic visualization. Fourth, the QQ plot, which is how we know the result is trustworthy. Fifth, linkage disequilibrium, which tells us why the variant we hit is rarely the variant that does the damage. Sixth, the era of biobanks, ancestry diversity, and a real case study from twenty twenty-four. And finally, what GWAS does and does not deliver — which sets up Chapter nineteen on genetic architecture.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · WHAT GWAS IS
+         ==================================================== -->
+
+    <!-- Slide 06 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>What<br>GWAS Is</h1>
+      <aside class="notes">
+        Let's start with the fundamentals. What exactly does GWAS scan, and what does each test ask? Once these are clear, the rest of the lecture is just consequences.
+      </aside>
+    </section>
+
+    <!-- Slide 07 -->
+    <section>
+      <h2>SNPs · the alphabet of variation</h2>
+      <ul>
+        <li><strong>SNP</strong> = Single Nucleotide Polymorphism</li>
+        <li>One-letter difference at a fixed genomic position</li>
+        <li><strong>Common</strong>: minor allele frequency &gt; 1%</li>
+        <li><em>Not</em> the rare disease-causing mutations of Mendelian disorders</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        The everyday genetic differences between people.
+      </blockquote>
+      <aside class="notes">
+        The unit of GWAS is the SNP — single nucleotide polymorphism. A SNP is just a position in the genome where some people carry an A and others carry a G, for example. We focus on common SNPs, defined as those whose minor allele appears in more than one percent of the population. These are not the rare mutations behind cystic fibrosis or Huntington's. These are the everyday genetic differences that make humans different from each other — eye color, height, propensity to heart disease. About ten million of them are common in any given human population.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>Two flavors of GWAS</h2>
+      <div class="cols">
+        <div>
+          <h3>Case–control</h3>
+          <ul>
+            <li>People <strong>with</strong> vs <strong>without</strong> a disease</li>
+            <li>Test allele frequency difference</li>
+            <li>Effect size = <strong>odds ratio (OR)</strong></li>
+            <li>e.g. heart disease, schizophrenia</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Quantitative trait</h3>
+          <ul>
+            <li>Continuous measure across people</li>
+            <li>Test allele effect on the value</li>
+            <li>Effect size = <strong>beta (β)</strong></li>
+            <li>e.g. height, BMI, cholesterol</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        GWAS comes in two flavors. Case-control studies compare people with a disease to people without. The output for each SNP is an odds ratio — how many times more likely cases are to carry the risk allele than controls. Heart disease, schizophrenia, type two diabetes are typical examples. Quantitative trait studies measure a continuous variable — height, body mass index, cholesterol — and test whether each SNP shifts the average value up or down. The effect size there is called beta, and it is in the units of the trait, like centimeters of height per copy of the allele. Same logic underneath, different output.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>How do we measure SNPs?</h2>
+      <div class="cols">
+        <div>
+          <h3>SNP arrays</h3>
+          <ul>
+            <li>~500,000 to 1 million SNPs probed</li>
+            <li><strong>Cheap</strong>: ~$30–50 per sample</li>
+            <li><strong>Imputation</strong> infers the rest</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Whole-genome sequencing</h3>
+          <ul>
+            <li>Reads <strong>every base</strong></li>
+            <li>~$200–1,000 per sample</li>
+            <li>Captures rare variants too</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em;">Most GWAS still use <strong>arrays + imputation</strong> — biobank-scale.</p>
+      <aside class="notes">
+        How do you measure a million SNPs in a hundred thousand people? Two routes. SNP arrays are tiny chips that probe somewhere between five hundred thousand and one million pre-selected positions. They cost about thirty to fifty dollars per sample, and statistical imputation — using linkage disequilibrium patterns — fills in several million more positions you didn't directly genotype. Whole-genome sequencing reads every single base and is now down to a couple hundred dollars in some places. But for biobank-scale studies, arrays plus imputation are still the workhorse because they are cheaper and the imputed data are remarkably accurate.
+      </aside>
+    </section>
+
+    <!-- Slide 10 -->
+    <section>
+      <h2>The single test, repeated millions of times</h2>
+      <ul>
+        <li>For every SNP <em>i</em>: test whether allele frequency differs between cases and controls</li>
+        <li>Output: a <strong>p-value</strong> — between 0 and 1</li>
+        <li>Small p = data unlikely if SNP had no effect</li>
+        <li>That is <em>all</em> a single GWAS test does</li>
+      </ul>
+      <aside class="notes">
+        At the level of a single SNP, the test is simple. Compare the allele count in cases versus controls, run a chi-squared or logistic regression, get a p-value. The p-value is a number between zero and one that asks: if this SNP truly had no effect on the trait, how often would we see data this extreme by chance alone? Small p-value means data are surprising under the null hypothesis. That is it. The whole apparatus of GWAS is repeating this routine test about one million times, then dealing with the consequence — which is the multiple-testing problem we will tackle next.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · THE 5e-8 THRESHOLD
+         ==================================================== -->
+
+    <!-- Slide 11 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Why<br>5 × 10⁻⁸?</h1>
+      <aside class="notes">
+        Now the most important number in GWAS — the genome-wide significance threshold. Five times ten to the minus eight. Where does this oddly specific number come from? It is not arbitrary. It is the answer to a real statistical problem.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>The multiple testing problem</h2>
+      <ul>
+        <li>Test 1 SNP at <strong>p &lt; 0.05</strong>: 5% false-positive rate — fine</li>
+        <li>Test <strong>1,000,000 SNPs</strong> at p &lt; 0.05: expect <strong>50,000 false positives</strong></li>
+        <li>You'd find "associations" where there are none</li>
+        <li>The naïve threshold is <strong>useless</strong> at genome scale</li>
+      </ul>
+      <aside class="notes">
+        Here is the problem. In a single experiment, p less than zero point zero five is the conventional threshold — it means a five percent false-positive rate, which most fields tolerate. But in GWAS we run not one test but one million. If you used p less than zero point zero five for every SNP, you would expect five percent of one million — that is fifty thousand SNPs — to look "significant" purely by chance. Fifty thousand false positives in your output. The signal would be drowned in noise. So we need a much, much stricter threshold.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>The Bonferroni correction</h2>
+      <div class="formula">
+        α<sub>genome-wide</sub> = α / N<sub>tests</sub> = 0.05 / 1,000,000 = <strong>5 × 10⁻⁸</strong>
+      </div>
+      <ul style="margin-top:0.7em;">
+        <li>~1 million <em>independent</em> common-variant tests in the genome</li>
+        <li>Divide α = 0.05 by 1,000,000 → keeps total false-positive rate ≈ 5%</li>
+        <li>Conservative · but reproducible across studies</li>
+      </ul>
+      <aside class="notes">
+        The fix is the Bonferroni correction — divide your overall alpha by the number of independent tests you are running. We estimate there are about one million independent common-variant tests across the human genome — many SNPs are correlated through linkage disequilibrium, so the effective number is much smaller than the raw number genotyped. Take alpha equals zero point zero five, divide by one million, and you get five times ten to the minus eight. That is the threshold. It keeps your overall false-positive rate at roughly five percent across the whole genome scan. It is conservative, yes — but it is the reason GWAS hits replicate.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <div class="cue">The threshold</div>
+      <div class="bignum">5 × 10⁻⁸</div>
+      <div class="bignum-label">genome-wide significance · p-value</div>
+      <ul>
+        <li>= 0.00000005 — five in one hundred million</li>
+        <li>= <strong>−log₁₀(p) ≈ 7.3</strong> on the y-axis</li>
+        <li>Universal across modern GWAS</li>
+      </ul>
+      <aside class="notes">
+        Just to sit with the number — five times ten to the minus eight equals zero point zero zero zero zero zero zero zero five. That is five in one hundred million. On the y-axis of a Manhattan plot, where we plot minus log ten of the p-value, this becomes about seven point three. That is the dashed line you see on every GWAS Manhattan plot ever published. SNPs above the line cross genome-wide significance. SNPs below it do not. This single number is the price of admission for being called a GWAS hit, and it is the same in every modern study around the world.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>What "significant" actually means</h2>
+      <blockquote style="margin-top:0.4em;">
+        A p &lt; 5 × 10⁻⁸ result rejects the null<br>
+        — it does <strong>not</strong> prove causation.
+      </blockquote>
+      <ul style="margin-top:0.7em;">
+        <li>The SNP <em>itself</em> may not be the causal variant</li>
+        <li>Could be a nearby variant in <strong>linkage disequilibrium</strong></li>
+        <li>Could reflect <strong>population stratification</strong></li>
+        <li>Statistical association ≠ biological mechanism</li>
+      </ul>
+      <aside class="notes">
+        One subtlety to absorb. Crossing the threshold rejects the null hypothesis. It does not prove that the SNP causes the trait. The SNP you flagged might just be sitting next to the real causal variant on the chromosome — they are correlated through linkage disequilibrium, which we will cover in a few slides. The signal might also reflect population stratification — different ancestral groups in your cases versus controls. Statistical association is the start of the biology, not the end. A GWAS hit is a flag on a region; figuring out the actual causal variant and the actual mechanism is the next decade of work.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · MANHATTAN PLOT
+         ==================================================== -->
+
+    <!-- Slide 16 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The<br>Manhattan Plot</h1>
+      <aside class="notes">
+        Now the iconic visualization of GWAS. Once you have run one million tests and produced one million p-values, how do you make sense of them all? Two plots — Manhattan and QQ. The Manhattan plot tells you where the signals are. The QQ plot tells you whether they are real. Let's start with Manhattan.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>The skyline of significance</h2>
+      <ul>
+        <li>x-axis: <strong>chromosomal position</strong> · chr 1 → chr 22</li>
+        <li>y-axis: <strong>−log₁₀(p)</strong> for each SNP</li>
+        <li>Each dot = one SNP</li>
+        <li>Dashed line at y ≈ 7.3 = the <strong>5 × 10⁻⁸</strong> threshold</li>
+      </ul>
+      <p style="margin-top:0.6em;">Peaks above the line look like the <strong>Manhattan skyline</strong>.</p>
+      <aside class="notes">
+        Here is the anatomy of a Manhattan plot. The x-axis is genomic position — start at chromosome one, walk through to chromosome twenty-two and the X chromosome. The y-axis is minus log ten of the p-value, so bigger means more significant. We use minus log ten because the actual p-values are tiny — zero point zero zero zero zero zero zero one — and unwieldy. A p of zero point zero five becomes one point three on the y-axis. A p of five times ten to the minus eight becomes seven point three. The dashed horizontal line at seven point three is the genome-wide threshold. Every dot is a SNP. The skyscrapers above the line are your hits.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>Why −log₁₀? · scaling tiny numbers</h2>
+      <table>
+        <thead><tr><th>p-value</th><th>−log₁₀(p)</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>0.05</td><td>1.3</td><td>Conventional · noise at GWAS scale</td></tr>
+          <tr><td>10⁻⁵</td><td>5.0</td><td>Suggestive</td></tr>
+          <tr><td><strong>5 × 10⁻⁸</strong></td><td><strong>7.3</strong></td><td><strong>Genome-wide significant</strong></td></tr>
+          <tr><td>10⁻¹⁰</td><td>10.0</td><td>Strongly significant</td></tr>
+          <tr><td>10⁻²⁰</td><td>20.0</td><td>Massive — large effect or huge N</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Why minus log ten? Because raw p-values are uncomfortable. Reading "five times ten to the minus eight versus three times ten to the minus twelve" is harder than reading "seven point three versus eleven point five." On a log scale, every step of one on the y-axis is a tenfold change in p-value. So a SNP at minus log ten of ten is one thousand times more significant than one at seven. A SNP at twenty is ten trillion times more significant than five times ten to the minus eight. The biggest hits in real GWAS — like FTO for body mass index — sit at minus log ten values above one hundred. Stratospheric.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>A real Manhattan plot · DCM</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Zheng2024-NatGenet-Fig2.png" alt="Manhattan plot from a multi-ancestry GWAS of dilated cardiomyopathy">
+        <figcaption>
+          <strong>Figure 1.</strong> Manhattan plot from a dilated cardiomyopathy (DCM) GWAS. <strong>14,256 cases</strong> · <strong>1,199,156 controls</strong> · <strong>80 genome-wide significant loci</strong>. Red = newly discovered loci, orange = previously reported. <em>Zheng et al. 2024, Nature Genetics.</em>
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the real thing. This is the Manhattan plot from a twenty twenty-four study of dilated cardiomyopathy — DCM — a heart muscle disease. Fourteen thousand two hundred fifty-six cases, one point one nine million controls, and eighty genome-wide significant loci above the dashed line. Each peak is a chromosomal region where the heart muscle disease genetics lights up. Red dots are newly discovered loci in this study; orange dots are loci that had been reported before. Notice how the peaks cluster — that clustering is the signature of linkage disequilibrium, which we will discuss in a few slides. Source is Zheng and colleagues, Nature Genetics, twenty twenty-four.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>How to read a peak</h2>
+      <ul>
+        <li>A peak = many neighboring SNPs all significant</li>
+        <li>The <strong>top SNP</strong> in a peak is called the <strong>lead SNP</strong></li>
+        <li>Lead SNP is reported · but rarely the causal variant itself</li>
+        <li>Width of the peak = extent of <strong>LD</strong> in that region</li>
+      </ul>
+      <aside class="notes">
+        Each Manhattan peak is not one SNP — it is many neighboring SNPs all crossing significance together. The single SNP with the smallest p-value in the peak is called the lead SNP, and that is what gets reported in the paper. But — and this is critical — the lead SNP is rarely the actual variant that causes the biological effect. It is just a tag. The width of the peak depends on how strong linkage disequilibrium is in that region of the genome. Tight peaks mean low LD, narrow tagging. Wide peaks mean a long stretch of correlated variants, any one of which could be causal.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · QQ PLOT
+         ==================================================== -->
+
+    <!-- Slide 21 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>The QQ Plot —<br>Are Hits Real?</h1>
+      <aside class="notes">
+        The Manhattan plot tells you where signals are. But how do you know they are real signals and not artifacts? Population stratification, technical batch effects, and confounding can all manufacture fake associations across the whole genome. Enter the QQ plot — the quality-control sibling of the Manhattan plot.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>The idea · expected vs observed</h2>
+      <ul>
+        <li>If <strong>no SNP</strong> truly affected the trait → p-values are <em>uniform</em> on [0, 1]</li>
+        <li>Plot <strong>expected −log₁₀(p)</strong> on x-axis · <strong>observed −log₁₀(p)</strong> on y-axis</li>
+        <li>All-null world: points fall on the <strong>diagonal y = x</strong></li>
+        <li>Real signals: <strong>tail</strong> rises above diagonal — only at the right edge</li>
+      </ul>
+      <aside class="notes">
+        The principle is simple. Suppose no SNP in the genome had any real effect. Then the p-values from one million tests should be uniformly distributed between zero and one. So if you sort the observed p-values and plot them against what you would expect under the uniform null, the points should fall right on the diagonal line y equals x. That is the all-null world. When there are real signals, you should see most points still on the diagonal — most SNPs have no effect — but the tail at the upper right should peel off above the diagonal. Those are your real hits.
+      </aside>
+    </section>
+
+    <!-- Slide 23 -->
+    <section>
+      <h2>What a good QQ plot looks like</h2>
+      <div class="cols">
+        <div>
+          <h3>Healthy</h3>
+          <ul>
+            <li>Bulk on diagonal</li>
+            <li>Tail rises sharply at far right</li>
+            <li>Genomic inflation λ ≈ 1</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Confounded</h3>
+          <ul>
+            <li><em>Whole</em> distribution shifted up</li>
+            <li>Inflation across the board</li>
+            <li>λ ≫ 1 → <strong>population stratification</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Two patterns to recognize. A healthy QQ plot has the bulk of points sitting on the diagonal, with the tail rising sharply at the top right where your real hits live. The inflation factor lambda — the ratio of observed to expected median chi-square — should be close to one, meaning roughly one point zero zero to one point zero five. A confounded QQ plot looks different. The whole distribution has lifted off the diagonal — even SNPs in the middle of the cloud sit above where they should. Lambda is much greater than one. That is the signature of population stratification or some other genome-wide confounder, and you cannot trust your hits until it is corrected.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <h2>Population stratification · the classic trap</h2>
+      <ul>
+        <li>Cases and controls drawn from <strong>different ancestries</strong></li>
+        <li>Allele frequencies <em>naturally</em> differ between populations</li>
+        <li>Result: <strong>fake</strong> trait association at every ancestry-divergent SNP</li>
+        <li>Fix: include <strong>principal components</strong> or <strong>linear mixed models</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the classic GWAS trap. Suppose your case group is enriched for one ancestry and your control group for another. Allele frequencies naturally differ between populations for all sorts of reasons — genetic drift, historical migrations, founder effects. Now every SNP whose frequency happens to differ between the two populations will look "associated" with the trait, even if it has nothing to do with the biology. Disaster. The fix is to include genetic principal components as covariates in the regression — components that capture the ancestry axes — or to use linear mixed models that account for relatedness. Modern GWAS pipelines do this automatically.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Manhattan + QQ · the standard pair</h2>
+      <blockquote style="font-size:1.05em;">
+        Manhattan tells you <strong>where</strong> the signals are.<br>
+        QQ tells you <strong>whether</strong> they are real.
+      </blockquote>
+      <ul style="margin-top:0.7em;">
+        <li>Every GWAS paper shows <strong>both</strong></li>
+        <li>If the QQ is bad, the Manhattan is meaningless</li>
+        <li>Read them together, in that order</li>
+      </ul>
+      <aside class="notes">
+        These two plots travel together. Every credible GWAS paper shows both. The QQ plot is the validation — does the overall p-value distribution behave the way it should under the null, except at the tail? If yes, the Manhattan plot is trustworthy and you can interpret the peaks as real biology. If the QQ plot is inflated across the board, the Manhattan plot is meaningless, no matter how impressive the peaks look — the signal is artifact. So when you read a GWAS paper, glance at the QQ first, then go to the Manhattan. In that order.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · LD AND INTERPRETATION
+         ==================================================== -->
+
+    <!-- Slide 26 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>Linkage Disequilibrium<br>&amp; Lead SNPs</h1>
+      <aside class="notes">
+        Now the part that confuses new GWAS readers more than anything. The lead SNP at the top of a Manhattan peak is usually not the variant that causes the biology. To understand why, we need linkage disequilibrium.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>What is linkage disequilibrium?</h2>
+      <ul>
+        <li>Variants that are physically <strong>close</strong> on a chromosome</li>
+        <li>...tend to be <strong>inherited together</strong> across generations</li>
+        <li>Their alleles are <strong>correlated</strong> across people</li>
+        <li>Genome partitions into <strong>LD blocks</strong> — regions of high correlation</li>
+      </ul>
+      <aside class="notes">
+        Linkage disequilibrium — LD for short — is the statistical correlation between alleles at nearby positions on the same chromosome. The intuition is recombination. Each generation, chromosomes get cut and pasted, but the cuts happen at a finite rate. Two variants that sit very close together on a chromosome are almost never separated by a recombination event over thousands of generations. So they get inherited as a unit. People who have allele A at position one tend to have allele G at position two, and so on. The genome breaks naturally into blocks where everything inside a block is highly correlated.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>Why peaks have width</h2>
+      <ul>
+        <li>If the <strong>causal SNP</strong> is associated with the trait...</li>
+        <li>...every SNP <strong>in LD</strong> with it is <em>also</em> associated</li>
+        <li>The whole LD block lights up — that is the peak</li>
+        <li>Lead SNP is just the <strong>top tag</strong>, not necessarily the cause</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        GWAS hits a <strong>region</strong>, not a variant.
+      </blockquote>
+      <aside class="notes">
+        Now here is the consequence. Suppose there is one true causal SNP in some chromosomal region. Because it is correlated with all its LD partners, every nearby SNP also shows an association with the trait — they all carry the same allele in cases more often than controls. So instead of one significant SNP, you see a whole block lighting up — that is the peak in the Manhattan plot. The SNP with the very smallest p-value, the lead SNP, is just the strongest tag for the underlying signal. It might be the causal variant, but more likely it is one of dozens of correlated variants. GWAS hits a region. Fine-mapping hits a variant.
+      </aside>
+    </section>
+
+    <!-- Slide 29 -->
+    <section>
+      <h2>Lead SNP ≠ causal SNP</h2>
+      <div class="cols">
+        <div>
+          <h3>What you see</h3>
+          <ul>
+            <li><strong>Lead SNP</strong>: smallest p in the peak</li>
+            <li>Reported in the paper</li>
+            <li>Usually <strong>non-coding</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h3>What it means</h3>
+          <ul>
+            <li>"Causal variant lives <strong>somewhere</strong> in this LD block"</li>
+            <li>Block can span <strong>10 kb to 1 Mb</strong></li>
+            <li>Often contains <strong>multiple genes</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Practical consequence for reading GWAS papers. The headline lead SNP is rarely the molecular cause. Most lead SNPs sit in non-coding regions — promoters, enhancers, introns — because non-coding variants are far more numerous than coding ones. The biological interpretation goes like this: somewhere in the LD block tagged by this lead SNP, there is one or more variants that affect gene expression or splicing in a relevant tissue. The block can be ten kilobases short or a megabase long, and it might contain multiple genes. Identifying the actual causal variant requires fine-mapping, expression QTL data, and functional follow-up — a whole industry of post-GWAS analysis.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>Effect sizes · how big is small?</h2>
+      <table>
+        <thead><tr><th>Variant type</th><th>Trait</th><th>Effect size</th></tr></thead>
+        <tbody>
+          <tr><td>Mendelian (e.g. <em>BRCA1</em>)</td><td>Breast cancer</td><td>OR ≈ 5–10</td></tr>
+          <tr><td>Common GWAS hit</td><td>Heart disease</td><td>OR ≈ 1.05–1.20</td></tr>
+          <tr><td>Common GWAS hit</td><td>Height</td><td>β ≈ 0.1–0.5 cm</td></tr>
+          <tr><td>Top FTO variant</td><td>BMI</td><td>β ≈ 0.4 kg/m²</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Common variants: <strong>tiny</strong> individually, but <strong>thousands of them</strong>.</p>
+      <aside class="notes">
+        Let's calibrate effect sizes. A Mendelian disease mutation in BRCA one raises breast cancer risk five- to tenfold — huge. A typical common GWAS variant for heart disease raises risk by five to twenty percent — odds ratio one point zero five to one point two zero. For continuous traits like height, the per-allele effect is zero point one to zero point five centimeters. Even the famous F-T-O variant for body mass index moves you only about zero point four kilograms per meter squared per copy. These effects are tiny individually. But there are thousands of such variants for any complex trait, and they sum. That additive sum is the polygenic score, which Chapter nineteen will dig into.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · BIOBANKS AND THE DCM CASE
+         ==================================================== -->
+
+    <!-- Slide 31 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>Biobanks &amp;<br>The Case Study</h1>
+      <aside class="notes">
+        Now the era we live in. Modern GWAS power comes from biobanks — million-person collections of genotypes plus health records. Let me walk you through the one you should know, and then through the dilated cardiomyopathy study that ties everything together.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>UK Biobank · the workhorse</h2>
+      <ul>
+        <li>~<strong>500,000</strong> participants in the UK</li>
+        <li>Genotyped on a <strong>~800,000-SNP array</strong> · imputed to ~90 million</li>
+        <li>Linked to <strong>health records</strong>, hospital codes, deaths, imaging</li>
+        <li>Powers thousands of GWAS papers — <strong>every year</strong></li>
+      </ul>
+      <aside class="notes">
+        The UK Biobank is the prototype. Half a million volunteers in the United Kingdom, recruited starting in two thousand six. Each was genotyped on a roughly eight-hundred-thousand-SNP array, then statistically imputed up to about ninety million SNPs. Critically, each participant is linked to their National Health Service records — diagnoses, hospitalizations, medications, deaths — plus brain imaging, blood tests, lifestyle questionnaires. That linkage is the magic. Researchers can now run GWAS on essentially any trait or disease that shows up in those records. The UK Biobank alone has powered tens of thousands of papers. Other biobanks — FinnGen, BioBank Japan, the Million Veteran Program — work the same way.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>Why scale matters · power</h2>
+      <ul>
+        <li>Effect sizes are tiny → need <strong>massive N</strong> to detect them</li>
+        <li>Doubling N → roughly <strong>4×</strong> more genome-wide hits (rough scaling)</li>
+        <li>2007 height GWAS: <strong>20</strong> hits · 2022 height GWAS: <strong>~12,000</strong> hits</li>
+        <li>The whole field is <strong>N-limited</strong></li>
+      </ul>
+      <aside class="notes">
+        Why does sample size matter so much? Because the per-SNP effect sizes for common variants are tiny — odds ratios of one point one or beta of zero point one of a standard deviation. Detecting that with statistical confidence at p less than five times ten to the minus eight requires huge numbers. As a rough rule, doubling N quadruples the number of significant hits you find. The trajectory of height GWAS makes this concrete. The first big height GWAS in two thousand seven, with about ten thousand people, found twenty significant loci. The twenty twenty-two height GWAS with five million people found about twelve thousand. The field is fundamentally limited by sample size, which is why biobanks are everything.
+      </aside>
+    </section>
+
+    <!-- Slide 34 -->
+    <section>
+      <h2>The ancestry problem</h2>
+      <ul>
+        <li>~<strong>80%</strong> of GWAS participants are of <strong>European</strong> ancestry</li>
+        <li>LD patterns &amp; allele frequencies <strong>differ</strong> across populations</li>
+        <li>European-trained results <strong>transfer poorly</strong> to other groups</li>
+        <li>Solution: <strong>trans-ancestry</strong> GWAS — diverse cohorts</li>
+      </ul>
+      <aside class="notes">
+        And here is the field's most uncomfortable problem. As of twenty twenty-four, more than eighty percent of all GWAS participants worldwide are of European ancestry. Linkage disequilibrium patterns, allele frequencies, and lead SNPs differ across populations. So a result trained on Europeans can transfer poorly when applied to people of African, East Asian, or South Asian ancestry. That creates a health-equity disaster — the genomic medicine that rolls out of GWAS works best for the populations already over-represented in research. The fix is trans-ancestry GWAS — building cohorts with diverse populations and analyzing them jointly. The DCM study we are about to look at is one of the better examples.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Case study · DCM in 1.2 million people</h2>
+      <ul>
+        <li><strong>Dilated cardiomyopathy (DCM)</strong>: heart muscle weakens &amp; enlarges</li>
+        <li><strong>14,256 cases</strong> · <strong>1,199,156 controls</strong> · multi-ancestry</li>
+        <li><strong>80 loci</strong> reach 5 × 10⁻⁸</li>
+        <li>Genes near hits: <em>MAP3K7</em>, <em>NEDD4L</em>, <em>SSPN</em></li>
+        <li>Hits cluster in <strong>muscle structure</strong>, <strong>cell adhesion</strong>, <strong>ECM</strong> pathways</li>
+      </ul>
+      <aside class="notes">
+        Let's anchor with a real study. Dilated cardiomyopathy is a heart muscle disease — the heart muscle becomes weak and enlarged, often leading to heart failure. Zheng and colleagues, in twenty twenty-four, ran a multi-ancestry GWAS with fourteen thousand two hundred fifty-six cases and one point two million controls. They found eighty loci passing genome-wide significance. The hits clustered near genes like MAP3K seven, NEDD4L, and SSPN — names you do not need to memorize. What matters is that when they looked at all eighty loci together, the genes converged on a few biological themes: muscle structure, cell adhesion, and extracellular matrix. That is the post-GWAS magic — eighty scattered hits revealing a coherent biology.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Functional convergence · 80 loci, 3 themes</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Zheng2024-NatGenet-Fig5.png" alt="Pathway and cell-type enrichment of DCM-associated genes">
+        <figcaption>
+          <strong>Figure 2.</strong> Eighty scattered DCM loci converge on a small number of pathways — sarcomere structure, cell adhesion, extracellular matrix — and on specific cell types (cardiomyocytes, fibroblasts). <em>Zheng et al. 2024, Nature Genetics.</em>
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the cell-type and pathway picture. Eighty loci scattered across the genome, but when you ask which pathways and which cell types are enriched among the candidate genes, a coherent picture emerges. Pathways related to sarcomere structure — the contractile units of muscle cells — light up. So do pathways for cell adhesion and extracellular matrix organization. And in single-nucleus RNA sequencing, the risk genes are most expressed in cardiomyocytes and fibroblasts — exactly the cells that build the heart. Eighty entry points, but they all lead into the same biological building. That convergence is how a polygenic disease can have a single coherent phenotype.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>From GWAS to risk prediction</h2>
+      <figure>
+        <img src="../assets/figures/textbook/Zheng2024-NatGenet-Fig6.png" alt="DCM polygenic score predicts disease in UK Biobank">
+        <figcaption>
+          <strong>Figure 3.</strong> A polygenic score built from the 80 DCM loci, applied to UK Biobank: top 10% of PGS has <strong>~2.8× the disease risk</strong> of the bottom 10%. PGS modifies penetrance even in carriers of rare pathogenic variants. <em>Zheng et al. 2024, Nature Genetics.</em>
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        And here is what GWAS hits buy you in the clinic. The same eighty loci can be combined into a polygenic score — a single number summarizing each person's genetic liability. When you compute that score across the UK Biobank's half-million people, the top decile has about two point eight times the risk of DCM compared to the bottom decile. Just from common variants. And — this is the elegant part — even in people who already carry a known rare pathogenic mutation in TTN or LMNA, polygenic background still matters. High PGS plus rare mutation is much more dangerous than low PGS plus the same mutation. Polygenic background modifies the penetrance of so-called Mendelian disease. We will go deeper on PGS next chapter.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · LIMITATIONS AND OUTLOOK
+         ==================================================== -->
+
+    <!-- Slide 38 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>What GWAS Gives —<br>and What It Doesn't</h1>
+      <aside class="notes">
+        Before we wrap, let's be honest about what GWAS does and does not deliver. It is a powerful method, but it has well-known limits, and Chapter nineteen will pick up exactly where these limits stop.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What GWAS gives</h2>
+      <ul>
+        <li>An <strong>unbiased</strong> scan of common variation</li>
+        <li>A list of <strong>genomic loci</strong> (not exact variants)</li>
+        <li>Effect sizes and direction for each lead SNP</li>
+        <li>Pathways and cell types via <strong>downstream analysis</strong></li>
+        <li>Polygenic scores for <strong>risk stratification</strong></li>
+      </ul>
+      <aside class="notes">
+        The wins. GWAS gives you an unbiased, hypothesis-free scan of common variation across the entire genome. It hands you a list of genomic loci where common variants are associated with the trait. It tells you the direction and approximate magnitude of each effect. With downstream pathway and cell-type analyses, it tells you which biological themes the trait runs through. And by summing over all loci, it gives you polygenic scores that can stratify individuals by genetic risk. That is a lot — and it has transformed how we study every common disease and every quantitative trait.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <h2>What GWAS doesn't give</h2>
+      <ul>
+        <li>The <strong>causal variant</strong> within an LD block</li>
+        <li>The <strong>mechanism</strong> by which a variant acts</li>
+        <li>Effects of <strong>rare variants</strong> (MAF &lt; 1%)</li>
+        <li>Non-additive interactions (epistasis, dominance)</li>
+        <li>Reliable predictions in <strong>under-sampled ancestries</strong></li>
+      </ul>
+      <aside class="notes">
+        And the honest limitations. GWAS does not tell you which variant in the LD block is causal — that is fine-mapping. It does not tell you the mechanism — that is functional follow-up in cells, organoids, mice. It is mostly blind to rare variants below one percent allele frequency, because there is not enough statistical power per SNP — for those you need exome sequencing or whole-genome sequencing. It does not capture epistasis or dominance well, because everything is approximated as additive. And it transfers poorly across populations when one ancestry dominates the discovery cohort. These are all open frontiers — and Chapter nineteen on genetic architecture will name them more precisely.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 8 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 41 -->
+    <section class="section-divider">
+      <div class="section-num">§ 8</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull everything together.
+      </aside>
+    </section>
+
+    <!-- Slide 42 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>GWAS = scan <strong>millions of SNPs</strong> for trait association</li>
+        <li>Threshold: <strong>5 × 10⁻⁸</strong> · Bonferroni for ~1M independent tests</li>
+        <li><strong>Manhattan</strong> = where signals are · <strong>QQ</strong> = whether they're real</li>
+        <li>Lead SNP ≠ causal SNP — blame <strong>linkage disequilibrium</strong></li>
+        <li>Biobanks (UK Biobank, ~500k) made the modern era possible</li>
+      </ul>
+      <aside class="notes">
+        Five takeaways. One — GWAS scans millions of SNPs across the genome and tests each one for association with a trait, comparing cases versus controls or measuring quantitative effects. Two — the genome-wide significance threshold is five times ten to the minus eight, which comes from the Bonferroni correction for about one million independent common-variant tests. Three — the Manhattan plot tells you where the signals are; the QQ plot tells you whether they are real and not artifacts of population stratification. Four — the lead SNP at the top of a peak is rarely the variant that does the biology, because linkage disequilibrium drags whole regions along. Five — biobanks like UK Biobank, with about half a million participants, are what made today's GWAS scale possible.
+      </aside>
+    </section>
+
+    <!-- Slide 43 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.0em; line-height:1.1; margin-top:0.3em;">
+        GWAS gives us hits.<br>
+        But what <span style="color:var(--terracotta-deep)">shape</span><br>
+        does the architecture take?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 19 · <strong>Genetic Architecture of Complex Traits</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. Chapter eighteen has shown us how to find common-variant hits — eighty for DCM, twelve thousand for height. But hits are the inventory. They do not yet tell us the shape. How many variants total? How big are their effects on average? How much heritability is captured by current GWAS, and how much remains hidden? Are diseases driven by a few moderate-effect variants or thousands of tiny ones? That question — the genetic architecture question — is what Chapter nineteen is about. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>

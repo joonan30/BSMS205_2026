@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1 · The Human Genome Project — BSMS205 Genetics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="../assets/css/claude-theme.css?v=4">
+  <style>
+    /* Inline override — survives file:// CSS cache */
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      padding: 36px 100px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+    .reveal .slides > section > * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal .cols {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 1.5em !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      align-items: start !important;
+    }
+    .reveal .cols > div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+    .reveal .cols ul, .reveal .cols ol {
+      margin-left: 1em !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    .reveal .cols li {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-wrap: anywhere !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      white-space: normal !important;
+    }
+    .reveal figure {
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure img {
+      max-width: 100% !important;
+      max-height: 400px !important;
+      box-sizing: border-box !important;
+    }
+    .reveal figure figcaption {
+      max-width: 100% !important;
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      box-sizing: border-box !important;
+    }
+    .reveal table {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ====================================================
+         PART 0 · OPENING
+         ==================================================== -->
+
+    <!-- Slide 01 -->
+    <section class="title-slide">
+      <div class="eyebrow">BSMS205 · Genetics</div>
+      <h1>The Human<br>Genome Project</h1>
+      <div class="chapter-num">Chapter 1 · Part I · The Human Genome</div>
+      <aside class="notes">
+        Welcome to Chapter one of BSMS two oh five Genetics. Today we begin Part One, which is all about the human genome itself — what it is, how we mapped it, and why that mapping fundamentally changed biology. The story we are telling today is the Human Genome Project, the most ambitious biology project of the twentieth century. We will look at what genetics looked like before this project, what the project set out to do, how it actually played out across thirteen years and several countries, what it discovered that surprised everyone, and what it left for the next generation to finish. Let's begin.
+      </aside>
+    </section>
+
+    <!-- Slide 02 -->
+    <section>
+      <div class="cue">A question to start with</div>
+      <h1 style="font-size:2.6em; line-height:1.05; margin-top:0.2em;">
+        Imagine a car<br>with no <span style="color:var(--terracotta-deep)">manual</span>.
+      </h1>
+      <aside class="notes">
+        Here is the analogy I want you to hold in your head for the rest of this lecture. Imagine trying to understand how a car works by only looking at individual parts — a spark plug here, a piston there — without ever seeing the complete engine, and without ever having a manual. You could spend years on the spark plug. You could become the world expert on pistons. But you would never understand the car. That is essentially how genetics worked before nineteen ninety. We knew about individual genes. We had no map.
+      </aside>
+    </section>
+
+    <!-- Slide 03 -->
+    <section>
+      <h2>What we knew · what we didn't</h2>
+      <div class="cols">
+        <div>
+          <h3>Knew</h3>
+          <ul>
+            <li>Some <strong>disease genes</strong> (CF, sickle cell)</li>
+            <li>DNA carries information</li>
+            <li>Mendelian inheritance</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Didn't know</h3>
+          <ul>
+            <li><strong>How many</strong> genes humans have</li>
+            <li><strong>Where</strong> most of them sit</li>
+            <li>What <strong>most DNA</strong> is doing</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Let's contrast what was known and what wasn't, just before nineteen ninety. We knew some specific disease genes — the gene for cystic fibrosis had been cloned in nineteen eighty-nine, the gene for sickle cell had been understood for decades. We knew DNA carried genetic information. We had Mendel's laws of inheritance. But — and this is the embarrassing part — we did not know how many genes a human even had. Estimates ranged from fifty thousand to one hundred thousand. We did not know where most genes sat on chromosomes. And we had almost no idea what the rest of the DNA was doing. That is the gap the Human Genome Project set out to fill.
+      </aside>
+    </section>
+
+    <!-- Slide 04 -->
+    <section>
+      <h2>Each gene was a multi-year quest</h2>
+      <ul>
+        <li>Start almost from <strong>scratch</strong> for each new gene</li>
+        <li>Indirect methods to localize roughly</li>
+        <li>Narrow down bit by bit over years</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        Like searching for a house in a city<br>
+        with <strong>no map</strong> and <strong>no address</strong>.
+      </blockquote>
+      <aside class="notes">
+        Each new gene discovery required years of painstaking work. If you wanted to study a new gene, you started almost from scratch. You used indirect linkage methods to figure out roughly which chromosome it was on. Then you narrowed the location down using crosses, somatic cell hybrids, restriction maps. Each step took a paper, sometimes a thesis, sometimes a career. It was like being asked to find a specific house in a city without a map and without an address — only vague clues like "near the river" or "north of the cathedral." That is why the field needed something audacious.
+      </aside>
+    </section>
+
+    <!-- Slide 05 -->
+    <section>
+      <div class="cue">The audacious goal</div>
+      <div class="bignum">3,000,000,000</div>
+      <div class="bignum-label">DNA base pairs · the entire human genome</div>
+      <ul>
+        <li>One <strong>complete reference</strong> for all biology</li>
+        <li>The <strong>periodic table</strong> equivalent for genetics</li>
+        <li>Launched <strong>1990</strong> · originally a 15-year plan</li>
+      </ul>
+      <aside class="notes">
+        In nineteen ninety, the Human Genome Project launched with one big number as its target: three billion DNA base pairs. The complete sequence of every nucleotide in a human genome. The framing the founders used was that this would be biology's equivalent of the periodic table in chemistry, or the standard model in physics — a foundational reference that any future researcher could use. The original plan was fifteen years, ending in two thousand five. As we will see, technology and a bit of competitive pressure ended up speeding it up significantly.
+      </aside>
+    </section>
+
+    <!-- Slide 06 -->
+    <section>
+      <h2>Roadmap for today</h2>
+      <ol>
+        <li>Why we needed a genome project</li>
+        <li>The four goals of the HGP</li>
+        <li>The journey · 1990 to 2003</li>
+        <li>The big surprise · only 20,000 genes</li>
+        <li>How it transformed genetics</li>
+        <li>What it left unfinished — the 8%</li>
+        <li>Summary &amp; what comes next</li>
+      </ol>
+      <aside class="notes">
+        Here is how we will move today. First, we look at why the field needed a genome project at all — what the pre-HGP world actually felt like. Second, we walk through the four interconnected goals the project set itself. Third, we follow the journey from nineteen ninety to two thousand three, including the famous race with Celera. Fourth, we look at the most surprising single finding: humans have only about twenty thousand genes. Fifth, we examine how the project changed how genetics is done — from gene-by-gene to genome-wide. Sixth, we look at what the HGP could not finish — the eight percent of the genome that remained as gaps until the T2T project finished it in twenty twenty-two. And finally, we wrap up. Let's begin.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 1 · BEFORE THE MAP
+         ==================================================== -->
+
+    <!-- Slide 07 -->
+    <section class="section-divider">
+      <div class="section-num">§ 1</div>
+      <h1>Before<br>the Map</h1>
+      <aside class="notes">
+        Let's spend a few minutes painting the picture of what genetics actually looked like before the genome was sequenced. Understanding this is essential — without it, the impact of the HGP looks merely impressive instead of transformative.
+      </aside>
+    </section>
+
+    <!-- Slide 08 -->
+    <section>
+      <h2>One gene at a time</h2>
+      <ul>
+        <li>Each gene = a <strong>multi-year project</strong></li>
+        <li>No standard <strong>coordinate system</strong></li>
+        <li>No way to compare findings across labs</li>
+        <li>Most of the genome was <strong>literally unknown</strong></li>
+      </ul>
+      <aside class="notes">
+        The defining feature of pre-HGP genetics was that everything happened one gene at a time. Each gene was its own multi-year project. There was no shared coordinate system, so when one lab said "this gene is somewhere on the long arm of chromosome seven," another lab had to do its own work to confirm what "somewhere on the long arm of seven" even meant. There was no easy way to compare findings across labs. And most of the genome — the vast majority of it — was simply unknown territory. Every paper opened a small window. The HGP would open the whole house at once.
+      </aside>
+    </section>
+
+    <!-- Slide 09 -->
+    <section>
+      <h2>The transformation in one picture</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter1_figure1.png" alt="Pre-HGP gene-by-gene research vs post-HGP genome-wide research">
+        <figcaption>
+          <strong>Figure 1.</strong> Pre-HGP (left): gene-by-gene research with no shared map. Post-HGP (right): all genes accessible on a shared coordinate system. Like switching from local landmarks to GPS.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the transformation in a single picture, from the textbook. On the left, the pre-HGP world: scientists studied individual genes in isolation, with no comprehensive map. On the right, the post-HGP world: every gene is reachable, and every researcher uses the same coordinate system. The analogy I like is that pre-HGP genetics was like asking someone for an address using local landmarks — turn left at the bakery, three doors past the church. Post-HGP genetics gave everyone GPS coordinates. Suddenly, every result was reproducible, addressable, and comparable. That is the shift.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 2 · FOUR GOALS
+         ==================================================== -->
+
+    <!-- Slide 10 -->
+    <section class="section-divider">
+      <div class="section-num">§ 2</div>
+      <h1>Four<br>Interconnected Goals</h1>
+      <aside class="notes">
+        The Human Genome Project was not a single goal. It was four interconnected goals, each of which would have been a major project on its own. They reinforced each other. Without one, the others would have been less useful. Let's walk through them in order.
+      </aside>
+    </section>
+
+    <!-- Slide 11 -->
+    <section>
+      <h2>Goal 1 · Sequence the entire genome</h2>
+      <ul>
+        <li>Determine the order of all <strong>~3 billion</strong> nucleotides</li>
+        <li>Output: a single <strong>reference sequence</strong></li>
+        <li>A standard "text" for locating genes &amp; comparing genomes</li>
+      </ul>
+      <blockquote style="margin-top:0.8em;">
+        The first complete map<br>of an unexplored continent.
+      </blockquote>
+      <aside class="notes">
+        The first goal was the obvious one: read every letter. Three billion nucleotides — A, T, G, C — in their correct order. The output would be a single reference sequence that the entire field would share. Imagine drawing the first complete map of an unexplored continent. After you draw it, every future explorer can use it to navigate, mark new discoveries, and share findings. Before the map, every team made their own sketch. After the map, everyone is reading from the same sheet.
+      </aside>
+    </section>
+
+    <!-- Slide 12 -->
+    <section>
+      <h2>Goal 2 · Identify all human genes</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <h3>The expectation</h3>
+          <div class="bignum" style="font-size:3em;">~100,000</div>
+          <div class="bignum-label">genes (some predicted)</div>
+        </div>
+        <div>
+          <h3>The reality (spoiler)</h3>
+          <div class="bignum" style="font-size:3em; color:var(--terracotta);">~20,000</div>
+          <div class="bignum-label">genes</div>
+        </div>
+      </div>
+      <p style="margin-top:0.8em;">A surprise that <strong>changed our view of biology</strong>.</p>
+      <aside class="notes">
+        The second goal was to catalog every human gene. Before the project, estimates ranged wildly. Some predicted fifty thousand. Others guessed as many as one hundred thousand. The intuition was simple: humans are complex, so we must have many more genes than worms or flies. Spoiler — that intuition was spectacularly wrong. The final answer was about twenty thousand. We will come back to why this matters in section four. For now, just notice: even the people running the project did not know how many genes they were looking for.
+      </aside>
+    </section>
+
+    <!-- Slide 13 -->
+    <section>
+      <h2>Goal 3 · Drive new technologies</h2>
+      <ul>
+        <li>1990: sequencing one gene took <strong>months</strong></li>
+        <li>3 billion bases at that pace → <strong>centuries</strong></li>
+        <li>HGP forced advances in <strong>sequencing</strong>, <strong>robotics</strong>, <strong>computing</strong></li>
+        <li>The technology push was <em>as important</em> as the science</li>
+      </ul>
+      <aside class="notes">
+        The third goal — easy to overlook, but central. In nineteen ninety, sequencing was slow, expensive, labor-intensive. Sequencing one small gene could take months. At that pace, three billion base pairs would take centuries and cost billions. So the project deliberately included a technology development arm. New sequencing chemistries, automated sample handling, robotics, computational tools to assemble millions of short fragments. The HGP did not just buy existing technology — it forced an entire technology revolution to get its job done. That revolution did not stop in two thousand three. It is the reason a genome today costs less than a thousand dollars.
+      </aside>
+    </section>
+
+    <!-- Slide 14 -->
+    <section>
+      <h2>Goal 4 · Map genetic variation</h2>
+      <ul>
+        <li>The reference is <strong>one</strong> sequence — but humans differ</li>
+        <li>Catalog landmarks: <strong>SNPs</strong> · single-letter differences</li>
+        <li>Use them as <strong>mile markers</strong> on each chromosome</li>
+        <li>Link variants → diseases, traits, ancestry</li>
+      </ul>
+      <aside class="notes">
+        The fourth goal was about variation. The reference is a single sequence, but humans vary. The most common kind of variation is the single nucleotide polymorphism, or SNP — a single-letter difference between individuals. The HGP set out to catalog these landmarks across the genome and use them as mile markers on every chromosome. Once you have these markers, you can ask: do people with a certain disease share a particular pattern of markers? That question is the seed of every genome-wide association study we will discuss later in this course. None of that is possible without a reference and a map of variation.
+      </aside>
+    </section>
+
+    <!-- Slide 15 -->
+    <section>
+      <h2>Four goals · one infrastructure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter1_figure2.png" alt="Four interconnected goals of the HGP">
+        <figcaption>
+          <strong>Figure 2.</strong> The HGP was not just sequencing — it was infrastructure: reference sequence, gene catalog, technology platforms, variation map. Each goal made the others more useful.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here are the four goals in one picture. Notice how they reinforce each other. The reference sequence is more useful with a gene catalog. The gene catalog is more useful when you can sequence cheaply. Cheap sequencing is more useful when you have markers to compare against. The HGP was not just a sequencing project — it was an integrated infrastructure project. That is why its impact lasted decades, and why every genomic project since has built on it.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 3 · THE JOURNEY
+         ==================================================== -->
+
+    <!-- Slide 16 -->
+    <section class="section-divider">
+      <div class="section-num">§ 3</div>
+      <h1>The Journey<br>1990 → 2003</h1>
+      <aside class="notes">
+        Now let's walk through how the project actually played out across thirteen years. There are five moments worth knowing in detail. The practice years, the chromosome twenty-two milestone, the race with Celera, the simultaneous publications, and the official completion.
+      </aside>
+    </section>
+
+    <!-- Slide 17 -->
+    <section>
+      <h2>1990 – 1998 · learning by doing</h2>
+      <ul>
+        <li>Did <strong>not</strong> jump straight into human DNA</li>
+        <li>Practiced on <em>E. coli</em>, yeast, <em>C. elegans</em></li>
+        <li>Worm genome completed <strong>1998</strong></li>
+        <li>Built the methods and the muscle</li>
+      </ul>
+      <aside class="notes">
+        The first eight years are often glossed over, but they were essential. The project did not jump straight into human DNA. Instead, scientists practiced on simpler organisms with much smaller genomes — bacteria, yeast, and the roundworm C. elegans, which was completed in nineteen ninety-eight. These were not warm-ups for show. They were how the field learned to assemble genomes, run quality control, and develop the computational tools that would later be needed for the human assembly. By nineteen ninety-eight the methods were ready. The muscles were trained. Human DNA was next.
+      </aside>
+    </section>
+
+    <!-- Slide 18 -->
+    <section>
+      <h2>1999 · first complete human chromosome</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:4em;">22</div>
+          <div class="bignum-label">chromosome 22 · the first to finish</div>
+        </div>
+        <div>
+          <ul>
+            <li>One of the smallest autosomes</li>
+            <li>Proved the methods worked at human scale</li>
+            <li>A test case for the rest of the genome</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Nineteen ninety-nine. First major milestone. Researchers completed the sequence of human chromosome twenty-two — one of the smallest of the autosomes. That achievement mattered for two reasons. First, it proved the methods that worked on yeast and worms also worked on human DNA at chromosome scale. Second, it was a credible test case. If chromosome twenty-two could be done, the rest of the genome was just more of the same. Momentum started to build.
+      </aside>
+    </section>
+
+    <!-- Slide 19 -->
+    <section>
+      <h2>2000 · the race</h2>
+      <div class="cols">
+        <div>
+          <h3>Public HGP</h3>
+          <ul>
+            <li>International consortium</li>
+            <li>Hierarchical, careful</li>
+            <li>Open data within 24 h</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Celera Genomics</h3>
+          <ul>
+            <li>Private · Craig Venter</li>
+            <li><strong>Whole-genome shotgun</strong></li>
+            <li>Faster · proprietary</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:0.6em; font-size:0.95em;">
+        June 2000: <strong>both</strong> announce ~90% draft. Joint Clinton–Blair press conference.
+      </p>
+      <aside class="notes">
+        Two thousand brought a plot twist. A private company, Celera Genomics, led by Craig Venter, announced it would beat the public consortium to the genome using a different, faster method called whole-genome shotgun sequencing. This created both rivalry and synergy — the public project sped up, Celera kept pushing, and in June of that year both groups simultaneously announced draft sequences covering roughly ninety percent of the genome. President Bill Clinton and British Prime Minister Tony Blair held a joint press conference celebrating the achievement. It was framed as a tie, even though the technical and ethical differences between the two efforts were substantial. The public consortium released its data immediately. Celera kept some of theirs proprietary.
+      </aside>
+    </section>
+
+    <!-- Slide 20 -->
+    <section>
+      <h2>2001 · two papers, two journals</h2>
+      <div class="cols">
+        <div>
+          <h3>Nature</h3>
+          <ul>
+            <li>The public consortium</li>
+            <li>Open data, open method</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Science</h3>
+          <ul>
+            <li>Celera</li>
+            <li>Whole-genome shotgun</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:0.6em;">
+        Drafts — <strong>not finished</strong>. Gaps and errors remained, especially in repeats.
+      </blockquote>
+      <aside class="notes">
+        February two thousand one. The papers landed. The public HGP published in Nature. Celera published in Science. Both were drafts — not finished sequences. There were gaps. There were errors, especially in repetitive regions. But for the first time in history, scientists had a working draft of the entire human genome on their desks. The implications would take years to unfold, but the impact was immediate. Every genetics paper from then on referenced the draft genome.
+      </aside>
+    </section>
+
+    <!-- Slide 21 -->
+    <section>
+      <h2>2003 · the "finished" genome</h2>
+      <ul>
+        <li>Announced <strong>April 2003</strong> · 50 years after Watson &amp; Crick</li>
+        <li><strong>99%</strong> of euchromatic regions sequenced</li>
+        <li>Error rate &lt; <strong>1 / 100,000</strong> bases</li>
+        <li>Released as <strong>GRCh37</strong>, later <strong>GRCh38 (hg38)</strong></li>
+      </ul>
+      <aside class="notes">
+        April two thousand three — a date deliberately chosen to mark the fiftieth anniversary of Watson and Crick's structure of DNA. The HGP announced completion. About ninety-nine percent of the gene-containing portions of the genome — the so-called euchromatic regions — had been sequenced to high accuracy, with an error rate of less than one mistake per one hundred thousand bases. The finished genome was released as GRCh thirty-seven, later refined to GRCh thirty-eight, also called h g thirty-eight. That is the reference genome that has been used worldwide for the past two decades. Almost every genetic study published since two thousand three points to coordinates in this reference.
+      </aside>
+    </section>
+
+    <!-- Slide 22 -->
+    <section>
+      <h2>Timeline at a glance</h2>
+      <table>
+        <thead><tr><th>Year</th><th>Milestone</th></tr></thead>
+        <tbody>
+          <tr><td>1990</td><td>HGP launches · 15-year plan</td></tr>
+          <tr><td>1995–98</td><td>Practice on <em>E. coli</em>, yeast, <em>C. elegans</em></td></tr>
+          <tr><td>1999</td><td>Chromosome 22 finished</td></tr>
+          <tr><td><strong>2000</strong></td><td>Draft (~90%) · public + Celera</td></tr>
+          <tr><td>2001</td><td>Drafts published · <em>Nature</em> &amp; <em>Science</em></td></tr>
+          <tr><td><strong>2003</strong></td><td>"Finished" · 99% euchromatin · GRCh37</td></tr>
+          <tr><td>2013</td><td>GRCh38 released</td></tr>
+          <tr><td><strong>2022</strong></td><td>T2T-CHM13 closes the remaining 8%</td></tr>
+        </tbody>
+      </table>
+      <aside class="notes">
+        Here is the full timeline at a glance. Notice how compressed the storytelling has been. Eight years of practice, one chromosome in nineteen ninety-nine, drafts in two thousand to two thousand one, completion in two thousand three. Then a decade of refinement — GRCh thirty-eight in twenty thirteen — and then a twenty-twenty-two coda from the Telomere-to-Telomere project, which we will cover in chapter two. Look at the bolded years. Two thousand. Two thousand three. Twenty twenty-two. Those are the moments where the field changed shape.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 4 · THE BIG SURPRISE
+         ==================================================== -->
+
+    <!-- Slide 23 -->
+    <section class="section-divider">
+      <div class="section-num">§ 4</div>
+      <h1>Only<br>20,000 Genes?</h1>
+      <aside class="notes">
+        Now the most surprising single discovery of the project. Going in, the field expected fifty thousand to one hundred thousand genes. Coming out, the answer was about twenty thousand. That number was small enough to embarrass an entire field, and important enough that it changed how we think about complexity.
+      </aside>
+    </section>
+
+    <!-- Slide 24 -->
+    <section>
+      <div class="cue">The final count</div>
+      <div class="bignum">~20,000</div>
+      <div class="bignum-label">protein-coding genes in the human genome</div>
+      <ul>
+        <li>Predicted: <strong>50,000 – 100,000</strong></li>
+        <li>Reality: <strong>~20,000 – 25,000</strong></li>
+        <li>The expectation had to be <strong>thrown out</strong></li>
+      </ul>
+      <aside class="notes">
+        Here is the final count, dropped onto the slide so it cannot be ignored. About twenty thousand protein-coding genes. The pre-HGP textbooks predicted fifty thousand to one hundred thousand. The intuition behind that prediction was simple: humans are complex, so we must have a lot of genes. That intuition turned out to be wrong, and the realization forced a generation of geneticists to rebuild their mental models from scratch.
+      </aside>
+    </section>
+
+    <!-- Slide 25 -->
+    <section>
+      <h2>Gene count vs complexity</h2>
+      <table>
+        <thead><tr><th>Organism</th><th>Genes</th><th>Comment</th></tr></thead>
+        <tbody>
+          <tr><td>Human</td><td><strong>~20,000</strong></td><td>You are reading this</td></tr>
+          <tr><td>Roundworm (<em>C. elegans</em>)</td><td>~20,000</td><td>959 cells, no brain</td></tr>
+          <tr><td>Fruit fly (<em>D. melanogaster</em>)</td><td>~14,000</td><td>Compound eye, simple nervous system</td></tr>
+          <tr><td>Rice (<em>O. sativa</em>)</td><td>~40,000</td><td><em>Twice</em> as many as us</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Rice has <strong>twice</strong> as many protein-coding genes as you do.</p>
+      <aside class="notes">
+        And here is the cross-species table that broke everyone's intuition. Humans, twenty thousand genes. The roundworm C elegans, also about twenty thousand — a creature with nine hundred fifty-nine cells, no brain, less than a millimeter long. Fruit fly, fourteen thousand. Rice — yes, the plant — about forty thousand genes. Twice as many as a human. Stop and let that land for a moment. Rice has twice as many protein-coding genes as you do. Whatever makes humans complex, it is not the raw count of genes.
+      </aside>
+    </section>
+
+    <!-- Slide 26 -->
+    <section>
+      <h2>So what makes humans complex?</h2>
+      <ul>
+        <li><strong>Alternative splicing</strong> — one gene → many proteins</li>
+        <li><strong>Gene regulation</strong> — when, where, how much</li>
+        <li><strong>Regulatory networks</strong> — combinations of inputs</li>
+        <li><strong>Non-coding sequence</strong> — controls everything above</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        Complexity comes from <strong>orchestration</strong>, not inventory.
+      </blockquote>
+      <aside class="notes">
+        If it is not the gene count, what is it? Four answers, and they are all on this slide. First, alternative splicing — a single human gene can produce many different protein versions, by reading the gene in different ways. Second, sophisticated gene regulation — when, where, and how much each gene is expressed. Third, regulatory networks that combine many inputs to control output. And fourth, a vast non-coding genome that controls all of the above. The headline is this: complexity is about orchestration, not inventory. You do not need more instruments, you need a richer score and a better conductor.
+      </aside>
+    </section>
+
+    <!-- Slide 27 -->
+    <section>
+      <h2>Only 1.5% codes for protein</h2>
+      <div class="cols" style="align-items:center;">
+        <div>
+          <div class="bignum" style="font-size:4em;">1.5%</div>
+          <div class="bignum-label">of the genome encodes proteins</div>
+        </div>
+        <div>
+          <ul>
+            <li>The other <strong>98.5%</strong>: regulatory, structural, repeats</li>
+            <li>Once dismissed as <em>"junk DNA"</em></li>
+            <li>Now: hotspot of <strong>regulatory function</strong></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Here is another number that was stunning at the time. Only one and a half percent of the human genome actually encodes proteins. The other ninety-eight and a half percent is regulatory sequences, structural elements, and repetitive DNA. For a long time, this non-coding majority was dismissed with the unfortunate label "junk DNA." That label was a mistake. Two decades of follow-up work has revealed that much of the non-coding genome is functionally important — turning genes on, turning them off, controlling the cell type they are expressed in, the time of day, the developmental stage. We will spend whole lectures on regulation later in the course.
+      </aside>
+    </section>
+
+    <!-- Slide 28 -->
+    <section>
+      <h2>The picture, in one figure</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter1_figure3.png" alt="Gene number vs biological complexity across species">
+        <figcaption>
+          <strong>Figure 3.</strong> Humans (~20k) ≈ worms (~20k), &lt; rice (~40k). Complexity comes from regulation and splicing, not gene count.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture in one figure. Bars by species, gene count on the y-axis. Humans and worms tied. Rice ahead. Fruit fly behind. The visual makes the point as starkly as a sentence ever could. Whatever biological complexity is, it is not bar-chart-bar gene count. The HGP did not just answer how many. It quietly killed the assumption that the question was the right one.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 5 · TRANSFORMATION
+         ==================================================== -->
+
+    <!-- Slide 29 -->
+    <section class="section-divider">
+      <div class="section-num">§ 5</div>
+      <h1>How It Changed<br>Genetics</h1>
+      <aside class="notes">
+        Now let's zoom out and ask: how did the HGP change how genetics is actually done? Four changes, each a quiet revolution in its own right.
+      </aside>
+    </section>
+
+    <!-- Slide 30 -->
+    <section>
+      <h2>From gene-by-gene to genome-wide</h2>
+      <div class="cols">
+        <div>
+          <h3>Pre-HGP</h3>
+          <ul>
+            <li>One gene at a time</li>
+            <li>Years per gene</li>
+            <li>Indirect localization</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Post-HGP</h3>
+          <ul>
+            <li><strong>All 20,000 genes</strong> at once</li>
+            <li>Compare cancer vs normal: every gene</li>
+            <li>RNA-seq, GWAS, exome studies</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes">
+        Change number one: scale. Pre-HGP, one gene at a time, years per gene. Post-HGP, all twenty thousand genes simultaneously. To ask which genes are different in cancer cells versus normal cells, you no longer pick a candidate — you measure all twenty thousand at once. That single shift opened up entirely new categories of research, including R N A sequencing, genome-wide association studies, and exome-wide rare variant studies. We will see all of these in this course.
+      </aside>
+    </section>
+
+    <!-- Slide 31 -->
+    <section>
+      <h2>A common reference · GPS for the genome</h2>
+      <ul>
+        <li>Every variant has an address: <code>chr7:117,559,593</code></li>
+        <li>Any researcher can <strong>look it up</strong>, <strong>replicate</strong>, <strong>extend</strong></li>
+        <li>Made <strong>GWAS</strong> possible — thousands compared on the same axis</li>
+        <li>Disease gene discovery: years → <strong>months</strong></li>
+      </ul>
+      <aside class="notes">
+        Change number two: shared coordinates. After the HGP, every variant has an address. C h r seven, position one one seven five five nine five nine three. That is not just a number — it is a global reference that any researcher anywhere can look up, replicate, or extend. This is what made genome-wide association studies possible — comparing thousands of people on the same coordinate axis to find disease genes. Disease gene discovery, which used to take a decade, started taking months. The pace of discovery itself accelerated by orders of magnitude.
+      </aside>
+    </section>
+
+    <!-- Slide 32 -->
+    <section>
+      <h2>The cost crash</h2>
+      <table>
+        <thead><tr><th>Year</th><th>Cost per genome</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>1990</td><td><strong>~$3 billion</strong></td><td>Estimated · pre-HGP technology</td></tr>
+          <tr><td>2003</td><td>~$300 million</td><td>HGP completion</td></tr>
+          <tr><td>2008</td><td>~$1 million</td><td>NGS arrives</td></tr>
+          <tr><td>Today</td><td><strong>&lt; $1,000</strong></td><td>Routine in clinics</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.6em;">Cost dropped <strong>faster than Moore's Law</strong>.</p>
+      <aside class="notes">
+        Change number three: cost. This is the most quotable improvement in the history of biology. In nineteen ninety, sequencing one human genome would have cost roughly three billion dollars. By two thousand three, the HGP itself cost about three hundred million. By two thousand eight, with the arrival of next-generation sequencing, it was around a million. Today, less than a thousand dollars, and dropping. That curve is steeper than Moore's Law. It is the reason genome sequencing has moved from research labs into clinics — diagnosing rare diseases, guiding cancer treatment, predicting drug responses. None of that would be plausible without the HGP-era technology push.
+      </aside>
+    </section>
+
+    <!-- Slide 33 -->
+    <section>
+      <h2>The Bermuda Principles · open data</h2>
+      <blockquote style="font-size:1.05em;">
+        All sequence data released publicly<br>
+        within <strong>24 hours</strong> of generation.
+      </blockquote>
+      <ul>
+        <li>Agreed at a <strong>1996</strong> meeting in Bermuda</li>
+        <li>No patents · no paywalls · no waiting for publication</li>
+        <li>The genome belongs to <strong>everyone</strong></li>
+        <li>Set the cultural standard for genomics ever since</li>
+      </ul>
+      <aside class="notes">
+        Change number four — and arguably the most important culturally. In nineteen ninety-six, project leaders met in Bermuda and agreed on what came to be called the Bermuda Principles. All sequence data would be released to the public within twenty-four hours of generation. No patents. No paywalls. No waiting until the paper was published. That was revolutionary. Most fields hoard data until publication. Genomics decided otherwise. The genome belongs to everyone, and its sequence should be freely available to accelerate discoveries. That principle shaped every major genomics project that followed: the one thousand Genomes Project, T C G A, gnomAD, T2T. Open data is not a coincidence in genomics. It was a deliberate cultural choice in nineteen ninety-six.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 6 · WHAT WAS LEFT
+         ==================================================== -->
+
+    <!-- Slide 34 -->
+    <section class="section-divider">
+      <div class="section-num">§ 6</div>
+      <h1>The 8%<br>That Remained</h1>
+      <aside class="notes">
+        Now for the part of the story that often gets forgotten. The HGP, despite its triumphs, did not finish the genome. About eight percent remained as gaps. Understanding why those gaps existed — and where they were — is the bridge to chapter two.
+      </aside>
+    </section>
+
+    <!-- Slide 35 -->
+    <section>
+      <h2>Where the gaps were</h2>
+      <ul>
+        <li><strong>Centromeres</strong> · highly repetitive chromosome centers</li>
+        <li><strong>Telomeres</strong> · repetitive caps at chromosome ends</li>
+        <li><strong>Ribosomal DNA arrays</strong> · hundreds of near-identical copies</li>
+        <li><strong>Segmental duplications</strong> · large, near-identical blocks</li>
+      </ul>
+      <blockquote style="margin-top:0.6em;">
+        ~<strong>240 million</strong> base pairs · not "junk" — essential.
+      </blockquote>
+      <aside class="notes">
+        Where were the gaps? Four kinds of regions. Centromeres — the highly repetitive DNA at the centers of chromosomes, essential for cell division. Telomeres — the repetitive caps at chromosome ends. Ribosomal DNA arrays — hundreds of near-identical gene copies needed for ribosome production. And segmental duplications — large blocks of nearly identical sequence scattered across the genome. Together these add up to roughly two hundred forty million base pairs. That is not a rounding error. And these are not junk regions. Centromeres are essential for cell division. Ribosomal DNA copy number affects protein synthesis. Segmental duplications are hotspots for disease-causing rearrangements. They mattered. They were just hard.
+      </aside>
+    </section>
+
+    <!-- Slide 36 -->
+    <section>
+      <h2>Why the gaps existed</h2>
+      <blockquote style="font-size:1.05em;">
+        Short reads cannot span<br>
+        long, near-identical repeats.
+      </blockquote>
+      <ul style="margin-top:0.8em;">
+        <li>HGP technology read DNA in <strong>short fragments</strong></li>
+        <li>Identical repeats look the same → can't be placed</li>
+        <li>Like a book with many pages all reading: <em>"and then they walked"</em></li>
+      </ul>
+      <aside class="notes">
+        Why couldn't the HGP just finish those regions? The answer is technological. The sequencing methods of the era read DNA in short fragments — a few hundred bases at a time. To assemble a genome, you align overlapping fragments and walk along. But if many fragments look identical, you cannot tell where each one belongs. It is like trying to assemble a book where dozens of pages read exactly the same — you know the pages exist, but you cannot tell where they go. Short reads cannot span long, near-identical repeats. End of story for the centromeres in two thousand three.
+      </aside>
+    </section>
+
+    <!-- Slide 37 -->
+    <section>
+      <h2>Short reads vs long reads</h2>
+      <figure>
+        <img src="../assets/figures/textbook/chapter1_figure4.png" alt="Short-read vs long-read sequencing eras">
+        <figcaption>
+          <strong>Figure 4.</strong> Left: HGP-era short reads leave gaps in repetitive regions. Right: long-read sequencing (T2T, 2022) closes those gaps and produces the first truly gapless human genome.
+        </figcaption>
+      </figure>
+      <aside class="notes">
+        Here is the picture from the textbook. On the left, the HGP era and its short reads — the repetitive regions show up as gaps because no single read can span them. On the right, the long-read era — molecules tens or hundreds of thousands of bases long, easily spanning even the longest repeat arrays. That single technological shift is what allowed the Telomere-to-Telomere consortium, in twenty twenty-two, to close the eight percent that the HGP could not. We will spend all of chapter two on that story. For today, just hold this in your head: the HGP did not fail at the centromeres. It just used the wrong wavelength of light to see them.
+      </aside>
+    </section>
+
+    <!-- ====================================================
+         PART 7 · SUMMARY
+         ==================================================== -->
+
+    <!-- Slide 38 -->
+    <section class="section-divider">
+      <div class="section-num">§ 7</div>
+      <h1>Summary</h1>
+      <aside class="notes">
+        Let's pull the threads together.
+      </aside>
+    </section>
+
+    <!-- Slide 39 -->
+    <section>
+      <h2>What to take away</h2>
+      <ul>
+        <li>HGP <strong>1990 – 2003</strong> · 3 billion bp · public + Celera</li>
+        <li>Four goals: <strong>sequence · catalog · technology · variation</strong></li>
+        <li>Surprise: only ~<strong>20,000</strong> genes; complexity = regulation</li>
+        <li>Cost: $3 B → <strong>&lt; $1,000</strong> · Bermuda Principles</li>
+        <li>~<strong>8% gaps</strong> remained — closed by T2T in 2022</li>
+      </ul>
+      <aside class="notes">
+        Five things to take away. One — the HGP ran from nineteen ninety to two thousand three, sequenced about three billion base pairs, and was a parallel public-and-private effort with the public consortium and Celera. Two — its goals were four interconnected pieces: a reference sequence, a gene catalog, a technology revolution, and a variation map. Three — the most surprising single finding was that humans have only about twenty thousand genes, not the fifty to one hundred thousand expected, and that biological complexity comes from regulation and splicing, not gene count. Four — the cost of sequencing crashed from billions to under a thousand, and the Bermuda Principles established open data as a cultural norm in genomics. Five — about eight percent of the genome, mostly repetitive regions, remained as gaps until the Telomere-to-Telomere project finished them in twenty twenty-two. Hold those five points; everything else you will read about the HGP fits inside them.
+      </aside>
+    </section>
+
+    <!-- Slide 40 -->
+    <section>
+      <div class="cue">Next lecture</div>
+      <h1 style="font-size:2.2em; line-height:1.1; margin-top:0.3em;">
+        If 99% was already done,<br>
+        why <span style="color:var(--terracotta-deep);">finish</span> it?
+      </h1>
+      <p style="margin-top:1.2em; color:var(--ink-soft); font-size:1em;">
+        Chapter 2 · <strong>The Telomere-to-Telomere Project</strong>
+      </p>
+      <aside class="notes">
+        One question to leave you with. The HGP finished ninety-nine percent of the gene-containing regions in two thousand three. Why would anyone bother finishing the last eight percent two decades later? What is in those repeats that matters? Why did it take long-read sequencing — and a peculiar cell line called CHM thirteen — to do it? That is the story of chapter two, the Telomere-to-Telomere Project. See you next time.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    transition: 'fade',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>
