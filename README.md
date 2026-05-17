@@ -2,8 +2,6 @@
 
 ## Lecture Slides
 
-### Ch 1–19 · 중간고사 전 (PPTX)
-
 | Chapter | Topic | Slides |
 |---------|-------|--------|
 | 1 | The Human Genome Project | [Download](https://www.dropbox.com/scl/fi/7nlw267hrowutsoj7f6rf/Chapter1_The_Human_Genome_Project.pptx?rlkey=vv2atglndt4aoh7hrtz7xo2t3&dl=0) |
@@ -26,6 +24,4 @@
 | 18 | Introduction to Genome-Wide Association Studies | [Download](https://www.dropbox.com/scl/fi/svb8f76jh712zrqjranht/Chapter18_Introduction_to_Genome-Wide_Association_Studies.pptx?rlkey=hw8c228zmluop904e18v5lpqb&dl=0) |
 | 19 | Genetic Architecture of Traits and Disorders | [Download](https://www.dropbox.com/scl/fi/4mmt23ub5pq6x5l5yhmpp/Chapter19_Genetic_Architecture_of_Traits_and_Disorders.pptx?rlkey=s35ic2hwdzf13gnixu32wanp9&dl=0) |
 
-### Ch 20–30 · 중간고사 후 (HTML)
-
-HTML 슬라이드: <https://joonan30.github.io/BSMS205_2026/>
+HTML slides: <https://joonan30.github.io/BSMS205_2026/>
