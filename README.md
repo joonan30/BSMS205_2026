@@ -1,81 +1,106 @@
-# BSMS205 · Genetics — Lecture Slides
+# BSMS205 Genetics (2026 Spring)
 
-Reveal.js slide decks for BSMS205 Genetics (Spring 2026). English. Full course coverage: Chapters 1–30.
+Korea University · Spring 2026 · Lecture materials for **BSMS205 Genetics**.
 
-## Structure
+**Live HTML slides** (Ch 20+): https://joonan30.github.io/BSMS205_2026/
+
+---
+
+## Part I – III · PPTX Downloads (Ch 1–19, pre-midterm)
+
+| Chapter | Topic | Slides |
+|---------|-------|--------|
+| 1 | The Human Genome Project | [Download](https://www.dropbox.com/scl/fi/7nlw267hrowutsoj7f6rf/Chapter1_The_Human_Genome_Project.pptx?rlkey=vv2atglndt4aoh7hrtz7xo2t3&dl=0) |
+| 2 | The Telomere-to-Telomere Genome Project | [Download](https://www.dropbox.com/scl/fi/xgpr63wvxznfp34mh74n4/Chapter2_The_Telomere-to-Telomere_Genome_Project.pptx?rlkey=687lc0uagtl9b98j52eu0bm87&dl=0) |
+| 3 | The CHM13 Cell Line | [Download](https://www.dropbox.com/scl/fi/xr9udatbqgpjdvjpj8xx3/Chapter3_The_CHM13_Cell_Line.pptx?rlkey=17foxnfyhpoflvua3doe7q3bt&dl=0) |
+| 4 | From Single Reference to Pangenome | [Download](https://www.dropbox.com/scl/fi/2uj6rcgia77n6uqsak3ms/Chapter4_From_Single_Reference_to_Pangenome.pptx?rlkey=h02r7vb7z1aqpzmxb2556l284&dl=0) |
+| 5 | Next-Generation Sequencing Technologies | [Download](https://www.dropbox.com/scl/fi/alp8kdxqpdp611jf6xf86/Chapter5_Next-Generation_Sequencing_Technologies.pptx?rlkey=cjr2dnk8hg0gx0gmhfsucvkue&dl=0) |
+| 6 | NGS Applications for Genomics | [Download](https://www.dropbox.com/scl/fi/01yk4doeknchq94a247l1/Chapter6_NGS_Applications_for_Genomics.pptx?rlkey=sedz03g4xitvgv0ked92tio0y&dl=0) |
+| 7 | Annotation and Databases for Genetic Variants | [Download](https://www.dropbox.com/scl/fi/sc90es6mj2qe0uoedni73/Chapter7_Annotation_and_Databases_for_Genetic_Variants.pptx?rlkey=277y3791xwkzm2xb4ie8svqj7&dl=0) |
+| 8 | Genetic Variants | [Download](https://www.dropbox.com/scl/fi/otip083xvxmsngdhew6lh/Chapter8_Genetic_Variants.pptx?rlkey=ib9qc9au16vyq7ov3patdzghy&dl=0) |
+| 9 | Transmission: How Variants Pass Through Generations | [Download](https://www.dropbox.com/scl/fi/d45a2z9039lfl3v0sxpyz/Chapter9_Transmission_How_Variants_Pass_Through_Generations.pptx?rlkey=ly6cs4j06pfb6cc3jkt47wcvw&dl=0) |
+| 10 | Dominant Allele in Human Disorders | [Download](https://www.dropbox.com/scl/fi/u8nsltqnn2e5v2vif8lml/Chapter10_Dominant_Allele_in_Human_Disorders.pptx?rlkey=869v7w5azn4ucf33jvi94y6j7&dl=0) |
+| 11 | Haploinsufficiency | [Download](https://www.dropbox.com/scl/fi/n1eplcixzo7othimh0sue/Chapter11_Haploinsufficiency.pptx?rlkey=d6pe4odjchs932yrs6wxyt949&dl=0) |
+| 12 | Recessive Alleles in Human Disorders | [Download](https://www.dropbox.com/scl/fi/uo2d7ujfp7d8wh64qhakh/Chapter12_Recessive_Alleles_in_Human_Disorders.pptx?rlkey=q3u85wc7493cs3ax2b48s005n&dl=0) |
+| 13 | Structural Variations in Human Genomes | [Download](https://www.dropbox.com/scl/fi/drqly5z60ayrccm7ncumd/Chapter13_Structural_Variations_in_Human_Genomes.pptx?rlkey=j1dt850zh0p0lifw9k6i9yecf&dl=0) |
+| 14 | Additive and Dominant Alleles | [Download](https://www.dropbox.com/scl/fi/vix47085byd82zipokifx/Chapter14_Additive_and_Dominant_Alleles.pptx?rlkey=s5pxvoi2aewb7n98gkzochz8r&dl=0) |
+| 15 | Polygenic Model in Traits | [Download](https://www.dropbox.com/scl/fi/ya7oj04txt1nua7cjefn4/Chapter15_Polygenic_Model_in_Traits.pptx?rlkey=e7sv0pg86n7tvnurx58ija658&dl=0) |
+| 16 | Heritability | [Download](https://www.dropbox.com/scl/fi/rysybqrxfsv59934nmx8u/Chapter16_Heritability.pptx?rlkey=qx5ivg39ay9qap245bio7jh4e&dl=0) |
+| 17 | Partitioned Variance: Learn from Real-World Examples | [Download](https://www.dropbox.com/scl/fi/swczj4gcy0tojud653e8a/Chapter17_Partitioned_Variance_Learn_from_Real-World_Examples.pptx?rlkey=m59wt9f4ebrmf03ow389qvbgv&dl=0) |
+| 18 | Introduction to Genome-Wide Association Studies | [Download](https://www.dropbox.com/scl/fi/svb8f76jh712zrqjranht/Chapter18_Introduction_to_Genome-Wide_Association_Studies.pptx?rlkey=hw8c228zmluop904e18v5lpqb&dl=0) |
+| 19 | Genetic Architecture of Traits and Disorders | [Download](https://www.dropbox.com/scl/fi/4mmt23ub5pq6x5l5yhmpp/Chapter19_Genetic_Architecture_of_Traits_and_Disorders.pptx?rlkey=s35ic2hwdzf13gnixu32wanp9&dl=0) |
+
+---
+
+## Part IV – V · HTML Slides (Ch 20–30, post-midterm)
+
+Reveal.js decks served from GitHub Pages. Speaker notes embedded for TTS-based video generation.
+
+| Chapter | Topic | Live slides |
+|---------|-------|-------------|
+| 20 | Allele Frequency | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter20.html) |
+| 21 | Population Structure | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter21.html) |
+| 22 | From Mendel to Morgan: Discovery of Linkage | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter22.html) |
+| 23 | Recombination, Linkage, and Haplotype | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter23.html) |
+| 24 | Data Types for Alleles and Populations | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter24.html) |
+| 25 | Forward Genetics: From Phenotype to Gene | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter25.html) |
+| 26 | Reverse Genetics: From Gene to Function | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter26.html) |
+| 27 | CRISPRa Therapy for SCN2A Haploinsufficiency | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter27.html) |
+| 28 | Gene Regulation: Same Book, Different Readings | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter28.html) |
+| 29 | Gene Regulation: Methods and Applications | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter29.html) |
+| 30 | QTLs: Connecting Alleles to Molecular Traits | [Open](https://joonan30.github.io/BSMS205_2026/chapters/chapter30.html) |
+
+---
+
+## Project Layout
 
 ```
-bsms205-slides/
-├── index.html              # Course landing · chapter list (Ch 1–30)
+BSMS205_2026/
+├── index.html                   # Course landing page
 ├── chapters/
-│   ├── chapter1.html       # The Human Genome Project
-│   ├── chapter2.html       # T2T Genome Project
-│   ├── ...
-│   └── chapter30.html      # QTLs
+│   └── chapter20.html           # reveal.js deck (+ <aside class="notes"> TTS scripts)
 ├── assets/
-│   ├── css/claude-theme.css
-│   └── figures/
-│       └── textbook/       # Figures copied from human-genetics textbook
-├── docs/
-│   ├── 2026-05-11-ch1-19-build-design.md
-│   └── 2026-05-11-handoff.md
+│   ├── css/claude-theme.css     # Warm parchment + terracotta theme
+│   └── figures/                 # Textbook figures
+├── tools/
+│   ├── extract_scripts.py       # HTML speaker notes → Python scripts list
+│   └── render.sh                # HTML → PDF → per-slide PNG (for video)
 └── README.md
+```
+
+## Local Preview
+
+```bash
+python3 -m http.server 8000
+# open http://localhost:8000
+```
+
+## Video Generation Pipeline
+
+Decks feed into the [AutoLecture](https://github.com/joonan30/AutoLecture) pipeline:
+
+```
+HTML  ── extract_scripts.py ──▶  per-slide narration (TTS-safe)
+ │
+ └── render.sh ──▶  PDF ──▶  slide-NN.png
+                                │
+                                ▼
+                        ffmpeg + Qwen3-TTS  ──▶  MP4
+```
+
+Prerequisites:
+
+```bash
+npm install -g decktape            # HTML → PDF rendering
+brew install poppler ffmpeg        # PDF → PNG, video assembly
+pip install mlx-audio python-pptx  # Apple Silicon TTS
 ```
 
 ## Design
 
-Claude theme — warm parchment (`#FAF6F1`) with terracotta accent (`#D4724E`).
-Helvetica Neue, 28pt+, 16:9, question-driven titles.
-See `Slides/CLAUDE.md` in the course folder for the full style guide.
-
-## Viewing locally
-
-No build step. From this directory:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then open <http://localhost:8000>.
-
-Reveal.js is loaded from jsDelivr CDN — no install required.
-
-### Keyboard
-
-- `→` / `←` — next / previous slide
-- `↓` / `↑` — vertical navigation (not used here)
-- `F` — fullscreen
-- `S` — speaker notes window
-- `Esc` — overview
-- `B` — blackout
-- `?` — all shortcuts
-
-## Deploying to GitHub Pages
-
-```bash
-cd bsms205-slides
-git init
-git add .
-git commit -m "Initial slides: Ch 20 Allele Frequency"
-gh repo create bsms205-genetics-slides --public --source=. --push
-```
-
-Then in the repo:
-- **Settings → Pages → Source**: `main` branch, `/ (root)`
-- URL: `https://<username>.github.io/bsms205-genetics-slides/`
-
-## PDF export
-
-Append `?print-pdf` to any deck URL and use the browser print dialog:
-
-```
-http://localhost:8000/chapters/chapter20.html?print-pdf
-```
-
-## Chapter status
-
-All chapters **Ready** (Reveal.js HTML, ~30–50 sections each, 60-min lecture volume, conversational speaker notes, claude-theme components). Ch 1–19 built 2026-05-11 to match the Ch 20–30 pattern; see `docs/2026-05-11-handoff.md` for build notes.
+Slides follow the Claude theme — parchment `#FAF6F1` with terracotta `#D4724E`, Helvetica Neue ≥ 28 pt, 16:9 widescreen.
+Question-driven titles, no paragraphs on-slide, full narration lives in speaker notes.
 
 ## Textbook
 
-Content adapted from *Human Genetics* textbook (30 chapters, part1–part5).
+Content adapted from *Human Genetics* (30 chapters, Part I–V).
